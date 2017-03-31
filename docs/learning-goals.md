@@ -6,9 +6,9 @@
  - 
 
 ## Jin Chung
- - Goal/tech
- - Goal/tech
- - Goal/tech
+ - Jasmine/TDD
+ - React with Redux
+ - Docker
 
 ## Megan Rabuse
  - Goal/tech
