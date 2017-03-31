@@ -1,0 +1,21 @@
+{
+  "name": "surveyscribe",
+  "version": "1.0.0",
+  "description": "Project description",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScribeTech/SurveyScribe.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/elijah-schow/SurveyScribe-1/issues"
+  },
+  "homepage": "https://github.com/elijah-schow/SurveyScribe-1#readme",
+  "dependencies": {
+    "jasmine": "^2.5.3"
+  }
+}
