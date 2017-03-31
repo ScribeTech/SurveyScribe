@@ -1,9 +1,9 @@
 # Learning Goals
 
 ## Clark Baumgartner
- - Goal/tech
- - Goal/tech
- - Goal/tech
+ - React
+ - Redux
+ - 
 
 ## Jin Chung
  - Goal/tech
