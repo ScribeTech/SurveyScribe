@@ -3,7 +3,7 @@
 ## Clark Baumgartner
  - React
  - Redux
- - 
+ -
 
 ## Jin Chung
  - Jasmine/TDD
@@ -17,6 +17,7 @@
  - Continuous integration, but lower on my list
 
 ## Elijah Schow
- - Goal/tech
- - Goal/tech
- - Goal/tech
+- Test Driven Development
+- Redux/React
+- Automatic Deployment
+- Material Design
