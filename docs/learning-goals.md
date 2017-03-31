@@ -11,9 +11,10 @@
  - Docker
 
 ## Megan Rabuse
- - Goal/tech
- - Goal/tech
- - Goal/tech
+ - Redux
+ - Getting better at MongoDb/Mongoose
+ - Webpack
+ - Continuous integration, but lower on my list
 
 ## Elijah Schow
  - Goal/tech
