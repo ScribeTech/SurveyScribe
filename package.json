@@ -5,8 +5,11 @@
   "scripts": {
     "test": "jasmine",
     "dev:client": "webpack-dev-server",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "lint": "eslint ./ --cache --ignore-pattern .gitignore",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
+  "pre-commit": ["precommit-msg","lint"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ScribeTech/SurveyScribe.git"
@@ -35,6 +38,7 @@
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3"
+    "eslint-plugin-react": "^6.10.3",
+    "pre-commit": "^1.2.2"
   }
 }
