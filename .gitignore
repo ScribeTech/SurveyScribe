@@ -1,0 +1,18 @@
+# System files
+.DS_Store
+
+# Secrets
+config.js
+.pem
+
+# Logs
+logs
+*.log
+
+# Compiled Directories (http://nodejs.org/api/addons.html)
+public/
+
+# Dependency directories
+# Deployed apps should consider commenting these lines out:
+# see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
+node_modules/
