@@ -6,7 +6,7 @@ const config = require('./config.js');
 const api = require('./controllers/api.js');
 
 const app = express();
-mongoose.connect(config.database);
+mongoose.connect(config.database.uri, config.database.options);
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
