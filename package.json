@@ -9,7 +9,10 @@
     "lint": "eslint ./ --cache --ignore-pattern .gitignore",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
-  "pre-commit": ["precommit-msg","lint"],
+  "pre-commit": [
+    "precommit-msg",
+    "lint"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ScribeTech/SurveyScribe.git"
@@ -30,10 +33,13 @@
     "jasmine": "^2.5.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
