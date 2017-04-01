@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Project description",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "dev:client": "webpack-dev-server",
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,14 @@
   },
   "homepage": "https://github.com/elijah-schow/SurveyScribe-1#readme",
   "dependencies": {
-    "jasmine": "^2.5.3"
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-react": "^6.23.0",
+    "html-webpack-plugin": "^2.28.0",
+    "jasmine": "^2.5.3",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
   }
 }
