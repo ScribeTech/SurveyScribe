@@ -8,10 +8,13 @@ const path = require('path');
 const error = require('./middleware/error.js');
 const api = require('./controllers/api.js');
 
+// Express
 const app = express();
 
+// Access log
 const log = fs.createWriteStream(path.join(__dirname, config.log), { flags: 'a' });
 
+// Database
 mongoose.connect(config.database.uri, config.database.options);
 
 // Middleware
@@ -26,4 +29,5 @@ app.use('/api', api);
 // Error Handler
 app.use(error);
 
+// Server
 app.listen(config.port, () => console.log(`Listening on port ${config.port}`));

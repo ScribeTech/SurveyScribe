@@ -3,7 +3,7 @@ const config = require('../config/config.js');
 
 const router = express.Router();
 
-// 404: NOT FOuND
+// 404: NOT FOUND
 router.use((request, response, next) => {
   response.status(404)
           .type('txt')
