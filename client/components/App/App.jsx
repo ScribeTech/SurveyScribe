@@ -1,5 +1,13 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import container from '../../Containers/Container';
 
-const App = () => <p>Survey Scribe</p>;
+const store = container();
+
+const App = () => (
+  <Provider store={store}>
+    <p>Survey Scribe</p>
+  </Provider>
+);
 
 export default App;
