@@ -1,9 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class App extends Component {
-  render() {
-    return <p>Survey Scribe</p>;
-  }
-}
+const App = () => <p>Survey Scribe</p>;
 
 export default App;
