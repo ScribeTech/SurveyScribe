@@ -1,10 +1,12 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
 const config = require('./config.js');
 const api = require('./controllers/api.js');
 
 const app = express();
+mongoose.connect(config.database);
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
