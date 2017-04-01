@@ -20,7 +20,7 @@ const log = fs.createWriteStream(path.join(__dirname, config.log), { flags: 'a' 
 app.use(morgan('combined', { stream: log }));
 
 // Route requests
-app.use('/', express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, config.public)));
 app.use('/api', api);
 
 // Handle errors

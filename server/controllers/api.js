@@ -2,16 +2,19 @@ const express = require('express');
 
 const api = express.Router();
 
-api.get('/survey', (request, response, next) => {
+api.get('/surveys', (request, response, next) => {
   /* no-op */
 });
-api.post('/survey', (request, response, next) => {
+api.post('/surveys', (request, response, next) => {
   /* no-op */
 });
-api.put('/survey/:id', (request, response, next) => {
+api.get('/surveys/:survey_id', (request, response, next) => {
   /* no-op */
 });
-api.delete('/survey/:id', (request, response, next) => {
+api.put('/surveys/:survey_id', (request, response, next) => {
+  /* no-op */
+});
+api.delete('/surveys/:survey_id', (request, response, next) => {
   /* no-op */
 });
 
