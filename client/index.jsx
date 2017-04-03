@@ -21,7 +21,7 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <LandingPage>
-        <Route path="/survey" components={Survey} />
+        <Route path="survey" component={Survey} />
         <Route path="survey/:id/edit" component={Edit} />
         <Route path="survey/:id/results" component={Results} />
         <Route path="survey/:id/answer" component={Answer} />
