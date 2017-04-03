@@ -17,17 +17,34 @@ const store = configureStore();
 
 const history = syncHistoryWithStore(createBrowserHistory(), store);
 
+// render(
+//   <Provider store={store}>
+//     <Router history={history}>
+//       <Route path="/" component={LandingPage}>
+//         <Route path="survey" component={Survey} />
+//         <Route path="survey/:id/edit" component={Edit} />
+//         <Route path="survey/:id/results" component={Results} />
+//         <Route path="survey/:id/answer" component={Answer} />
+//         <Route path="survey/:id/finish" component={Finish} />
+//         <Route path="*" component={NotFoundPage} />
+//       </Route>
+//     </Router>
+//   </Provider>, document.getElementById('app')
+// );
+
 render(
   <Provider store={store}>
     <Router history={history}>
-      <LandingPage>
-        <Route path="survey" component={Survey} />
-        <Route path="survey/:id/edit" component={Edit} />
-        <Route path="survey/:id/results" component={Results} />
-        <Route path="survey/:id/answer" component={Answer} />
-        <Route path="survey/:id/finish" component={Finish} />
-        <Route path="*" component={NotFoundPage} />
-      </LandingPage>
+      <Route path="/" component={LandingPage}>
+
+        {/* add it here, as a child of `/` */}
+        <IndexRoute component={Edit} />
+
+        <Route path="/survey" component={Survey}>
+          <Route path="/results" component={Results} />
+        </Route>
+        <Route path="/finish" component={Finish} />
+      </Route>
     </Router>
   </Provider>, document.getElementById('app')
 );
