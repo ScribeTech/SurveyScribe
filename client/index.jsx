@@ -20,14 +20,14 @@ const history = syncHistoryWithStore(createBrowserHistory(), store);
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={LandingPage}>
+      <LandingPage>
         <Route path="/survey" components={Survey} />
         <Route path="survey/:id/edit" component={Edit} />
         <Route path="survey/:id/results" component={Results} />
         <Route path="survey/:id/answer" component={Answer} />
         <Route path="survey/:id/finish" component={Finish} />
         <Route path="*" component={NotFoundPage} />
-      </Route>
+      </LandingPage>
     </Router>
   </Provider>, document.getElementById('app')
 );
