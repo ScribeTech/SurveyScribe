@@ -1,12 +1,8 @@
 const config = require('./config/default.js');
 const bodyParser = require('body-parser');
 const express = require('express');
-const fs = require('fs');
 const mongoose = require('mongoose');
-const morgan = require('morgan');
 const path = require('path');
-const error = require('./middleware/error.js');
-const api = require('./controllers/api.js');
 
 const app = express();
 mongoose.connect(config.database.uri, config.database.options);
@@ -16,15 +12,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Log activity
-const log = fs.createWriteStream(path.join(__dirname, config.log), { flags: 'a' });
-app.use(morgan('combined', { stream: log }));
+// WARNING: currently broken
+// app.use(require('./middleware/log.js'));
 
 // Route requests
 app.use('/', express.static(path.join(__dirname, config.public)));
-app.use('/api', api);
+app.use('/api', require('./controllers/api.js'));
 
 // Handle errors
-app.use(error);
+app.use(require('./middleware/error.js'));
 
 // Finally
 if (module.parent) {
