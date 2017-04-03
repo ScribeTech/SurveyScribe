@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './Containers/Container.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
@@ -11,10 +11,11 @@ import Results from './components/Results/Results.jsx';
 import Answer from './components/Answer/Answer.jsx';
 import Finish from './components/Finish/Finish.jsx';
 import NotFoundPage from './components/NotFoundPage/NotFoundPage.jsx';
+import { createBrowserHistory } from 'history';
 
 const store = configureStore();
 
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(createBrowserHistory(), store);
 
 render(
   <Provider store={store}>
