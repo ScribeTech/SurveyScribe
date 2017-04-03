@@ -26,5 +26,11 @@ app.use('/api', api);
 // Handle errors
 app.use(error);
 
-// Start the server
-app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
+// Finally
+if (module.parent) {
+  // Export for testing
+  module.exports = app;
+} else {
+  // Start the server
+  app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
+}
