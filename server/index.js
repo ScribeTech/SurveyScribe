@@ -1,4 +1,4 @@
-const config = require('./config/config.js');
+const config = require('./config/default.js');
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');

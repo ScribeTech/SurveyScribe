@@ -1,5 +1,5 @@
 const express = require('express');
-const config = require('../config/config.js');
+const config = require('../config/default.js');
 
 const router = express.Router();
 
