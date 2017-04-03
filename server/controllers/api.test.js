@@ -115,11 +115,36 @@ module.exports = () => {
           done();
         });
     });
-    xit('responds with the requested survey', () => {});
-    xit('responds with information about related resources', () => {});
+    it('GETs a survey with the given id', (done) => {
+      // Add example data before making a request
+      const survey = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
+      Survey.create(survey)
+      .then(result => request(app).get(`/api/surveys/${result._id}`))
+      .then((response) => {
+        expect(response.body).to.shallowDeepEqual(survey);
+        done();
+      })
+      .catch(done); // call "done" if the promise is rejected
+    });
   });
-  xdescribe('PUT /api/surveys/:surveyID', () => {
-    xit('updates the survey', () => {});
+  describe('/PUT/:id survey', () => {
+    it('PUTs a survey with the given id', (done) => {
+      // Add example data before making a request
+      const initial = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
+      const final = { title: 'Example Survey', questions: [{ label: 'Do you weigh more than a duck?', options: [{ label: 'Yes', value: 0 }, { label: 'No', value: 0 }] }] };
+      Survey.create(initial)
+      .then(result => (
+        request(app)
+        .put(`/api/surveys/${result._id}`)
+        .send(final)
+      ))
+      .then((response) => {
+        console.log(response.body);
+        expect(response.body).to.shallowDeepEqual(final);
+        done();
+      })
+      .catch(done); // call "done" if the promise is rejected
+    });
     xit('updates the survey title', () => {});
     xit('adds a question to the survey', () => {});
     xit('updates a question in the survey', () => {});

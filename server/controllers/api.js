@@ -35,7 +35,7 @@ api.get('/surveys/:id', (request, response, next) => {
   });
 });
 api.put('/surveys/:id', (request, response, next) => {
-  /* no-op */
+  response.status(404).send('Not found');
 });
 api.delete('/surveys/:id', (request, response, next) => {
   /* no-op */
