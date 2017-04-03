@@ -1,13 +1,12 @@
 process.env.NODE_ENV = 'test';
 
-// Require dev-dependancies
 const chai = require('chai');
 chai.use(require('chai-http'));
 chai.use(require('chai-shallow-deep-equal'));
-const survey = require('../models/survey.js');
 
 const { expect, request } = chai;
 const app = require('../index.js');
+const Survey = require('../models/survey.js');
 
 module.exports = () => {
   describe('/GET survey', () => {
@@ -36,7 +35,7 @@ module.exports = () => {
           expect(response.body[0]).to.shallowDeepEqual(expected);
         });
 
-      survey.remove({ title: 'Test' })
+      Survey.remove({ title: 'Test' })
         .then(() => {
           done();
         })
@@ -63,7 +62,7 @@ module.exports = () => {
           expect(response).status(201);
         });
 
-      survey.remove({ title: '' })
+      Survey.remove({ title: '' })
         .then(() => {
           done();
         })
@@ -98,7 +97,7 @@ module.exports = () => {
           expect(response).status(201);
         });
 
-      survey.remove({ title: 'Test' })
+      Survey.remove({ title: 'Test' })
         .then(() => {
           done();
         })
@@ -107,7 +106,7 @@ module.exports = () => {
         });
     });
   });
-  describe('/GET/:id survey', () => {
+  describe('GET /api/surveys/:surveyID', () => {
     it('responds with a 404 status code for non-existant resources', (done) => {
       request(app)
         .get('/api/surveys/nonexistantresource')
@@ -116,10 +115,11 @@ module.exports = () => {
           done();
         });
     });
-    xit('GETs a survey with the given id', () => {});
+    xit('responds with the requested survey', () => {});
+    xit('responds with information about related resources', () => {});
   });
-  xdescribe('/PUT/:id survey', () => {
-    xit('PUTs a survey with the given id', () => {});
+  xdescribe('PUT /api/surveys/:surveyID', () => {
+    xit('updates the survey', () => {});
     xit('updates the survey title', () => {});
     xit('adds a question to the survey', () => {});
     xit('updates a question in the survey', () => {});
@@ -127,7 +127,7 @@ module.exports = () => {
     xit('adds a response to the survey', () => {});
     xit('does not overwrite responses when editing a question', () => {});
   });
-  xdescribe('/DELETE/:id survey', () => {
-    xit('DELETEs a survey with the given id', () => {});
+  xdescribe('DELETE /api/surveys/:surveyID', () => {
+    xit('deletes the survey', () => {});
   });
 };
