@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'test';
 
+// Require dev-dependancies
 const chai = require('chai');
 chai.use(require('chai-http'));
 
@@ -7,15 +8,13 @@ const { expect, request } = chai;
 const app = require('../index.js');
 
 module.exports = () => {
-  xdescribe('GET /api/surveys', () => {
-    xit('responds with all surveys', () => {});
-    xit('responds with information about related resources', () => {});
+  xdescribe('/GET survey', () => {
+    xit('GETs all surveys', () => {});
   });
-  xdescribe('POST /api/surveys', () => {
-    xit('creates a survey', () => {});
-    xit('redirects to the newly created survey', () => {});
+  xdescribe('/POST survey', () => {
+    xit('POSTs an empty survey', () => {});
   });
-  describe('GET /api/surveys/:surveyID', () => {
+  describe('/GET/:id survey', () => {
     it('responds with a 404 status code for non-existant resources', (done) => {
       request(app)
         .get('/api/surveys/nonexistantresource')
@@ -24,11 +23,10 @@ module.exports = () => {
           done();
         });
     });
-    xit('responds with the requested survey', () => {});
-    xit('responds with information about related resources', () => {});
+    xit('GETs a survey with the given id', () => {});
   });
-  xdescribe('PUT /api/surveys/:surveyID', () => {
-    xit('updates the survey', () => {});
+  xdescribe('/PUT/:id survey', () => {
+    xit('PUTs a survey with the given id', () => {});
     xit('updates the survey title', () => {});
     xit('adds a question to the survey', () => {});
     xit('updates a question in the survey', () => {});
@@ -36,7 +34,7 @@ module.exports = () => {
     xit('adds a response to the survey', () => {});
     xit('does not overwrite responses when editing a question', () => {});
   });
-  xdescribe('DELETE /api/surveys/:surveyID', () => {
-    xit('deletes the survey', () => {});
+  xdescribe('/DELETE/:id survey', () => {
+    xit('DELETEs a survey with the given id', () => {});
   });
 };

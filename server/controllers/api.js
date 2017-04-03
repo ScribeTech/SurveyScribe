@@ -8,13 +8,13 @@ api.get('/surveys', (request, response, next) => {
 api.post('/surveys', (request, response, next) => {
   /* no-op */
 });
-api.get('/surveys/:surveyID', (request, response, next) => {
+api.get('/surveys/:id', (request, response, next) => {
   response.status(404).send('Not found');
 });
-api.put('/surveys/:surveyID', (request, response, next) => {
+api.put('/surveys/:id', (request, response, next) => {
   /* no-op */
 });
-api.delete('/surveys/:surveyID', (request, response, next) => {
+api.delete('/surveys/:id', (request, response, next) => {
   /* no-op */
 });
 
