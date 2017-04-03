@@ -3,18 +3,18 @@ const express = require('express');
 const api = express.Router();
 
 api.get('/surveys', (request, response, next) => {
-  /* no-op */
+  response.status(404).send('Not found');
 });
 api.post('/surveys', (request, response, next) => {
   /* no-op */
 });
-api.get('/surveys/:survey_id', (request, response, next) => {
+api.get('/surveys/:id', (request, response, next) => {
+  response.status(404).send('Not found');
+});
+api.put('/surveys/:id', (request, response, next) => {
   /* no-op */
 });
-api.put('/surveys/:survey_id', (request, response, next) => {
-  /* no-op */
-});
-api.delete('/surveys/:survey_id', (request, response, next) => {
+api.delete('/surveys/:id', (request, response, next) => {
   /* no-op */
 });
 

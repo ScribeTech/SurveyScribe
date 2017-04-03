@@ -3,5 +3,5 @@ module.exports = {
   database: { uri: 'mongodb://localhost/surveyscribe' },
   public: '../public',
   log: './logs/access.log',
-  debug: process.env.NODE_ENV !== 'production'
+  debug: true
 };

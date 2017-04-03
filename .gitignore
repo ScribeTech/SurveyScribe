@@ -2,11 +2,9 @@
 .DS_Store
 
 # Secrets
-config.js
 .pem
 
 # Logs
-logs
 *.log
 
 # Compiled Directories (http://nodejs.org/api/addons.html)
