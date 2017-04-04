@@ -5,15 +5,15 @@ const LandingPage = () => (
   <div>
     <p>LandingPage</p>
     <Link to="/survey"> survey test link </Link>
-    <br></br>
+    <br />
     <Link to="/edit"> edit test link </Link>
-    <br></br>
+    <br />
 
     <Link to="/results"> results test link </Link>
-    <br></br>
+    <br />
 
     <Link to="/answer"> answer test link </Link>
-    <br></br>
+    <br />
 
     <Link to="/finish"> finish test link </Link>
   </div>
