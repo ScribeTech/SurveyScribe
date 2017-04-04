@@ -5,24 +5,21 @@ const api = express.Router();
 
 api.get('/surveys', (request, response, next) => {
   survey.find({})
-    .then((resp) => {
-      response.send(resp);
-      next();
+    .then((data) => {
+      response.status(200).send(data);
     })
     .catch((err) => {
       throw err;
     });
 });
 api.post('/surveys', (request, response, next) => {
-  console.log(request.body);
-  // survey.insert(request.body)
-  //   .then((resp) => {
-  //     response.send(201);
-  //     next();
-  //   })
-  //   .catch((err) => {
-  //     throw err;
-  //   });
+  survey.create(request.body)
+    .then((data) => {
+      response.status(201).send(data);
+    })
+    .catch((err) => {
+      throw err;
+    });
 });
 api.get('/surveys/:id', (request, response, next) => {
   response.status(404).send('Not found');
