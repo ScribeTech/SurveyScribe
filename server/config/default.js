@@ -2,6 +2,6 @@ module.exports = {
   port: 8080,
   database: { uri: 'mongodb://localhost/surveyscribe' },
   public: '../public',
-  log: './logs/access.log',
+  log: { format: 'combined', file: './logs/access.log' },
   debug: true
 };
