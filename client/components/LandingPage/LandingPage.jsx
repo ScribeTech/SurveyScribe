@@ -1,14 +1,21 @@
 import React from 'react';
 import Center from 'react-center';
 import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Logo from './../../styles/Logo.png';
 
 const LandingPage = () => (
   <div>
     <Center >
-      <img style={{ 'margin-top': '100px' }} className="logo" src={Logo} alt="logo" />
+      <img style={{ marginTop: '200px' }} className="logo" src={Logo} alt="logo" />
     </Center>
-    <p>LandingPage</p>
+    <MuiThemeProvider>
+      <Center >
+        <RaisedButton label="Create Survey" style={{ margin: 12 }} href="/survey" />
+      </Center >
+    </MuiThemeProvider>
+
     <Link to="/survey"> survey test link </Link>
     <br />
     <Link to="/edit"> edit test link </Link>
