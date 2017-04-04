@@ -12,7 +12,9 @@ const LandingPage = () => (
     </Center>
     <MuiThemeProvider>
       <Center >
-        <RaisedButton label="Create Survey" style={{ margin: 12 }} href="/survey" />
+        <Link to="/survey">
+          <RaisedButton label="Create Survey" style={{ margin: 12 }} />
+        </Link>
       </Center >
     </MuiThemeProvider>
 
