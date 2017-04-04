@@ -6,8 +6,6 @@ const path = require('path');
 
 mongoose.Promise = require('bluebird');
 
-global.Promise = mongoose.Promise;
-
 const app = express();
 mongoose.connect(config.database.uri, config.database.options);
 

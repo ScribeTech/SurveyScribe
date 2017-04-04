@@ -1,10 +1,10 @@
 const express = require('express');
-const survey = require('../models/survey.js');
+const Survey = require('../models/survey.js');
 
 const api = express.Router();
 
 api.get('/surveys', (request, response, next) => {
-  survey.find({})
+  Survey.find({})
     .then((data) => {
       response.status(200).send(data);
     })
@@ -13,7 +13,7 @@ api.get('/surveys', (request, response, next) => {
     });
 });
 api.post('/surveys', (request, response, next) => {
-  survey.create(request.body)
+  Survey.create(request.body)
     .then((data) => {
       response.status(201).send(data);
     })
@@ -22,10 +22,15 @@ api.post('/surveys', (request, response, next) => {
     });
 });
 api.get('/surveys/:id', (request, response, next) => {
-  response.status(404).send('Not found');
+  Survey.findById(request.params.id)
+  .then((result) => { response.status(200).json(result); })
+  .catch(next);
 });
 api.put('/surveys/:id', (request, response, next) => {
-  /* no-op */
+  console.log('>>>>>>>>> Body', request.body);
+  Survey.update(request.params.id, request.body)
+  .then((result) => { response.status(200).json(result); })
+  .catch(next);
 });
 api.delete('/surveys/:id', (request, response, next) => {
   /* no-op */
