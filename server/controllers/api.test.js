@@ -11,13 +11,6 @@ const app = require('../index.js');
 
 module.exports = () => {
   describe('/GET survey', () => {
-    afterEach(() => {
-      survey.remove({})
-        .catch((err) => {
-          throw err;
-        });
-    });
-
     it('GETs all surveys', (done) => {
       const expected = {
         title: 'Test',
@@ -41,18 +34,18 @@ module.exports = () => {
           expect(response).status(200);
           expect(response.body.length).to.exist;
           expect(response.body[0]).to.shallowDeepEqual(expected);
-          done();
         });
-    });
-  });
-  describe('/POST survey', () => {
-    afterEach(() => {
-      survey.remove({})
+
+      survey.remove({ title: 'Test' })
+        .then(() => {
+          done();
+        })
         .catch((err) => {
           throw err;
         });
     });
-
+  });
+  describe('/POST survey', () => {
     it('POSTs an empty survey', (done) => {
       request(app)
         .post('/api/surveys')
@@ -68,7 +61,14 @@ module.exports = () => {
         })
         .end((error, response) => {
           expect(response).status(201);
+        });
+
+      survey.remove({ title: '' })
+        .then(() => {
           done();
+        })
+        .catch((err) => {
+          throw err;
         });
     });
 
@@ -76,7 +76,7 @@ module.exports = () => {
       request(app)
         .post('/api/surveys')
         .send({
-          title: 'TestSurvey',
+          title: 'Test',
           questions: [{
             label: 'Test',
             options: [{
@@ -96,7 +96,14 @@ module.exports = () => {
         })
         .end((error, response) => {
           expect(response).status(201);
+        });
+
+      survey.remove({ title: 'Test' })
+        .then(() => {
           done();
+        })
+        .catch((err) => {
+          throw err;
         });
     });
   });
