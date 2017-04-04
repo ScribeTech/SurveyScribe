@@ -37,6 +37,7 @@ module.exports = () => {
         .get('/api/surveys')
         .end((error, response) => {
           expect(response).status(200);
+          expect(response).to.be.json;
           expect(response.body.length);
           expect(response.body[0]).to.shallowDeepEqual(expected);
           done();
@@ -59,6 +60,7 @@ module.exports = () => {
         })
         .end((error, response) => {
           expect(response).status(201);
+          expect(response).to.be.json;
           done();
         });
     });
@@ -87,6 +89,7 @@ module.exports = () => {
         })
         .end((error, response) => {
           expect(response).status(201);
+          expect(response).to.be.json;
           done();
         });
     });
@@ -97,6 +100,7 @@ module.exports = () => {
         .get('/api/surveys/nonexistantresource')
         .end((error, response) => {
           expect(response).status(404);
+          expect(response).to.be.json;
           done();
         });
     });
@@ -106,6 +110,8 @@ module.exports = () => {
       Survey.create(expected)
       .then(result => request(app).get(`/api/surveys/${result._id}`))
       .then((response) => {
+        expect(response).status(200);
+        expect(response).to.be.json;
         expect(response.body).to.shallowDeepEqual(expected);
         done();
       })
@@ -120,6 +126,8 @@ module.exports = () => {
       id.then(surveyID => request(app).put(`/api/surveys/${surveyID}`).send(expected));
       id.then(surveyID => request(app).get(`/api/surveys/${surveyID}`))
       .then((response) => {
+        expect(response).status(200);
+        expect(response).to.be.json;
         expect(response.body).to.shallowDeepEqual(expected);
         done();
       })
@@ -127,17 +135,28 @@ module.exports = () => {
     });
     xit('does not overwrite undefined properties', () => {});
   });
-  describe('DELETE /api/surveys/:surveyID', () => {
+  describe('DELETE /api/surveys/:id', () => {
     it('deletes the survey', (done) => {
       const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
-      const id = Survey.create(seed).then(result => result._id);
-      id.then(surveyID => request(app).delete(`/api/surveys/${surveyID}`));
-      id.then(surveyID => request(app).get(`/api/surveys/${surveyID}`))
-      .then((response) => {
+      Survey.create(seed)
+      .then(result => (
+        request(app).delete(`/api/surveys/${result._id}`)
+        .then((response) => {
+          expect(response).status(200);
+          expect(response).to.be.json;
+          return request(app).get(`/api/surveys/${result._id}`);
+        })
+        .catch((error) => { expect(error).status(404); })
+        .then(done)
+      ))
+    .catch(done); // call "done" if the promise is rejected (see error.js)
+    });
+    it('responds with a 404 status code for non-existant resources', (done) => {
+      request(app).delete('/api/surveys/nonexistantresource')
+      .end((response) => {
         expect(response).status(404);
         done();
-      })
-      .catch(done); // call "done" if the promise is rejected (see error.js)
+      });
     });
   });
 };
