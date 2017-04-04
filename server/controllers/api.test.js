@@ -124,7 +124,7 @@ module.exports = () => {
         expect(response.body).to.shallowDeepEqual(survey);
         done();
       })
-      .catch(done); // call "done" if the promise is rejected
+      .catch(done); // call "done" if the promise is rejected (see error.js)
     });
   });
   describe('/PUT/:id survey', () => {
@@ -143,7 +143,7 @@ module.exports = () => {
         expect(response.body).to.shallowDeepEqual(final);
         done();
       })
-      .catch(done); // call "done" if the promise is rejected
+      .catch(done); // call "done" if the promise is rejected (see error.js)
     });
     xit('does not overwrite undefined properties', () => {});
   });
