@@ -9,6 +9,10 @@ const app = require('../index.js');
 const Survey = require('../models/survey.js');
 
 module.exports = () => {
+  beforeEach((done) => {
+    // Empty the database before each test to ensure tests behave predictably
+    Survey.remove({}, done);
+  });
   describe('/GET survey', () => {
     it('GETs all surveys', (done) => {
       const expected = {
@@ -31,16 +35,9 @@ module.exports = () => {
         .get('/api/surveys')
         .end((error, response) => {
           expect(response).status(200);
-          expect(response.body.length).to.exist();
+          expect(response.body.length).to.exist;
           expect(response.body[0]).to.shallowDeepEqual(expected);
-        });
-
-      Survey.remove({ title: 'Test' })
-        .then(() => {
           done();
-        })
-        .catch((err) => {
-          throw err;
         });
     });
   });
@@ -60,14 +57,7 @@ module.exports = () => {
         })
         .end((error, response) => {
           expect(response).status(201);
-        });
-
-      Survey.remove({ title: '' })
-        .then(() => {
           done();
-        })
-        .catch((err) => {
-          throw err;
         });
     });
 
@@ -95,18 +85,11 @@ module.exports = () => {
         })
         .end((error, response) => {
           expect(response).status(201);
-        });
-
-      Survey.remove({ title: 'Test' })
-        .then(() => {
           done();
-        })
-        .catch((err) => {
-          throw err;
         });
     });
   });
-  describe('GET /api/surveys/:surveyID', () => {
+  describe('GET /api/surveys/:id', () => {
     it('responds with a 404 status code for non-existant resources', (done) => {
       request(app)
         .get('/api/surveys/nonexistantresource')
