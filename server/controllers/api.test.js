@@ -128,6 +128,16 @@ module.exports = () => {
     xit('does not overwrite undefined properties', () => {});
   });
   describe('DELETE /api/surveys/:surveyID', () => {
-    xit('deletes the survey', () => {});
+    it('deletes the survey', (done) => {
+      const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
+      const id = Survey.create(seed).then(result => result._id);
+      id.then(surveyID => request(app).delete(`/api/surveys/${surveyID}`));
+      id.then(surveyID => request(app).get(`/api/surveys/${surveyID}`))
+      .then((response) => {
+        expect(response).status(404);
+        done();
+      })
+      .catch(done); // call "done" if the promise is rejected (see error.js)
+    });
   });
 };
