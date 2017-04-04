@@ -35,7 +35,7 @@ module.exports = () => {
         .get('/api/surveys')
         .end((error, response) => {
           expect(response).status(200);
-          expect(response.body.length).to.exist;
+          expect(response.body.length);
           expect(response.body[0]).to.shallowDeepEqual(expected);
           done();
         });
