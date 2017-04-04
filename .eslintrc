@@ -10,9 +10,10 @@
   "rules": {
     "func-names": "off",
     "comma-dangle": "off",
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "no-underscore-dangle": ["error", { "allow": ["_id", "__REDUX_DEVTOOLS_EXTENSION__"] }],
     "no-unused-vars": "warn",
     "no-unused-expressions": "warn",
-    "global-require": "warn"
+    "global-require": "warn",
+    "prefer-es6-class": "off"
   }
 }

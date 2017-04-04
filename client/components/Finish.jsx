@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Finish = () => <p>Finish</p>;
+const Finish = React.createClass({
+  render() {
+    return (
+      <p>Finish</p>
+    );
+  }
+});
 
 export default Finish;

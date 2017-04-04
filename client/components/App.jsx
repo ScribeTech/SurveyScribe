@@ -6,8 +6,6 @@ import Main from './Main.jsx';
 function mapStateToProps(state) {
   return {
     surveys: state.surveys,
-    questions: state.questions,
-    options: state.options
   };
 }
 

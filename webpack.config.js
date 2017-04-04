@@ -1,4 +1,5 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: `${__dirname}/client/index.html`,
@@ -29,8 +30,10 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.jsx',
     path: `${__dirname}/public`
   },
-  plugins: [HTMLWebpackPluginConfig]
+  plugins: [HTMLWebpackPluginConfig,
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };

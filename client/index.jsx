@@ -14,19 +14,19 @@ import NotFoundPage from './components/NotFoundPage.jsx';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import store, { history } from './store';
+import store, { history } from './store.jsx';
 
 const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App} >
         <IndexRoute component={LandingPage} />
-        <Route path="/survey" component={SurveyGrid} />
-        <Route path="/survey/:surveyId/edit" component={SurveyEdit} />
-        <Route path="/survey/surveyId/answer" component={SurveyAnswer} />
-        <Route path="/survey/:surveyId/results" component={Results} />
-        <Route path="/survey/:surveyId/finish" component={Finish} />
-        <Route path="/*" component={NotFoundPage} />
+        <Route path="survey" component={SurveyGrid} />
+        <Route path="survey/:surveyId/edit" component={SurveyEdit} />
+        <Route path="survey/surveyId/answer" component={SurveyAnswer} />
+        <Route path="survey/:surveyId/results" component={Results} />
+        <Route path="survey/:surveyId/finish" component={Finish} />
+        <Route path="*" component={NotFoundPage} />
       </Route>
     </Router>
   </Provider>

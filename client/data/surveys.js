@@ -1,4 +1,4 @@
-const survey = [{
+const surveys = [{
   "id": 1,
   "title": "data-warehouse",
   "questions": [
@@ -1100,4 +1100,4 @@ const survey = [{
   ]
 }];
 
-export default survey;
+export default surveys;

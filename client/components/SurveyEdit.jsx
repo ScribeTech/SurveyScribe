@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Edit = () => <p>Edit</p>;
+const Edit = React.createClass({
+  render() {
+    return (
+      <p>Edit</p>
+    );
+  }
+});
 
 export default Edit;
