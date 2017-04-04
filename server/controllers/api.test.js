@@ -132,25 +132,20 @@ module.exports = () => {
       // Add example data before making a request
       const initial = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
       const final = { title: 'Example Survey', questions: [{ label: 'Do you weigh more than a duck?', options: [{ label: 'Yes', value: 0 }, { label: 'No', value: 0 }] }] };
+      let id; // TODO: use promise.join or similar from bluebird
       Survey.create(initial)
-      .then(result => (
-        request(app)
-        .put(`/api/surveys/${result._id}`)
-        .send(final)
-      ))
+      .then((result) => {
+        id = result._id;
+        return request(app).put(`/api/surveys/${id}`).send(final);
+      })
+      .then(result => request(app).get(`/api/surveys/${id}`))
       .then((response) => {
-        console.log(response.body);
         expect(response.body).to.shallowDeepEqual(final);
         done();
       })
       .catch(done); // call "done" if the promise is rejected
     });
-    xit('updates the survey title', () => {});
-    xit('adds a question to the survey', () => {});
-    xit('updates a question in the survey', () => {});
-    xit('deletes a question from the survey', () => {});
-    xit('adds a response to the survey', () => {});
-    xit('does not overwrite responses when editing a question', () => {});
+    xit('does not overwrite undefined properties', () => {});
   });
   xdescribe('DELETE /api/surveys/:surveyID', () => {
     xit('deletes the survey', () => {});

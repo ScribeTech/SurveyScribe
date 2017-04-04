@@ -23,19 +23,14 @@ api.post('/surveys', (request, response, next) => {
 });
 api.get('/surveys/:id', (request, response, next) => {
   Survey.findById(request.params.id)
-  .then((result) => {
-    response.status(200).json(result);
-  })
-  .catch((error) => {
-    if (error.value === 'nonexistantresource') {
-      response.status(404).send('Not found');
-    } else {
-      next(error);
-    }
-  });
+  .then((result) => { response.status(200).json(result); })
+  .catch(next);
 });
 api.put('/surveys/:id', (request, response, next) => {
-  response.status(404).send('Not found');
+  console.log('>>>>>>>>> Body', request.body);
+  Survey.update(request.params.id, request.body)
+  .then((result) => { response.status(200).json(result); })
+  .catch(next);
 });
 api.delete('/surveys/:id', (request, response, next) => {
   /* no-op */
