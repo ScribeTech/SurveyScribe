@@ -3,7 +3,7 @@ const config = require('../config/default.js');
 module.exports = (error, request, response, next) => {
   // Default to a generic 500 error
   const output = {
-    status: 500,
+    status: error.status || 500,
     message: 'Something went wrong. Contact customer support.'
   };
   // Catch unknown routes and MongoDB 'not found' errors

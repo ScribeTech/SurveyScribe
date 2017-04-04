@@ -8,9 +8,10 @@
   },
   "extends": "airbnb",
   "rules": {
-    "func-names": ["error", "never"],
-    "comma-dangle": ["error", "never"],
+    "func-names": "off",
+    "comma-dangle": "off",
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-    "no-unused-vars": ["warn"]
+    "no-unused-vars": "warn",
+    "no-unused-expressions": "warn"
   }
 }
