@@ -1,5 +1,9 @@
 import React from 'react';
 
-const App = () => <p>Survey Scribe</p>;
+const App = () => (
+  <header>
+    <p>Survey Scribe! Header</p>
+  </header>
+);
 
 export default App;
