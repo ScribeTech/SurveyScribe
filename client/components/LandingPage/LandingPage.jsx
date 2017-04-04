@@ -1,10 +1,13 @@
 import React from 'react';
+import Center from 'react-center';
 import { Link } from 'react-router';
-import logo from './../../styles/Logo.png';
+import Logo from './../../styles/Logo.png';
 
 const LandingPage = () => (
   <div>
-    <img className="logo" src={logo} alt="logo" />
+    <Center >
+      <img style={{ 'margin-top': '100px' }} className="logo" src={Logo} alt="logo" />
+    </Center>
     <p>LandingPage</p>
     <Link to="/survey"> survey test link </Link>
     <br />

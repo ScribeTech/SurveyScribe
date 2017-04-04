@@ -46,6 +46,7 @@
     "mongoose": "^4.9.2",
     "morgan": "^1.8.1",
     "react": "^15.4.2",
+    "react-center": "^1.1.1",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
     "react-router": "^2.4.0",
