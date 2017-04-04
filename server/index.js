@@ -14,8 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Log activity
-// WARNING: currently broken
-// app.use(require('./middleware/log.js'));
+app.use(require('./middleware/log.js'));
 
 // Route requests
 app.use('/', express.static(path.join(__dirname, config.public)));
