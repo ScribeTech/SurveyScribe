@@ -9,7 +9,6 @@ api.get('/surveys', (request, response, next) => {
     .catch(next);
 });
 api.post('/surveys', (request, response, next) => {
-  console.log('REQUEST.BODY', request.body);
   Survey.create(request.body)
     .then((data) => { response.status(201).json(data); })
     .catch(next);
