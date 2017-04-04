@@ -21,6 +21,10 @@ module.exports = {
         options: {
           limit: 25000
         }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
