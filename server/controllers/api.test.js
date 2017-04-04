@@ -10,8 +10,10 @@ const Survey = require('../models/survey.js');
 
 module.exports = () => {
   beforeEach((done) => {
-    // Empty the database before each test to ensure tests behave predictably
-    Survey.remove({}, done);
+    Survey.remove({}, done); // Empty the database to ensure predictablility
+  });
+  afterEach((done) => {
+    Survey.remove({}, done); // Empty the database to ensure predictablility
   });
   describe('/GET survey', () => {
     it('GETs all surveys', (done) => {
@@ -99,12 +101,12 @@ module.exports = () => {
         });
     });
     it('GETs a survey with the given id', (done) => {
-      // Add example data before making a request
-      const survey = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
-      Survey.create(survey)
+      // Add example data
+      const expected = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
+      Survey.create(expected)
       .then(result => request(app).get(`/api/surveys/${result._id}`))
       .then((response) => {
-        expect(response.body).to.shallowDeepEqual(survey);
+        expect(response.body).to.shallowDeepEqual(expected);
         done();
       })
       .catch(done); // call "done" if the promise is rejected (see error.js)
@@ -112,16 +114,11 @@ module.exports = () => {
   });
   describe('/PUT/:id survey', () => {
     it('PUTs a survey with the given id', (done) => {
-      // Add example data before making a request
       const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
       const expected = { title: 'Example Survey', questions: [{ label: 'Do you weigh more than a duck?', options: [{ label: 'Yes', value: 0 }, { label: 'No', value: 0 }] }] };
-      let id; // TODO: use promise.join or similar from bluebird
-      Survey.create(seed)
-      .then((result) => {
-        id = result._id;
-        return request(app).put(`/api/surveys/${id}`).send(expected);
-      })
-      .then(result => request(app).get(`/api/surveys/${id}`))
+      const id = Survey.create(seed).then(result => result._id);
+      id.then(surveyID => request(app).put(`/api/surveys/${surveyID}`).send(expected));
+      id.then(surveyID => request(app).get(`/api/surveys/${surveyID}`))
       .then((response) => {
         expect(response.body).to.shallowDeepEqual(expected);
         done();
@@ -130,7 +127,7 @@ module.exports = () => {
     });
     xit('does not overwrite undefined properties', () => {});
   });
-  xdescribe('DELETE /api/surveys/:surveyID', () => {
+  describe('DELETE /api/surveys/:surveyID', () => {
     xit('deletes the survey', () => {});
   });
 };
