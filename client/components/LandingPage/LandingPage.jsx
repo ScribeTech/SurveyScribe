@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
+import logo from './../../styles/Logo.png';
 
 const LandingPage = () => (
   <div>
+    <img className="logo" src={logo} alt="logo" />
     <p>LandingPage</p>
     <Link to="/survey"> survey test link </Link>
     <br />
