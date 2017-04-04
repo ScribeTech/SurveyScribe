@@ -1,0 +1,5 @@
+{
+  "port": 10000,
+  "database": { "uri": "mongodb://localhost/surveyscribe-test" },
+  "log": "./server/logs/test.log"
+}
