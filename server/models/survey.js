@@ -6,7 +6,7 @@ const SurveySchema = Schema({
   title: String,
   questions: [{
     label: String,
-    options: [{ label: String, value: Number }]
+    options: [{ label: String, votes: Number }]
   }]
 });
 

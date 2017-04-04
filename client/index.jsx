@@ -1,31 +1,36 @@
 import React from 'react';
+
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+
+// Import Components
+import App from './components/App.jsx';
+import LandingPage from './components/LandingPage.jsx';
+import SurveyGrid from './components/SurveyGrid.jsx';
+import SurveyEdit from './components/SurveyEdit.jsx';
+import SurveyAnswer from './components/SurveyAnswer.jsx';
+import Results from './components/Results.jsx';
+import Finish from './components/Finish.jsx';
+import NotFoundPage from './components/NotFoundPage.jsx';
+
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import configureStore from './Containers/Container.jsx';
-import LandingPage from './components/LandingPage/LandingPage.jsx';
-import Survey from './components/Survey/Survey.jsx';
-import Edit from './components/Edit/Edit.jsx';
-import Results from './components/Results/Results.jsx';
-import Answer from './components/Answer/Answer.jsx';
-import Finish from './components/Finish/Finish.jsx';
-import NotFoundPage from './components/NotFoundPage/NotFoundPage.jsx';
+import { Provider } from 'react-redux';
+import store, { history } from './store';
 
-const store = configureStore();
 
-const history = syncHistoryWithStore(browserHistory, store);
-
-render(
+const router = (
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={LandingPage} />
-      <Route path="/survey" component={Survey} />
-      <Route path="/edit" component={Edit} />
-      <Route path="/results" component={Results} />
-      <Route path="/answer" component={Answer} />
-      <Route path="/finish" component={Finish} />
-      <Route path="*" component={NotFoundPage} />
+      <Route path="/" component={App} >
+        <IndexRoute component={LandingPage} />
+        <Route path="/survey" component={SurveyGrid} />
+        <Route path="/survey/:surveyId/edit" component={SurveyEdit} />
+        <Route path="/survey/surveyId/answer" component={SurveyAnswer} />
+        <Route path="/survey/:surveyId/results" component={Results} />
+        <Route path="/survey/:surveyId/finish" component={Finish} />
+        <Route path="/*" component={NotFoundPage} />
+      </Route>
     </Router>
-  </Provider>, document.getElementById('app')
+  </Provider>
 );
+
+render(router, document.getElementById('app'));

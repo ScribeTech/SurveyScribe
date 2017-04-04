@@ -2,3 +2,6 @@
 # Ignore all bundled files
 public/*
 mock/*
+
+#Ignore dummy data
+client/data/*
