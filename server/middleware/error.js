@@ -1,26 +1,23 @@
-const express = require('express');
-const config = require('../config/config.js');
+const config = require('../config/default.js');
 
-const router = express.Router();
-
-// 404: NOT FOUND
-router.use((request, response, next) => {
-  response.status(404)
-          .type('txt')
-          .send('Not found');
-});
-
-// 500: INTERNAL SERVER ERROR
-router.use((error, request, response, next) => {
-  response.status(error.status || 500);
-  if (config.debug) {
-    // Only respond with detailed errors in development mode. Sending details
-    // from a live server could expose sensitive information to hackers.
+module.exports = (error, request, response, next) => {
+  // Default to a generic 500 error
+  const output = {
+    status: 500,
+    message: 'Something went wrong. Contact customer support.'
+  };
+  // Catch unknown routes and MongoDB 'not found' errors
+  if (!error || error.value === 'nonexistantresource') {
+    output.status = 404;
+    output.message = 'Not found';
+  } else if (config.debug) {
+    // To protect sensitive information, only respond with details in debug mode
     console.error(error);
-    response.type('txt').send(error);
-  } else {
-    response.type('txt').send('Something went wrong. Try again, or contact support.');
+    output.error = error;
   }
-});
-
-module.exports = router;
+  // Respond in the same format as the request
+  response.format({
+    json() { response.status(output.status).json(output); },
+    default() { response.status(output.status).type('txt').send(output.message); }
+  });
+};
