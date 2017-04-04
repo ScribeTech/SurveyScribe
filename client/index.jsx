@@ -16,21 +16,6 @@ const store = configureStore();
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-// render(
-//   <Provider store={store}>
-//     <Router history={history}>
-//       <Route path="/" component={LandingPage}>
-//         <Route path="survey" component={Survey} />
-//         <Route path="survey/:id/edit" component={Edit} />
-//         <Route path="survey/:id/results" component={Results} />
-//         <Route path="survey/:id/answer" component={Answer} />
-//         <Route path="survey/:id/finish" component={Finish} />
-//         <Route path="*" component={NotFoundPage} />
-//       </Route>
-//     </Router>
-//   </Provider>, document.getElementById('app')
-// );
-
 render(
   <Provider store={store}>
     <Router history={history}>
