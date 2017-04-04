@@ -1,7 +1,10 @@
+.footer {
+  color: #4b6ecc;
+  text-align: right;
+  padding: 24px;
+  background: #fff;
+  vertical-align: middle;
+}
 .logo {
-  display: block;
-  margin: auto;
-  margin-top: -50px;
-  margin-bottom: -30px;
-
+  margin-top: 200px
 }

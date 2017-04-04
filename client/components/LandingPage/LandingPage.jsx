@@ -4,11 +4,12 @@ import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Logo from './../../styles/Logo.png';
+import css from './../../styles/stylesheet.css';
 
 const LandingPage = () => (
   <div>
     <Center >
-      <img style={{ marginTop: '200px' }} className="logo" src={Logo} alt="logo" />
+      <img className="logo" src={Logo} alt="logo" />
     </Center>
     <MuiThemeProvider>
       <Center >
@@ -30,6 +31,10 @@ const LandingPage = () => (
     <br />
 
     <Link to="/finish"> finish test link </Link>
+
+    <footer >
+      <p className="footer">Created by Nathan Clark Baumgartner, Megan Rabuse, Eligah Schow, Jin Chung</p>
+    </footer>
   </div>
 
 );
