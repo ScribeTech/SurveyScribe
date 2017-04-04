@@ -12,6 +12,7 @@
     "comma-dangle": "off",
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "no-unused-vars": "warn",
-    "no-unused-expressions": "warn"
+    "no-unused-expressions": "warn",
+    "global-require": "warn"
   }
 }

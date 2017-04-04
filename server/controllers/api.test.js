@@ -23,7 +23,7 @@ module.exports = () => {
           label: 'TestLabel',
           options: [{
             label: 'TestLabel1',
-            value: 1
+            votes: 1
           }]
         }]
       };
@@ -54,7 +54,7 @@ module.exports = () => {
             label: '',
             options: [{
               label: '',
-              value: 0
+              votes: 0
             }]
           }]
         })
@@ -74,16 +74,16 @@ module.exports = () => {
             label: 'Test',
             options: [{
               label: 'TestLabel1',
-              value: 2
+              votes: 2
             }, {
               label: 'TestLabel2',
-              value: 3
+              votes: 3
             }, {
               label: 'TestLabel3',
-              value: 4
+              votes: 4
             }, {
               label: 'TestLabel4',
-              value: 1
+              votes: 1
             }]
           }]
         })
@@ -106,7 +106,7 @@ module.exports = () => {
     });
     it('GETs a survey with the given id', (done) => {
       // Add example data
-      const expected = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
+      const expected = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', votes: 0 }, { label: 'Green', votes: 0 }, { label: 'Blue', votes: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', votes: 0 }, { label: 'Cats', votes: 0 }] }] };
       Survey.create(expected)
       .then(result => request(app).get(`/api/surveys/${result._id}`))
       .then((response) => {
@@ -120,8 +120,8 @@ module.exports = () => {
   });
   describe('/PUT/:id survey', () => {
     it('PUTs a survey with the given id', (done) => {
-      const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
-      const expected = { title: 'Example Survey', questions: [{ label: 'Do you weigh more than a duck?', options: [{ label: 'Yes', value: 0 }, { label: 'No', value: 0 }] }] };
+      const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', votes: 0 }, { label: 'Green', votes: 0 }, { label: 'Blue', votes: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', votes: 0 }, { label: 'Cats', votes: 0 }] }] };
+      const expected = { title: 'Example Survey', questions: [{ label: 'Do you weigh more than a duck?', options: [{ label: 'Yes', votes: 0 }, { label: 'No', votes: 0 }] }] };
       const id = Survey.create(seed).then(result => result._id);
       id.then(surveyID => request(app).put(`/api/surveys/${surveyID}`).send(expected));
       id.then(surveyID => request(app).get(`/api/surveys/${surveyID}`))
@@ -137,7 +137,7 @@ module.exports = () => {
   });
   describe('DELETE /api/surveys/:id', () => {
     it('deletes the survey', (done) => {
-      const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', value: 0 }, { label: 'Green', value: 0 }, { label: 'Blue', value: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', value: 0 }, { label: 'Cats', value: 0 }] }] };
+      const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', votes: 0 }, { label: 'Green', votes: 0 }, { label: 'Blue', votes: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', votes: 0 }, { label: 'Cats', votes: 0 }] }] };
       Survey.create(seed)
       .then(result => (
         request(app).delete(`/api/surveys/${result._id}`)
