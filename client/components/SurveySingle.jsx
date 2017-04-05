@@ -9,7 +9,34 @@ const SurveySingle = React.createClass({
   render() {
     return (
       <div>
-        test
+        <div>
+          {this.props.surveysingle.title}
+        </div>
+        <div>
+          {this.props.surveysingle.questions.map((question) => {
+            return (
+              <div>
+                <div className="questionLabel">
+                  {question.label}
+                </div>
+                <div>
+                  {question.options.map((option, i) => {
+                    return (
+                      <div>
+                        <div>
+                          {option.label}
+                        </div>
+                        <div>
+                          {option.votes}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
