@@ -5,19 +5,19 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 
 // Import Components
-import App from './components/App.jsx';
-import LandingPage from './components/LandingPage.jsx';
-import SurveyGrid from './components/SurveyGrid.jsx';
-import SurveyEdit from './components/SurveyEdit.jsx';
-import SurveyAnswer from './components/SurveyAnswer.jsx';
-import Results from './components/Results.jsx';
-import Finish from './components/Finish.jsx';
-import NotFoundPage from './components/NotFoundPage.jsx';
+import App from './components/App';
+import LandingPage from './components/LandingPage';
+import SurveyGrid from './components/SurveyGrid';
+import SurveyEdit from './components/SurveyEdit';
+import SurveyAnswer from './components/SurveyAnswer';
+import Results from './components/Results';
+import Finish from './components/Finish';
+import NotFoundPage from './components/NotFoundPage';
 
 // import styling
 import css from './styles/stylesheet.css';
 
-import store, { history } from './store.jsx';
+import store, { history } from './store';
 
 const router = (
   <Provider store={store}>
