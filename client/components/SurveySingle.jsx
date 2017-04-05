@@ -10,9 +10,9 @@ const SurveySingle = (props) => {
         title={props.surveysingle.title.toUpperCase()}
         actionIcon={
           <div className="actionButtons">
-            <button >Edit </button>
-            <button >Anaylize </button>
-            <button >Share </button>
+            <Link to="/edit"><button >Edit </button></Link>
+            <Link to="/results"><button >Anaylize </button></Link>
+            <Link to="/share"><button >Share </button></Link>
           </div>
         }
         className="gridtile"
