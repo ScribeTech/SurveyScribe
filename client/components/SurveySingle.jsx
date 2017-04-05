@@ -1,13 +1,8 @@
 import React from 'react';
 import { GridTile } from 'material-ui/GridList';
 import { Link } from 'react-router';
-import Assignment from '../styles/ic_assignment_black_24dp_1x.png';
 
 const SurveySingle = (props) => {
-  const componentDidMount = () => {
-    console.log("props", this.props.surveysingle);
-  };
-
   return (
     <Link to="/edit">
       <GridTile
@@ -17,6 +12,7 @@ const SurveySingle = (props) => {
         className="gridtile"
         titleBackground="rgba(0,0,255,0.2)"
       >
+        <img className="surveyPic" src="http://www.fmsi.com/fullpanel/uploads/files/survey-icon.png" alt="asdf" />
       </GridTile>
     </Link>
   );

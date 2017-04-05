@@ -6,10 +6,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 const Survey = (props) => {
-  const concomponentDidMount = () => {
-    console.log('props', props.surveys);
-  };
-
   const styles = {
     root: {
       display: 'flex',
@@ -27,7 +23,7 @@ const Survey = (props) => {
     <MuiThemeProvider>
       <div style={styles.root}>
         <GridList
-          cellHeight={180}
+          cellHeight={150}
           style={styles.gridList}
           padding={8}
         >
