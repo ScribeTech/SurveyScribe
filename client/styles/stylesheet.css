@@ -10,4 +10,9 @@
 
 .surveyPic {
   top: 0% !important;
+  right: 90px !important;
+}
+
+.actionButtons{
+  outline-offset: 20px;
 }

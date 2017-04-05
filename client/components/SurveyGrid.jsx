@@ -10,7 +10,7 @@ const Survey = (props) => {
     root: {
       display: 'flex',
       flexWrap: 'wrap',
-      justifyContent: 'space-around',
+      justifyContent: 'space-around'
     },
     gridList: {
       width: 1000,

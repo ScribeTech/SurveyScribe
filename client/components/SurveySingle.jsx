@@ -7,10 +7,16 @@ const SurveySingle = (props) => {
     <Link to="/edit">
       <GridTile
         key={props.surveysingle._id}
-        title={props.surveysingle.title}
-        actionIcon={<button >testbutton </button>}
+        title={props.surveysingle.title.toUpperCase()}
+        actionIcon={
+          <div className="actionButtons">
+            <button >Edit </button>
+            <button >Anaylize </button>
+            <button >Share </button>
+          </div>
+        }
         className="gridtile"
-        titleBackground="rgba(0,0,255,0.2)"
+        titleBackground="rgba(0,0,255,0.3)"
       >
         <img className="surveyPic" src="http://www.fmsi.com/fullpanel/uploads/files/survey-icon.png" alt="asdf" />
       </GridTile>
