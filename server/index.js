@@ -7,6 +7,10 @@ mongoose.Promise = require('bluebird');
 const app = express();
 mongoose.connect(config.database.uri, config.database.options);
 
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+require('./socketio.js')(io);
+
 // Parse data sent by clients
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
