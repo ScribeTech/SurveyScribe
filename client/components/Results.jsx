@@ -4,7 +4,7 @@ const Results = React.createClass({
   render() {
     return (
       <p>Results</p>
-   );
+    );
   }
 });
 

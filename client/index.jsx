@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { render } from 'react-dom';
+import { Router, Route, IndexRoute } from 'react-router';
+import { Provider } from 'react-redux';
 
 // Import Components
 import App from './components/App.jsx';
@@ -12,8 +14,9 @@ import Results from './components/Results.jsx';
 import Finish from './components/Finish.jsx';
 import NotFoundPage from './components/NotFoundPage.jsx';
 
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { Provider } from 'react-redux';
+// import styling
+import css from './styles/stylesheet.css';
+
 import store, { history } from './store.jsx';
 
 const router = (
