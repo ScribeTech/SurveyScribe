@@ -3,13 +3,12 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+const SocketIo = require('socket.io');
+const SocketListener = require('./socketio.js');
 
 const app = express();
 mongoose.connect(config.database.uri, config.database.options);
 
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-require('./socketio.js')(io);
 
 // Parse data sent by clients
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,5 +30,8 @@ if (module.parent) {
   module.exports = app;
 } else {
   // Start the server
-  app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
+  const server = app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
+
+  const io = new SocketIo(server, { path: '/api/result' });
+  SocketListener(io);
 }
