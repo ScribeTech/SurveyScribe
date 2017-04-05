@@ -5,14 +5,14 @@ import SurveySingle from './SurveySingle.jsx';
 const Survey = (props) => {
 
   const concomponentDidMount = () => {
-    console.log("props", this.props.surveys);
+    console.log("props", props.surveys);
   };
 
   return (
     <div>
       <p>Survey</p>
       <div className="SurveyList">
-        {this.props.surveys.map((survey) => {
+        {props.surveys.map((survey) => {
           return <SurveySingle surveysingle={survey} />;
         })}
       </div>
