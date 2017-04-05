@@ -1,45 +1,38 @@
 import React from 'react';
 
-const SurveySingle = React.createClass({
-
-  componentDidMount() {
+const SurveySingle = (props) => {
+  const componentDidMount = () => {
     console.log("props", this.props.surveysingle);
-  },
+  };
 
-  render() {
-    return (
+  return (
+    <div>
       <div>
-        <div>
-          {this.props.surveysingle.title}
-        </div>
-        <div>
-          {this.props.surveysingle.questions.map((question) => {
-            return (
-              <div>
-                <div className="questionLabel">
-                  {question.label}
-                </div>
-                <div>
-                  {question.options.map((option, i) => {
-                    return (
-                      <div>
-                        <div>
-                          {option.label}
-                        </div>
-                        <div>
-                          {option.votes}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        {props.surveysingle.title}
       </div>
-    );
-  }
-});
+      {props.surveysingle.questions.map((question) => {
+        return (
+          <div className="question">
+            <div className="questionLabel">
+              {question.label}
+            </div>
+            {question.options.map((option) => {
+              return (
+                <div className="option">
+                  <div className="optionLabel">
+                    {option.label}
+                  </div>
+                  <div className="optionVotes">
+                    {option.votes}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 export default SurveySingle;
