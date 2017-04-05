@@ -10,4 +10,8 @@ const Main = props => (
   </div>
 );
 
+Main.propTypes = {
+  children: React.PropTypes.element.isRequired
+};
+
 export default Main;
