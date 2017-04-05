@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "test": "npm run test:client && npm run test:server",
-    "test:client": "JASMINE_CONFIG_PATH=jasmine.json jasmine",
+    "test:client": "mocha './client/**/*.test.js'",
     "test:server": "NODE_ENV=test mocha './server/**/*.test.js'",
     "dev:client": "webpack-dev-server",
     "dev:server": "nodemon server/index.js",
@@ -42,7 +42,6 @@
     "express": "^4.15.2",
     "history": "^4.6.1",
     "html-webpack-plugin": "^2.28.0",
-    "jasmine": "^2.5.3",
     "material-ui": "^0.17.1",
     "mocha": "^3.2.0",
     "mongoose": "^4.9.2",
