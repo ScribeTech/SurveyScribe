@@ -1,13 +1,11 @@
 module.exports = function (io) {
   io.on('connection', (socket) => {
-    socket.on('created survey', (data) => {
-      console.log(data);
-      io.emit('new survey', data);
+    socket.on('new connection', (data) => {
+      io.emit('sync state', data);
     });
 
-    socket.on('voted', (data) => {
-      console.log(data);
-      io.emit('new vote', data);
+    socket.on('state change', (data) => {
+      io.emit('new state', data);
     });
   });
 };
