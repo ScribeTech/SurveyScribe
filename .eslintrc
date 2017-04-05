@@ -14,6 +14,7 @@
     "no-unused-vars": "warn",
     "no-unused-expressions": "warn",
     "global-require": "warn",
-    "prefer-es6-class": "off"
+    "prefer-es6-class": "off",
+    "no-console": "off"
   }
 }

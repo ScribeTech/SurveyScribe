@@ -1,9 +1,7 @@
-const config = require('./config/default.js');
+const config = require('./helpers/config.js');
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
-
 mongoose.Promise = require('bluebird');
 
 const app = express();
@@ -17,7 +15,7 @@ app.use(bodyParser.json());
 app.use(require('./middleware/log.js'));
 
 // Route requests
-app.use('/', express.static(path.join(__dirname, config.public)));
+app.use('/', express.static(config.public));
 app.use('/api', require('./controllers/api.js'));
 
 // Handle errors

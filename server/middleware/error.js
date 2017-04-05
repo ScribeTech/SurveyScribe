@@ -1,4 +1,4 @@
-const config = require('../config/default.js');
+const config = require('../helpers/config.js');
 
 module.exports = (error, request, response, next) => {
   // Default to a generic 500 error
