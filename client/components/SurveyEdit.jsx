@@ -1,11 +1,5 @@
 import React from 'react';
 
-const Edit = React.createClass({
-  render() {
-    return (
-      <p>Edit</p>
-    );
-  }
-});
+const Edit = props => <p>Edit</p>;
 
 export default Edit;
