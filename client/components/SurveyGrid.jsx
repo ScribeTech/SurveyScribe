@@ -37,7 +37,7 @@ const actions = [
 ];
 
 const SurveyGrid = props => (
-  <Layout title="Surveys" actions={actions} back="/">
+  <Layout title="Surveys" actions={actions}>
     <Grid>
       <Row>
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}

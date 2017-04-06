@@ -37,10 +37,10 @@ const Layout = props => (
 );
 
 Layout.propTypes = {
-  children: React.PropTypes.oneOfType(
+  children: React.PropTypes.oneOfType([
     React.PropTypes.element,
     React.PropTypes.arrayOf(React.PropTypes.element)
-  ).isRequired,
+  ]).isRequired,
   onTitleTouchTap: React.PropTypes.func,
   title: React.PropTypes.string,
   actions: React.PropTypes.arrayOf(
@@ -54,8 +54,7 @@ Layout.propTypes = {
 Layout.defaultProps = {
   onTitleTouchTap: () => { /* no-op */ },
   title: 'Survey Scribe',
-  actions: null,
-  back: '/'
+  actions: null
 };
 
 export default Layout;
