@@ -18,7 +18,7 @@ const styles = {
 const SurveyTile = props => (
   <Col xs={12} sm={12} md={4} xl={4}>
     <Card style={styles.card}>
-      <CardTitle>{props.title}</CardTitle>
+      <CardTitle title={props.title}/>
       <CardActions>
         <FlatButton label="Edit" />
         <FlatButton label="Results" />
