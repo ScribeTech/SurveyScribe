@@ -43,3 +43,9 @@ body {
 .gridtile {
   background-color: rgb(163, 252, 254);
 }
+
+.floatingActionButton {
+  position: fixed;
+  bottom: 20px;
+  right: 0px;   
+}
