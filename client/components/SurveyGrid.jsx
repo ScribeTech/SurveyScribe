@@ -1,41 +1,63 @@
 import React from 'react';
-import SurveySingle from './SurveySingle.jsx';
-import {GridList} from 'material-ui/GridList';
-import Subheader from 'material-ui/Subheader';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import { Link } from 'react-router';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Card, CardTitle, CardActions } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import Layout from './Layout';
 
-const Survey = (props) => {
-  const styles = {
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around'
-    },
-    gridList: {
-      width: 1000,
-      height: 850,
-      padding: 25
-    },
-  };
-
-  return (
-    <MuiThemeProvider>
-      <div style={styles.root}>
-        <GridList
-          cellHeight={150}
-          style={styles.gridList}
-          padding={8}
-        >
-          <Subheader>Your Surveys</Subheader>
-          {props.surveys.map((survey, i) => (
-            <SurveySingle surveysingle={survey} key={i} />
-          ))}
-        </GridList>
-      </div>
-    </MuiThemeProvider>
-  );
+const styles = {
+  card: {
+    marginBottom: 10,
+    marginTop: 10
+  }
 };
 
-export default Survey;
+const SurveyTile = props => (
+  <Col xs={12} sm={6} md={4}>
+    <Card style={styles.card}>
+      <CardTitle title={props.title} />
+      <CardActions>
+        <Link to="/edit"><FlatButton label="Edit" /></Link>
+        <Link to="/results"><FlatButton label="Results" /></Link>
+        <Link to="/answer"><FlatButton label="Share" /></Link>
+      </CardActions>
+    </Card>
+  </Col>
+);
 
+SurveyTile.propTypes = {
+  title: React.PropTypes.string.isRequired
+};
+
+const actions = [
+  { label: 'Save', callback: () => {} },
+  { label: 'Share', callback: () => {} },
+  { label: 'Delete', callback: () => {} }
+];
+
+const SurveyGrid = props => (
+  <Layout title="Surveys" actions={actions}>
+    <Grid>
+      <Row>
+        {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
+      </Row>
+    </Grid>
+  </Layout>
+);
+
+SurveyGrid.propTypes = {
+  surveys: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]).isRequired,
+    title: React.PropTypes.string.isRequired
+  }))
+};
+
+SurveyGrid.defaultProps = {
+  surveys: []
+};
+
+export default SurveyGrid;

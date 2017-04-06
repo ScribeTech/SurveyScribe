@@ -33,7 +33,7 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   output: {
-    filename: 'bundle.jsx',
+    filename: 'bundle.js',
     path: `${__dirname}/public`
   },
   plugins: [HTMLWebpackPluginConfig,

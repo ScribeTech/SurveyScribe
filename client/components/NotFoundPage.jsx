@@ -1,16 +1,12 @@
 // src/components/NotFoundPage.js
 import React from 'react';
-import { Link } from 'react-router';
+import Layout from './Layout';
 
 const NotFoundPage = props => (
-  <div className="not-found">
+  <Layout title="Not Found">
     <h1>404</h1>
-    <h2>Page not found!</h2>
-    <p>
-      <Link to="/">Go back to the main page</Link>
-    </p>
-  </div>
+    <p>Page not found!</p>
+  </Layout>
 );
-
 
 export default NotFoundPage;
