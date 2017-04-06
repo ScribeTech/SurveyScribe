@@ -30,7 +30,6 @@ function questionOptions(state = [], action) {
   }
 }
 
-
 export function options(state = {}, action) {
   if (typeof action.questionId !== 'undefined') {
     return {
