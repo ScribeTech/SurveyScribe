@@ -4,10 +4,12 @@ import { hashHistory } from 'react-router';
 
 import rootReducer from './reducers/index';
 
-import surveys from './data/surveys';
+import surveys from './data/separated/surveys.js';
+import options from './data/separated/options.js';
+import questions from './data/separated/questions.js';
 
 const defaultState = {
-  surveys
+  surveys: { surveys, options, questions }
 };
 
 console.log('defaultState', defaultState);

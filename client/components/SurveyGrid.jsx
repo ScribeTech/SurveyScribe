@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Link } from 'react-router';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';

@@ -3,6 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Import Components
 import App from './components/App';
@@ -32,5 +33,7 @@ const router = (
     </Router>
   </Provider>
 );
+
+injectTapEventPlugin();
 
 render(router, document.getElementById('app'));
