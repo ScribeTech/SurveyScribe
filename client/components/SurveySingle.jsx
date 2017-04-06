@@ -1,7 +1,7 @@
 import React from 'react';
 import { GridTile } from 'material-ui/GridList';
 import { Link } from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 const SurveySingle = (props) => {
   const style = {
@@ -16,9 +16,15 @@ const SurveySingle = (props) => {
         title={props.surveysingle.title.toUpperCase()}
         actionIcon={
           <div className="actionButtons">
-            <Link to="/edit"><button>Edit</button></Link>
-            <Link to="/results"><button>Result</button></Link>
-            <Link to="/share"><button>Share</button></Link>
+            <FlatButton label="Edit"
+              containerElement={<Link to="/edit" />}
+              linkButton />
+            <FlatButton label="Result"
+              containerElement={<Link to="/results" />}
+              linkButton />
+            <FlatButton label="Share"
+              containerElement={<Link to="/share" />}
+              linkButton />
           </div>
         }
         className="gridtile"

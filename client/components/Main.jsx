@@ -14,17 +14,18 @@ import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { deepOrange500 } from 'material-ui/styles/colors';
 
 // Styling
 import '../assets/normalize.css';
 import '../assets/stylesheet.css';
 
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500
-  },
-});
+const muiTheme = getMuiTheme();
+// import { deepBlue500 } from 'material-ui/styles/colors';
+// const muiTheme = getMuiTheme({
+//   palette: {
+//     primary1Color: deepOrange500
+//   },
+// });
 
 const styles = {
   title: {

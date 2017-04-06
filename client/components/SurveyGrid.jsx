@@ -1,41 +1,46 @@
 import React from 'react';
-import SurveySingle from './SurveySingle.jsx';
-import {GridList} from 'material-ui/GridList';
-import Subheader from 'material-ui/Subheader';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import { Link } from 'react-router';
+import { GridList, GridTile } from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import MenuItem from 'material-ui/MenuItem';
 
-const Survey = (props) => {
-  const styles = {
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around'
-    },
-    gridList: {
-      width: 1000,
-      height: 850,
-      padding: 25
-    },
-  };
-
-  return (
-    <MuiThemeProvider>
-      <div style={styles.root}>
-        <GridList
-          cellHeight={150}
-          style={styles.gridList}
-          padding={8}
-        >
-          <Subheader>Your Surveys</Subheader>
-          {props.surveys.map((survey, i) => (
-            <SurveySingle surveysingle={survey} key={i} />
-          ))}
-        </GridList>
-      </div>
-    </MuiThemeProvider>
-  );
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
+  },
+  gridList: {
+    width: 1000,
+    height: 850,
+    padding: 25
+  },
 };
 
-export default Survey;
+const Actions = props => (
+  <IconMenu iconButtonElement={<IconButton><NavigationExpandMoreIcon color="white" /></IconButton>}>
+    <MenuItem primaryText="Edit" />
+    <MenuItem primaryText="Results" />
+    <MenuItem primaryText="Share" />
+  </IconMenu>
+);
 
+const SurveyTile = props => (
+  <GridTile
+    title={props.title}
+    actionIcon={<Actions />}
+  />
+);
+
+const SurveyGrid = props => (
+  <div style={styles.root}>
+    <GridList cellHeight={180} style={styles.gridList}>
+      {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
+    </GridList>
+  </div>
+);
+
+export default SurveyGrid;
