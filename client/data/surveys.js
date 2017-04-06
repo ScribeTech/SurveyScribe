@@ -1,11 +1,11 @@
 const surveys = [{
-  "id": "1",
+  "id": 1,
   "title": "Right-sized holistic middleware"
 }, {
-  "id": "2",
+  "id": 2,
   "title": "Cloned disintermediate hardware"
 }, {
-  "id": "3",
+  "id": 3,
   "title": "Centralized full-range moratorium"
 }];
 
