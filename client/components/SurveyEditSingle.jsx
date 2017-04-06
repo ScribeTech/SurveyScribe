@@ -1,15 +1,19 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 const EditSingle = (props) => {
   const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const styles = {
     question: {
-      'margin-left': '25px'
+      marginLeft: '25px'
 
     },
     option: {
-      'margin-left': '50px'
+      marginLeft: '50px'
     }
   };
 
@@ -20,25 +24,26 @@ const EditSingle = (props) => {
         defaultValue={props.survey.title}
       />
       {props.questions[props.survey.id].map((question, i) => (
-        <div>
+        <div style={styles.question}>
+          <span>{i + '.   '}</span>
           <TextField
             id={props.survey.id.toString()}
-            defaultValue={i + 1 + '.   ' + question.label}
-            style={styles.question}
+            defaultValue={question.label}
           />
-          
           {props.options[0][question.id].map((option, j) => (
-            <div>
+            <div style={styles.option}>
+              <span>{alphabet[j] + '.   '}</span>
               <TextField
                 id={props.survey.id.toString()}
-                defaultValue={alphabet[j] + '.   ' + option}
-                style={styles.option}
+                defaultValue={option}
               />
             </div>
           ))}
+          <RaisedButton label="Add Choice" style={styles.option} />
+
         </div>
       ))}
-    </div> 
+    </div>
   );
 };
 
