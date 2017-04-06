@@ -4,8 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Center from 'react-center';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import Logo from '../styles/Logo.png';
-import Github from '../styles/GitHub-Mark-32px.png';
+import Logo from '../assets/Logo.png';
+import Github from '../assets/GitHub-Mark-32px.png';
 
 const LandingPage = props => (
   <div>

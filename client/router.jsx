@@ -14,9 +14,7 @@ import Results from './components/Results';
 import Finish from './components/Finish';
 import NotFoundPage from './components/NotFoundPage';
 
-// import styling
-import css from './styles/stylesheet.css';
-
+// Import the Application's State (Redux)
 import store, { history } from './store';
 
 const router = (
