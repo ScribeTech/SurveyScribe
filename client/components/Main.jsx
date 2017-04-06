@@ -1,4 +1,5 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Needed for onTouchTap
@@ -6,9 +7,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const Main = props => (
-  <div>
+  <MuiThemeProvider>
     {React.cloneElement(props.children, props)}
-  </div>
+  </MuiThemeProvider>
 );
 
 Main.propTypes = {
