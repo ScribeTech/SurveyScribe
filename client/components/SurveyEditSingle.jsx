@@ -1,38 +1,39 @@
 import React from 'react';
-import SurveyEditSingle from './SurveyEditSingle.jsx';
+import TextField from 'material-ui/TextField';
 
 const EditSingle = (props) => {
+  const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const styles = {
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
+    question: {
+      'margin-left': '25px'
 
     },
-    gridList: {
-      width: 1000,
-      padding: 25
-    },
-    paper: {
-      height: 200,
-      width: 800,
-      margin: 10,
-      textAlign: 'center',
-      display: 'inline-block'
+    option: {
+      'margin-left': '50px'
     }
   };
 
   return (
     <div>
-      {props.survey.title}
-      {props.questions[props.survey.id].map((question) => (
+      <TextField
+        id={props.survey.id.toString()}
+        defaultValue={props.survey.title}
+      />
+      {props.questions[props.survey.id].map((question, i) => (
         <div>
-          <div>
-            {question.label}
-          </div>
-          {props.options[0][question.id].map((option) => (
+          <TextField
+            id={props.survey.id.toString()}
+            defaultValue={i + 1 + '.   ' + question.label}
+            style={styles.question}
+          />
+          
+          {props.options[0][question.id].map((option, j) => (
             <div>
-              {option}
+              <TextField
+                id={props.survey.id.toString()}
+                defaultValue={alphabet[j] + '.   ' + option}
+                style={styles.option}
+              />
             </div>
           ))}
         </div>

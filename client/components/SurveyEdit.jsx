@@ -17,10 +17,9 @@ const Edit = (props) => {
       padding: 25
     },
     paper: {
-      height: 200,
       width: 800,
       margin: 10,
-      textAlign: 'center',
+      padding: 15,
       display: 'inline-block'
     }
   };
