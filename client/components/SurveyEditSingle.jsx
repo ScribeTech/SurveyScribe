@@ -24,7 +24,19 @@ const EditSingle = (props) => {
 
   return (
     <div>
-      test
+      {props.survey.title}
+      {props.questions[props.survey.id].map((question) => (
+        <div>
+          <div>
+            {question.label}
+          </div>
+          {props.options[0][question.id].map((option) => (
+            <div>
+              {option}
+            </div>
+          ))}
+        </div>
+      ))}
     </div> 
   );
 };

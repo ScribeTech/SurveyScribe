@@ -34,9 +34,9 @@ const Edit = (props) => {
           padding={8}
           cols={1}
         >
-          {props.surveys.map((survey, i) => (
+          {props.surveys.surveys.map((survey, i) => (
             <Paper style={styles.paper} key={i} zDepth={2}>
-              <SurveyEditSingle survey={survey} />
+              <SurveyEditSingle survey={survey} questions={props.surveys.questions} options={props.surveys.options}/>
             </Paper>
           ))}
         </GridList>
