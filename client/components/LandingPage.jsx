@@ -3,12 +3,9 @@ import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Center from 'react-center';
 import RaisedButton from 'material-ui/RaisedButton';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Logo from '../assets/Logo.png';
 import Github from '../assets/GitHub-Mark-32px.png';
-
-injectTapEventPlugin();
 
 const LandingPage = props => (
   <div>
