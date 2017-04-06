@@ -1,46 +1,39 @@
 import React from 'react';
 
 import { Link } from 'react-router';
-import { GridList, GridTile } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import MenuItem from 'material-ui/MenuItem';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Card, CardTitle, CardActions } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around'
+    paddingTop: 20
   },
-  gridList: {
-    width: 1000,
-    height: 850,
-    padding: 25
-  },
+  card: {
+    marginBottom: 10,
+    marginTop: 10
+  }
 };
 
-const Actions = props => (
-  <IconMenu iconButtonElement={<IconButton><NavigationExpandMoreIcon color="white" /></IconButton>}>
-    <MenuItem primaryText="Edit" />
-    <MenuItem primaryText="Results" />
-    <MenuItem primaryText="Share" />
-  </IconMenu>
-);
-
 const SurveyTile = props => (
-  <GridTile
-    title={props.title}
-    actionIcon={<Actions />}
-  />
+  <Col xs={12} sm={12} md={4} xl={4}>
+    <Card style={styles.card}>
+      <CardTitle>{props.title}</CardTitle>
+      <CardActions>
+        <FlatButton label="Edit" />
+        <FlatButton label="Results" />
+        <FlatButton label="Share" />
+      </CardActions>
+    </Card>
+  </Col>
 );
 
 const SurveyGrid = props => (
-  <div style={styles.root}>
-    <GridList cellHeight={180} style={styles.gridList}>
+  <Grid style={styles.root}>
+    <Row>
       {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
-    </GridList>
-  </div>
+    </Row>
+  </Grid>
 );
 
 export default SurveyGrid;

@@ -6,34 +6,3 @@ body {
   font-size: 13px;
   line-height: 20px;
 }
-
-.footer {
-  color: #4b6ecc;
-  text-align: right;
-  padding: 24px;
-  background: #fff;
-}
-.logo {
-  margin-top: 200px
-}
-
-.surveyPic {
-  top: 0% !important;
-  right: 90px !important;
-}
-
-.actionButtons{
-  outline-offset: 20px;
-  padding: 4px;
-  font-size: 4px;
-}
-
-.actionButtonsSingle{
-  outline-offset: 20px;
-  padding: 4px !important;
-  font-size: 4px !important;
-}
-
-.gridtile {
-  background-color: rgb(163, 252, 254);
-}
