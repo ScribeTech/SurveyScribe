@@ -7,15 +7,7 @@
     "start": "export NODE_ENV=production; pm2 start ./server/index.js --name Server",
     "stop": "pm2 stop server",
     "test": "npm run test:client && npm run test:server",
-<<<<<<< HEAD
     "test:client": "mocha-webpack --webpack-config webpack.config-test.babel.js \"client/**/*.test.js\"",
-=======
-<<<<<<< HEAD
-    "test:client": "mocha './client/**/*.test.js'",
-=======
-    "test:client": "test:client": "mocha './client/**/*.test.js'",
->>>>>>> Add reducers and actionCreators
->>>>>>> Add reducers and actionCreators
     "test:server": "NODE_ENV=test mocha './server/**/*.test.js'",
     "dev:client": "webpack-dev-server --hot --inline --progress",
     "dev:server": "nodemon server/index.js",

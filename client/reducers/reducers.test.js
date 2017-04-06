@@ -2,7 +2,7 @@ import chai from 'chai';
 import deepFreeze from 'deep-freeze';
 import reducer from './index';
 
-import surveys from '../data/surveys';
+import { surveys } from '../data/surveys';
 import questions from '../data/questions';
 import options from '../data/options';
 import pretendMongoSurveys from '../data/pretendMongoSurveys';
