@@ -1,95 +1,91 @@
-// increment
-export function increment(surveyId, qIndex, opIndex) {
-  return {
-    type: 'INCREMENT_VOTES',
-    surveyId,
-    qIndex,
-    opIndex
-  };
-}
+import mongoose from 'mongoose';
 
 // add survey
-export function addSurvey(surveyId, title, questions) {
+export function addSurvey(id, title) {
   return {
     type: 'ADD_SURVEY',
-    surveyId,
-    title,
-    questions
+    id,
+    title
   };
 }
 
 // edit survey
-export function editSurvey(surveyId, title) {
+export function editSurvey(i, title) {
   return {
     type: 'EDIT_SURVEY',
-    surveyId,
+    i,
     title
   };
 }
 
 // remove survey
-export function removeSurvey(surveyId) {
+export function removeSurvey(i) {
   return {
     type: 'REMOVE_SURVEY',
-    surveyId
+    i
   };
 }
 
 // add question
-export function addQuestion(surveyId, label, options) {
+export function addQuestion(surveyId, label) {
   return {
     type: 'ADD_QUESTION',
     surveyId,
-    label,
-    options
+    id: mongoose.Types.ObjectId(),
+    label
   };
 }
 // edit question
-export function editQuestion(surveyId, qIndex, label) {
+export function editQuestion(surveyId, i, label) {
   return {
     type: 'EDIT_QUESTION',
     surveyId,
-    qIndex,
+    i,
     label
   };
 }
 // remove question
-export function removeQuestion(surveyId, qIndex) {
+export function removeQuestion(surveyId, i) {
   return {
     type: 'REMOVE_QUESTION',
     surveyId,
-    qIndex
+    i
   };
 }
 
 // add Option
-export function addOption(surveyId, qIndex, label, votes) {
+export function addOption(questionId, label) {
   return {
     type: 'ADD_OPTION',
-    surveyId,
-    qIndex,
-    label,
-    votes
-  };
-}
-
-// remove option
-export function editOption(surveyId, qIndex, opIndex, label) {
-  return {
-    type: 'EDIT_OPTION',
-    surveyId,
-    qIndex,
-    opIndex,
+    questionId,
     label
   };
 }
 
 // remove option
-export function removeOption(surveyId, qIndex, opIndex) {
+export function editOption(questionId, i, label) {
+  return {
+    type: 'EDIT_OPTION',
+    questionId,
+    i,
+    label
+  };
+}
+
+// remove option
+export function removeOption(questionId, i) {
   return {
     type: 'REMOVE_OPTION',
-    surveyId,
-    qIndex,
-    opIndex
+    questionId,
+    i
+  };
+}
+
+// increment
+export function increment(questionId, i) {
+  return {
+    type: 'INCREMENT_VOTES',
+    questionId,
+    i
   };
 }

@@ -17,4 +17,6 @@ node_modules/
 
 # Eslint Cache
 .eslintcache
-*.eslintcache
+
+# Mocha-webpack files
+.tmp/mocha-webpack

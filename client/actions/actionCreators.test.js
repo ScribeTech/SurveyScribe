@@ -1,14 +1,14 @@
-describe('ActionCreator', () => {
-  it('should be a function'), () => {
-    expect()
-  });
+// xdescribe('ActionCreator', () => {
+//   it('should be a function'), () => {
+//     expect()
+//   });
+//
+//   it('should include a type', () {
+//
+//   });
+// });
 
-  it('should include a type', () {
-
-  });
-});
-
-//actions desired:
+// actions desired:
 // add survey
 // remove survey
 // add question
