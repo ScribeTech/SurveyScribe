@@ -1,8 +1,14 @@
 import React from 'react';
 import { GridTile } from 'material-ui/GridList';
 import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const SurveySingle = (props) => {
+  const style = {
+    padding: '4px',
+    'font-size': '4px',
+  };
+
   return (
     <Link to="/edit">
       <GridTile
@@ -10,15 +16,14 @@ const SurveySingle = (props) => {
         title={props.surveysingle.title.toUpperCase()}
         actionIcon={
           <div className="actionButtons">
-            <Link to="/edit"><button >Edit </button></Link>
-            <Link to="/results"><button >Anaylize </button></Link>
-            <Link to="/share"><button >Share </button></Link>
+            <Link to="/edit"><button>Edit</button></Link>
+            <Link to="/results"><button>Result</button></Link>
+            <Link to="/share"><button>Share</button></Link>
           </div>
         }
         className="gridtile"
         titleBackground="rgba(0,0,255,0.3)"
       >
-        <img className="surveyPic" src="http://www.fmsi.com/fullpanel/uploads/files/survey-icon.png" alt="asdf" />
       </GridTile>
     </Link>
   );
