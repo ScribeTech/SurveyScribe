@@ -5,7 +5,7 @@ import Layout from './Layout';
 const NotFoundPage = props => (
   <Layout title="Not Found">
     <h1>404</h1>
-    <h2>Page not found!</h2>
+    <p>Page not found!</p>
   </Layout>
 );
 

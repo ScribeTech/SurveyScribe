@@ -9,6 +9,10 @@ body {
   padding: 0;
 }
 
+.content {
+  padding: 20px;
+}
+
 .footer {
   color: #4b6ecc;
   text-align: right;

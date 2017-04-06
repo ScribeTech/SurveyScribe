@@ -7,9 +7,6 @@ import FlatButton from 'material-ui/FlatButton';
 import Layout from './Layout';
 
 const styles = {
-  root: {
-    paddingTop: 20
-  },
   card: {
     marginBottom: 10,
     marginTop: 10
@@ -41,7 +38,7 @@ const actions = [
 
 const SurveyGrid = props => (
   <Layout title="Surveys" actions={actions} back="/">
-    <Grid style={styles.root}>
+    <Grid>
       <Row>
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
       </Row>
