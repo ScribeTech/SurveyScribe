@@ -9,7 +9,9 @@ const clientSocket = io('http://localhost:8080', { path: '/api/result' });
 function mapStateToProps(state) {
   return {
     surveys: state.surveys,
-    socket: clientSocket
+    socket: clientSocket,
+    questions: state.questions,
+    options: state.options
   };
 }
 

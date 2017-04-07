@@ -4,15 +4,15 @@ import { hashHistory } from 'react-router';
 
 import rootReducer from './reducers/index';
 
-import surveys from './data/separated/surveys.js';
-import options from './data/separated/options.js';
-import questions from './data/separated/questions.js';
+import surveys from './data/surveys';
+import questions from './data/questions';
+import options from './data/options';
 
 const defaultState = {
-  surveys: { surveys, options, questions }
+  surveys,
+  questions,
+  options
 };
-
-console.log('defaultState', defaultState);
 
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
