@@ -4,8 +4,6 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
 
-import Layout from './Layout';
-
 const styles = {
   paper: {
     width: 'auto',

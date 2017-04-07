@@ -2,9 +2,9 @@ import React from 'react';
 import { GridList } from 'material-ui/GridList';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
-import SurveyEditSingle from './SurveyEditSingle.jsx';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import SurveyEditSingle from './SurveyEditSingle';
 import Layout from './Layout';
 
 const Edit = (props) => {
@@ -44,8 +44,8 @@ const Edit = (props) => {
             padding={8}
             cols={1}
           >
-            {props.surveys.map((survey, i) => (
-              <Paper style={styles.paper} key={i} zDepth={2}>
+            {props.surveys.map(survey => (
+              <Paper key={survey.id} style={styles.paper} zDepth={2}>
                 <SurveyEditSingle
                   survey={survey}
                   questions={props.questions}
