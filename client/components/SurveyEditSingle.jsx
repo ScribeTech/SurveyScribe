@@ -44,12 +44,12 @@ const EditSingle = (props) => {
                 id={props.survey.id.toString()}
                 defaultValue={option.label}
               />
-              <span>
+              <span onClick={() => props.removeOption(question.questionId, j)}>
                 <img style={styles.trash} src={Trash} alt="trash" />
               </span>
             </div>
           ))}
-          <RaisedButton onClick={() => props.addOption(60, 'test')} label="Add Choice" style={styles.option} />
+          <RaisedButton onClick={() => props.addOption(question.questionId, '')} label="Add Choice" style={styles.option} />
         </div>
       ))}
     </div>
