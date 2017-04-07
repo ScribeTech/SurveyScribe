@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import axios from 'axios';
+import 'whatwg-fetch';
 import Layout from './Layout';
 
 const styles = {
@@ -39,26 +39,28 @@ const actions = [
 ];
 
 const handleClick = () => {
-  axios.post('http://localhost:8080/api/surveys', {
-    title: 'New Survey',
-    questions: [
-      {
-        _id: '0',
+  fetch('http://localhost:8080/api/surveys', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: 'New Survey',
+      questions: [{
+        _id: 0,
         label: '',
-        options: [
-          {
-            label: '',
-            votes: 0
-          }
-        ]
-      }
-    ]
-  },
-    {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        options: [{
+          label: '',
+          votes: 0
+        }]
+      }]
     })
-  .then((response) => {
-    console.log(response);
+  })
+  .then(response =>
+    response.json()
+  )
+  .then((result) => {
+    browserHistory.push('/#/?_k=95ezn9');
   })
   .catch((error) => {
     throw error;
