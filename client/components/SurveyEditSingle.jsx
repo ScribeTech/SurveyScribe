@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Trash from './../Styles/TrashCan.png';
+import Trash from './../assets/TrashCan.png';
 
 const EditSingle = (props) => {
   EditSingle.propTypes = {
