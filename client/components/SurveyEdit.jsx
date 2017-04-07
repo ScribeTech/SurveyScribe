@@ -50,11 +50,12 @@ const Edit = (props) => {
                   survey={survey}
                   questions={props.questions}
                   options={props.options}
+                  {...props}
                 />
               </Paper>
             ))}
           </GridList>
-          <FloatingActionButton className="floatingActionButton" style={styles.actionButton} zDepth={3}>
+          <FloatingActionButton onClick={() => props.addSurvey((props.surveys.length + 1).toString(), '')} className="floatingActionButton" style={styles.actionButton} zDepth={3}>
             <ContentAdd />
           </FloatingActionButton>
         </div>
