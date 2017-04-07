@@ -34,10 +34,10 @@ const router = (
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
           <Route path="survey" component={SurveyGrid} />
-          <Route path="survey/:surveyId/edit" component={SurveyEdit} />
-          <Route path="survey/:surveyId/answer" component={SurveyAnswer} />
-          <Route path="survey/:surveyId/results" component={Results} />
-          <Route path="survey/:surveyId/finish" component={Finish} />
+          <Route path="survey/:surveyID/edit" component={SurveyEdit} />
+          <Route path="survey/:surveyID/answer" component={SurveyAnswer} />
+          <Route path="survey/:surveyID/results" component={Results} />
+          <Route path="survey/:surveyID/finish" component={Finish} />
           <Route path="*" component={NotFoundPage} />
         </Route>
       </Router>

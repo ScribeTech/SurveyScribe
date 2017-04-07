@@ -16,44 +16,53 @@ const actions = [
   { label: 'Delete', callback: () => {} }
 ];
 
-const Edit = ({ surveys, surveys: [survey], questions, options }, addSurvey) => (
-  <Layout title="Survey Edit" actions={actions}>
-    <TextField
-      floatingLabelText="Title"
-      id={survey.id.toString()}
-      defaultValue={survey.title}
-    />
-    {questions[survey.id].map((question, i) => (
-      <List>
-        {`${i + 1}.   `}
-        <TextField
-          id={survey.id.toString()}
-          floatingLabelText="Question"
-          defaultValue={question.label}
-        />
-        <IconButton><CloseIcon /></IconButton>
-        {options[question.questionId].map(option => (
-          <ListItem disabled>
-            <TextField
-              id={survey.id.toString()}
-              floatingLabelText="Option"
-              defaultValue={option.label}
-            />
-            <IconButton><CloseIcon /></IconButton>
-          </ListItem>
-        ))}
-        <RaisedButton label="Add Option" />
-      </List>
-    ))}
-    <FloatingActionButton
-      onClick={() => addSurvey((surveys.length + 1).toString(), '')}
-      className="floatingActionButton"
-      zDepth={3}
-    >
-      <ContentAdd />
-    </FloatingActionButton>
-  </Layout>
-);
+const Edit = (props) => {
+  const surveyID = props.params.surveyID;
+  const [survey] = props.surveys.filter(s => s.id === surveyID);
+    // TODO: keep track of this in a reducer
+  return (
+    <Layout title="Survey Edit" actions={actions}>
+      <TextField
+        floatingLabelText="Title"
+        id={survey.id.toString()}
+        defaultValue={survey.title}
+      />
+      {props.questions[survey.id].map((question, i) => (
+        <List>
+          {`${i + 1}.   `}
+          <TextField
+            id={survey.id.toString()}
+            floatingLabelText="Question"
+            defaultValue={question.label}
+          />
+          <IconButton onClick={() => props.removeSurvey(survey.id)}>
+            <CloseIcon />
+          </IconButton>
+          {props.options[question.questionId].map((option, j) => (
+            <ListItem disabled>
+              <TextField
+                id={survey.id.toString()}
+                floatingLabelText="Option"
+                defaultValue={option.label}
+              />
+              <IconButton onClick={() => props.removeOption(question.id, j)}>
+                <CloseIcon />
+              </IconButton>
+            </ListItem>
+          ))}
+          <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
+        </List>
+      ))}
+      <FloatingActionButton
+        onClick={() => props.addQuestion(survey.id, '')}
+        className="floatingActionButton"
+        zDepth={3}
+      >
+        <ContentAdd />
+      </FloatingActionButton>
+    </Layout>
+  );
+};
 
 Edit.propTypes = {}.isRequired;
 
