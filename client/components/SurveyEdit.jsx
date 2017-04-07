@@ -7,6 +7,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const Edit = (props) => {
+  console.log("props surveyedit", props)
   const styles = {
     root: {
       display: 'flex',
@@ -40,7 +41,7 @@ const Edit = (props) => {
         >
           {props.surveys.map((survey, i) => (
             <Paper style={styles.paper} key={i} zDepth={2}>
-              <SurveyEditSingle survey={survey} questions={props.surveys.questions} options={props.surveys.options} />
+              <SurveyEditSingle survey={survey} questions={props.questions} options={props.options} />
             </Paper>
           ))}
         </GridList>
