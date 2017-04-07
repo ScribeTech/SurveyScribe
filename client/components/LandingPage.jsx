@@ -32,10 +32,10 @@ const LandingPage = props => (
     <Link to="/survey/:surveyId/edit"> edit test link </Link>
     <br />
 
-    <Link to="/results"> results test link </Link>
+    <Link to="survey/:surveyId/results"> results test link </Link>
     <br />
 
-    <Link to="/answer"> answer test link </Link>
+    <Link to="survey/surveyId/answer"> answer test link </Link>
     <br />
 
     <Link to="survey/:surveyId/finish"> finish test link </Link>
