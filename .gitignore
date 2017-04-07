@@ -19,4 +19,4 @@ node_modules/
 .eslintcache
 
 # Mocha-webpack files
-.tmp/mocha-webpack
+.tmp/mocha-webpack/

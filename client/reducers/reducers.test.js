@@ -133,23 +133,79 @@ describe('Reducers', () => {
       });
     });
   });
+  describe('Options', () => {
+    describe('ADD_OPTION', () => {
+      it('should add a option to the current list of options', () => {
+        const questionId = 1;
+        const option = {
+          label: 'Cat'
+        };
+
+        const action = Object.assign({}, option, { type: 'ADD_OPTION', questionId });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.options[questionId].length).to.equal(4);
+        expect(JSON.stringify(changedState.options[questionId][3].label))
+                   .to.equal(JSON.stringify(option.label));
+      });
+    });
+    describe('REMOVE_OPTION', () => {
+      it('should remove a option from the current list of options', () => {
+        const action = {
+          questionId: 1,
+          type: 'REMOVE_OPTION',
+          i: 2
+        };
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.options[1].length).to.equal(2);
+        expect(changedState.options[1][2]).to.not.exist;
+      });
+    });
+    describe('EDIT_OPTION', () => {
+      it('should edit an existing option in the list of options', () => {
+        const questionId = 1;
+        const option = {
+          i: 1,
+          label: 'Megan and Jin are the TRUE WARRIORS'
+        };
+
+        const action = Object.assign({}, option, { type: 'EDIT_OPTION', questionId });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.options[questionId].length).to.equal(3);
+        expect(JSON.stringify(changedState.options[questionId][option.i].label))
+               .to.equal(JSON.stringify(option.label));
+        expect(JSON.stringify(changedState.options[questionId][0]))
+               .to.equal(JSON.stringify(initialState.options[1][0]));
+        expect(JSON.stringify(changedState.options[questionId][2]))
+               .to.equal(JSON.stringify(initialState.options[1][2]));
+      });
+    });
+    describe('INCREMENT_VOTES', () => {
+      it('should increment the votes for an existing option', () => {
+        const option = {
+          type: 'INCREMENT_VOTES',
+          questionId: 2,
+          i: 1
+        };
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, option);
+
+        expect(changedState.options[2][1].votes)
+               .to.equal(initialState.options[2][1].votes + 1);
+      });
+    });
+  });
 });
-
-
-   //
-  //  // unit tests for options reducer
-  //  xdescribe('Options', () => {
-  //    describe('ADD_OPTION', () => {
-   //
-  //    });
-  //    describe('REMOVE_OPTION', () => {
-   //
-  //    });
-  //    describe('EDIT_OPTION', () => {
-   //
-  //    });
-  //    describe('INCREMENT_VOTES', () => {
-   //
-  //    });
-//   //  });
-// });
