@@ -1,14 +1,6 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-// import styling
-import '../assets/stylesheet.css';
-
-const Main = props => (
-  <MuiThemeProvider>
-    {React.cloneElement(props.children, props)}
-  </MuiThemeProvider>
-);
+const Main = props => <div>{React.cloneElement(props.children, props)}</div>;
 
 Main.propTypes = {
   children: React.PropTypes.element.isRequired

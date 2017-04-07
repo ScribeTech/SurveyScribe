@@ -1,36 +1,28 @@
 import React from 'react';
 
-const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-const styles = {
-  question: {
-    marginLeft: '25px'
-  },
-  option: {
-    marginLeft: '50px'
-  },
-  trash: {
-    marginLeft: '20px'
-  }
-};
+import RaisedButton from 'material-ui/RaisedButton';
+import Subheader from 'material-ui/Subheader';
+import Checkbox from 'material-ui/Checkbox';
+import { List, ListItem } from 'material-ui/List';
 
-const Answer = props => (
-  <div>
-    {props.surveys.map(survey => (
-      <div key={survey.id}>
-        <h1>{survey.title}</h1>
-        {props.questions[survey.id].map((question, i) => (
-          <div style={styles.question}>
-            <h4>{`${i + 1}. ${question.label}`}</h4>
-            {props.options[question.questionId].map((option, j) => (
-              <div style={styles.option}>
-                {`${alphabet[j]}. ${option.label}`}
-              </div>
-            ))}
-          </div>
+import Content from './Content';
+
+const Answer = ({ surveys: [survey], questions, options }) => (
+  <Content className="content">
+    <h1>{survey.title}</h1>
+    {questions[survey.id].map((question, i) => (
+      <List>
+        <h3>{`${i + 1}. ${question.label}`}</h3>
+        {options[question.questionId].map(option => (
+          <ListItem
+            leftCheckbox={<Checkbox />}
+            primaryText={option.label}
+          />
         ))}
-      </div>
+      </List>
     ))}
-  </div>
+    <RaisedButton label="Submit Answers" primary fullWidth />
+  </Content>
 );
 
 Answer.propTypes = {}.isRequired;

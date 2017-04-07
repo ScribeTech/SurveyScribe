@@ -12,6 +12,9 @@ const HotModuleReplacementPlugin = new webpack.HotModuleReplacementPlugin();
 module.exports = {
   entry: `${__dirname}/client/router`,
   module: {
+    devServer: {
+      historyApiFallback: true
+    },
     loaders: [
       {
         test: /\.jsx?$/,
@@ -41,8 +44,5 @@ module.exports = {
   plugins: [
     HTMLWebpackPluginConfig,
     HotModuleReplacementPlugin
-  ],
-  devServer: {
-    historyApiFallback: true
-  }
+  ]
 };

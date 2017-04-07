@@ -1,56 +1,57 @@
 import React from 'react';
-import { GridList } from 'material-ui/GridList';
-import Paper from 'material-ui/Paper';
+
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import SurveyEditSingle from './SurveyEditSingle';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import { List, ListItem } from 'material-ui/List';
+
 import Layout from './Layout';
 
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
+const actions = [
+  { label: 'Save', callback: () => {} },
+  { label: 'Share', callback: () => {} },
+  { label: 'Delete', callback: () => {} }
+];
 
-  },
-  gridList: {
-    width: 1000,
-    padding: 25
-  },
-  paper: {
-    width: 800,
-    margin: 10,
-    padding: 15,
-    display: 'inline-block'
-  },
-  actionButton: {
-    marginRight: 20
-  }
-};
-
-const Edit = props => (
-  <Layout title="Survey Edit" share="share" save="save">
-    <div style={styles.root}>
-      <GridList
-        cellHeight={'auto'}
-        style={styles.gridList}
-        padding={8}
-        cols={1}
-      >
-        {props.surveys.map(survey => (
-          <Paper key={survey.id} style={styles.paper} zDepth={2}>
-            <SurveyEditSingle
-              survey={survey}
-              questions={props.questions}
-              options={props.options}
+const Edit = ({ surveys, surveys: [survey], questions, options }, addSurvey) => (
+  <Layout title="Survey Edit" actions={actions}>
+    <TextField
+      floatingLabelText="Title"
+      id={survey.id.toString()}
+      defaultValue={survey.title}
+    />
+    {questions[survey.id].map((question, i) => (
+      <List>
+        {`${i + 1}.   `}
+        <TextField
+          id={survey.id.toString()}
+          floatingLabelText="Question"
+          defaultValue={question.label}
+        />
+        <IconButton><CloseIcon /></IconButton>
+        {options[question.questionId].map(option => (
+          <ListItem disabled>
+            <TextField
+              id={survey.id.toString()}
+              floatingLabelText="Option"
+              defaultValue={option.label}
             />
-          </Paper>
+            <IconButton><CloseIcon /></IconButton>
+          </ListItem>
         ))}
-      </GridList>
-      <FloatingActionButton onClick={() => props.addSurvey((props.surveys.length + 1).toString(), '')} className="floatingActionButton" style={styles.actionButton} zDepth={3}>
-        <ContentAdd />
-      </FloatingActionButton>
-    </div>
+        <RaisedButton label="Add Option" />
+      </List>
+    ))}
+    <FloatingActionButton
+      onClick={() => addSurvey((surveys.length + 1).toString(), '')}
+      className="floatingActionButton"
+      zDepth={3}
+    >
+      <ContentAdd />
+    </FloatingActionButton>
   </Layout>
 );
 

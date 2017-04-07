@@ -7,6 +7,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import 'whatwg-fetch';
 import Layout from './Layout';
+import Content from './Content';
 
 const styles = {
   card: {
@@ -35,12 +36,6 @@ SurveyTile.propTypes = {
     React.PropTypes.string
   ]).isRequired
 };
-
-const actions = [
-  { label: 'Save', callback: () => {} },
-  { label: 'Share', callback: () => {} },
-  { label: 'Delete', callback: () => {} }
-];
 
 const handleClick = () => {
   fetch('http://localhost:8080/api/surveys', {
@@ -72,7 +67,7 @@ const handleClick = () => {
 };
 
 const SurveyGrid = props => (
-  <Layout title="Surveys" actions={actions}>
+  <Layout title="Surveys">
     <Grid>
       <Row>
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
