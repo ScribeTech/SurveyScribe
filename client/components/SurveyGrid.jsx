@@ -60,7 +60,7 @@ const handleClick = () => {
     response.json()
   )
   .then((result) => {
-    browserHistory.push('/#/?_k=95ezn9');
+    browserHistory.push(`survey/${result._id}/edit`);
   })
   .catch((error) => {
     throw error;
