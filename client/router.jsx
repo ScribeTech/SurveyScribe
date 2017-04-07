@@ -25,7 +25,7 @@ const router = (
         <IndexRoute component={LandingPage} />
         <Route path="survey" component={SurveyGrid} />
         <Route path="survey/:surveyId/edit" component={SurveyEdit} />
-        <Route path="survey/surveyId/answer" component={SurveyAnswer} />
+        <Route path="survey/:surveyId/answer" component={SurveyAnswer} />
         <Route path="survey/:surveyId/results" component={Results} />
         <Route path="survey/:surveyId/finish" component={Finish} />
         <Route path="*" component={NotFoundPage} />

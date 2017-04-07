@@ -7,6 +7,8 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   inject: 'body'
 });
 
+const HotModuleReplacementPlugin = new webpack.HotModuleReplacementPlugin();
+
 module.exports = {
   entry: `${__dirname}/client/router`,
   module: {
@@ -38,7 +40,7 @@ module.exports = {
   },
   plugins: [
     HTMLWebpackPluginConfig,
-    new webpack.HotModuleReplacementPlugin()
+    HotModuleReplacementPlugin
   ],
   devServer: {
     historyApiFallback: true

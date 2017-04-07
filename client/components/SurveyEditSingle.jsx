@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Trash from './../Styles/TrashCan.png';
+import Trash from './../assets/TrashCan.png';
 
 const EditSingle = (props) => {
   EditSingle.propTypes = {
@@ -30,7 +30,7 @@ const EditSingle = (props) => {
       />
       {props.questions[props.survey.id].map((question, i) => (
         <div style={styles.question}>
-          <span>{i + 1 + '.   '}</span>
+          <span>{`${i + 1}.   `}</span>
           <TextField
             id={props.survey.id.toString()}
             defaultValue={question.label}
@@ -40,7 +40,7 @@ const EditSingle = (props) => {
           </span>
           {props.options[question.questionId].map((option, j) => (
             <div style={styles.option}>
-              <span>{alphabet[j] + '.   '}</span>
+              <span>{`${alphabet[j]}.   `}</span>
               <TextField
                 id={props.survey.id.toString()}
                 defaultValue={option.label}
