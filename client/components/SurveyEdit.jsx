@@ -50,6 +50,7 @@ const Edit = (props) => {
                   survey={survey}
                   questions={props.questions}
                   options={props.options}
+                  {...props}
                 />
               </Paper>
             ))}

@@ -12,7 +12,6 @@ const EditSingle = (props) => {
   const styles = {
     question: {
       marginLeft: '25px'
-
     },
     option: {
       marginLeft: '50px'
@@ -50,7 +49,7 @@ const EditSingle = (props) => {
               </span>
             </div>
           ))}
-          <RaisedButton label="Add Choice" style={styles.option} />
+          <RaisedButton onClick={() => props.addOption(60, 'test')} label="Add Choice" style={styles.option} />
         </div>
       ))}
     </div>
