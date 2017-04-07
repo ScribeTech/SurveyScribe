@@ -26,7 +26,7 @@ const EditSingle = (props) => {
       />
       {props.questions[props.survey.id].map((question, i) => (
         <div style={styles.question}>
-          <span>{i + '.   '}</span>
+          <span>{i + 1 + '.   '}</span>
           <TextField
             id={props.survey.id.toString()}
             defaultValue={question.label}

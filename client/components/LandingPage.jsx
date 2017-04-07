@@ -38,7 +38,7 @@ const LandingPage = props => (
     <Link to="/answer"> answer test link </Link>
     <br />
 
-    <Link to="/finish"> finish test link </Link>
+    <Link to="survey/:surveyId/finish"> finish test link </Link>
 
     <footer >
       <p className="footer">Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, Jin Chung</p>
