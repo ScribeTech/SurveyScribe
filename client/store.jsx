@@ -1,6 +1,6 @@
 import { createStore, compose } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 
 import rootReducer from './reducers/index';
 
@@ -21,7 +21,7 @@ const enhancers = compose(
 const store = createStore(rootReducer, defaultState, enhancers);
 console.log('store', store.getState());
 
-export const history = syncHistoryWithStore(hashHistory, store);
+export const history = syncHistoryWithStore(browserHistory, store);
 
 // allows automatic (hot) reloads of changed reducer functions
 if (module.hot) {
