@@ -8,10 +8,14 @@ import SurveyEditSingle from './SurveyEditSingle';
 import Layout from './Layout';
 
 const Edit = (props) => {
+<<<<<<< HEAD
   Edit.propTypes = {
     questions: React.PropTypes.object,
   }.isRequired;
 
+=======
+  console.log("props surveyedit", props)
+>>>>>>> got survey edit printing again
   const styles = {
     root: {
       display: 'flex',
