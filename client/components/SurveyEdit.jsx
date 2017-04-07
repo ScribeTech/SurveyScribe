@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import SurveyEditSingle from './SurveyEditSingle.jsx';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Layout from './Layout';
 
 const Edit = (props) => {
   console.log("props surveyedit", props)
@@ -31,25 +32,31 @@ const Edit = (props) => {
   };
 
   return (
-    <MuiThemeProvider>
-      <div style={styles.root}>
-        <GridList
-          cellHeight={'auto'}
-          style={styles.gridList}
-          padding={8}
-          cols={1}
-        >
-          {props.surveys.map((survey, i) => (
-            <Paper style={styles.paper} key={i} zDepth={2}>
-              <SurveyEditSingle survey={survey} questions={props.questions} options={props.options} />
-            </Paper>
-          ))}
-        </GridList>
-        <FloatingActionButton className="floatingActionButton" style={styles.actionButton} zDepth={3}>
-          <ContentAdd />
-        </FloatingActionButton>
-      </div>
-    </MuiThemeProvider>
+    <Layout title="Survey Edit">
+      <MuiThemeProvider>
+        <div style={styles.root}>
+          <GridList
+            cellHeight={'auto'}
+            style={styles.gridList}
+            padding={8}
+            cols={1}
+          >
+            {props.surveys.map((survey, i) => (
+              <Paper style={styles.paper} key={i} zDepth={2}>
+                <SurveyEditSingle
+                  survey={survey}
+                  questions={props.questions}
+                  options={props.options}
+                />
+              </Paper>
+            ))}
+          </GridList>
+          <FloatingActionButton className="floatingActionButton" style={styles.actionButton} zDepth={3}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </div>
+      </MuiThemeProvider>
+    </Layout>
   );
 };
 
