@@ -10,7 +10,6 @@ const Layout = props => (
     <div>
       <Header {...props} />
       <div className="content">
-      {console.log("props",  props)}
         {props.children}
       </div>
     </div>
