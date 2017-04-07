@@ -8,14 +8,10 @@ import SurveyEditSingle from './SurveyEditSingle';
 import Layout from './Layout';
 
 const Edit = (props) => {
-<<<<<<< HEAD
   Edit.propTypes = {
     questions: React.PropTypes.object,
   }.isRequired;
 
-=======
-  console.log("props surveyedit", props)
->>>>>>> got survey edit printing again
   const styles = {
     root: {
       display: 'flex',
@@ -39,7 +35,7 @@ const Edit = (props) => {
   };
 
   return (
-    <Layout title="Survey Edit">
+    <Layout title="Survey Edit" share="share" save="save">
       <MuiThemeProvider>
         <div style={styles.root}>
           <GridList

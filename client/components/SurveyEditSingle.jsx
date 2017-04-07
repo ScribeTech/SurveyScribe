@@ -4,14 +4,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Trash from './../assets/TrashCan.png';
 
 const EditSingle = (props) => {
-<<<<<<< HEAD
   EditSingle.propTypes = {
     questions: React.PropTypes.object,
   }.isRequired;
 
-=======
-  console.log("props", props)
->>>>>>> got survey edit printing again
   const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const styles = {
     question: {
