@@ -8,7 +8,10 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Layout from './Layout';
 
 const Edit = (props) => {
-  console.log("props surveyedit", props)
+  Edit.propTypes = {
+    questions: React.PropTypes.object,
+  }.isRequired;
+
   const styles = {
     root: {
       display: 'flex',
@@ -32,7 +35,7 @@ const Edit = (props) => {
   };
 
   return (
-    <Layout title="Survey Edit">
+    <Layout title="Survey Edit" share="share" save="save">
       <MuiThemeProvider>
         <div style={styles.root}>
           <GridList

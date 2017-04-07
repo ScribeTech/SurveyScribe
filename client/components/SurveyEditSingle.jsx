@@ -4,7 +4,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Trash from './../Styles/TrashCan.png';
 
 const EditSingle = (props) => {
-  console.log("props", props)
+  EditSingle.propTypes = {
+    questions: React.PropTypes.object,
+  }.isRequired;
+
   const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   const styles = {
     question: {
@@ -40,7 +43,7 @@ const EditSingle = (props) => {
               <span>{alphabet[j] + '.   '}</span>
               <TextField
                 id={props.survey.id.toString()}
-                defaultValue={option}
+                defaultValue={option.label}
               />
               <span>
                 <img style={styles.trash} src={Trash} alt="trash" />
