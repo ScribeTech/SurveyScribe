@@ -34,7 +34,7 @@ const EditSingle = (props) => {
             id={props.survey.id.toString()}
             defaultValue={question.label}
           />
-          <span>
+          <span onClick={() => props.removeQuestion(question.questionId, i)}>
             <img style={styles.trash} src={Trash} alt="trash" />
           </span>
           {props.options[question.questionId].map((option, j) => (
