@@ -39,7 +39,7 @@ const Edit = (props) => {
   };
 
   return (
-    <Layout title="Survey Edit" share="share" save="save">
+    <Layout title="Survey Edit">
       <MuiThemeProvider>
         <div style={styles.root}>
           <GridList
