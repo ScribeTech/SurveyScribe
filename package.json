@@ -39,6 +39,7 @@
     "chai-http": "^3.0.0",
     "chai-shallow-deep-equal": "^1.4.6",
     "css-loader": "^0.28.0",
+    "deep-freeze": "0.0.1",
     "express": "^4.15.2",
     "file-loader": "^0.11.1",
     "history": "^4.6.1",
@@ -60,7 +61,8 @@
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
     "url-loader": "^0.5.8",
-    "webpack": "^2.3.2"
+    "webpack": "^2.3.2",
+    "webpack-node-externals": "^1.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
