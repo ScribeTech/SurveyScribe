@@ -1,11 +1,11 @@
 // options needs to be an array of
-export function denormalize(surveys, questions, options, i) {
+export function denormalize(survey, questions, options) {
   const mongoData = {};
 
-  mongoData.title = surveys[i].title;
+  mongoData.title = survey.title;
   mongoData.questions = [];
 
-  questions[surveys[i].id].forEach((question) => {
+  questions[survey.id].forEach((question) => {
     const mongoQ = {
       _id: question.id,
       label: question.label,
