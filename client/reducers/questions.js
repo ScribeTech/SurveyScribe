@@ -32,7 +32,12 @@ export function questions(state = {}, action) {
       [action.surveyId]: surveyQuestions(state[action.surveyId], action)
     };
   }
-  return state;
+  switch (action.type) {
+    case 'UPDATE_STATE':
+      return action.questions;
+    default:
+      return state;
+  }
 }
 
 export default questions;
