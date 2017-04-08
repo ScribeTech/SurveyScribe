@@ -1,51 +1,30 @@
+/*
+ * Sources:
+ * main.css https://github.com/callemall/material-ui/blob/master/docs/src/www/css/main.css
+ * mui-github-markdown.css https://github.com/callemall/material-ui/blob/master/docs/src/app/components/mui-github-markdown.css
+ */
+
+a {
+  color: #ff4081;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 html {
   font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-body {
-  font-size: 13px;
-  line-height: 20px;
+body, h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  padding: 0;
-}
-
-.content {
-  padding: 20px;
-}
-
-.footer {
-  color: #4b6ecc;
-  text-align: right;
-  padding: 24px;
-  background: #fff;
-}
-.logo {
-  margin-top: 200px
-}
-
-.surveyPic {
-  top: 0% !important;
-  right: 90px !important;
-}
-
-.actionButtons{
-  outline-offset: 20px;
-  padding: 4px;
-  font-size: 4px;
-}
-
-.actionButtonsSingle{
-  outline-offset: 20px;
-  padding: 4px !important;
-  font-size: 4px !important;
-}
-
-.gridtile {
-  background-color: rgb(163, 252, 254);
 }
 
 .floatingActionButton {
   position: fixed;
   bottom: 20px;
   right: 0px;
+  z-index: 3;
 }

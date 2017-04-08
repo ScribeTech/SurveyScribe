@@ -3,26 +3,26 @@ import { GridTile } from 'material-ui/GridList';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 
-const SurveySingle = ({ _id, title }) => (
-  <Link to="/edit">
+const SurveySingle = ({ id, title }) => (
+  <Link to="{id}/edit">
     <GridTile
-      key={_id}
+      key={id}
       title={title.toUpperCase()}
       actionIcon={
         <div className="actionButtons">
           <FlatButton
             label="Edit"
-            containerElement={<Link to="/edit" />}
+            containerElement={<Link to={`survey/${id}/edit`} />}
             linkButton
           />
           <FlatButton
-            label="Result"
-            containerElement={<Link to="/results" />}
+            label="Results"
+            containerElement={<Link to={`survey/${id}/results`} />}
             linkButton
           />
           <FlatButton
             label="Share"
-            containerElement={<Link to="/share" />}
+            containerElement={<Link to={`survey/${id}/share`} />}
             linkButton
           />
         </div>
@@ -34,7 +34,7 @@ const SurveySingle = ({ _id, title }) => (
 );
 
 SurveySingle.propTypes = {
-  _id: React.PropTypes.oneOfType([
+  id: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string
   ]).isRequired,

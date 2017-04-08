@@ -20,23 +20,21 @@ const SurveyTile = props => (
     <Card style={styles.card}>
       <CardTitle title={props.title} />
       <CardActions>
-        <Link to="/edit"><FlatButton label="Edit" /></Link>
-        <Link to="/results"><FlatButton label="Results" /></Link>
-        <Link to="/answer"><FlatButton label="Share" /></Link>
+        <Link to={`survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
+        <Link to={`survey/${props.id}/results`}><FlatButton label="Results" /></Link>
+        <Link to={`survey/${props.id}/answer`}><FlatButton label="Share" /></Link>
       </CardActions>
     </Card>
   </Col>
 );
 
 SurveyTile.propTypes = {
-  title: React.PropTypes.string.isRequired
+  title: React.PropTypes.string.isRequired,
+  id: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string
+  ]).isRequired
 };
-
-const actions = [
-  { label: 'Save', callback: () => {} },
-  { label: 'Share', callback: () => {} },
-  { label: 'Delete', callback: () => {} }
-];
 
 const handleClick = () => {
   fetch('http://localhost:8080/api/surveys', {
@@ -68,7 +66,7 @@ const handleClick = () => {
 };
 
 const SurveyGrid = props => (
-  <Layout title="Surveys" actions={actions}>
+  <Layout title="Surveys">
     <Grid>
       <Row>
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}

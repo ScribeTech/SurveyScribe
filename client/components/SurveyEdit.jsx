@@ -1,67 +1,69 @@
 import React from 'react';
-import { GridList } from 'material-ui/GridList';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
+
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import SurveyEditSingle from './SurveyEditSingle';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import { List, ListItem } from 'material-ui/List';
+
 import Layout from './Layout';
 
+const actions = [
+  { label: 'Save', callback: () => {} },
+  { label: 'Share', callback: () => {} },
+  { label: 'Delete', callback: () => {} }
+];
+
 const Edit = (props) => {
-  Edit.propTypes = {
-    questions: React.PropTypes.object,
-  }.isRequired;
-
-  const styles = {
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
-
-    },
-    gridList: {
-      width: 1000,
-      padding: 25
-    },
-    paper: {
-      width: 800,
-      margin: 10,
-      padding: 15,
-      display: 'inline-block'
-    },
-    actionButton: {
-      marginRight: 20
-    }
-  };
-
+  const surveyID = props.params.surveyID;
+  const [survey] = props.surveys.filter(s => s.id === surveyID);
+    // TODO: keep track of this in a reducer
   return (
-    <Layout title="Survey Edit" share="share" save="save">
-      <MuiThemeProvider>
-        <div style={styles.root}>
-          <GridList
-            cellHeight={'auto'}
-            style={styles.gridList}
-            padding={8}
-            cols={1}
-          >
-            {props.surveys.map(survey => (
-              <Paper key={survey.id} style={styles.paper} zDepth={2}>
-                <SurveyEditSingle
-                  survey={survey}
-                  questions={props.questions}
-                  options={props.options}
-                  {...props}
-                />
-              </Paper>
-            ))}
-          </GridList>
-          <FloatingActionButton onClick={() => props.addSurvey((props.surveys.length + 1).toString(), '')} className="floatingActionButton" style={styles.actionButton} zDepth={3}>
-            <ContentAdd />
-          </FloatingActionButton>
-        </div>
-      </MuiThemeProvider>
+    <Layout title="Survey Edit" actions={actions}>
+      <TextField
+        floatingLabelText="Title"
+        id={survey.id.toString()}
+        defaultValue={survey.title}
+      />
+      {props.questions[survey.id] && props.questions[survey.id].map((question, i) => (
+        <List key={question.id}>
+          {`${i + 1}.   `}
+          <TextField
+            id={survey.id.toString()}
+            floatingLabelText="Question"
+            defaultValue={question.label}
+          />
+          <IconButton onClick={() => props.removeQuestion(survey.id, i)}>
+            <CloseIcon />
+          </IconButton>
+          {props.options[question.id] && props.options[question.id].map((option, j) => (
+            <ListItem disabled>
+              <TextField
+                id={survey.id.toString()}
+                floatingLabelText="Option"
+                defaultValue={option.label}
+              />
+              <IconButton onClick={() => props.removeOption(question.id, j)}>
+                <CloseIcon />
+              </IconButton>
+            </ListItem>
+          ))}
+          <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
+        </List>
+      ))}
+      <FloatingActionButton
+        onClick={() => props.addQuestion(survey.id)}
+        className="floatingActionButton"
+        zDepth={3}
+      >
+        <ContentAdd />
+      </FloatingActionButton>
     </Layout>
   );
 };
+
+Edit.propTypes = {}.isRequired;
 
 export default Edit;
