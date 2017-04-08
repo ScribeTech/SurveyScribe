@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
-import { browserHistory } from 'react-router';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
@@ -25,7 +24,7 @@ const actions = (props, survey) => [
         body: JSON.stringify(denormalize(survey, props.questions, props.options))
       })
       .then(() => {
-        getSurveys(props, 'survey');
+        getSurveys(props, `survey/${props.params.surveyID}/result`);
       });
     } },
   { label: 'Share', callback: () => {} },

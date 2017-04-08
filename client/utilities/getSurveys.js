@@ -10,8 +10,8 @@ export const getSurveys = (props, url) => {
   })
   .then(response => response.json())
   .then((result) => {
-    console.log(result);
     const converted = normalize(result);
+    console.log('I LOADED!', converted);
     // Adding survey to state and changing the view to edit
     props.updateState(converted.surveys, converted.questions, converted.options);
     if (url) {
