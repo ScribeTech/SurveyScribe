@@ -3,6 +3,8 @@ import ReactHighcharts from 'react-highcharts';
 import Layout from './Layout';
 
 const Results = (props) => {
+  // Load the currently selected survey
+  // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
   const [survey] = props.surveys.filter(s => s.id === surveyID);
 
@@ -52,11 +54,11 @@ const Results = (props) => {
 
   return (
     <Layout title="Results">
-      <h1>{props.surveys[props.params.surveyID - 1].title}</h1>
+      <h1>{survey.title}</h1>
       <div>
-        {props.questions[surveyID].map((question) => {
-          return <ReactHighcharts config={makeConfig(question)} />
-        })}
+        {props.questions[surveyID].map(question => (
+          <ReactHighcharts config={makeConfig(question)} />
+        ))}
       </div>
     </Layout>
   );
