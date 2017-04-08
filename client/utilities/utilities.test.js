@@ -37,4 +37,7 @@ describe('UTILITIES', () => {
             .to.deep.equal(options[questions[surveys[0].id][0].id][0]);
     });
   });
+  xdescribe('getSurveys', () => {
+
+  });
 });

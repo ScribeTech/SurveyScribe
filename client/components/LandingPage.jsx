@@ -6,28 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import Logo from '../assets/Logo.png';
 import Github from '../assets/GitHub-Mark-32px.png';
-import { normalize } from '../utilities/normalize';
-
-const handleClick = (props) => {
-  fetch('/api/surveys', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
-  .then(response => response.json())
-  .then((result) => {
-    console.log(result);
-    const converted = normalize(result);
-    console.log('converted', converted);
-    // Adding survey to state and changing the view to edit
-    props.updateState(converted.surveys, converted.questions, converted.options);
-    browserHistory.push('survey');
-  })
-  .catch((error) => {
-    throw error;
-  });
-};
+import { getSurveys } from '../utilities/getSurveys';
 
 const LandingPage = props => (
   <div>
@@ -43,7 +22,7 @@ const LandingPage = props => (
     </Center>
     <MuiThemeProvider>
       <Center>
-        <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => handleClick(props)} />
+        <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => getSurveys(props, 'survey')} />
       </Center>
     </MuiThemeProvider>
 

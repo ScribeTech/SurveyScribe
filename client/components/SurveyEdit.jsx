@@ -12,6 +12,7 @@ import 'whatwg-fetch';
 
 import Layout from './Layout';
 import { denormalize } from '../utilities/normalize';
+import { getSurveys } from '../utilities/getSurveys';
 
 const actions = (props, survey) => [
   { label: 'Save',
@@ -24,7 +25,7 @@ const actions = (props, survey) => [
         body: JSON.stringify(denormalize(survey, props.questions, props.options))
       })
       .then(() => {
-        browserHistory.push('/survey');
+        getSurveys(props, 'survey');
       });
     } },
   { label: 'Share', callback: () => {} },
@@ -34,7 +35,7 @@ const actions = (props, survey) => [
         method: 'DELETE'
       })
       .then(() => {
-        browserHistory.push('/survey');
+        getSurveys(props, 'survey');
       });
     } }
 ];
