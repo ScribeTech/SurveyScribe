@@ -15,6 +15,33 @@ const styles = {
   }
 };
 
+const handleClick = () => {
+  fetch('http://localhost:8080/api/surveys', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: 'New Survey',
+      questions: [{
+        _id: 0,
+        label: '',
+        options: [{
+          label: '',
+          votes: 0
+        }]
+      }]
+    })
+  })
+  .then(response => response.json())
+  .then((result) => {
+    browserHistory.push(`/survey/${result._id}/edit`);
+  })
+  .catch((error) => {
+    throw error;
+  });
+};
+
 const SurveyTile = props => (
   <Col xs={12} sm={6} md={4}>
     <Card style={styles.card}>
@@ -34,35 +61,6 @@ SurveyTile.propTypes = {
     React.PropTypes.number,
     React.PropTypes.string
   ]).isRequired
-};
-
-const handleClick = () => {
-  fetch('http://localhost:8080/api/surveys', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: 'New Survey',
-      questions: [{
-        _id: 0,
-        label: '',
-        options: [{
-          label: '',
-          votes: 0
-        }]
-      }]
-    })
-  })
-  .then(response =>
-    response.json()
-  )
-  .then((result) => {
-    browserHistory.push(`survey/${result._id}/edit`);
-  })
-  .catch((error) => {
-    throw error;
-  });
 };
 
 const SurveyGrid = props => (
