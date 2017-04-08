@@ -2,7 +2,7 @@ const options = {
   "1": [
     {
       "label": "logistical",
-      "votes": 1
+      "votes": 5
     },
     {
       "label": "4th generation",
@@ -10,13 +10,13 @@ const options = {
     },
     {
       "label": "uniform",
-      "votes": 3
+      "votes": 8
     }
   ],
   "2": [
     {
       "label": "capacity",
-      "votes": 1
+      "votes": 0
     },
     {
       "label": "database",
@@ -24,24 +24,27 @@ const options = {
     },
     {
       "label": "framework",
-      "votes": 3
+      "votes": 5
     }
   ],
   "3": [
     {
+      "label": "something not blank",
       "votes": 1
     },
     {
+      "label": "another something",
       "votes": 2
     },
     {
+      "label": "clark was here",
       "votes": 3
     }
   ],
   "4": [
     {
       "label": "approach",
-      "votes": 1
+      "votes": 5
     },
     {
       "label": "contingency",
@@ -49,7 +52,7 @@ const options = {
     },
     {
       "label": "multi-tasking",
-      "votes": 3
+      "votes": 1
     }
   ],
   "5": [
@@ -59,11 +62,11 @@ const options = {
     },
     {
       "label": "intranet",
-      "votes": 2
+      "votes": 1
     },
     {
       "label": "model",
-      "votes": 3
+      "votes": 2
     }
   ],
   "6": [
@@ -73,7 +76,7 @@ const options = {
     },
     {
       "label": "Quality-focused",
-      "votes": 2
+      "votes": 6
     },
     {
       "label": "logistical",
@@ -87,7 +90,7 @@ const options = {
     },
     {
       "label": "attitude-oriented",
-      "votes": 2
+      "votes": 8
     },
     {
       "label": "Re-contextualized",
@@ -101,7 +104,7 @@ const options = {
     },
     {
       "label": "Enhanced",
-      "votes": 2
+      "votes": 9
     },
     {
       "label": "Robust",
@@ -111,7 +114,7 @@ const options = {
   "9": [
     {
       "label": "utilisation",
-      "votes": 1
+      "votes": 10
     },
     {
       "label": "Customizable",
@@ -119,7 +122,7 @@ const options = {
     },
     {
       "label": "leading edge",
-      "votes": 3
+      "votes": 15
     }
   ]
 };
