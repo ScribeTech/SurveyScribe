@@ -1,5 +1,4 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: `${__dirname}/client/index.html`,
@@ -41,6 +40,8 @@ module.exports = {
     HTMLWebpackPluginConfig
   ],
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    inline: true,
+    hot: true
   }
 };
