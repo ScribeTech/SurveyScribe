@@ -1,11 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Center from 'react-center';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import Logo from '../assets/Logo.png';
 import Github from '../assets/GitHub-Mark-32px.png';
+import { normalize } from '../utilities/normalize';
+
+const handleClick = (props) => {
+  fetch('/api/surveys', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(response => response.json())
+  .then((result) => {
+    console.log(result);
+    const converted = normalize(result);
+    console.log('converted', converted);
+    // Adding survey to state and changing the view to edit
+    props.updateState(converted.surveys, converted.questions, converted.options);
+    browserHistory.push('survey');
+  })
+  .catch((error) => {
+    throw error;
+  });
+};
 
 const LandingPage = props => (
   <div>
@@ -21,9 +43,7 @@ const LandingPage = props => (
     </Center>
     <MuiThemeProvider>
       <Center>
-        <Link to="/survey">
-          <RaisedButton label="Create Survey" style={{ margin: 12 }} />
-        </Link>
+        <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => handleClick(props)} />
       </Center>
     </MuiThemeProvider>
 
