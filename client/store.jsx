@@ -4,15 +4,13 @@ import { browserHistory } from 'react-router';
 
 import rootReducer from './reducers/index';
 
-import surveys from './data/surveys';
-import questions from './data/questions';
-import options from './data/options';
 
-const defaultState = {
-  surveys,
-  questions,
-  options
-};
+// import surveys from './data/surveys';
+// import questions from './data/questions';
+// import options from './data/options';
+import { shapedData } from './normalize';
+
+const defaultState = shapedData;
 
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f

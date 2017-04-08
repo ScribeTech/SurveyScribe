@@ -29,13 +29,23 @@ export function denormalize(surveys, questions, options, i) {
 }
 
 export function normalize(mongoData) {
+=======
+const myData = pretendMongo;
+console.log(myData);
+
+function rearrange(mongo) {
+>>>>>>> Commit for rebase
   const state = {
     surveys: [],
     questions: {},
     options: {}
   };
 
+<<<<<<< HEAD
   mongoData.forEach((survey) => {
+=======
+  mongo.forEach((survey) => {
+>>>>>>> Commit for rebase
     const surveyId = survey._id.$oid;
 
     state.surveys.push({
