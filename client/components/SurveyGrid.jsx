@@ -71,7 +71,7 @@ const SurveyGrid = props => (
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
       </Row>
     </Grid>
-    <FloatingActionButton className="floatingActionButton" onClick={handleClick(props)}>
+    <FloatingActionButton className="floatingActionButton" onClick={() => handleClick(props)}>
       <ContentAdd />
     </FloatingActionButton>
   </Layout>
