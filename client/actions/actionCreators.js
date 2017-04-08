@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Types } from 'mongoose';
 
 // add survey
 export function addSurvey(id, title) {
@@ -31,7 +31,7 @@ export function addQuestion(surveyId, label) {
   return {
     type: 'ADD_QUESTION',
     surveyId,
-    id: mongoose.Types.ObjectId(),
+    id: Types.ObjectId(),
     label
   };
 }
