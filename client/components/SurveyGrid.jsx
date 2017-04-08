@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import 'whatwg-fetch';
 import Layout from './Layout';
 
 const styles = {
@@ -35,6 +38,35 @@ const actions = [
   { label: 'Delete', callback: () => {} }
 ];
 
+const handleClick = () => {
+  fetch('http://localhost:8080/api/surveys', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: 'New Survey',
+      questions: [{
+        _id: 0,
+        label: '',
+        options: [{
+          label: '',
+          votes: 0
+        }]
+      }]
+    })
+  })
+  .then(response =>
+    response.json()
+  )
+  .then((result) => {
+    browserHistory.push(`survey/${result._id}/edit`);
+  })
+  .catch((error) => {
+    throw error;
+  });
+};
+
 const SurveyGrid = props => (
   <Layout title="Surveys" actions={actions}>
     <Grid>
@@ -42,6 +74,9 @@ const SurveyGrid = props => (
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
       </Row>
     </Grid>
+    <FloatingActionButton className="floatingActionButton" onClick={handleClick}>
+      <ContentAdd />
+    </FloatingActionButton>
   </Layout>
 );
 
