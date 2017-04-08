@@ -59,6 +59,9 @@ const Edit = (props) => {
             id={survey.id.toString()}
             floatingLabelText="Question"
             defaultValue={question.label}
+            onChange={(e) => {
+              props.editQuestion(surveyID, i, e.target.value);
+            }}
           />
           <IconButton onClick={() => props.removeQuestion(survey.id, i)}>
             <CloseIcon />
@@ -69,6 +72,9 @@ const Edit = (props) => {
                 id={survey.id.toString()}
                 floatingLabelText="Option"
                 defaultValue={option.label}
+                onChange={(e) => {
+                  props.editOption(question.id, j, e.target.value);
+                }}
               />
               <IconButton onClick={() => props.removeOption(question.id, j)}>
                 <CloseIcon />
