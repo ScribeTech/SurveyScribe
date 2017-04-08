@@ -2,21 +2,16 @@
 .DS_Store
 
 # Secrets
-.pem
+*.pem
 
 # Logs
 *.log
 
-# Compiled Directories (http://nodejs.org/api/addons.html)
+# Caches and Compiled Files
 public/
-
-# Dependency directories
-# Deployed apps should consider commenting these lines out:
-# see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
-node_modules/
-
-# Eslint Cache
+.tmp/
+*.tmp
 .eslintcache
 
-# Mocha-webpack files
-.tmp/
+# Dependency directories
+node_modules/
