@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const serverConfig = require('./server/helpers/config.js');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
