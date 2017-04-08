@@ -5,24 +5,6 @@ import ReactHighcharts from 'react-highcharts';
 
 const Results = (props) => {
   const surveyID = props.params.surveyID;
-  //const questions = [];
-  // const votes = [];
-  // props.questions[surveyID].forEach((question) => {
-  //   questions.push(question.label);
-  //   props.options[question.id].forEach(option => votes.push(option.votes));
-  // });
-  // console.log("votes", votes)
-  // const config = {
-  //   chart: {
-  //     type: 'bar'
-  //   },
-  //   xAxis: {
-  //     categories: questions
-  //   },
-  //   series: [{
-  //     data: votes
-  //   }]
-  // };
 
   const makeConfig = (question) => {
     const votes = [];
@@ -38,11 +20,31 @@ const Results = (props) => {
       title: {
         text: question.label
       },
+      legend: {
+        enabled: false
+      },
+      tooltip: {
+        valueSuffix: ' Votes',
+        followPointer: 'true',
+        pointFormat: '<b>{point.y}</b><br/>',
+      },
+      credits: {
+        enabled: false
+      },
       xAxis: {
         categories: options
       },
+      plotOptions: {
+        series: {
+          animation: {
+            duration: 2000,
+            easing: 'easeOutBounce'
+          }
+        }
+      },
       series: [{
-        data: votes
+        data: votes,
+        color: '#00bcd4'
       }]
     };
 
