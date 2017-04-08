@@ -3,11 +3,21 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+const path = require('path');
 const SocketIo = require('socket.io');
 const SocketListener = require('./socketio.js');
 
 const app = express();
-mongoose.connect(config.database.uri, config.database.options);
+console.log(`Environment: ${process.env.NODE_ENV}`);
+mongoose.connect(config.database.uri, config.database.options)
+  .then(() => {
+    console.log('Connected to mongoDB');
+  })
+  .catch((error) => {
+    console.error('Database connection failed.');
+    if (config.debug) { console.error(error); }
+    process.exit(1);
+  });
 
 
 // Parse data sent by clients
@@ -18,9 +28,14 @@ app.use(bodyParser.json());
 app.use(require('./middleware/log.js'));
 
 // Route requests
-app.use('/', express.static(config.public));
+app.use(express.static(config.public));
 app.use('/api', require('./controllers/api.js'));
 
+// Send unknown routes to index.html
+app.use((request, response) => {
+  // config.public starts from the root directory, but __dirname starts at ./server
+  response.sendFile(path.join(__dirname, '..', config.public, 'index.html'));
+});
 
 // Handle errors
 app.use(require('./middleware/error.js'));
