@@ -7,8 +7,6 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   inject: 'body'
 });
 
-const HotModuleReplacementPlugin = new webpack.HotModuleReplacementPlugin();
-
 module.exports = {
   entry: `${__dirname}/client/router`,
   module: {
@@ -36,11 +34,11 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: `${__dirname}/public`
+    path: `${__dirname}/public`,
+    publicPath: '/'
   },
   plugins: [
-    HTMLWebpackPluginConfig,
-    HotModuleReplacementPlugin
+    HTMLWebpackPluginConfig
   ],
   devServer: {
     historyApiFallback: true
