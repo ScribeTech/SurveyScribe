@@ -21,7 +21,7 @@ const actions = (props, survey) => [
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(denormalize(survey))
+        body: JSON.stringify(denormalize(survey, props.questions, props.options))
       })
       .then(() => {
         browserHistory.push('/survey');
