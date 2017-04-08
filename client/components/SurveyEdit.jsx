@@ -60,6 +60,7 @@ const Edit = (props) => {
             floatingLabelText="Question"
             defaultValue={question.label}
             onChange={(e) => {
+              // editing question in state
               props.editQuestion(surveyID, i, e.target.value);
             }}
           />
@@ -73,6 +74,7 @@ const Edit = (props) => {
                 floatingLabelText="Option"
                 defaultValue={option.label}
                 onChange={(e) => {
+                  // editing option in state
                   props.editOption(question.id, j, e.target.value);
                 }}
               />
