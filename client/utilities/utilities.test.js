@@ -26,7 +26,7 @@ describe('UTILITIES', () => {
 
   describe('Denormalize', () => {
     it('should combine Redux state data into a MongoDB survey', () => {
-      const mongo = denormalize(surveys, questions, options, 0);
+      const mongo = denormalize(surveys[0], questions, options);
 
       expect(mongo.title).to.equal(surveys[0].title);
       expect(mongo).isObject;

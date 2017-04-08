@@ -1,5 +1,14 @@
 import { Types } from 'mongoose';
 
+// update state
+export function updateState(surveys, questions, options) {
+  return {
+    type: 'UPDATE_STATE',
+    surveys,
+    questions,
+    options
+  };
+}
 // add survey
 export function addSurvey(id, title) {
   return {
