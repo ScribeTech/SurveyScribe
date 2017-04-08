@@ -16,7 +16,7 @@ const Answer = (props) => {
       {props.questions[survey.id].map((question, i) => (
         <List>
           <h3>{`${i + 1}. ${question.label}`}</h3>
-          {props.options[question.questionId].map(option => (
+          {props.options[question.id].map(option => (
             <ListItem
               leftCheckbox={<Checkbox />}
               primaryText={option.label}
