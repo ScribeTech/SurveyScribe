@@ -1,10 +1,12 @@
 import React from 'react';
-import Content from './Content';
+import Layout from './Layout';
 
 const Results = props => (
-  <Content>
-    <h1>Results</h1>
-  </Content>
+  <Layout title="Results">
+    <h1>{props.surveys[props.params.surveyID].title}</h1>
+  </Layout>
 );
+
+Results.propTypes = {}.isRequired;
 
 export default Results;
