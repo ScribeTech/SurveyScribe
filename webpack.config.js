@@ -1,3 +1,4 @@
+const serverConfig = require('./server/helpers/config.js');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
@@ -41,7 +42,15 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
-    inline: true,
-    hot: true
+    proxy: {
+      '/api': {
+        target: {
+          host: 'localhost',
+          protocol: 'http',
+          port: serverConfig.port
+        },
+        secure: false
+      }
+    }
   }
 };
