@@ -24,7 +24,7 @@ const actions = (props, survey) => [
         body: JSON.stringify(denormalize(survey, props.questions, props.options))
       })
       .then(() => {
-        getSurveys(props, `survey/${props.params.surveyID}/result`);
+        getSurveys(props, `survey/${props.params.surveyID}/results`);
       });
     } },
   { label: 'Share', callback: () => {} },
