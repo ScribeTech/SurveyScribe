@@ -14,7 +14,7 @@ const initialState = {
 
 const { expect } = chai;
 
-describe('Reducers', () => {
+describe('REDUCERS', () => {
    // unit tests for surveys reducer
   describe('Surveys', () => {
     describe('ADD_SURVEY', () => {
