@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+const path = require('path');
 const SocketIo = require('socket.io');
 const SocketListener = require('./socketio.js');
 
@@ -27,9 +28,14 @@ app.use(bodyParser.json());
 app.use(require('./middleware/log.js'));
 
 // Route requests
-app.use('/', express.static(config.public));
+app.use(express.static(config.public));
 app.use('/api', require('./controllers/api.js'));
 
+// Send unknown routes to index.html
+app.use((request, response) => {
+  // config.public starts from the root directory, but __dirname starts at ./server
+  response.sendFile(path.join(__dirname, '..', config.public, 'index.html'));
+});
 
 // Handle errors
 app.use(require('./middleware/error.js'));
