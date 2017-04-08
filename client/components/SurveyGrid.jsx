@@ -15,7 +15,7 @@ const styles = {
   }
 };
 
-const handleClick = () => {
+const handleClick = (props) => {
   fetch('http://localhost:8080/api/surveys', {
     method: 'POST',
     headers: {
@@ -35,7 +35,9 @@ const handleClick = () => {
   })
   .then(response => response.json())
   .then((result) => {
-    browserHistory.push(`/survey/${result._id}/edit`);
+    // Adding survey to state and changing the view to edit
+    props.addSurvey(result._id, result.title);
+    browserHistory.push(`survey/${result._id}/edit`);
   })
   .catch((error) => {
     throw error;
@@ -70,7 +72,7 @@ const SurveyGrid = props => (
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
       </Row>
     </Grid>
-    <FloatingActionButton className="floatingActionButton" onClick={handleClick}>
+    <FloatingActionButton className="floatingActionButton" onClick={() => handleClick(props)}>
       <ContentAdd />
     </FloatingActionButton>
   </Layout>
