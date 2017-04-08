@@ -4,15 +4,10 @@ import { browserHistory } from 'react-router';
 
 import rootReducer from './reducers/index';
 
-import surveys from './data/surveys';
-import questions from './data/questions';
-import options from './data/options';
+import { pretendMongo } from './data/pretendMongoSurveys';
+import { normalize } from './utilities/normalize';
 
-const defaultState = {
-  surveys,
-  questions,
-  options
-};
+const defaultState = normalize(pretendMongo);
 
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f

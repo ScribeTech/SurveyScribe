@@ -81,7 +81,7 @@ export function removeOption(questionId, i) {
   };
 }
 
-// increment
+// increment votes
 export function increment(questionId, i) {
   return {
     type: 'INCREMENT_VOTES',

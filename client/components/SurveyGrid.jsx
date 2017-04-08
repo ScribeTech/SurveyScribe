@@ -15,28 +15,7 @@ const styles = {
   }
 };
 
-const SurveyTile = props => (
-  <Col xs={12} sm={6} md={4}>
-    <Card style={styles.card}>
-      <CardTitle title={props.title} />
-      <CardActions>
-        <Link to={`survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
-        <Link to={`survey/${props.id}/results`}><FlatButton label="Results" /></Link>
-        <Link to={`survey/${props.id}/answer`}><FlatButton label="Share" /></Link>
-      </CardActions>
-    </Card>
-  </Col>
-);
-
-SurveyTile.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  id: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string
-  ]).isRequired
-};
-
-const handleClick = () => {
+const handleClick = (props) => {
   fetch('http://localhost:8080/api/surveys', {
     method: 'POST',
     headers: {
@@ -54,15 +33,36 @@ const handleClick = () => {
       }]
     })
   })
-  .then(response =>
-    response.json()
-  )
+  .then(response => response.json())
   .then((result) => {
+    // Adding survey to state and changing the view to edit
+    props.addSurvey(result._id, result.title);
     browserHistory.push(`survey/${result._id}/edit`);
   })
   .catch((error) => {
     throw error;
   });
+};
+
+const SurveyTile = props => (
+  <Col xs={12} sm={6} md={4}>
+    <Card style={styles.card}>
+      <CardTitle title={props.title} />
+      <CardActions>
+        <Link to={`/survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
+        <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
+        <Link to={`/survey/${props.id}/answer`}><FlatButton label="Share" /></Link>
+      </CardActions>
+    </Card>
+  </Col>
+);
+
+SurveyTile.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  id: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string
+  ]).isRequired
 };
 
 const SurveyGrid = props => (
@@ -72,7 +72,7 @@ const SurveyGrid = props => (
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
       </Row>
     </Grid>
-    <FloatingActionButton className="floatingActionButton" onClick={handleClick}>
+    <FloatingActionButton className="floatingActionButton" onClick={() => handleClick(props)}>
       <ContentAdd />
     </FloatingActionButton>
   </Layout>

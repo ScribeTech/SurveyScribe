@@ -2,9 +2,9 @@ import React from 'react';
 import ReactHighcharts from 'react-highcharts';
 import Layout from './Layout';
 
-
 const Results = (props) => {
   const surveyID = props.params.surveyID;
+  const [survey] = props.surveys.filter(s => s.id === surveyID);
 
   const makeConfig = (question) => {
     const votes = [];
