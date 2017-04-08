@@ -3,6 +3,7 @@
 
 # Secrets
 *.pem
+production.json
 
 # Logs
 *.log

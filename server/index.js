@@ -7,7 +7,16 @@ const SocketIo = require('socket.io');
 const SocketListener = require('./socketio.js');
 
 const app = express();
-mongoose.connect(config.database.uri, config.database.options);
+console.log(`Environment: ${process.env.NODE_ENV}`);
+mongoose.connect(config.database.uri, config.database.options)
+  .then(() => {
+    console.log('Connected to mongoDB');
+  })
+  .catch((error) => {
+    console.error('Database connection failed.');
+    if (config.debug) { console.error(error); }
+    process.exit(1);
+  });
 
 
 // Parse data sent by clients

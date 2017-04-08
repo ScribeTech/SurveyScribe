@@ -4,6 +4,8 @@
   "description": "Project description",
   "main": "server/index.js",
   "scripts": {
+    "start": "export NODE_ENV=production; pm2 start ./server/index.js --name Server",
+    "stop": "pm2 stop server",
     "test": "npm run test:client && npm run test:server",
     "test:client": "mocha-webpack --webpack-config webpack.config-test.babel.js \"client/**/*.test.js\"",
     "test:server": "NODE_ENV=test mocha './server/**/*.test.js'",
