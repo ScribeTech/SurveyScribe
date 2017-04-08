@@ -8,7 +8,7 @@ const OptionSchema = Schema({
 });
 
 const QuestionSchema = Schema({
-  _id: Number,
+  _id: String,
   label: String,
   options: [OptionSchema]
 }, { _id: false });
