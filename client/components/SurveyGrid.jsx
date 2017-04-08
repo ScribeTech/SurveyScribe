@@ -47,9 +47,9 @@ const SurveyTile = props => (
     <Card style={styles.card}>
       <CardTitle title={props.title} />
       <CardActions>
-        <Link to={`survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
-        <Link to={`survey/${props.id}/results`}><FlatButton label="Results" /></Link>
-        <Link to={`survey/${props.id}/answer`}><FlatButton label="Share" /></Link>
+        <Link to={`/survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
+        <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
+        <Link to={`/survey/${props.id}/answer`}><FlatButton label="Share" /></Link>
       </CardActions>
     </Card>
   </Col>

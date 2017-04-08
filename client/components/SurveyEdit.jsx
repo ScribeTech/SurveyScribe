@@ -17,9 +17,11 @@ const actions = [
 ];
 
 const Edit = (props) => {
+  // Load the currently selected survey
+  // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
   const [survey] = props.surveys.filter(s => s.id === surveyID);
-    // TODO: keep track of this in a reducer
+  // Render
   return (
     <Layout title="Survey Edit" actions={actions}>
       <TextField
