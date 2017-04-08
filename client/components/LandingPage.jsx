@@ -29,16 +29,16 @@ const LandingPage = props => (
 
     <Link to="/survey"> survey test link </Link>
     <br />
-    <Link to="/survey/:surveyId/edit"> edit test link </Link>
+    <Link to="/survey/1/edit"> edit test link </Link>
     <br />
 
-    <Link to="survey/:surveyId/results"> results test link </Link>
+    <Link to="/survey/1/results"> results test link </Link>
     <br />
 
-    <Link to="survey/surveyId/answer"> answer test link </Link>
+    <Link to="/survey/1/answer"> answer test link </Link>
     <br />
 
-    <Link to="survey/:surveyId/finish"> finish test link </Link>
+    <Link to="/survey/1/finish"> finish test link </Link>
 
     <footer >
       <p className="footer">Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, Jin Chung</p>
