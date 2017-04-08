@@ -37,7 +37,12 @@ export function options(state = {}, action) {
       [action.questionId]: questionOptions(state[action.questionId], action)
     };
   }
-  return state;
+  switch (action.type) {
+    case 'UPDATE_STATE':
+      return action.options;
+    default:
+      return state;
+  }
 }
 
 export default options;

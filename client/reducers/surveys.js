@@ -17,6 +17,8 @@ export function surveys(state = [], action) {
         Object.assign({}, state[action.i], { title: action.title }),
         ...state.slice(action.i + 1)
       ];
+    case 'UPDATE_STATE':
+      return action.surveys;
     default:
       return state;
   }
