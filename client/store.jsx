@@ -5,14 +5,9 @@ import { browserHistory } from 'react-router';
 import rootReducer from './reducers/index';
 
 import { pretendMongo } from './data/pretendMongoSurveys';
-import { normalize, denormalize } from './normalize';
+import { normalize } from './utilities/normalize';
 
 const defaultState = normalize(pretendMongo);
-console.log('defaultState', defaultState);
-
-const convertedSurvey = denormalize(defaultState.surveys, defaultState.questions,
-                                    defaultState.options, 0);
-console.log('convertedSurvey', convertedSurvey);
 
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
