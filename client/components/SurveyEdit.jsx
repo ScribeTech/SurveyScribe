@@ -28,7 +28,7 @@ const Edit = (props) => {
         defaultValue={survey.title}
       />
       {props.questions[survey.id].map((question, i) => (
-        <List>
+        <List key={question.id}>
           {`${i + 1}.   `}
           <TextField
             id={survey.id.toString()}
@@ -38,19 +38,19 @@ const Edit = (props) => {
           <IconButton onClick={() => props.removeQuestion(survey.id, i)}>
             <CloseIcon />
           </IconButton>
-          {props.options[question.questionId].map((option, j) => (
+          {props.options[question.id].map((option, j) => (
             <ListItem disabled>
               <TextField
                 id={survey.id.toString()}
                 floatingLabelText="Option"
                 defaultValue={option.label}
               />
-              <IconButton onClick={() => props.removeOption(question.questionId, j)}>
+              <IconButton onClick={() => props.removeOption(question.id, j)}>
                 <CloseIcon />
               </IconButton>
             </ListItem>
           ))}
-          <RaisedButton label="Add Option" onClick={() => props.addOption(question.questionId)} />
+          <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
         </List>
       ))}
       <FloatingActionButton

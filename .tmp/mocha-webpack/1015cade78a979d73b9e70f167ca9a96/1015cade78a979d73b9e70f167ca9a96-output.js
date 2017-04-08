@@ -118,7 +118,7 @@ runnable.forEach(testsContext);
 //   });
 // });
 
-//actions desired:
+// actions desired:
 // add survey
 // remove survey
 // add question
@@ -286,13 +286,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var surveys = [{
-  "id": 1,
+  "id": "1",
   "title": "Right-sized holistic middleware"
 }, {
-  "id": 2,
+  "id": "2",
   "title": "Cloned disintermediate hardware"
 }, {
-  "id": 3,
+  "id": "3",
   "title": "Centralized full-range moratorium"
 }];
 
@@ -315,19 +315,11 @@ var _reactRouterRedux = __webpack_require__(13);
 
 var _surveys = __webpack_require__(10);
 
-var _surveys2 = _interopRequireDefault(_surveys);
-
 var _questions = __webpack_require__(8);
-
-var _questions2 = _interopRequireDefault(_questions);
 
 var _options = __webpack_require__(7);
 
-var _options2 = _interopRequireDefault(_options);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var rootReducer = (0, _redux.combineReducers)({ surveys: _surveys2.default, questions: _questions2.default, options: _options2.default, routing: _reactRouterRedux.routerReducer });
+var rootReducer = (0, _redux.combineReducers)({ surveys: _surveys.surveys, questions: _questions.questions, options: _options.options, routing: _reactRouterRedux.routerReducer });
 
 exports.default = rootReducer;
 
@@ -341,23 +333,44 @@ exports.default = rootReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.options = options;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function questionOptions() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'ADD_OPTION':
+      return [].concat(_toConsumableArray(state), [{
+        label: action.label,
+        votes: 0
+      }]);
+    case 'REMOVE_OPTION':
+      return [].concat(_toConsumableArray(state.slice(0, action.i)), _toConsumableArray(state.slice(action.i + 1)));
+    case 'EDIT_OPTION':
+      return [].concat(_toConsumableArray(state.slice(0, action.i)), [Object.assign({}, state[action.i], { label: action.label })], _toConsumableArray(state.slice(action.i + 1)));
+    case 'INCREMENT_VOTES':
+      return [].concat(_toConsumableArray(state.slice(0, action.i)), [Object.assign({}, state[action.i], { votes: state[action.i].votes + 1 })], _toConsumableArray(state.slice(action.i + 1)));
+    default:
+      return state;
+  }
+}
+
 function options() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
-  switch (action.type) {
-    case 'ADD_OPTIONS':
-      return state;
-    case 'REMOVE_OPTIONS':
-      return state;
-    case 'EDIT_OPTIONS':
-      return state;
-    case 'INCREMENT_VOTES':
-      return state;
-    default:
-      return state;
+  if (typeof action.questionId !== 'undefined') {
+    return _extends({}, state, _defineProperty({}, action.questionId, questionOptions(state[action.questionId], action)));
   }
+  return state;
 }
 
 exports.default = options;
@@ -566,25 +579,77 @@ describe('Reducers', function () {
       });
     });
   });
-});
+  describe('Options', function () {
+    describe('ADD_OPTION', function () {
+      it('should add a option to the current list of options', function () {
+        var questionId = 1;
+        var option = {
+          label: 'Cat'
+        };
 
-//
-//  // unit tests for options reducer
-//  xdescribe('Options', () => {
-//    describe('ADD_OPTION', () => {
-//
-//    });
-//    describe('REMOVE_OPTION', () => {
-//
-//    });
-//    describe('EDIT_OPTION', () => {
-//
-//    });
-//    describe('INCREMENT_VOTES', () => {
-//
-//    });
-//   //  });
-// });
+        var action = Object.assign({}, option, { type: 'ADD_OPTION', questionId: questionId });
+
+        (0, _deepFreeze2.default)(initialState);
+
+        var changedState = (0, _index2.default)(initialState, action);
+
+        expect(changedState.options[questionId].length).to.equal(4);
+        expect(JSON.stringify(changedState.options[questionId][3].label)).to.equal(JSON.stringify(option.label));
+      });
+    });
+    describe('REMOVE_OPTION', function () {
+      it('should remove a option from the current list of options', function () {
+        var action = {
+          questionId: 1,
+          type: 'REMOVE_OPTION',
+          i: 2
+        };
+
+        (0, _deepFreeze2.default)(initialState);
+
+        var changedState = (0, _index2.default)(initialState, action);
+
+        expect(changedState.options[1].length).to.equal(2);
+        expect(changedState.options[1][2]).to.not.exist;
+      });
+    });
+    describe('EDIT_OPTION', function () {
+      it('should edit an existing option in the list of options', function () {
+        var questionId = 1;
+        var option = {
+          i: 1,
+          label: 'Megan and Jin are the TRUE WARRIORS'
+        };
+
+        var action = Object.assign({}, option, { type: 'EDIT_OPTION', questionId: questionId });
+
+        (0, _deepFreeze2.default)(initialState);
+
+        var changedState = (0, _index2.default)(initialState, action);
+
+        expect(changedState.options[questionId].length).to.equal(3);
+        expect(JSON.stringify(changedState.options[questionId][option.i].label)).to.equal(JSON.stringify(option.label));
+        expect(JSON.stringify(changedState.options[questionId][0])).to.equal(JSON.stringify(initialState.options[1][0]));
+        expect(JSON.stringify(changedState.options[questionId][2])).to.equal(JSON.stringify(initialState.options[1][2]));
+      });
+    });
+    describe('INCREMENT_VOTES', function () {
+      it('should increment the votes for an existing option', function () {
+        var option = {
+          type: 'INCREMENT_VOTES',
+          questionId: 2,
+          i: 1
+        };
+
+        (0, _deepFreeze2.default)(initialState);
+
+        var changedState = (0, _index2.default)(initialState, option);
+
+        expect(changedState.options[2][1].votes).to.equal(initialState.options[2][1].votes + 1);
+      });
+    });
+  });
+});
 
 /***/ }),
 /* 10 */
