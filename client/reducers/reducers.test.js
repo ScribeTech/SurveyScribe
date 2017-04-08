@@ -5,6 +5,8 @@ import reducer from './index';
 import surveys from '../data/surveys';
 import questions from '../data/questions';
 import options from '../data/options';
+import pretendMongoSurveys from '../data/pretendMongoSurveys';
+import { normalize } from '../utilities/normalize';
 
 const initialState = {
   surveys,
@@ -16,6 +18,27 @@ const { expect } = chai;
 
 describe('REDUCERS', () => {
    // unit tests for surveys reducer
+  describe('UPDATE_STATE', () => {
+    it('should rewrite all stored survey data', () => {
+      const converted = normalize(pretendMongoSurveys);
+
+      const action = {
+        type: 'UPDATE_STATE',
+        surveys: converted.surveys,
+        questions: converted.questions,
+        options: converted.options
+      };
+
+      deepFreeze(initialState);
+
+      const changedState = reducer(initialState, action);
+
+      expect(changedState).to.not.deep.equal(initialState);
+      expect(changedState.surveys).to.deep.equal(converted.surveys);
+      expect(changedState.questions).to.deep.equal(converted.questions);
+      expect(changedState.options).to.deep.equal(converted.options);
+    });
+  });
   describe('Surveys', () => {
     describe('ADD_SURVEY', () => {
       it('should add a survey to the current list of surveys', () => {
