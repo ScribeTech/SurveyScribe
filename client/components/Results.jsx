@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from './Layout';
 import ReactHighcharts from 'react-highcharts';
+import Layout from './Layout';
 
 
 const Results = (props) => {
@@ -37,8 +37,7 @@ const Results = (props) => {
       plotOptions: {
         series: {
           animation: {
-            duration: 2000,
-            easing: 'easeOutBounce'
+            duration: 2000
           }
         }
       },
@@ -58,7 +57,6 @@ const Results = (props) => {
         {props.questions[surveyID].map((question) => {
           return <ReactHighcharts config={makeConfig(question)} />
         })}
-        test
       </div>
     </Layout>
   );
