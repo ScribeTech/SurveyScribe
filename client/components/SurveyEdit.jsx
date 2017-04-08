@@ -7,13 +7,36 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
+import { browserHistory } from 'react-router';
+import 'whatwg-fetch';
 
 import Layout from './Layout';
+import { denormalize } from '../utilities/normalize';
 
-const actions = [
-  { label: 'Save', callback: () => {} },
+const actions = (props, survey) => [
+  { label: 'Save',
+    callback: () => {
+      fetch(`/api/surveys/${props.params.surveyID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(denormalize(survey, props.questions, props.options))
+      })
+      .then(() => {
+        browserHistory.push('/survey');
+      });
+    } },
   { label: 'Share', callback: () => {} },
-  { label: 'Delete', callback: () => {} }
+  { label: 'Delete',
+    callback: () => {
+      fetch(`/api/surveys/${props.params.surveyID}`, {
+        method: 'DELETE'
+      })
+      .then(() => {
+        browserHistory.push('/survey');
+      });
+    } }
 ];
 
 const Edit = (props) => {
@@ -23,7 +46,7 @@ const Edit = (props) => {
   const [survey] = props.surveys.filter(s => s.id === surveyID);
   // Render
   return (
-    <Layout title="Survey Edit" actions={actions}>
+    <Layout title="Survey Edit" actions={actions(props, survey)}>
       <TextField
         floatingLabelText="Title"
         id={survey.id.toString()}
