@@ -7,13 +7,17 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
+import 'whatwg-fetch';
 
 import Layout from './Layout';
 
-const actions = [
+const actions = props => [
   { label: 'Save', callback: () => {} },
   { label: 'Share', callback: () => {} },
-  { label: 'Delete', callback: () => {} }
+  { label: 'Delete',
+    callback: () => {
+      fetch(`http://localhost:8080/api/surveys/${props.params.surveyID}`, { method: 'DELETE' });
+    } }
 ];
 
 const Edit = (props) => {
@@ -23,7 +27,7 @@ const Edit = (props) => {
   const [survey] = props.surveys.filter(s => s.id === surveyID);
   // Render
   return (
-    <Layout title="Survey Edit" actions={actions}>
+    <Layout title="Survey Edit" actions={actions(props)}>
       <TextField
         floatingLabelText="Title"
         id={survey.id.toString()}

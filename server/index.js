@@ -19,7 +19,7 @@ app.use(require('./middleware/log.js'));
 
 app.use((req, res, next) => {
   res.setHeader('access-control-allow-origin', '*');
-  res.setHeader('access-control-allow-methods', 'POST, GET, OPTIONS');
+  res.setHeader('access-control-allow-methods', 'POST, GET, PUT, DELETE');
   res.setHeader('access-control-allow-headers', 'x-parse-application-id, x-parse-rest-api-key, Content-Type, Accept');
 
   next();
