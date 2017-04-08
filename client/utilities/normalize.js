@@ -34,7 +34,7 @@ export function normalize(mongoData) {
   };
 
   mongoData.forEach((survey) => {
-    const surveyId = survey._id.$oid;
+    const surveyId = survey._id;
 
     state.surveys.push({
       id: surveyId,
@@ -44,7 +44,7 @@ export function normalize(mongoData) {
     state.questions[surveyId] = [];
 
     survey.questions.forEach((question) => {
-      const questionId = question._id.$oid;
+      const questionId = question._id;
 
       state.questions[surveyId].push({
         id: questionId,

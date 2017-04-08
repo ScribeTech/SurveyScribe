@@ -7,11 +7,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
-import { browserHistory } from 'react-router';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
 import { denormalize } from '../utilities/normalize';
+import { getSurveys } from '../utilities/getSurveys';
 
 const actions = (props, survey) => [
   { label: 'Save',
@@ -24,7 +24,7 @@ const actions = (props, survey) => [
         body: JSON.stringify(denormalize(survey, props.questions, props.options))
       })
       .then(() => {
-        browserHistory.push('/survey');
+        getSurveys(props, `survey/${props.params.surveyID}/results`);
       });
     } },
   { label: 'Share', callback: () => {} },
@@ -34,7 +34,7 @@ const actions = (props, survey) => [
         method: 'DELETE'
       })
       .then(() => {
-        browserHistory.push('/survey');
+        getSurveys(props, 'survey');
       });
     } }
 ];
