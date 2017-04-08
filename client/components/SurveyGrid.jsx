@@ -7,7 +7,6 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import 'whatwg-fetch';
 import Layout from './Layout';
-import Content from './Content';
 
 const styles = {
   card: {
