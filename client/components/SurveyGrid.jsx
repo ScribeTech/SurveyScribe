@@ -16,21 +16,14 @@ const styles = {
 };
 
 const handleClick = (props) => {
-  fetch('http://localhost:8080/api/surveys', {
+  fetch('/api/surveys', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       title: 'New Survey',
-      questions: [{
-        _id: 0,
-        label: '',
-        options: [{
-          label: '',
-          votes: 0
-        }]
-      }]
+      questions: []
     })
   })
   .then(response => response.json())
