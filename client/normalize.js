@@ -1,5 +1,3 @@
-import { pretendMongo } from './data/pretendMongoSurveys';
-
 // options needs to be an array of
 export function denormalize(surveys, questions, options, i) {
   const mongoData = {};
