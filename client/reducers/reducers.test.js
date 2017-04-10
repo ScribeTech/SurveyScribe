@@ -230,5 +230,42 @@ describe('REDUCERS', () => {
                .to.equal(initialState.options[2][1].votes + 1);
       });
     });
+    describe('DECREMENT_VOTES', () => {
+      it('should decrement the votes for an existing option', () => {
+        const option = {
+          type: 'DECREMENT_VOTES',
+          questionId: 2,
+          i: 1
+        };
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, option);
+
+        expect(changedState.options[2][1].votes)
+               .to.equal(initialState.options[2][1].votes - 1);
+      });
+    });
+    describe('TOGGLE_SELECT', () => {
+      it('should toggle an option\'s selected status', () => {
+        const option = {
+          type: 'TOGGLE_SELECT',
+          questionId: 1,
+          i: 0
+        };
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, option);
+
+        expect(changedState.options[1][0].selected)
+               .to.equal(true);
+
+        const flippedState = reducer(changedState, option);
+
+        expect(flippedState.options[1][0].selected)
+               .to.equal(false);
+      });
+    });
   });
 });
