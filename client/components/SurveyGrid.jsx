@@ -12,6 +12,9 @@ const styles = {
   card: {
     marginBottom: 10,
     marginTop: 10
+  },
+  floatingactionbutton: {
+    marginRight: 25
   }
 };
 
@@ -65,7 +68,7 @@ const SurveyGrid = props => (
         {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
       </Row>
     </Grid>
-    <FloatingActionButton className="floatingActionButton" onClick={() => handleClick(props)}>
+    <FloatingActionButton style={styles.floatingactionbutton} className="floatingActionButton" onClick={() => handleClick(props)}>
       <ContentAdd />
     </FloatingActionButton>
   </Layout>
