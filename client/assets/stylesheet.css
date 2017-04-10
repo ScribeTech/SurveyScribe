@@ -53,12 +53,13 @@ footer {
   text-align: center;
 }
 
+.logo {
+  width: 160px;
+}
+
 .floatingActionButton {
+  position: fixed;
   bottom: 20px;
   left: 20px;
   z-index: 3;
-}
-
-.logo {
-  width: 160px;
 }
