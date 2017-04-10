@@ -6,7 +6,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import { hashHistory as history } from 'react-router';
+import { browserHistory as history } from 'react-router';
 
 const Header = props => (
   <AppBar

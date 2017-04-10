@@ -15,12 +15,18 @@ import { getSurveys, updateSurvey } from '../utilities/getSurveys';
 const actions = (props, survey) => [
   { label: 'Save',
     callback: () => {
-      updateSurvey(props, survey, '/survey');
+      updateSurvey(props, survey);
     }
   },
   { label: 'Share',
     callback: () => {
-      updateSurvey(props, survey, `/survey/${props.params.surveyID}/results`);
+      updateSurvey(props, survey, `/survey/${props.params.surveyID}/answer`);
+    }
+  },
+  {
+    label: 'Results',
+    callback: () => {
+      getSurveys(props, `/survey/${props.params.surveyID}/results`);
     }
   },
   { label: 'Delete',
