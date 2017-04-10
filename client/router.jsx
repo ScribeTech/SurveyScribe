@@ -34,7 +34,7 @@ const router = (
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
           <Route path="survey" component={SurveyGrid} />
-          <Route path="survey/:surveyID/edit" component={SurveyEdit} />
+          <Route path="survey/:surveyID/:index/edit" component={SurveyEdit} />
           <Route path="survey/:surveyID/answer" component={SurveyAnswer} />
           <Route path="survey/:surveyID/results" component={Results} />
           <Route path="survey/:surveyID/finish" component={Finish} />

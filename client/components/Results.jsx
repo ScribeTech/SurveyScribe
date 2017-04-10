@@ -52,6 +52,10 @@ const Results = (props) => {
     return config;
   };
 
+  props.socket.on('change result', (data) => {
+    props.updateState(data.survey, data.questions, data.options);
+  });
+
   return (
     <Layout title="Results">
       <h1>{survey.title}</h1>

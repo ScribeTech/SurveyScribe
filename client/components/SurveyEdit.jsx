@@ -15,12 +15,12 @@ import { getSurveys, updateSurvey } from '../utilities/getSurveys';
 const actions = (props, survey) => [
   { label: 'Save',
     callback: () => {
-      updateSurvey(props, survey, 'survey');
+      updateSurvey(props, survey, '/survey');
     }
   },
   { label: 'Share',
     callback: () => {
-      updateSurvey(props, survey, `survey/${props.params.surveyID}/results`);
+      updateSurvey(props, survey, `/survey/${props.params.surveyID}/results`);
     }
   },
   { label: 'Delete',
@@ -29,7 +29,7 @@ const actions = (props, survey) => [
         method: 'DELETE'
       })
       .then(() => {
-        getSurveys(props, 'survey');
+        getSurveys(props, '/survey');
       });
     } }
 ];
@@ -68,6 +68,9 @@ const Edit = (props) => {
         floatingLabelText="Title"
         id={survey.id.toString()}
         defaultValue={survey.title}
+        onChange={(e) => {
+          props.editSurvey(props.params.index, e.target.value);
+        }}
         style={styles.title}
       />
       {props.questions[survey.id] && props.questions[survey.id].map((question, i) => (
