@@ -26,7 +26,7 @@ api.get('/surveys/:id', (request, response, next) => {
   .catch(next);
 });
 api.put('/surveys/:id', (request, response, next) => {
-  Survey.update(request.params.id, request.body).exec()
+  Survey.update({ _id: request.params.id }, request.body).exec()
   .then((result) => { response.status(200).json(result); })
   .catch(next);
 });

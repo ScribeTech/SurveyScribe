@@ -20,6 +20,15 @@ const Answer = (props) => {
     }
     props.toggleSelected(questionId, i);
   };
+
+  const handleSubmit = () => {
+    props.socket.emit('new vote', {
+      survey: props.surveys,
+      questions: props.questions,
+      options: props.options
+    });
+  };
+
   // Render
   return (
     <Content className="content">

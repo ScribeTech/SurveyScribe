@@ -46,6 +46,9 @@ const Edit = (props) => {
         floatingLabelText="Title"
         id={survey.id.toString()}
         defaultValue={survey.title}
+        onChange={(e) => {
+          props.editSurvey(props.params.index, e.target.value);
+        }}
       />
       {props.questions[survey.id] && props.questions[survey.id].map((question, i) => (
         <List key={question.id}>
