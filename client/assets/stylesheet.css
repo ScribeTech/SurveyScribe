@@ -25,6 +25,18 @@ body, h1, h2, h3, h4, h5, h6 {
 .floatingActionButton {
   position: fixed;
   bottom: 20px;
-  right: 0px;
+  right: 20px;
   z-index: 3;
+}
+
+.footer {
+  margin-top: 250px;
+  color: #4b6ecc;
+  text-align: right;
+  padding: 24px;
+  background: #fff;
+}
+
+.logo {
+  margin-top: 200px;
 }

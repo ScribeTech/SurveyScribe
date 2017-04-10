@@ -34,6 +34,28 @@ const actions = (props, survey) => [
     } }
 ];
 
+const styles = {
+  option: {
+    marginLeft: 15,
+    width: 787
+  },
+  list: {
+    width: 800
+  },
+  title: {
+    width: 818
+  },
+  optionIconButton: {
+    position: 'absolute',
+    bottom: 20,
+    left: 'right'
+  },
+  quesitonIconButton: {
+    position: 'absolute',
+    marginTop: 20
+  }
+};
+
 const Edit = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
@@ -46,6 +68,7 @@ const Edit = (props) => {
         floatingLabelText="Title"
         id={survey.id.toString()}
         defaultValue={survey.title}
+        style={styles.title}
       />
       {props.questions[survey.id] && props.questions[survey.id].map((question, i) => (
         <List key={question.id}>
@@ -58,8 +81,13 @@ const Edit = (props) => {
               // editing question in state
               props.editQuestion(surveyID, i, e.target.value);
             }}
+            style={styles.list}
+            multiLine
           />
-          <IconButton onClick={() => props.removeQuestion(survey.id, i)}>
+          <IconButton
+            onClick={() => props.removeQuestion(survey.id, i)}
+            style={styles.quesitonIconButton}
+          >
             <CloseIcon />
           </IconButton>
           {props.options[question.id] && props.options[question.id].map((option, j) => (
@@ -72,8 +100,13 @@ const Edit = (props) => {
                   // editing option in state
                   props.editOption(question.id, j, e.target.value);
                 }}
+                style={styles.option}
+                multiLine
               />
-              <IconButton onClick={() => props.removeOption(question.id, j)}>
+              <IconButton
+                onClick={() => props.removeOption(question.id, j)}
+                style={styles.optionIconButton}
+              >
                 <CloseIcon />
               </IconButton>
             </ListItem>
