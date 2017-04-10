@@ -73,6 +73,7 @@ const Edit = (props) => {
               props.editQuestion(surveyID, i, e.target.value);
             }}
             style={styles.list}
+            multiLine={true}
           />
           <IconButton onClick={() => props.removeQuestion(survey.id, i)}>
             <CloseIcon />
@@ -88,6 +89,7 @@ const Edit = (props) => {
                   props.editOption(question.id, j, e.target.value);
                 }}
                 style={styles.option}
+                multiLine={true}
               />
               <IconButton onClick={() => props.removeOption(question.id, j)}>
                 <CloseIcon />
