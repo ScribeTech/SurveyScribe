@@ -1,7 +1,6 @@
 import React from 'react';
 
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router';
 
 import Logo from '../assets/Logo.svg';
 import Github from '../assets/GitHub-Mark.svg';
@@ -9,9 +8,13 @@ import { getSurveys } from '../utilities/getSurveys';
 
 const LandingPage = props => (
   <div className="landing-outer">
-    <Link to="https://github.com/ScribeTech/SurveyScribe">
+    <a
+      href="https://github.com/ScribeTech/SurveyScribe"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <img className="github" src={Github} alt="Github" />
-    </Link>
+    </a>
     <div className="landing-inner">
       <div><img className="logo" src={Logo} alt="logo" /></div>
       <div>
