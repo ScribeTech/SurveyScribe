@@ -1,12 +1,7 @@
 const webpack = require('webpack');
 const serverConfig = require('./server/helpers/config.js');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-
-const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
-  template: `${__dirname}/client/index.html`,
-  filename: 'index.html',
-  inject: 'body'
-});
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: `${__dirname}/client/router`,
@@ -21,12 +16,16 @@ module.exports = {
         test: /\.(jpg|png|svg)$/,
         loader: 'url-loader',
         options: {
-          limit: 25000
+          limit: 25000,
+          name: 'images/[name].[ext]'
         }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       }
     ]
   },
@@ -39,7 +38,12 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    HTMLWebpackPluginConfig
+    new HTMLWebpackPlugin({
+      template: `${__dirname}/client/index.html`,
+      filename: 'index.html',
+      inject: 'body'
+    }),
+    new ExtractTextPlugin('styles.css')
   ],
   devServer: {
     historyApiFallback: true,

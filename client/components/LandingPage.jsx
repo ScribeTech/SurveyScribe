@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Center from 'react-center';
-import RaisedButton from 'material-ui/RaisedButton';
 
-import Logo from '../assets/Logo.png';
-import Github from '../assets/GitHub-Mark-32px.png';
+import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+
+import Logo from '../assets/Logo.svg';
+import Github from '../assets/GitHub-Mark.svg';
 import { getSurveys } from '../utilities/getSurveys';
 
 const LandingPage = props => (
