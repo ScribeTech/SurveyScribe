@@ -15,6 +15,9 @@ const styles = {
   },
   floatingactionbutton: {
     marginRight: 25
+  },
+  cardTitle: {
+    marginLeft: 19
   }
 };
 
@@ -43,7 +46,7 @@ const handleClick = (props) => {
 const SurveyTile = props => (
   <Col xs={12} sm={6} md={4}>
     <Card style={styles.card}>
-      <CardTitle title={props.title} />
+      <CardTitle style={styles.cardTitle} title={props.title} />
       <CardActions>
         <Link to={`/survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
