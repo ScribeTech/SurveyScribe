@@ -44,6 +44,15 @@ const styles = {
   },
   title: {
     width: 818
+  },
+  optionIconButton: {
+    position: 'absolute',
+    bottom: 20,
+    left: 'right'
+  },
+  quesitonIconButton: {
+    position: 'absolute',
+    marginTop: 20
   }
 };
 
@@ -73,9 +82,12 @@ const Edit = (props) => {
               props.editQuestion(surveyID, i, e.target.value);
             }}
             style={styles.list}
-            multiLine={true}
+            multiLine
           />
-          <IconButton onClick={() => props.removeQuestion(survey.id, i)}>
+          <IconButton
+            onClick={() => props.removeQuestion(survey.id, i)}
+            style={styles.quesitonIconButton}
+          >
             <CloseIcon />
           </IconButton>
           {props.options[question.id] && props.options[question.id].map((option, j) => (
@@ -89,9 +101,12 @@ const Edit = (props) => {
                   props.editOption(question.id, j, e.target.value);
                 }}
                 style={styles.option}
-                multiLine={true}
+                multiLine
               />
-              <IconButton onClick={() => props.removeOption(question.id, j)}>
+              <IconButton
+                onClick={() => props.removeOption(question.id, j)}
+                style={styles.optionIconButton}
+              >
                 <CloseIcon />
               </IconButton>
             </ListItem>
