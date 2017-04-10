@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router';
-import { normalize } from './normalize';
+import { normalize, denormalize } from './normalize';
 
 export const getSurveys = (props, url) => {
   fetch('/api/surveys', {
@@ -23,4 +23,17 @@ export const getSurveys = (props, url) => {
   });
 };
 
-export default getSurveys;
+export const updateSurvey = (props, survey, url) => {
+  fetch(`/api/surveys/${props.params.surveyID}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(denormalize(survey, props.questions, props.options))
+  })
+  .then(() => {
+    if (url) {
+      getSurveys(props, url);
+    }
+  });
+};

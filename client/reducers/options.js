@@ -25,6 +25,19 @@ function questionOptions(state = [], action) {
         Object.assign({}, state[action.i], { votes: state[action.i].votes + 1 }),
         ...state.slice(action.i + 1)
       ];
+    case 'DECREMENT_VOTES':
+      return [
+        ...state.slice(0, action.i),
+        Object.assign({}, state[action.i], { votes: state[action.i].votes - 1 }),
+        ...state.slice(action.i + 1)
+      ];
+    case 'TOGGLE_SELECT':
+      console.log('select toggled!');
+      return [
+        ...state.slice(0, action.i),
+        Object.assign({}, state[action.i], { selected: !state[action.i].selected }),
+        ...state.slice(action.i + 1)
+      ];
     default:
       return state;
   }

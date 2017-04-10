@@ -10,24 +10,19 @@ import { List, ListItem } from 'material-ui/List';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
-import { denormalize } from '../utilities/normalize';
-import { getSurveys } from '../utilities/getSurveys';
+import { getSurveys, updateSurvey } from '../utilities/getSurveys';
 
 const actions = (props, survey) => [
   { label: 'Save',
     callback: () => {
-      fetch(`/api/surveys/${props.params.surveyID}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(denormalize(survey, props.questions, props.options))
-      })
-      .then(() => {
-        getSurveys(props, `survey/${props.params.surveyID}/results`);
-      });
-    } },
-  { label: 'Share', callback: () => {} },
+      updateSurvey(props, survey, 'survey');
+    }
+  },
+  { label: 'Share',
+    callback: () => {
+      updateSurvey(props, survey, `survey/${props.params.surveyID}/results`);
+    }
+  },
   { label: 'Delete',
     callback: () => {
       fetch(`/api/surveys/${props.params.surveyID}`, {

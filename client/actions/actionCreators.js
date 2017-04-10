@@ -98,3 +98,20 @@ export function increment(questionId, i) {
     i
   };
 }
+// decrement votes
+export function decrement(questionId, i) {
+  return {
+    type: 'DECREMENT_VOTES',
+    questionId,
+    i
+  };
+}
+
+// toggle selected
+export function toggleSelected(questionId, i) {
+  return {
+    type: 'TOGGLE_SELECT',
+    questionId,
+    i
+  };
+}
