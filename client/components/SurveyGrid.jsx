@@ -12,6 +12,9 @@ const styles = {
   card: {
     marginBottom: 10,
     marginTop: 10
+  },
+  cardTitle: {
+    marginLeft: 19
   }
 };
 
@@ -40,7 +43,7 @@ const handleClick = (props) => {
 const SurveyTile = props => (
   <Col xs={12} sm={6} md={4}>
     <Card style={styles.card}>
-      <CardTitle title={props.title} />
+      <CardTitle style={styles.cardTitle} title={props.title} />
       <CardActions>
         <Link to={`/survey/${props.id}/${props.index}/edit`}><FlatButton label="Edit" /></Link>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
@@ -70,7 +73,12 @@ const SurveyGrid = props => (
         {props.surveys.map((survey, i) => <SurveyTile key={survey.id} {...survey} index={i} />)}
       </Row>
     </Grid>
-    <FloatingActionButton className="floatingActionButton" onClick={() => handleClick(props)}>
+    <FloatingActionButton 
+      style={styles.floatingactionbutton} 
+      className="floatingActionButton" 
+      onClick={() => handleClick(props)}
+      zDepth={3}
+    >
       <ContentAdd />
     </FloatingActionButton>
   </Layout>

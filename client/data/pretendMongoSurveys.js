@@ -23,7 +23,131 @@ export const pretendMongo = [{
           },
           "label": "groupware",
           "votes": 98
-        }
+        },{
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 25
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 27
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 47
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 30
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 12
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 43
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 10
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 1
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 47
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000003"
+          },
+          "label": "groupware",
+          "votes": 98
+        },{
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 25
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 27
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 47
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 30
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame really long example",
+          "votes": 12
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 43
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 10
+        },
+        {
+          "_id": {
+            "$oid": "58e8014cfc13ae12a2000002"
+          },
+          "label": "time-frame",
+          "votes": 1
+        },
       ]
     },
     {
