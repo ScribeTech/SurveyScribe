@@ -7,11 +7,11 @@
     "start": "export NODE_ENV=production; pm2 start ./server/index.js --name Server",
     "stop": "pm2 stop server",
     "test": "npm run test:client && npm run test:server",
-    "test:client": "mocha-webpack --webpack-config webpack.config-test.babel.js \"client/**/*.test.js\"",
+    "test:client": "NODE_ENV=test mocha-webpack --webpack-config webpack.config-test.babel.js \"client/**/*.test.js\"",
     "test:server": "NODE_ENV=test mocha './server/**/*.test.js'",
     "dev:client": "webpack-dev-server --hot --inline --progress",
     "dev:server": "nodemon server/index.js",
-    "build": "webpack -p",
+    "build": "webpack -p --progress",
     "lint": "eslint ./ --cache --ignore-pattern .gitignore",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
@@ -43,6 +43,7 @@
     "css-loader": "^0.28.0",
     "deep-freeze": "0.0.1",
     "express": "^4.15.2",
+    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "highcharts": "^5.0.10",
     "history": "^4.6.1",
@@ -52,8 +53,8 @@
     "mocha-webpack": "^0.7.0",
     "mongoose": "^4.9.2",
     "morgan": "^1.8.1",
-    "react": "^15.5.3",
     "normalizr": "^3.2.2",
+    "react": "^15.5.3",
     "react-center": "^1.1.1",
     "react-dom": "^15.4.2",
     "react-flexbox-grid": "^1.0.2",
@@ -66,6 +67,7 @@
     "request": "^2.81.0",
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
+    "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.2",
     "whatwg-fetch": "^2.0.3"
@@ -79,7 +81,6 @@
     "eslint-plugin-react": "^6.10.3",
     "nodemon": "^1.11.0",
     "pre-commit": "^1.2.2",
-    "style-loader": "^0.16.1",
     "webpack-dev-server": "^2.4.2",
     "webpack-node-externals": "^1.5.4"
   }
