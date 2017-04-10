@@ -22,6 +22,7 @@ const Answer = (props) => {
   };
 
   const handleSubmit = () => {
+    updateSurvey(props, survey, `survey/${props.params.surveyID}/finish`);
     props.socket.emit('new vote', {
       survey: props.surveys,
       questions: props.questions,
@@ -44,7 +45,7 @@ const Answer = (props) => {
           ))}
         </List>
       ))}
-      <RaisedButton onClick={() => updateSurvey(props, survey, `survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
+      <RaisedButton onClick={() => handleSubmit()} label="Submit Answers" primary fullWidth />
     </Content>
   );
 };
