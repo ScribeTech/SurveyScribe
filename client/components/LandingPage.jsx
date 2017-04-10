@@ -25,22 +25,8 @@ const LandingPage = props => (
         <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => getSurveys(props, 'survey')} />
       </Center>
     </MuiThemeProvider>
-
-    <Link to="/survey"> survey test link </Link>
-    <br />
-    <Link to="/survey/1/edit"> edit test link </Link>
-    <br />
-
-    <Link to="/survey/1/results"> results test link </Link>
-    <br />
-
-    <Link to="/survey/1/answer"> answer test link </Link>
-    <br />
-
-    <Link to="/survey/1/finish"> finish test link </Link>
-
     <footer >
-      <p className="footer">Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, Jin Chung</p>
+      <p className="footer">Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, and Jin Chung</p>
     </footer>
   </div>
 );
