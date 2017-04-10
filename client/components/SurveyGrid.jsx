@@ -30,7 +30,7 @@ const handleClick = (props) => {
   .then((result) => {
     // Adding survey to state and changing the view to edit
     props.addSurvey(result._id, result.title);
-    browserHistory.push(`survey/${result._id}/edit`);
+    browserHistory.push(`survey/${result._id}/${props.surveys.length}/edit`);
   })
   .catch((error) => {
     throw error;
@@ -42,7 +42,7 @@ const SurveyTile = props => (
     <Card style={styles.card}>
       <CardTitle title={props.title} />
       <CardActions>
-        <Link to={`/survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
+        <Link to={`/survey/${props.id}/${props.index}/edit`}><FlatButton label="Edit" /></Link>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
         <Link to={`/survey/${props.id}/answer`}><FlatButton label="Share" /></Link>
       </CardActions>
@@ -55,14 +55,19 @@ SurveyTile.propTypes = {
   id: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string
-  ]).isRequired
+  ]).isRequired,
+  index: React.PropTypes.number
+};
+
+SurveyTile.defaultProps = {
+  index: 0
 };
 
 const SurveyGrid = props => (
   <Layout title="Surveys">
     <Grid>
       <Row>
-        {props.surveys.map(survey => <SurveyTile key={survey.id} {...survey} />)}
+        {props.surveys.map((survey, i) => <SurveyTile key={survey.id} {...survey} index={i} />)}
       </Row>
     </Grid>
     <FloatingActionButton className="floatingActionButton" onClick={() => handleClick(props)}>
