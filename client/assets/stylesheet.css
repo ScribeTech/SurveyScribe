@@ -22,21 +22,43 @@ body, h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-.floatingActionButton {
-  position: fixed;
-  bottom: 20px;
+
+footer {
+  position: absolute;
   right: 20px;
+  bottom: 20px;
+  width: 100%;
+  color: #AAAAAA;
+  text-align: right;
+}
+
+.github {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 32px;
+  height: 32px;
+}
+
+.landing-outer {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.landing-inner {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.floatingActionButton {
+  bottom: 20px;
+  left: 20px;
   z-index: 3;
 }
 
-.footer {
-  margin-top: 250px;
-  color: #4b6ecc;
-  text-align: right;
-  padding: 24px;
-  background: #fff;
-}
-
 .logo {
-  margin-top: 200px;
+  width: 160px;
 }
