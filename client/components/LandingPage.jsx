@@ -1,7 +1,12 @@
 import React from 'react';
 
-import Center from 'react-center';
-import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+
+import Logo from '../assets/Logo.svg';
+import Github from '../assets/GitHub-Mark.svg';
+import { getSurveys } from '../utilities/getSurveys';
+
+const LandingPage = props => (
   <div className="landing-outer">
     <a
       href="https://github.com/ScribeTech/SurveyScribe"
