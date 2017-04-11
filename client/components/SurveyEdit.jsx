@@ -96,7 +96,6 @@ const renderMessage = (props, question) => {
               <CloseIcon />
             </IconButton>
           </ListItem>
-          <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
         </div>
       ))
     );
@@ -116,6 +115,13 @@ const renderMessage = (props, question) => {
   }
 
   renderMessage.propTypes = {}.isRequired;
+};
+
+const renderAddOption = (props, question) => {
+  if (question.type === 'mulChoice') {
+    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />;
+  }
+  renderAddOption.propTypes = {}.isRequired;
 };
 
 const Edit = (props) => {
@@ -156,6 +162,7 @@ const Edit = (props) => {
             <CloseIcon />
           </IconButton>
           {renderMessage(props, question)}
+          {renderAddOption(props, question)}
         </List>
       ))}
       <FloatingActionButton
@@ -175,7 +182,7 @@ const Edit = (props) => {
             <ContentAdd />
           </FloatingActionButton>
         }
-        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
       >
         <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion(survey.id, 'mulChoice')} />
