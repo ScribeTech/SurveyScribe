@@ -7,5 +7,5 @@ xdescribe('Server', () => {
   it('does not respond with detailed error messages in production mode');
   it('warns if the session secret has not been changed from the default');
   it('exits if the session secret has not been changed in production mode');
-  it('/api should not response with HTML for unknown routes');
+  it('/api should not respond with HTML for unknown routes');
 });
