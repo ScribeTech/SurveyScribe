@@ -44,17 +44,6 @@ const actions = (props, survey) => [
     } }
 ];
 
-const togglePopOver = (props, questionId, i) => {
-  console.log("props surveyedit", props);
-  if (!props.options[questionId][i].selected) {
-    props.increment(questionId, i);
-  } else {
-    props.decrement(questionId, i);
-  }
-  props.toggleSelected(questionId, i);
-};
-
-
 const styles = {
   option: {
     marginLeft: 15,
@@ -84,7 +73,7 @@ const styles = {
 const renderMessage = (props, question) => {
   const surveyID = props.params.surveyID;
   const [survey] = props.surveys.filter(s => s.id === surveyID);
-  console.log("question", question)
+
   if (question.type === 'mulChoice' || question.type === undefined) {
     return (
       props.options[question.id] && props.options[question.id].map((option, j) => (
@@ -94,7 +83,7 @@ const renderMessage = (props, question) => {
               id={survey.id.toString()}
               floatingLabelText="Option"
               defaultValue={option.label}
-              onChange={(e,) => {
+              onChange={(e) => {
                 props.editOption(question.id, j, e.target.value);
               }}
               style={styles.option}
@@ -120,10 +109,7 @@ const renderMessage = (props, question) => {
           max={10}
           min={0}
           style={styles.slider}
-          onChange={(e, value) => {
-            console.log("value", value)
-            props.editSlider(question.id, 0, value);
-          }}
+          onChange={(e, value) => props.editSlider(question.id, 0, value)}
         />
       </div>
     );
@@ -192,8 +178,8 @@ const Edit = (props) => {
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
       >
-        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion(survey.id, 'mulChoice')}/>
-        <MenuItem primaryText="Slider" onClick={() => props.addQuestion(survey.id, 'slider')}/>
+        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion(survey.id, 'mulChoice')} />
+        <MenuItem primaryText="Slider" onClick={() => props.addQuestion(survey.id, 'slider')} />
       </IconMenu>
     </Layout>
   );
