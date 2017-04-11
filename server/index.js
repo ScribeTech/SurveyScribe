@@ -1,7 +1,7 @@
 const app = require('express')();
 const config = require('./config.js');
-const SocketListener = require('./socketio.js');
 const db = require('./database.js');
+const SocketListener = require('./socketio.js');
 
 // Middleware
 app.use(require('body-parser').urlencoded({ extended: false })); // Parse data sent by clients
@@ -14,11 +14,10 @@ app.use(require('express').static(config.public)); // server static files
 app.use('/api', require('./controllers/api.js')); // handle api calls
 app.use(require('./middleware/error.js')); // handle errors
 
-// Start the server
+// Server
 if (module.parent) {
-  module.exports = app; // Export for testing
+  module.exports = app; // export for testing
 } else {
-  // Start the server
   const server = app.listen(config.port, () => {
     console.log(`Environment: ${process.env.NODE_ENV}`);
     console.log(`Listening on port ${config.port}`);
