@@ -6,11 +6,10 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
+import Slider from 'material-ui/Slider';
 
 import 'whatwg-fetch';
 
@@ -83,33 +82,44 @@ const renderMessage = (props, question) => {
   const [survey] = props.surveys.filter(s => s.id === surveyID);
   console.log("question", question)
   if (question.type === 'mulChoice' || question.type === undefined) {
-    return(
+    return (
       props.options[question.id] && props.options[question.id].map((option, j) => (
-        <ListItem disabled>
-          <TextField
-            id={survey.id.toString()}
-            floatingLabelText="Option"
-            defaultValue={option.label}
-            onChange={(e) => {
-              // editing option in state
-              props.editOption(question.id, j, e.target.value);
-            }}
-            style={styles.option}
-            multiLine
-          />
-          <IconButton
-            onClick={() => props.removeOption(question.id, j)}
-            style={styles.optionIconButton}
-          >
-            <CloseIcon />
-          </IconButton>
-        </ListItem>
+        <div>
+          <ListItem disabled>
+            <TextField
+              id={survey.id.toString()}
+              floatingLabelText="Option"
+              defaultValue={option.label}
+              onChange={(e,) => {
+                props.editOption(question.id, j, e.target.value);
+              }}
+              style={styles.option}
+              multiLine
+            />
+            <IconButton
+              onClick={() => props.removeOption(question.id, j)}
+              style={styles.optionIconButton}
+            >
+              <CloseIcon />
+            </IconButton>
+          </ListItem>
+          <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
+        </div>
       ))
     );
   } else if (question.type === 'slider') {
     return (
       <div>
-        slider
+        <Slider
+          step={1}
+          defaultValue={0}
+          max={10}
+          min={0}
+          onChange={(e, value) => {
+            console.log("value", value)
+            props.editSlider(question.id, 0, value);
+          }}
+        />
       </div>
     );
   }
@@ -121,7 +131,6 @@ const Edit = (props) => {
   const surveyID = props.params.surveyID;
   const [survey] = props.surveys.filter(s => s.id === surveyID);
   // Render
-  console.log("props", props.questions)
   return (
     <Layout title="Survey Edit" actions={actions(props, survey)}>
       <TextField
@@ -135,7 +144,6 @@ const Edit = (props) => {
       />
       {props.questions[survey.id] && props.questions[survey.id].map((question, i) => (
         <List key={question.id}>
-          
           {`${i + 1}.   `}
           <TextField
             id={survey.id.toString()}
@@ -155,7 +163,6 @@ const Edit = (props) => {
             <CloseIcon />
           </IconButton>
           {renderMessage(props, question)}
-          <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
         </List>
       ))}
       <FloatingActionButton

@@ -19,6 +19,12 @@ function questionOptions(state = [], action) {
         Object.assign({}, state[action.i], { label: action.label }),
         ...state.slice(action.i + 1)
       ];
+    case 'EDIT_SLIDER':
+      return [
+        ...state.slice(0, action.i),
+        Object.assign({}, state[action.i], { value: action.value }),
+        ...state.slice(action.i + 1)
+      ];
     case 'INCREMENT_VOTES':
       return [
         ...state.slice(0, action.i),

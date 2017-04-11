@@ -71,13 +71,23 @@ export function addOption(questionId, label) {
   };
 }
 
-// remove option
+// edit option
 export function editOption(questionId, i, label) {
   return {
     type: 'EDIT_OPTION',
     questionId,
     i,
     label
+  };
+}
+
+// edit slide
+export function editSlider(questionId, i, value) {
+  return {
+    type: 'EDIT_OPTION',
+    questionId,
+    i,
+    value
   };
 }
 
