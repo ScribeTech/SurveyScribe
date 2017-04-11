@@ -1,4 +1,7 @@
-module.exports = function (io) {
+const SocketIo = require('socket.io');
+
+module.exports = function (server) {
+  const io = new SocketIo(server, { path: '/api/result' });
   const clients = [];
   io.on('connection', (socket) => {
     clients.push(socket);

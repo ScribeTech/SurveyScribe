@@ -5,7 +5,8 @@ function surveyQuestions(state = [], action) {
         ...state,
         {
           id: action.id,
-          label: action.label
+          label: action.label,
+          type: action.questionType
         }
       ];
     case 'REMOVE_QUESTION':
