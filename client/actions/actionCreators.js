@@ -36,12 +36,12 @@ export function removeSurvey(i) {
 }
 
 // add question
-export function addQuestion(surveyId, label) {
+export function addQuestion(surveyId, questionType) {
   return {
     type: 'ADD_QUESTION',
     surveyId,
     id: Types.ObjectId(),
-    label
+    questionType
   };
 }
 // edit question

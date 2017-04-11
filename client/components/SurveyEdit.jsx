@@ -149,7 +149,7 @@ const Edit = (props) => {
       <IconMenu
         iconButtonElement={
           <FloatingActionButton
-            onClick={() => props.addQuestion(survey.id)}
+            // onClick={() => props.addQuestion(survey.id)}
             className="floatingActionButton"
             zDepth={3}
           >
@@ -159,8 +159,8 @@ const Edit = (props) => {
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
       >
-        <MenuItem primaryText="Multiple Choice" />
-        <MenuItem primaryText="Slider" />
+        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion(survey.id, 'mulChoice')}/>
+        <MenuItem primaryText="Slider" onClick={() => props.addQuestion(survey.id, 'slider')}/>
       </IconMenu>
     </Layout>
   );
