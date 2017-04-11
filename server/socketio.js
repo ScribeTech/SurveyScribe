@@ -2,7 +2,10 @@ const SocketIo = require('socket.io');
 
 module.exports = function (server) {
   const io = new SocketIo(server, { path: '/api/result' });
+<<<<<<< HEAD
   const clients = [];
+=======
+>>>>>>> (refactor) Socket.io organization
   io.on('connection', (socket) => {
     clients.push(socket);
     console.log('connected', clients.length);

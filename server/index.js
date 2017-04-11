@@ -1,5 +1,15 @@
 const app = require('express')();
 const config = require('./config.js');
+<<<<<<< HEAD
+=======
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const SocketListener = require('./socketio.js');
+
+// Initialize the app
+const app = express();
+>>>>>>> (refactor) Socket.io organization
 const db = require('./database.js');
 <<<<<<< HEAD
 const SocketListener = require('./socketio.js');
