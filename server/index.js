@@ -2,7 +2,6 @@ const config = require('./config.js');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const SocketIo = require('socket.io');
 const SocketListener = require('./socketio.js');
 
 // Initialize the app
@@ -29,6 +28,5 @@ if (module.parent) {
     console.log(`Environment: ${process.env.NODE_ENV}`);
     console.log(`Listening on port ${config.port}`);
   });
-  const io = new SocketIo(server, { path: '/api/result' });
-  SocketListener(io);
+  SocketListener(server);
 }
