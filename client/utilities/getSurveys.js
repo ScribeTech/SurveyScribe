@@ -11,7 +11,6 @@ export const getSurveys = (props, url) => {
   .then(response => response.json())
   .then((result) => {
     const converted = normalize(result);
-    console.log('I LOADED!', converted);
     // Adding survey to state and changing the view to edit
     props.updateState(converted.surveys, converted.questions, converted.options);
     if (url) {
@@ -32,6 +31,11 @@ export const updateSurvey = (props, survey, url) => {
     body: JSON.stringify(denormalize(survey, props.questions, props.options))
   })
   .then(() => {
+    props.socket.emit('new vote', {
+      survey: props.surveys,
+      questions: props.questions,
+      options: props.options
+    });
     if (url) {
       getSurveys(props, url);
     }

@@ -59,6 +59,7 @@
     "normalizr": "^3.2.2",
     "react": "^15.5.3",
     "react-center": "^1.1.1",
+    "react-clipboard.js": "^1.0.1",
     "react-dom": "^15.4.2",
     "react-flexbox-grid": "^1.0.2",
     "react-highcharts": "^11.5.0",
