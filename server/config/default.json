@@ -3,5 +3,6 @@
   "database": { "uri": "mongodb://localhost/surveyscribe" },
   "public": "./public",
   "log": "./server/logs/access.log",
-  "debug": true
+  "debug": true,
+  "sessionSecret": "DEFINE IN DEVELOPMENT.JSON OR PRODUCTION.JSON"
 }

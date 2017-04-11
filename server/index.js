@@ -1,53 +1,35 @@
-const config = require('./helpers/config.js');
-const bodyParser = require('body-parser');
+const config = require('./config.js');
+
 const express = require('express');
-const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
-const path = require('path');
+const bodyParser = require('body-parser');
 const SocketIo = require('socket.io');
 const SocketListener = require('./socketio.js');
 
+// Initialize the app
 const app = express();
-console.log(`Environment: ${process.env.NODE_ENV}`);
-mongoose.connect(config.database.uri, config.database.options)
-  .then(() => {
-    console.log('Connected to mongoDB');
-  })
-  .catch((error) => {
-    console.error('Database connection failed.');
-    if (config.debug) { console.error(error); }
-    process.exit(1);
-  });
+const db = require('./database.js');
+const api = require('./controllers/api.js');
 
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false })); // Parse data sent by clients
+app.use(bodyParser.json()); // Parse data sent by clients
+app.use(require('./middleware/session.js')); // track sessions
+app.use(require('./middleware/log.js')); // Log activity
 
-// Parse data sent by clients
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// Routes
+app.use(express.static(config.public)); // server static files
+app.use('/api', api); // handle api calls
+app.use(require('./middleware/error.js')); // handle errors
 
-// Log activity
-app.use(require('./middleware/log.js'));
-
-// Route requests
-app.use(express.static(config.public));
-app.use('/api', require('./controllers/api.js'));
-
-// Send unknown routes to index.html
-app.use((request, response) => {
-  // config.public starts from the root directory, but __dirname starts at ./server
-  response.sendFile(path.join(__dirname, '..', config.public, 'index.html'));
-});
-
-// Handle errors
-app.use(require('./middleware/error.js'));
-
-// Finally
+// Start the server
 if (module.parent) {
-  // Export for testing
-  module.exports = app;
+  module.exports = app; // Export for testing
 } else {
   // Start the server
-  const server = app.listen(config.port, () => console.log(`Listening on port ${config.port}`));
-
+  const server = app.listen(config.port, () => {
+    console.log(`Environment: ${process.env.NODE_ENV}`);
+    console.log(`Listening on port ${config.port}`);
+  });
   const io = new SocketIo(server, { path: '/api/result' });
   SocketListener(io);
 }

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const config = require('../config/default.json');
+const config = require('./config/default.json');
 
 try {
   /*

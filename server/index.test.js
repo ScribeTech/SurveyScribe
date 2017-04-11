@@ -5,4 +5,7 @@ xdescribe('Server', () => {
   it('serves static files from the public directory');
   it('returns status code 404 for wrong url path');
   it('does not respond with detailed error messages in production mode');
+  it('warns if the session secret has not been changed from the default');
+  it('exits if the session secret has not been changed in production mode');
+  it('/api should not respond with HTML for unknown routes');
 });
