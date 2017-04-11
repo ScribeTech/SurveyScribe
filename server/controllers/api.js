@@ -45,9 +45,9 @@ api.route('/surveys/:id')
   });
 
 // Handle unknown API requests
-api.all((error, request, response, next) => {
+api.use((error, request, response, next) => {
   if (!error || error.value === 'nonexistantresource') {
-    response.sendStatus(404);
+    response.status(404).json({ message: 'Not found' });
   } else {
     next(error);
   }
