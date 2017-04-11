@@ -17,7 +17,8 @@
   },
   "pre-commit": [
     "precommit-msg",
-    "lint"
+    "lint",
+    "test"
   ],
   "repository": {
     "type": "git",

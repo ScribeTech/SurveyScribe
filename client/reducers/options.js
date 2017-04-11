@@ -32,7 +32,6 @@ function questionOptions(state = [], action) {
         ...state.slice(action.i + 1)
       ];
     case 'TOGGLE_SELECT':
-      console.log('select toggled!');
       return [
         ...state.slice(0, action.i),
         Object.assign({}, state[action.i], { selected: !state[action.i].selected }),
