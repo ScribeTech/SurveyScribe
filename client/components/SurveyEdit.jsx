@@ -78,12 +78,50 @@ const styles = {
   }
 };
 
+const renderMessage = (props, question) => {
+  const surveyID = props.params.surveyID;
+  const [survey] = props.surveys.filter(s => s.id === surveyID);
+  console.log("question", question)
+  if (question.type === 'mulChoice' || question.type === undefined) {
+    return(
+      props.options[question.id] && props.options[question.id].map((option, j) => (
+        <ListItem disabled>
+          <TextField
+            id={survey.id.toString()}
+            floatingLabelText="Option"
+            defaultValue={option.label}
+            onChange={(e) => {
+              // editing option in state
+              props.editOption(question.id, j, e.target.value);
+            }}
+            style={styles.option}
+            multiLine
+          />
+          <IconButton
+            onClick={() => props.removeOption(question.id, j)}
+            style={styles.optionIconButton}
+          >
+            <CloseIcon />
+          </IconButton>
+        </ListItem>
+      ))
+    );
+  } else if (question.type === 'slider') {
+    return (
+      <div>
+        slider
+      </div>
+    );
+  }
+};
+
 const Edit = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
   const [survey] = props.surveys.filter(s => s.id === surveyID);
   // Render
+  console.log("props", props.questions)
   return (
     <Layout title="Survey Edit" actions={actions(props, survey)}>
       <TextField
@@ -97,6 +135,7 @@ const Edit = (props) => {
       />
       {props.questions[survey.id] && props.questions[survey.id].map((question, i) => (
         <List key={question.id}>
+          
           {`${i + 1}.   `}
           <TextField
             id={survey.id.toString()}
@@ -115,27 +154,7 @@ const Edit = (props) => {
           >
             <CloseIcon />
           </IconButton>
-          {props.options[question.id] && props.options[question.id].map((option, j) => (
-            <ListItem disabled>
-              <TextField
-                id={survey.id.toString()}
-                floatingLabelText="Option"
-                defaultValue={option.label}
-                onChange={(e) => {
-                  // editing option in state
-                  props.editOption(question.id, j, e.target.value);
-                }}
-                style={styles.option}
-                multiLine
-              />
-              <IconButton
-                onClick={() => props.removeOption(question.id, j)}
-                style={styles.optionIconButton}
-              >
-                <CloseIcon />
-              </IconButton>
-            </ListItem>
-          ))}
+          {renderMessage(props, question)}
           <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
         </List>
       ))}
