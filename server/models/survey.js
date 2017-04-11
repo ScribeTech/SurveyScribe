@@ -3,6 +3,7 @@ const { _id, ObjectId } = require('./id.js');
 
 const Schema = mongoose.Schema;
 
+<<<<<<< HEAD
 const QuestionSchema = Schema({
   _id,
   title: String,
@@ -34,5 +35,19 @@ Questions.discriminator('Text', Schema({
 }));
 
 SurveySchema.statics.sample = () => ({});
+=======
+const UserResponseSchema = Schema({
+  questionId: String,
+  responseId: String
+});
+>>>>>>> Refactor survey, question, option schema and add response schema
+
+
+const UserSurveySchema = Schema({
+  userId: String,
+  surveyId: String,
+  questions: [UserResponseSchema]
+});
+
 
 module.exports = mongoose.model('Survey', SurveySchema);
