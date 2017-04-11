@@ -37,8 +37,7 @@ api.route('/surveys/:id')
       if (result) {
         response.status(200).json(result);
       } else {
-        // TODO: send this to the generic error handler instead of responding here
-        response.sendStatus(404);
+        throw Error({ status: 404 });
       }
     })
     .catch(next);
