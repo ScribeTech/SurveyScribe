@@ -3,10 +3,13 @@ import { Link, browserHistory } from 'react-router';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ClipboardButton from 'react-clipboard.js';
 import 'whatwg-fetch';
 import Layout from './Layout';
+import Clipboard from '../assets/Copy.svg';
 
 const styles = {
   card: {
@@ -47,7 +50,23 @@ const SurveyTile = props => (
       <CardActions>
         <Link to={`/survey/${props.id}/${props.index}/edit`}><FlatButton label="Edit" /></Link>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
-        <Link to={`/survey/${props.id}/answer`}><FlatButton label="Share" /></Link>
+        <IconMenu
+          iconButtonElement={<FlatButton label="Share" />}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+        >
+          <div className="copy">
+            <Card />
+            Copy This Link
+            <div className="link">
+              <input id="url" className="url" type="text" value={`http://www.website.com/survey/${props.id}/answer`} readOnly />
+              <ClipboardButton className="copybtn" data-clipboard-target="#url">
+                <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
+              </ClipboardButton>
+            </div>
+            Use the button to copy
+          </div>
+        </IconMenu>
       </CardActions>
     </Card>
   </Col>

@@ -21,15 +21,6 @@ const Answer = (props) => {
     props.toggleSelected(questionId, i);
   };
 
-  const handleSubmit = () => {
-    updateSurvey(props, survey, `/survey/${props.params.surveyID}/finish`);
-    props.socket.emit('new vote', {
-      survey: props.surveys,
-      questions: props.questions,
-      options: props.options
-    });
-  };
-
   // Render
   return (
     <Content className="content">
@@ -45,7 +36,7 @@ const Answer = (props) => {
           ))}
         </List>
       ))}
-      <RaisedButton onClick={() => handleSubmit()} label="Submit Answers" primary fullWidth />
+      <RaisedButton onClick={() => updateSurvey(props, survey, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
     </Content>
   );
 };
