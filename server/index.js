@@ -1,6 +1,7 @@
 const app = require('express')();
 const config = require('./config.js');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 const express = require('express');
@@ -10,6 +11,9 @@ const SocketListener = require('./socketio.js');
 // Initialize the app
 const app = express();
 >>>>>>> (refactor) Socket.io organization
+=======
+const SocketListener = require('./socketio.js');
+>>>>>>> (refactor) import style
 const db = require('./database.js');
 <<<<<<< HEAD
 const SocketListener = require('./socketio.js');
@@ -24,10 +28,14 @@ app.use(require('./middleware/log.js')); // log activity
 
 // Routes
 <<<<<<< HEAD
+<<<<<<< HEAD
 app.use(require('express').static(config.public)); // server static files
 =======
 app.use(express.static(config.public)); // server static files
 >>>>>>> (refactor) routes
+=======
+app.use(require('express').static(config.public)); // server static files
+>>>>>>> (refactor) import style
 app.use('/api', require('./controllers/api.js')); // handle api calls
 app.use(require('./middleware/error.js')); // handle errors
 
