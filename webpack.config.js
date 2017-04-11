@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const serverConfig = require('./server/helpers/config.js');
+const serverConfig = require('./server/config.js');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
