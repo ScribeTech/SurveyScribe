@@ -1,7 +1,10 @@
 const app = require('express')();
 const config = require('./config.js');
 const db = require('./database.js');
+<<<<<<< HEAD
 const SocketListener = require('./socketio.js');
+=======
+>>>>>>> (refactor) routes
 
 // Middleware
 app.use(require('body-parser').urlencoded({ extended: false })); // Parse data sent by clients
@@ -10,7 +13,11 @@ app.use(require('./middleware/session.js')); // track sessions
 app.use(require('./middleware/log.js')); // log activity
 
 // Routes
+<<<<<<< HEAD
 app.use(require('express').static(config.public)); // server static files
+=======
+app.use(express.static(config.public)); // server static files
+>>>>>>> (refactor) routes
 app.use('/api', require('./controllers/api.js')); // handle api calls
 app.use(require('./middleware/error.js')); // handle errors
 
