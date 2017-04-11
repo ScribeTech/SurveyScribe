@@ -2,6 +2,7 @@ const app = require('express')();
 const config = require('./config.js');
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 const express = require('express');
@@ -19,6 +20,10 @@ const db = require('./database.js');
 const SocketListener = require('./socketio.js');
 =======
 >>>>>>> (refactor) routes
+=======
+const db = require('./database.js');
+const SocketListener = require('./socketio.js');
+>>>>>>> (refactor) miscellaneous
 
 // Middleware
 app.use(require('body-parser').urlencoded({ extended: false })); // Parse data sent by clients
