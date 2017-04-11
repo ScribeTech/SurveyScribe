@@ -1,7 +1,8 @@
 const api = require('express').Router();
+const auth = require('../middleware/authentication.js');
 
-api.use('/surveys', require('./survey.js'));
-api.use('/users', require('./user.js'));
+api.use('/surveys', auth, require('./survey.js'));
+api.use('/users', auth, require('./user.js'));
 
 // Handle unknown API requests
 api.use((error, request, response, next) => {

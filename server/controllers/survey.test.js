@@ -8,7 +8,7 @@ const { expect, request } = chai;
 const app = require('../index.js');
 const Survey = require('../models/survey.js');
 
-describe('API', () => {
+describe('Survey Controller', () => {
   beforeEach((done) => {
     Survey.remove({}, done); // Empty the database to ensure predictablility
   });

@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const db = require('../database.js');
 
-const Schema = mongoose.Schema;
+const Schema = db.Schema;
 
 const OptionSchema = Schema({
   label: String,
@@ -18,4 +18,4 @@ const SurveySchema = Schema({
   questions: [QuestionSchema]
 });
 
-module.exports = mongoose.model('Survey', SurveySchema);
+module.exports = db.model('Survey', SurveySchema);
