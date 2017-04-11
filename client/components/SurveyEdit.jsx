@@ -74,6 +74,10 @@ const styles = {
   quesitonIconButton: {
     position: 'absolute',
     marginTop: 20
+  },
+  slider: {
+    width: 800,
+    marginLeft: 20
   }
 };
 
@@ -115,6 +119,7 @@ const renderMessage = (props, question) => {
           defaultValue={0}
           max={10}
           min={0}
+          style={styles.slider}
           onChange={(e, value) => {
             console.log("value", value)
             props.editSlider(question.id, 0, value);
@@ -123,6 +128,8 @@ const renderMessage = (props, question) => {
       </div>
     );
   }
+
+  renderMessage.propTypes = {}.isRequired;
 };
 
 const Edit = (props) => {
