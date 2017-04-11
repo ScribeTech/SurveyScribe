@@ -20,7 +20,7 @@ api.route('/surveys/:id')
       if (result) {
         response.status(200).json(result);
       } else {
-        throw Error({ status: 404 });
+        next({ status: 404 });
       }
     })
     .catch(next);
@@ -36,7 +36,7 @@ api.route('/surveys/:id')
       if (result) {
         response.status(200).json(result);
       } else {
-        throw Error({ status: 404 });
+        next({ status: 404 });
       }
     })
     .catch(next);
@@ -44,7 +44,7 @@ api.route('/surveys/:id')
 
 // Handle unknown API requests
 api.use((error, request, response, next) => {
-  if (!error || error.value === 'nonexistantresource') {
+  if (!error || error.value === 'nonexistantresource' || Number(error.status) === 404) {
     response.status(404).json({ message: 'Not found' });
   } else {
     next(error);
