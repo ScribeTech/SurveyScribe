@@ -4,9 +4,14 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+
 import 'whatwg-fetch';
 
 import Layout from './Layout';
@@ -39,6 +44,17 @@ const actions = (props, survey) => [
       });
     } }
 ];
+
+const togglePopOver = (props, questionId, i) => {
+  console.log("props surveyedit", props);
+  if (!props.options[questionId][i].selected) {
+    props.increment(questionId, i);
+  } else {
+    props.decrement(questionId, i);
+  }
+  props.toggleSelected(questionId, i);
+};
+
 
 const styles = {
   option: {
@@ -130,6 +146,22 @@ const Edit = (props) => {
       >
         <ContentAdd />
       </FloatingActionButton>
+      <IconMenu
+        iconButtonElement={
+          <FloatingActionButton
+            onClick={() => props.addQuestion(survey.id)}
+            className="floatingActionButton"
+            zDepth={3}
+          >
+            <ContentAdd />
+          </FloatingActionButton>
+        }
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+      >
+        <MenuItem primaryText="Multiple Choice" />
+        <MenuItem primaryText="Slider" />
+      </IconMenu>
     </Layout>
   );
 };
