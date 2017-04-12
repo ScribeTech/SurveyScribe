@@ -1,1 +1,1 @@
-describe('Survey Model');
+describe('Survey Model', () => {});

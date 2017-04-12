@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 const chai = require('chai');
 chai.use(require('chai-http'));
 chai.use(require('chai-shallow-deep-equal'));
@@ -17,7 +15,7 @@ describe('Survey Controller', () => {
   });
   describe('/GET survey', () => {
     it('GETs all surveys', (done) => {
-      const expected = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', votes: 0 }, { label: 'Green', votes: 0 }, { label: 'Blue', votes: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs' }, { label: 'Cats' }] }] };
+      const expected = Survey.sample();
       Survey.create(expected)
       .then(() => request(app).get('/api/surveys'))
       .then((response) => {
@@ -54,25 +52,7 @@ describe('Survey Controller', () => {
     it('POSTs a full survey', (done) => {
       request(app)
       .post('/api/surveys')
-      .send({
-        title: 'Test',
-        questions: [{
-          label: 'Test',
-          options: [{
-            label: 'TestLabel1',
-            votes: 2
-          }, {
-            label: 'TestLabel2',
-            votes: 3
-          }, {
-            label: 'TestLabel3',
-            votes: 4
-          }, {
-            label: 'TestLabel4',
-            votes: 1
-          }]
-        }]
-      })
+      .send(Survey.sample())
       .end((error, response) => {
         expect(response).status(201);
         expect(response).to.be.json;
@@ -80,7 +60,7 @@ describe('Survey Controller', () => {
       });
     });
   });
-  describe('GET /api/surveys/:id', () => {
+  describe('GET /api/surveys/:survey', () => {
     it('responds with a 404 status code for non-existant resources', (done) => {
       request(app)
       .get('/api/surveys/nonexistantresource')
@@ -92,7 +72,7 @@ describe('Survey Controller', () => {
     });
     it('GETs a survey with the given id', (done) => {
       // Add example data
-      const expected = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', votes: 0 }, { label: 'Green', votes: 0 }, { label: 'Blue', votes: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', votes: 0 }, { label: 'Cats', votes: 0 }] }] };
+      const expected = Survey.sample();
       Survey.create(expected)
       .then(result => request(app).get(`/api/surveys/${result._id}`))
       .then((response) => {
@@ -104,9 +84,9 @@ describe('Survey Controller', () => {
       .catch(done); // call "done" if the promise is rejected (see error.js)
     });
   });
-  describe('/PUT/:id survey', () => {
+  describe('/PUT/:survey', () => {
     it('PUTs a survey with the given id', (done) => {
-      const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', votes: 0 }, { label: 'Green', votes: 0 }, { label: 'Blue', votes: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', votes: 0 }, { label: 'Cats', votes: 0 }] }] };
+      const seed = Survey.sample();
       const expected = { title: 'Example Survey', questions: [{ label: 'Do you weigh more than a duck?', options: [{ label: 'Yes', votes: 0 }, { label: 'No', votes: 0 }] }] };
       const id = Survey.create(seed).then(result => result._id);
       id.then(surveyID => request(app).put(`/api/surveys/${surveyID}`).send(expected));
@@ -121,9 +101,9 @@ describe('Survey Controller', () => {
     });
     xit('does not overwrite undefined properties', () => {});
   });
-  describe('DELETE /api/surveys/:id', () => {
+  describe('DELETE /api/surveys/:survey', () => {
     it('deletes the survey', (done) => {
-      const seed = { title: 'Example Survey', questions: [{ label: 'What is your favorite color?', options: [{ label: 'Red', votes: 0 }, { label: 'Green', votes: 0 }, { label: 'Blue', votes: 0 }] }, { label: 'Which do you like more?', options: [{ label: 'Dogs', votes: 0 }, { label: 'Cats', votes: 0 }] }] };
+      const seed = Survey.sample();
       Survey.create(seed)
       .then(result => (
         request(app).delete(`/api/surveys/${result._id}`)
@@ -139,7 +119,7 @@ describe('Survey Controller', () => {
     });
     it('responds with a 404 status code for non-existant resources', (done) => {
       request(app).delete('/api/surveys/nonexistantresource')
-      .end((response) => {
+      .end((error, response) => {
         expect(response).status(404);
         done();
       });

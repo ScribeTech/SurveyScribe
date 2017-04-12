@@ -1,6 +1,7 @@
-const db = require('../database.js');
+require('../config/database.js');
+const mongoose = require('mongoose');
 
-const Schema = db.Schema;
+const Schema = mongoose.Schema;
 
 const OptionSchema = Schema({
   label: String,
@@ -18,4 +19,25 @@ const SurveySchema = Schema({
   questions: [QuestionSchema]
 });
 
-module.exports = db.model('Survey', SurveySchema);
+SurveySchema.statics.sample = () => ({
+  title: 'Example Survey',
+  questions: [
+    {
+      label: 'What is your favorite color?',
+      options: [
+        { label: 'Red', votes: 0 },
+        { label: 'Green', votes: 0 },
+        { label: 'Blue', votes: 0 }
+      ]
+    },
+    {
+      label: 'Which do you like more?',
+      options: [
+        { label: 'Dogs' },
+        { label: 'Cats' }
+      ]
+    }
+  ]
+});
+
+module.exports = mongoose.model('Survey', SurveySchema);

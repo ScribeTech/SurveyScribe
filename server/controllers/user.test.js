@@ -1,1 +1,1 @@
-describe('User Controller');
+describe('User Controller', () => {});

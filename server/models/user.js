@@ -1,8 +1,9 @@
+require('../config/database.js');
 const assert = require('assert');
+const mongoose = require('mongoose');
 const sodium = require('sodium').api;
-const db = require('../database.js');
 
-const Schema = db.Schema;
+const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
   name: { type: String, required: true, index: { unique: true } },
@@ -50,4 +51,9 @@ UserSchema.methods.hashPassword = function (plaintext) {
   );
 };
 
-module.exports = db.model('User', UserSchema);
+UserSchema.statics.sample = () => ({
+  name: 'John Doe',
+  password: 'password12345678'
+});
+
+module.exports = mongoose.model('User', UserSchema);

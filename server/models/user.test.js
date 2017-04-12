@@ -33,13 +33,12 @@ describe('User Model', () => {
     });
 
     it('returns true if the password matches and false if it doesn\'t', (done) => {
-      const name = 'testuser@testing.com';
-      const password = 'password12345678';
+      const expected = User.sample();
       const mistmatch = 'qwerty';
-      User.create({ name, password })
+      User.create(expected)
       .then(user => User.findById(user._id, 'name hash').exec())
       .then((user) => {
-        expect(user.authenticate(password)).to.be.true;
+        expect(user.authenticate(expected.password)).to.be.true;
         expect(user.authenticate(mistmatch)).to.be.false;
         done();
       })
@@ -53,14 +52,13 @@ describe('User Model', () => {
     });
 
     it('only saves password hashes', (done) => {
-      const name = 'testuser@testing.com';
-      const password = 'password12345678';
-      User.create({ name, password })
+      const expected = User.sample();
+      User.create(expected)
       .then((user) => {
         expect(user.password).to.be.undefined;
         expect(user.hash).to.exist;
         expect(Buffer.isBuffer(user.hash)).to.be.true;
-        expect(user.authenticate(password, user.hash));
+        expect(user.authenticate(expected.password, user.hash));
         done();
       })
       .catch(done); // immediately output errors instead of timing out
