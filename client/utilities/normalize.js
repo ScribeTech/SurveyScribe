@@ -12,13 +12,15 @@ export function denormalize(survey, questions, options) {
       options: []
     };
 
-    options[question.id].forEach((option) => {
-      const mongoOp = {
-        label: option.label,
-        votes: option.votes
-      };
-      mongoQ.options.push(mongoOp);
-    });
+    if (options[question.id]) {
+      options[question.id].forEach((option) => {
+        const mongoOp = {
+          label: option.label,
+          votes: option.votes
+        };
+        mongoQ.options.push(mongoOp);
+      });
+    }
 
     mongoData.questions.push(mongoQ);
   });

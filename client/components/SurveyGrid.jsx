@@ -64,7 +64,7 @@ const SurveyTile = props => (
                 <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
               </ClipboardButton>
             </div>
-            Use the button to copy
+            Use the button to copy the link
           </div>
         </IconMenu>
       </CardActions>
