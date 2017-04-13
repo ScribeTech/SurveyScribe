@@ -5,34 +5,76 @@ chai.use(require('chai-shallow-deep-equal'));
 const { expect, request } = chai;
 const app = require('../index.js');
 
-xdescribe('Routes', () => {
-  const routes = [
-    { path: '/api/surveys', methods: ['get', 'post'] },
-    { path: '/api/surveys/:survey', methods: ['get', 'put', 'delete'] },
-    { path: '/api/users', methods: ['get', 'post'] },
-    { path: '/api/users/:user', methods: ['get', 'put', 'delete'] }
-  ];
-  routes.forEach((route) => {
-    route.methods.forEach((method) => {
-      xdescribe(route.path, () => {
-        it('responds with 403 for unauthenticated users', (done) => {
-          request(app)[method](route.path)
-          .then((response) => {
-            expect(response).status(403);
-            done();
-          })
-          .catch(done);
-        });
-        it('responds normally for authenticated users', (done) => {
-          request(app)[method](route.path)
-          .then((response) => {
-            expect(response).status(200);
-            done();
-          })
-          .catch(done);
-        });
+describe('Authentication routes', () => {
+  describe('/api/login', () => {
+    describe('POST', () => {
+      it('should return 200 and authenticate the user', () => {
+
+      });
+
+      it('should return 400 for invalid input', () => {
+
+      });
+    });
+
+    describe('GET', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('PUT', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('PATCH', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('DELETE', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
       });
     });
   });
-  it('responds normally for authenticate users', () => {});
+
+  describe('/api/logout', () => {
+    describe('POST', () => {
+      it('should return 200 and all users', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+    });
+
+    describe('GET', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('PUT', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('PATCH', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('DELETE', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+  });
 });

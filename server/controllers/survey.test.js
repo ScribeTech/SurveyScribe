@@ -6,122 +6,202 @@ const { expect, request } = chai;
 const app = require('../index.js');
 const Survey = require('mongoose').model('Survey');
 
-describe('Survey Controller', () => {
+describe('Survey routes', () => {
   beforeEach((done) => {
     Survey.remove({}, done); // Empty the database to ensure predictablility
   });
   afterEach((done) => {
     Survey.remove({}, done); // Empty the database to ensure predictablility
   });
-  describe('/GET survey', () => {
-    it('GETs all surveys', (done) => {
-      const expected = Survey.sample();
-      Survey.create(expected)
-      .then(() => request(app).get('/api/surveys'))
-      .then((response) => {
-        expect(response).status(200);
-        expect(response).to.be.json;
-        expect(response.body.length);
-        expect(response.body[0]).to.shallowDeepEqual(expected);
-        done();
-      })
-      .catch((error) => { console.error(error); done(error); });
-    });
-  });
-  describe('/POST survey', () => {
-    it('POSTs an empty survey', (done) => {
-      request(app)
-      .post('/api/surveys')
-      .send({
-        title: '',
-        questions: [{
-          label: '',
-          options: [{
-            label: '',
-            votes: 0
-          }]
-        }]
-      })
-      .end((error, response) => {
-        expect(response).status(201);
-        expect(response).to.be.json;
-        done();
+
+  describe('/api/survey', () => {
+    describe('GET', () => {
+      it('should return 200 and all of user\'s surveys', () => {
+        const expected = Survey.sample();
+        Survey.create(expected)
+          .then(() => request(app).get('/api/surveys'))
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body[0]).to.shallowDeepEqual(expected);
+          });
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
       });
     });
 
-    it('POSTs a full survey', (done) => {
-      request(app)
-      .post('/api/surveys')
-      .send(Survey.sample())
-      .end((error, response) => {
-        expect(response).status(201);
-        expect(response).to.be.json;
-        done();
+    describe('POST', () => {
+      it('should return 201 when survey is created', () => {
+
+      });
+
+      it('should return 400 if invalid input', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
+    });
+
+    describe('PUT', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('PATCH', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('DELETE', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
       });
     });
   });
-  describe('GET /api/surveys/:survey', () => {
-    it('responds with a 404 status code for non-existant resources', (done) => {
-      request(app)
-      .get('/api/surveys/nonexistantresource')
-      .end((error, response) => {
-        expect(response).status(404);
-        expect(response).to.be.json;
-        done();
+
+  describe('/api/survey/:survey', () => {
+    describe('GET', () => {
+      it('should return 200 and specified survey', () => {
+
+      });
+
+      it('should return 404 if survey doesn\'t exist', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
       });
     });
-    it('GETs a survey with the given id', (done) => {
-      // Add example data
-      const expected = Survey.sample();
-      Survey.create(expected)
-      .then(result => request(app).get(`/api/surveys/${result._id}`))
-      .then((response) => {
-        expect(response).status(200);
-        expect(response).to.be.json;
-        expect(response.body).to.shallowDeepEqual(expected);
-        done();
-      })
-      .catch((error) => { console.error(error); done(error); });
+
+    describe('PATCH', () => {
+      it('should return 200 and update part of the survey', () => {
+
+      });
+
+      it('should return 400 if invalid input', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
+    });
+
+    describe('DELETE', () => {
+      it('should return 200 and delete the survey', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
+    });
+
+    describe('PUT', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('POST', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
     });
   });
-  describe('/PUT/:survey', () => {
-    it('PUTs a survey with the given id', (done) => {
-      const seed = Survey.sample();
-      const expected = { title: 'Example Survey', questions: [{ label: 'Do you weigh more than a duck?', options: [{ label: 'Yes', votes: 0 }, { label: 'No', votes: 0 }] }] };
-      const id = Survey.create(seed).then(result => result._id);
-      id.then(surveyID => request(app).put(`/api/surveys/${surveyID}`).send(expected));
-      id.then(surveyID => request(app).get(`/api/surveys/${surveyID}`))
-      .then((response) => {
-        expect(response).status(200);
-        expect(response).to.be.json;
-        expect(response.body).to.shallowDeepEqual(expected);
-        done();
-      })
-      .catch(done); // call "done" if the promise is rejected (see error.js)
+
+  describe('/api/survey/:survey/responses', () => {
+    describe('GET', () => {
+      it('should return 200 and all of survey\'s responses', () => {
+
+      });
+
+      it('should return 404 if survey doesn\'t exist', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
     });
-    xit('does not overwrite undefined properties', () => {});
+
+    describe('PUT', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('PATCH', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('DELETE', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
   });
-  describe('DELETE /api/surveys/:survey', () => {
-    it('deletes the survey', (done) => {
-      const seed = Survey.sample();
-      Survey.create(seed)
-      .then(result => (
-        request(app).delete(`/api/surveys/${result._id}`)
-        .then((response) => {
-          expect(response).status(200);
-          expect(response).to.be.json;
-          return request(app).get(`/api/surveys/${result._id}`);
-        })
-        .catch((error) => { expect(error).status(404); })
-        .then(done)
-      ))
-      .catch((error) => { console.error(error); done(error); });
+
+  describe('/api/survey/:survey/responses/:response', () => {
+    describe('GET', () => {
+      it('should return 200 and specified response', () => {
+
+      });
+
+      it('should return 404 if survey doesn\'t exist', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
     });
-    it('responds with a 404 status code for non-existant resources', (done) => {
-      request(app).delete('/api/surveys/nonexistantresource')
-      .end((error, response) => {
-        expect(response).status(404);
-        done();
+
+    describe('PUT', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('PATCH', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
+      });
+    });
+
+    describe('DELETE', () => {
+      it('should return 405 METHOD NOT ALLOWED', () => {
+
       });
     });
   });
