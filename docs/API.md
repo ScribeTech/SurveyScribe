@@ -126,7 +126,8 @@ api/surveys/:survey/responses/:response
         { "id": "58ee6466aa8ac36d6d74fe9a", "label": "Red"},
         { "id": "58ee6466aa8ac36d6d74fe9b", "label": "Green"},
         { "id": "58ee6466aa8ac36d6d74fe9c", "label": "Blue"}
-      ]
+      ],
+      "maxSelection": 0
     }
   ]
 }
