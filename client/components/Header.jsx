@@ -6,7 +6,10 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import { Card } from 'material-ui/Card';
+import ClipboardButton from 'react-clipboard.js';
 import { browserHistory as history } from 'react-router';
+import Clipboard from '../assets/Copy.svg';
 
 const Header = props => (
   <AppBar
@@ -19,9 +22,30 @@ const Header = props => (
     }
     iconElementRight={props.actions &&
       <IconMenu iconButtonElement={<IconButton touch><MoreVertIcon /></IconButton>}>
-        {props.actions.map(p => (
-          <MenuItem primaryText={p.label} onClick={p.callback} />
-        ))}
+        {props.actions.map((p) => {
+          if (p.label === 'Share') {
+            return (
+              <MenuItem
+                primaryText={p.label}
+                menuItems={[
+                  <div className="copy">
+                    <Card />
+                    Copy This Link
+                    <div className="link">
+                      <input id="url" className="url" type="text" value={`http://www.website.com/survey/${props.children[1][0].key}/answer`} readOnly />
+                      <ClipboardButton className="copybtn" data-clipboard-target="#url">
+                        <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
+                      </ClipboardButton>
+                    </div>
+                    Use the button to copy the link
+                  </div>
+                ]}
+              />
+            );
+          }
+          return (<MenuItem primaryText={p.label} onClick={p.callback} />);
+        }
+        )}
       </IconMenu>
     }
   />

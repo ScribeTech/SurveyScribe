@@ -4,9 +4,12 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
+import MenuItem from 'material-ui/MenuItem';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import Slider from 'material-ui/Slider';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
@@ -35,7 +38,7 @@ const actions = (props, survey) => [
         method: 'DELETE'
       })
       .then(() => {
-        getSurveys(props, '/survey');
+        getSurveys(props);
       });
     } }
 ];
@@ -59,7 +62,65 @@ const styles = {
   quesitonIconButton: {
     position: 'absolute',
     marginTop: 20
+  },
+  slider: {
+    width: 800,
+    marginLeft: 20
   }
+};
+
+const renderMessage = (props, question) => {
+  const surveyID = props.params.surveyID;
+  const [survey] = props.surveys.filter(s => s.id === surveyID);
+
+  if (question.type === 'mulChoice' || question.type === undefined) {
+    return (
+      props.options[question.id] && props.options[question.id].map((option, j) => (
+        <div>
+          <ListItem disabled>
+            <TextField
+              id={survey.id.toString()}
+              floatingLabelText="Option"
+              defaultValue={option.label}
+              onChange={(e) => {
+                props.editOption(question.id, j, e.target.value);
+              }}
+              style={styles.option}
+              multiLine
+            />
+            <IconButton
+              onClick={() => props.removeOption(question.id, j)}
+              style={styles.optionIconButton}
+            >
+              <CloseIcon />
+            </IconButton>
+          </ListItem>
+        </div>
+      ))
+    );
+  } else if (question.type === 'slider') {
+    return (
+      <div>
+        <Slider
+          step={1}
+          defaultValue={0}
+          max={10}
+          min={0}
+          style={styles.slider}
+          onChange={(e, value) => props.editSlider(question.id, 0, value)}
+        />
+      </div>
+    );
+  }
+
+  renderMessage.propTypes = {}.isRequired;
+};
+
+const renderAddOption = (props, question) => {
+  if (question.type === 'mulChoice') {
+    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />;
+  }
+  renderAddOption.propTypes = {}.isRequired;
 };
 
 const Edit = (props) => {
@@ -99,28 +160,8 @@ const Edit = (props) => {
           >
             <CloseIcon />
           </IconButton>
-          {props.options[question.id] && props.options[question.id].map((option, j) => (
-            <ListItem disabled>
-              <TextField
-                id={survey.id.toString()}
-                floatingLabelText="Option"
-                defaultValue={option.label}
-                onChange={(e) => {
-                  // editing option in state
-                  props.editOption(question.id, j, e.target.value);
-                }}
-                style={styles.option}
-                multiLine
-              />
-              <IconButton
-                onClick={() => props.removeOption(question.id, j)}
-                style={styles.optionIconButton}
-              >
-                <CloseIcon />
-              </IconButton>
-            </ListItem>
-          ))}
-          <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />
+          {renderMessage(props, question)}
+          {renderAddOption(props, question)}
         </List>
       ))}
       <FloatingActionButton
@@ -130,6 +171,22 @@ const Edit = (props) => {
       >
         <ContentAdd />
       </FloatingActionButton>
+      <IconMenu
+        iconButtonElement={
+          <FloatingActionButton
+            // onClick={() => props.addQuestion(survey.id)}
+            className="floatingActionButton"
+            zDepth={3}
+          >
+            <ContentAdd />
+          </FloatingActionButton>
+        }
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+      >
+        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion(survey.id, 'mulChoice')} />
+        <MenuItem primaryText="Slider" onClick={() => props.addQuestion(survey.id, 'slider')} />
+      </IconMenu>
     </Layout>
   );
 };

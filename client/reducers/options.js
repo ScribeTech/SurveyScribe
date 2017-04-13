@@ -19,6 +19,12 @@ function questionOptions(state = [], action) {
         Object.assign({}, state[action.i], { label: action.label }),
         ...state.slice(action.i + 1)
       ];
+    case 'EDIT_SLIDER':
+      return [
+        ...state.slice(0, action.i),
+        Object.assign({}, state[action.i], { value: action.value }),
+        ...state.slice(action.i + 1)
+      ];
     case 'INCREMENT_VOTES':
       return [
         ...state.slice(0, action.i),
@@ -32,7 +38,6 @@ function questionOptions(state = [], action) {
         ...state.slice(action.i + 1)
       ];
     case 'TOGGLE_SELECT':
-      console.log('select toggled!');
       return [
         ...state.slice(0, action.i),
         Object.assign({}, state[action.i], { selected: !state[action.i].selected }),

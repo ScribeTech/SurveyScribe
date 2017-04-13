@@ -36,12 +36,12 @@ export function removeSurvey(i) {
 }
 
 // add question
-export function addQuestion(surveyId, label) {
+export function addQuestion(surveyId, questionType) {
   return {
     type: 'ADD_QUESTION',
     surveyId,
     id: Types.ObjectId(),
-    label
+    questionType
   };
 }
 // edit question
@@ -71,13 +71,23 @@ export function addOption(questionId, label) {
   };
 }
 
-// remove option
+// edit option
 export function editOption(questionId, i, label) {
   return {
     type: 'EDIT_OPTION',
     questionId,
     i,
     label
+  };
+}
+
+// edit slide
+export function editSlider(questionId, i, value) {
+  return {
+    type: 'EDIT_OPTION',
+    questionId,
+    i,
+    value
   };
 }
 

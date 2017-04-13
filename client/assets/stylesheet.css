@@ -53,12 +53,46 @@ footer {
   text-align: center;
 }
 
+.logo {
+  width: 160px;
+}
+
 .floatingActionButton {
+  position: fixed;
   bottom: 20px;
   left: 20px;
   z-index: 3;
 }
 
-.logo {
-  width: 160px;
+.copy {
+  width: 250px;
+  height: 100px;
+  padding: 10px 0 0 10px;
+}
+
+.link {
+  padding-top: 15px;
+}
+
+input.url {
+  width: 200px;
+  font-size: 10pt;
+  height: 26px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+
+.copybtn {
+  height: 31px;
+  position: absolute;
+}
+
+.copybtn:hover {
+  border-color: rgba(27,31,35,0.35);
+}
+
+.clipboard {
+  width: 15px;
+  height: 20px;
+  padding-top: 3px;
 }
