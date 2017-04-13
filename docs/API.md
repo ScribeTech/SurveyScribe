@@ -107,7 +107,7 @@ api/surveys/:survey/responses/:response
       "required": false,
       "title": "How much do you like burritos?",
       "min": 0,
-      "max": 10
+      "max": 10,
       "labels": ["Not at All", "Somewhat", "Extremely"]
     },
     {
@@ -156,7 +156,7 @@ api/surveys/:survey/responses/:response
 - **401** UNAUTHORIZED - if not authenticated
 - **401** UNAUTHORIZED - if not owner
 
-#### PUT, PATCH, DELETE api/surveys
+#### PUT, PATCH, DELETE `api/surveys`
 
 - **405** METHOD NOT ALLOWED
 
