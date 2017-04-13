@@ -228,7 +228,7 @@ api/surveys/:survey/responses/:response
 
 #### POST `api/responses`
 
-- **Request body:** (response object)](#response-object)
+- **Request body:** [(response object)](#response-object)
 - **201** CREATED - create a response and return its [(response object)](#response-object)
 - **400** BAD REQUEST - if invalid input
 
