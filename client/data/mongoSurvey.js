@@ -1,5 +1,5 @@
 export const mongoSurvey = {
-  "id": "58ee63c65a2d576d5125b4bc",
+  "_id": "58ee63c65a2d576d5125b4bc",
   "owners": [
     "58ee63c65a2d576d5125b4c3",
     "58ee63c65a2d576d5125b4c2",
