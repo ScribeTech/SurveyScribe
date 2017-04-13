@@ -1,5 +1,5 @@
-const Survey = require('../models/survey.js');
 const controller = require('express').Router();
+const Survey = require('../models/survey.js');
 
 controller.route('/')
   .get((request, response, next) => {

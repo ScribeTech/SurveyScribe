@@ -10,4 +10,4 @@ mongoose.connect(config.database.uri, config.database.options)
   if (config.debug) { throw error; } else { process.exit(1); }
 });
 
-module.exports = mongoose.connection;
+module.exports = mongoose;
