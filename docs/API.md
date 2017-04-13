@@ -61,7 +61,7 @@ api/surveys/:survey/responses/:response
 
 ``` json
 {
-  "id": "58ee6904fdebd16dfdd99f95",
+  "_id": "58ee6904fdebd16dfdd99f95",
   "name": "Jane Smith"
 }
 ```
@@ -70,19 +70,19 @@ api/surveys/:survey/responses/:response
 
 ``` json
 {
-  "id": "58ee6904fdebd16dfdd99f91",
+  "_id": "58ee6904fdebd16dfdd99f91",
   "participant": "58ee6466aa8ac36d6d74fea3",
   "questions": [
     {
-      "id": "58ee6466aa8ac36d6d74fe9f",
+      "_id": "58ee6466aa8ac36d6d74fe9f",
       "value": 10
     },
     {
-      "id": "58ee6466aa8ac36d6d74fe9e",
+      "_id": "58ee6466aa8ac36d6d74fe9e",
       "value": "I love them with all my soul!!!"
     },
     {
-      "id": "58ee63c65a2d576d5125b4c1",
+      "_id": "58ee63c65a2d576d5125b4c1",
       "values": ["58ee6466aa8ac36d6d74fe9a"]
     }
   ]
@@ -93,7 +93,7 @@ api/surveys/:survey/responses/:response
 
 ``` json
 {
-  "id": "58ee63c65a2d576d5125b4c5",
+  "_id": "58ee63c65a2d576d5125b4c5",
   "owners": [
     "58ee63c65a2d576d5125b4c3",
     "58ee63c65a2d576d5125b4c2",
@@ -102,7 +102,7 @@ api/surveys/:survey/responses/:response
   "title": "Example Survey",
   "questions": [
     {
-      "id": "58ee6466aa8ac36d6d74fe9f",
+      "_id": "58ee6466aa8ac36d6d74fe9f",
       "type": "Scale",
       "required": false,
       "title": "How much do you like burritos?",
@@ -111,21 +111,21 @@ api/surveys/:survey/responses/:response
       "labels": ["Not at All", "Somewhat", "Extremely"]
     },
     {
-      "id": "58ee6466aa8ac36d6d74fe9e",
+      "_id": "58ee6466aa8ac36d6d74fe9e",
       "type": "Text",
       "required": false,
       "title": "Explain your rating.",
       "max": 1000
     },
     {
-      "id": "58ee63c65a2d576d5125b4c1",
+      "_id": "58ee63c65a2d576d5125b4c1",
       "type": "Select",
       "required": false,
       "title": "What is your favorite color?",
       "options": [
-        { "id": "58ee6466aa8ac36d6d74fe9a", "label": "Red"},
-        { "id": "58ee6466aa8ac36d6d74fe9b", "label": "Green"},
-        { "id": "58ee6466aa8ac36d6d74fe9c", "label": "Blue"}
+        { "_id": "58ee6466aa8ac36d6d74fe9a", "label": "Red"},
+        { "_id": "58ee6466aa8ac36d6d74fe9b", "label": "Green"},
+        { "_id": "58ee6466aa8ac36d6d74fe9c", "label": "Blue"}
       ],
       "maxSelection": 0
     }
@@ -142,9 +142,9 @@ api/surveys/:survey/responses/:response
 - **200** OK - Return all surveys owned by the current user
   ``` json
   [
-    { "id": "58ee63c65a2d576d5125b4bc", "title": "Example Survey" },
-    { "id": "58ee63c65a2d576d5125b4bd", "title": "Intrusive MARKETING Survey" },
-    { "id": "58ee63c65a2d576d5125b4bf", "title": "Test Survey" }
+    { "_id": "58ee63c65a2d576d5125b4bc", "title": "Example Survey" },
+    { "_id": "58ee63c65a2d576d5125b4bd", "title": "Intrusive MARKETING Survey" },
+    { "_id": "58ee63c65a2d576d5125b4bf", "title": "Test Survey" }
   ]
   ```
 - **401** UNAUTHORIZED - if not authenticated
