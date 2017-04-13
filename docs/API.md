@@ -66,7 +66,8 @@ api/surveys/:survey/responses/:response
 [
   { "id": "58ee63c65a2d576d5125b4bc", "title": "Example Survey" },
   { "id": "58ee63c65a2d576d5125b4bd", "title": "Intrusive MARKETING Survey" },
-  { "id": "58ee63c65a2d576d5125b4bf", "title": "Test Survey" }
+  { "id": "58ee63c65a2d576d5125b4bf", "title": "Test Survey" },
+  ...
 ]
 ```
 
@@ -86,6 +87,24 @@ api/surveys/:survey/responses/:response
 
 NOTE: Only send properties that have been changed. Undefined properties will not
 be overwritten.
+
+### GET api/surveys/:survey/responses
+
+**Response body:**
+
+``` json
+[
+  <response object>,
+  <response object>,
+  <response object>
+  ...
+]
+```
+See [response object](#response-object)
+
+### GET api/surveys/:survey/responses/:response
+
+**Response body:** [response object](#response-object)
 
 ## Responses
 
@@ -126,6 +145,7 @@ api/responses/:response
   <response object>,
   <response object>,
   <response object>,
+  ...
 ]
 ```
 
@@ -184,7 +204,8 @@ api/users/:user
 ``` json
 [
   { "id": "58ee6904fdebd16dfdd99f94", name: "John Doe"},
-  { "id": "58ee6904fdebd16dfdd99f95", name: "Jane Smith"}
+  { "id": "58ee6904fdebd16dfdd99f95", name: "Jane Smith"},
+  ...
 ]
 ```
 
