@@ -3,7 +3,6 @@ chai.use(require('chai-http'));
 
 const { expect, request } = chai;
 const app = require('../index.js');
-// const Response = require('mongoose').model('Response');
 
 xdescribe('Response routes', () => {
   beforeEach((done) => {

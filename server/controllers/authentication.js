@@ -12,7 +12,7 @@ exports.login = (request, response) => {
   })
   .catch((error) => {
     console.error(error);
-    response.sendStatus(403);
+    response.status(403).json({ error });
   });
 };
 
@@ -21,6 +21,20 @@ exports.logout = (request, response) => {
   response.sendStatus(200);
 };
 
-exports.required = (request, response, next) => {
-  next();
+exports.isLoggedIn = (request, response, next) => {
+  if (request.session.user) {
+    next();
+  } else {
+    response.sendStatus(401);
+  }
+};
+
+exports.isSameUser = (request, response, next) => {
+  if (request.session.user &&
+      request.params.user &&
+      request.session.user === request.params.user) {
+    next();
+  } else {
+    response.sendStatus(401);
+  }
 };
