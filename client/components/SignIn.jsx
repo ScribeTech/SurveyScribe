@@ -13,6 +13,9 @@ const styles = {
   },
   textbox: {
     marginLeft: 20
+  },
+  createaccount: {
+    marginTop: 30
   }
 };
 
@@ -32,7 +35,7 @@ const SignIn = () => (
           />
         </div>
         <CardActions>
-          <FlatButton label="Create Account" />
+          <FlatButton style={styles.createaccount} label="Create Account" />
         </CardActions>
       </Card>
     </div>
