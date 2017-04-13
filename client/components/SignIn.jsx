@@ -1,5 +1,8 @@
 import React from 'react';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
+import Layout from './Layout';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 const styles = {
   main: {
@@ -7,16 +10,33 @@ const styles = {
     top: 150,
     margin: 'auto',
     width: 600
+  },
+  textbox: {
+    marginLeft: 20
   }
-}
+};
 
 const SignIn = () => (
-  <div>
-    <Card style={styles.main}>
-      <CardTitle title="Please Sign Up" />
-      SignIn
-    </Card>
-  </div>
+  <Layout title="Sign In">
+    <div>
+      <Card style={styles.main}>
+        <CardTitle title="Please Sign Up" />
+        <div style={styles.textbox}>
+          <TextField
+            floatingLabelText="Name"
+          />
+        </div>
+        <div style={styles.textbox}>
+          <TextField
+            floatingLabelText="Password"
+          />
+        </div>
+        <CardActions>
+          <FlatButton label="Create Account" />
+        </CardActions>
+      </Card>
+    </div>
+  </Layout>
 );
 
 export default SignIn;
