@@ -8,7 +8,7 @@ Project description
   - __Scrum Master__: Megan Rabuse
   - __Development Team Members__: Jin Chung, Clark Baumgartner
 
-  ## Table of Contents
+## Table of Contents
 
   1. [Usage](#Usage)
   1. [Requirements](#requirements)
@@ -18,16 +18,28 @@ Project description
   1. [Team](#team)
   1. [Contributing](#contributing)
 
-  ## Usage
+## Usage
 
-  ## Requirements
+## Requirements
 
-  ## Development
+  1. [Node 7.8](https://github.com/creationix/nvm#installation)
+  1. [NPM 4.4](https://docs.npmjs.com/getting-started/installing-node)
+  1. [Node Sodium](https://github.com/paixaop/node-sodium#install)
 
-  ### Installing Dependencies
+## Installing Dependencies
 
-  ### Roadmap
+1. Install [Node Sodium](https://github.com/paixaop/node-sodium#install) and its dependancies.
+    ``` sh
+    npm install node-gyp -g
+    brew install libtool autoconf automake
+    npm install sodium --unsafe-perm -g
+    ```
 
-  ## Contributing
+1. Install node packages.
+    ``` sh
+    npm install
+    ```
 
-  See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines.
+## Contributing
+
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines.
