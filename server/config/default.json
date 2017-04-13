@@ -1,8 +1,0 @@
-{
-  "port": 8000,
-  "database": { "uri": "mongodb://localhost/surveyscribe" },
-  "public": "./public",
-  "log": "./server/logs/access.log",
-  "debug": true,
-  "sessionSecret": "DEFINE IN DEVELOPMENT.JSON OR PRODUCTION.JSON"
-}
