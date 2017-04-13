@@ -127,10 +127,6 @@ api/responses/:response
     200 OK only update part of the response
     400 BAD REQUEST if invalid input
     401 UNAUTHORIZED if user!=current user and session!=current session
-  (?) DELETE
-    200 OK delete the response
-    404 NOT FOUND if a response does not exist
-    401 UNAUTHORIZED if user!=current and session!=current
   PUT/POST
     405 METHOD NOT ALLOWED
 ```
