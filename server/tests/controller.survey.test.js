@@ -4,8 +4,9 @@ chai.use(require('chai-shallow-deep-equal'));
 
 const { expect, request } = chai;
 
-const app = require('../index.js');
-const Survey = require('../models/survey.js');
+const app = require('../server/index.js');
+const Survey = require('mongoose').model('Survey');
+const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 describe('Survey routes', () => {
   beforeEach((done) => {
@@ -99,6 +100,11 @@ describe('Survey routes', () => {
       });
     });
     describe('PUT', MethodNotAllowed('put', '/api/surveys'));
+
+    describe('PUT', MethodNotAllowed('put', '/api/surveys'));
+
+    describe('PATCH', MethodNotAllowed('patch', '/api/surveys'));
+
     describe('DELETE', MethodNotAllowed('delete', '/api/surveys'));
   });
 
@@ -206,7 +212,11 @@ describe('Survey routes', () => {
 
       });
     });
+
     describe('PUT', MethodNotAllowed('put', '/api/surveys/58ee63c65a2d576d5125b4c5'));
+
+    describe('PUT', MethodNotAllowed('put', '/api/surveys/58ee63c65a2d576d5125b4c5'));
+
     describe('POST', MethodNotAllowed('post', '/api/surveys/58ee63c65a2d576d5125b4c5'));
   });
 
@@ -229,29 +239,12 @@ describe('Survey routes', () => {
       });
     });
 
-<<<<<<< HEAD:server/tests/controller.survey.test.js
-    describe('PUT', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('PATCH', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('DELETE', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-=======
     describe('PUT', MethodNotAllowed('put', '/api/surveys/58ee63c65a2d576d5125b4c5/responses'));
 
+    describe('PATCH', MethodNotAllowed('patch', '/api/surveys/58ee63c65a2d576d5125b4c5/responses'));
+
     describe('DELETE', MethodNotAllowed('delete', '/api/surveys/58ee63c65a2d576d5125b4c5/responses'));
->>>>>>> Working on api tests:tests/controller.survey.test.js
+
   });
 
   describe('/api/survey/:survey/responses/:response', () => {
@@ -272,7 +265,13 @@ describe('Survey routes', () => {
 
       });
     });
+
     describe('PUT', MethodNotAllowed('put', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91'));
+
+    describe('PUT', MethodNotAllowed('put', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91'));
+
+    describe('PATCH', MethodNotAllowed('patch', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91'));
+
     describe('DELETE', MethodNotAllowed('delete', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91'));
   });
 });
