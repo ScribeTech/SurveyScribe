@@ -1,6 +1,7 @@
 import React from 'react';
 
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 
 import Logo from '../assets/Logo.svg';
 import Github from '../assets/GitHub-Mark.svg';
@@ -20,6 +21,9 @@ const LandingPage = props => (
       <div>
         <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => getSurveys(props, 'survey')} />
       </div>
+      <Link to="/signin">
+        Signin
+      </Link>
     </div>
     <footer>Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, and Jin Chung</footer>
   </div>
