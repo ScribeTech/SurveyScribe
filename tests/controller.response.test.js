@@ -2,7 +2,7 @@ const chai = require('chai');
 chai.use(require('chai-http'));
 
 const { expect, request } = chai;
-const app = require('../index.js');
+const app = require('../server/index.js');
 // const Response = require('mongoose').model('Response');
 
 xdescribe('Response routes', () => {
