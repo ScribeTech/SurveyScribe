@@ -10,7 +10,6 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import Slider from 'material-ui/Slider';
-
 import 'whatwg-fetch';
 
 import Layout from './Layout';
@@ -39,7 +38,7 @@ const actions = (props, survey) => [
         method: 'DELETE'
       })
       .then(() => {
-        getSurveys(props, '/survey');
+        getSurveys(props);
       });
     } }
 ];

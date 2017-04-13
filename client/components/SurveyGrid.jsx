@@ -46,7 +46,9 @@ const handleClick = (props) => {
 const SurveyTile = props => (
   <Col xs={12} sm={6} md={4}>
     <Card style={styles.card}>
-      <CardTitle style={styles.cardTitle} title={props.title} />
+      <Link to={`/survey/${props.id}/answer`} >
+        <CardTitle style={styles.cardTitle} title={props.title} />
+      </Link>
       <CardActions>
         <Link to={`/survey/${props.id}/${props.index}/edit`}><FlatButton label="Edit" /></Link>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
@@ -64,7 +66,7 @@ const SurveyTile = props => (
                 <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
               </ClipboardButton>
             </div>
-            Use the button to copy
+            Use the button to copy the link
           </div>
         </IconMenu>
       </CardActions>

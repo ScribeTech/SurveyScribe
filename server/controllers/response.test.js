@@ -3,19 +3,19 @@ chai.use(require('chai-http'));
 
 const { expect, request } = chai;
 const app = require('../index.js');
-const User = require('mongoose').model('User');
+// const Response = require('mongoose').model('Response');
 
-describe('User routes', () => {
+xdescribe('Response routes', () => {
   beforeEach((done) => {
-    User.remove({}, done); // Empty the database to ensure predictablility
+    Response.remove({}, done); // Empty the database to ensure predictablility
   });
   afterEach((done) => {
-    User.remove({}, done); // Empty the database to ensure predictablility
+    Response.remove({}, done); // Empty the database to ensure predictablility
   });
 
-  describe('/api/users', () => {
+  describe('/api/responses', () => {
     describe('GET', () => {
-      it('should return 200 and all users', () => {
+      it('should return 200 and all of current user\'s or session\'s responses', () => {
 
       });
 
@@ -25,7 +25,7 @@ describe('User routes', () => {
     });
 
     describe('POST', () => {
-      it('should return 201 and create new user', () => {
+      it('should return 201 and creates response', () => {
 
       });
 
@@ -33,7 +33,11 @@ describe('User routes', () => {
 
       });
 
-      it('should return 409 if username already exists', () => {
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
 
       });
     });
@@ -57,9 +61,9 @@ describe('User routes', () => {
     });
   });
 
-  describe('/api/users/:user', () => {
+  describe('/api/responses/:response', () => {
     describe('GET', () => {
-      it('should return 200 and specified user', () => {
+      it('should return 200 and specified response', () => {
 
       });
 
@@ -67,13 +71,17 @@ describe('User routes', () => {
 
       });
 
-      it('should return 404 if user does not exist', () => {
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
+
+      it('should return 404 if response does not exist', () => {
 
       });
     });
 
     describe('PATCH', () => {
-      it('should return 201 and create new user', () => {
+      it('should return 200 and update part of response', () => {
 
       });
 
@@ -81,13 +89,21 @@ describe('User routes', () => {
 
       });
 
-      it('should return 401 if user does not equal current user', () => {
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
 
       });
     });
 
     describe('DELETE', () => {
-      it('should return 200 log out and delete the user', () => {
+      it('should return 200 and delete the response', () => {
+
+      });
+
+      it('should return 404 if response does not exist', () => {
 
       });
 
@@ -95,7 +111,7 @@ describe('User routes', () => {
 
       });
 
-      it('should return 401 if user does not equal current user', () => {
+      it('should return 401 if user\'s not the owner', () => {
 
       });
     });
