@@ -19,6 +19,7 @@ import SurveyAnswer from './components/SurveyAnswer';
 import Results from './components/Results';
 import Finish from './components/Finish';
 import NotFoundPage from './components/NotFoundPage';
+import SignIn from './components/SignIn';
 
 // Import the Application's State (Redux)
 import store, { history } from './store';
@@ -34,6 +35,7 @@ const router = (
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
           <Route path="survey" component={SurveyGrid} />
+          <Route path="signin" component={SignIn} />
           <Route path="survey/:surveyID/:index/edit" component={SurveyEdit} />
           <Route path="survey/:surveyID/answer" component={SurveyAnswer} />
           <Route path="survey/:surveyID/results" component={Results} />
