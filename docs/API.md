@@ -301,7 +301,7 @@ api/surveys/:survey/responses/:response
 
 #### GET, PUT, PATCH, DELETE `api/login`
 
-**405** METHOD NOT ALLOWED
+- **405** METHOD NOT ALLOWED
 
 #### POST `api/logout`
 
