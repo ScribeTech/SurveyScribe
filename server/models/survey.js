@@ -9,14 +9,12 @@ const QuestionSchema = Schema({
   required: Boolean
 }, { discriminatorKey: 'kind' });
 
-
 const SurveySchema = Schema({
   _id,
   title: String,
   owners: [{ type: ObjectId, ref: 'User' }],
   questions: [QuestionSchema]
 }, { strict: 'throw' });
-
 
 const Questions = SurveySchema.path('questions');
 
@@ -36,5 +34,6 @@ Questions.discriminator('Text', Schema({
 }));
 
 SurveySchema.statics.sample = () => ({});
+
 
 module.exports = mongoose.model('Survey', SurveySchema);
