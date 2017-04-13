@@ -27,9 +27,9 @@ describe('User Model', () => {
     });
   });
 
-  describe('.authenticate', () => {
+  describe('.verifyPassword', () => {
     it('is a function', () => {
-      expect(User.schema.methods.authenticate).to.be.function;
+      expect(User.schema.methods.verifyPassword).to.be.function;
     });
 
     it('returns true if the password matches and false if it doesn\'t', (done) => {
@@ -38,8 +38,8 @@ describe('User Model', () => {
       User.create(expected)
       .then(user => User.findById(user._id, 'name hash').exec())
       .then((user) => {
-        expect(user.authenticate(expected.password)).to.be.true;
-        expect(user.authenticate(mistmatch)).to.be.false;
+        expect(user.verifyPassword(expected.password)).to.be.true;
+        expect(user.verifyPassword(mistmatch)).to.be.false;
         done();
       })
       .catch(done); // immediately output errors instead of timing out
@@ -58,7 +58,7 @@ describe('User Model', () => {
         expect(user.password).to.be.undefined;
         expect(user.hash).to.exist;
         expect(Buffer.isBuffer(user.hash)).to.be.true;
-        expect(user.authenticate(expected.password, user.hash));
+        expect(user.verifyPassword(expected.password, user.hash));
         done();
       })
       .catch(done); // immediately output errors instead of timing out
