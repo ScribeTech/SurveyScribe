@@ -73,7 +73,7 @@ api/surveys/:survey/responses/:response
 
 ### POST api/surveys
 
-****Request body:** [survey object](#survey-object)
+**Request body:** [survey object](#survey-object)
 
 **Response body:** [survey object](#survey-object)
 
