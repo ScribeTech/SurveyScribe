@@ -4,7 +4,7 @@ chai.use(require('chai-shallow-deep-equal'));
 
 const { expect, request } = chai;
 const app = require('../index.js');
-const Survey = require('../models/survey.js');
+const Survey = require('mongoose').model('Survey');
 
 describe('Survey Controller', () => {
   beforeEach((done) => {

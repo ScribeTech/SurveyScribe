@@ -14,7 +14,7 @@ xdescribe('Routes', () => {
   ];
   routes.forEach((route) => {
     route.methods.forEach((method) => {
-      describe(route.path, () => {
+      xdescribe(route.path, () => {
         it('responds with 403 for unauthenticated users', (done) => {
           request(app)[method](route.path)
           .then((response) => {

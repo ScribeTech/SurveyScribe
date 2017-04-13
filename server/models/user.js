@@ -1,4 +1,3 @@
-require('../config/database.js');
 const assert = require('assert');
 const mongoose = require('mongoose');
 const sodium = require('sodium').api;

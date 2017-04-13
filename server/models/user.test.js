@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const User = require('./user.js');
+const User = require('mongoose').model('User');
 
 describe('User Model', () => {
   beforeEach((done) => {
