@@ -9,6 +9,13 @@ const AnswerSchema = Schema({
 }, options);
 
 const ResponseSchema = Schema({
+  participant: { type: String, ref: 'Session.sid', select: false },
+    /* /!\ DANGER /!\
+     * The 'participant' field stores a sessionID. Be careful how you handle
+     * sessionID's because anyone with someone else's sessionID can impersonate
+     * that other person! Thus, 'participant' is set to be invisible by default.
+     * `{ select: false }`.
+     */
   survey: { type: ObjectId, ref: 'Survey' },
   answers: [AnswerSchema]
 }, options);

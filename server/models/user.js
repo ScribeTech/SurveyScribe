@@ -28,7 +28,7 @@ UserSchema.virtual('password')
 
 // Test if the user entered the correct password. Use this function at log in.
 // NOTE: this function will not work as an arrow function
-UserSchema.methods.authenticate = function (plaintext, hash = this.hash) {
+UserSchema.methods.verifyPassword = function (plaintext, hash = this.hash) {
   /* /!\ DANGER /!\
    * Only use this function to compare password hashes. Do not use `===` or
    * `Buffer.comopare()` because both leak information about the correct
