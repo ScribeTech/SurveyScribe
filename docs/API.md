@@ -71,7 +71,6 @@ api/surveys/:survey/responses/:response
 ``` json
 {
   "_id": "58ee6904fdebd16dfdd99f91",
-  "participant": "58ee6466aa8ac36d6d74fea3",
   "questions": [
     {
       "_id": "58ee6466aa8ac36d6d74fe9f",
@@ -166,10 +165,10 @@ api/surveys/:survey/responses/:response
 - **200** OK - return a [(survey object)](#survey-object) with the given id
 - **404** NOT FOUND - if the survey does not exist
 
-#### PATCH `api/surveys/:survey`
+#### PUT `api/surveys/:survey`
 
 - **Request body:** [(survey object)](#survey-object)
-- **200** OK - only update part of the survey (don't replace the whole thing)
+- **200** OK - update the survey
 - **400** BAD REQUEST - if invalid input
 - **401** UNAUTHORIZED - if not authenticated
 - **401** UNAUTHORIZED - if not the owner
@@ -180,7 +179,7 @@ api/surveys/:survey/responses/:response
 - **401** UNAUTHORIZED - if not authenticated
 - **401** UNAUTHORIZED - if not the owner
 
-#### PUT, POST `api/surveys/:survey`
+#### PATCH, POST `api/surveys/:survey`
 
 - **405** METHOD NOT ALLOWED
 
@@ -243,14 +242,14 @@ api/surveys/:survey/responses/:response
 - **404** NOT FOUND - if a response does not exist
 - **401** UNAUTHORIZED - if the response does not belong to the current user or session
 
-#### PATCH `api/responses/:response`
+#### PUT `api/responses/:response`
 
 - **Request body:** [(response object)](#response-object)
 - **200** OK - only update part of the response
 - **400** BAD REQUEST - if invalid input
 - **401** UNAUTHORIZED - if user!=current user and session!=current session
 
-#### PUT, POST `api/responses/:response`
+#### PATCH, POST `api/responses/:response`
 
 **405** METHOD NOT ALLOWED
 
@@ -277,7 +276,7 @@ api/surveys/:survey/responses/:response
 - **401** UNAUTHORIZED if not authenticated
 - **404** NOT FOUND if user does not exist
 
-#### PATCH `api/users/:user`
+#### PUT `api/users/:user`
 
 - **200** OK only update part of the user
 - **400** BAD REQUEST if invalid input
@@ -289,7 +288,7 @@ api/surveys/:survey/responses/:response
 - **401** UNAUTHORIZED if not authenticated
 - **401** UNAUTHORIZED if this is not the current user
 
-#### PUT, POST `api/users/:user`
+#### PATCH, POST `api/users/:user`
 
 - **405** METHOD NOT ALLOWED
 
