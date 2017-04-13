@@ -1,13 +1,6 @@
 # Server API
 
-## Contents
-
-* [Routes](#routes)
-* [Object Shapes](#object-shapes)
-
-## Routes
-
-### Surveys
+## Summary
 ```
 api/surveys
   GET
@@ -56,89 +49,165 @@ api/surveys/:survey/responses/:response
     405 METHOD NOT ALLOWED
 ```
 
-### Responses
+## Surveys
 
-```
-api/responses
-  GET
-    200 OK return all responses where user=current or session=current
-  POST (response object)
-    201 CREATED create a response and return it
-    400 BAD REQUEST if invalid input
-  PUT/PATCH/DELETE
-    405 METHOD NOT ALLOWED
+### GET api/surveys
 
-api/responses/:response
-  GET
-    200 OK return a response object
-    404 NOT FOUND if a response does not exist
-    401 UNAUTHORIZED if user!=current and session!=current
-  PATCH (response object)
-    200 OK only update part of the response
-    400 BAD REQUEST if invalid input
-    401 UNAUTHORIZED if user!=current user and session!=current session
-  (?) DELETE
-    200 OK delete the response
-    404 NOT FOUND if a response does not exist
-    401 UNAUTHORIZED if user!=current and session!=current
-  PUT/POST
-    405 METHOD NOT ALLOWED
+#### Response body:
+
+``` json
+[
+  { "id": "58ee63c65a2d576d5125b4bc", "title": "Example Survey" },
+  { "id": "58ee63c65a2d576d5125b4bd", "title": "Intrusive MARKETING Survey" },
+  { "id": "58ee63c65a2d576d5125b4bf", "title": "Test Survey" }
+]
 ```
 
-### Users
+### POST api/surveys
 
-```
-api/users
-  GET
-    200 OK return all users
-    401 UNAUTHORIZED if not authenticated
-  POST
-    201 CREATED create new user and return it
-    400 BAD REQUEST if invalid input
-    409 CONFLICT if the username already exists
-  PUT/PATCH/DELETE
-    405 METHOD NOT ALLOWED
+****Request body:** [survey object](#survey-object)
 
-api/users/:user
-  GET
-    200 OK return the user
-    401 UNAUTHORIZED if not authenticated
-    404 NOT FOUND if user does not exist
-  PATCH
-    200 OK only update part of the user
-    400 BAD REQUEST if invalid input
-    401 UNAUTHORIZED if user!=current
-  DELETE
-    200 OK log out and delete the user
-    401 UNAUTHORIZED if not authenticated
-    401 UNAUTHORIZED if user!=current
-  PUT/POST
-    405 METHOD NOT ALLOWED
-```
+**Response body:** [survey object](#survey-object)
 
-### Authentication
+### GET api/surveys/:survey
 
-```
-api/login
-  POST (credentials)
-    200 OK authenticate the user
-    400 BAD REQUEST if invalid input
-  GET/PUT/PATCH/DELETE
-    405 METHOD NOT ALLOWED
+**Response body:** [survey object](#survey-object)
+
+### PATCH api/surveys/:survey
+
+**Request body:** [survey object](#survey-object)
+
+NOTE: Only send properties that have been changed. Undefined properties will not
+be overwritten.
+
+## Responses
+
+### GET api/responses
+
+**Response body:**
+
+``` json
+[
+  <response object>,
+  <response object>,
+  <response object>,
+  <response object>,
+]
 ```
 
-```
-api/logout
-  POST
-    200 OK remove user authentication
-    401 UNAUTHORIZED if not authenticated
-  GET/PUT/PATCH/DELETE
-    405 METHOD NOT ALLOWED
+See [<response object>](#response-object).
+
+### POST api/responses
+
+**Request body:** [<response object>](#response-object)
+
+**Response body:** [<response object>](#response-object)
+
+### GET api/responses/:response
+
+**Response body:** [<response object>](#response-object)
+
+### PATCH api/responses/:response
+
+**Request body:** [<response object>](#response-object)
+
+NOTE: Only send properties that have been changed. Undefined properties will not
+be overwritten.
+
+## Users
+
+### GET /users
+
+``` json
+[
+  { "id": "58ee6904fdebd16dfdd99f94", name: "John Doe"},
+  { "id": "58ee6904fdebd16dfdd99f95", name: "Jane Smith"}
+]
 ```
 
-## Object Shapes
+### POST /users
 
-### Survey
+**Request body:**
+
+``` json
+{
+  name: "John Doe"
+  password: "CorrectHorseBatteryStaple"
+}
+```
+
+**Response body:**
+
+``` json
+{
+  id: "58ee6904fdebd16dfdd99f94"
+  name: "John Doe"
+}
+```
+
+
+
+## Authentication
+
+### POST api/login
+
+**Request body:**
+
+``` json
+{
+  name: "John Doe"
+  password: "CorrectHorseBatteryStaple"
+}
+```
+
+**Response body:**
+
+``` json
+{
+  id: "58ee6904fdebd16dfdd99f94"
+  name: "John Doe"
+}
+```
+
+### POST api/logout
+
+**Request body:**  (empty)
+
+## Objects
+
+### User Object
+
+``` json
+{
+  "id": "58ee6904fdebd16dfdd99f95",
+  "name": "Jane Smith"
+}
+```
+
+### Response Object
+
+``` json
+{
+  "id": "58ee6904fdebd16dfdd99f91",
+  "participant": "58ee6466aa8ac36d6d74fea3",
+  "questions": [
+    {
+      "id": "58ee6466aa8ac36d6d74fe9f",
+      "value": 10
+    },
+    {
+      "id": "58ee6466aa8ac36d6d74fe9e",
+      "value": "I love them with all my soul!!!"
+    },
+    {
+      "id": "58ee63c65a2d576d5125b4c1",
+      "values": ["58ee6466aa8ac36d6d74fe9a"]
+    }
+  ]
+}
+```
+
+### Survey Object
 
 ``` json
 {
@@ -179,55 +248,4 @@ api/logout
     }
   ]
 }
-```
-
-### Survey List
-
-``` json
-[
-  { "id": "58ee63c65a2d576d5125b4bc", "title": "Example Survey" },
-  { "id": "58ee63c65a2d576d5125b4bd", "title": "Intrusive MARKETING Survey" },
-  { "id": "58ee63c65a2d576d5125b4bf", "title": "Test Survey" }
-]
-```
-
-### Response
-
-``` json
-{
-  "id": "58ee6904fdebd16dfdd99f91",
-  "participant": "58ee6466aa8ac36d6d74fea3",
-  "questions": [
-    {
-      "id": "58ee6466aa8ac36d6d74fe9f",
-      "value": 10
-    },
-    {
-      "id": "58ee6466aa8ac36d6d74fe9e",
-      "value": "I love them with all my soul!!!"
-    },
-    {
-      "id": "58ee63c65a2d576d5125b4c1",
-      "values": ["58ee6466aa8ac36d6d74fe9a"]
-    }
-  ]
-}
-```
-
-### User
-
-``` json
-{
-  "id": "58ee6904fdebd16dfdd99f95",
-  "name": "Jane Smith"
-}
-```
-
-### User List
-
-``` json
-[
-  { "id": "58ee6904fdebd16dfdd99f94", name: "John Doe"},
-  { "id": "58ee6904fdebd16dfdd99f95", name: "Jane Smith"}
-]
 ```
