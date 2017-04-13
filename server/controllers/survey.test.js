@@ -25,7 +25,7 @@ describe('Survey Controller', () => {
         expect(response.body[0]).to.shallowDeepEqual(expected);
         done();
       })
-      .catch(done);
+      .catch((error) => { console.error(error); done(error); });
     });
   });
   describe('/POST survey', () => {
@@ -81,7 +81,7 @@ describe('Survey Controller', () => {
         expect(response.body).to.shallowDeepEqual(expected);
         done();
       })
-      .catch(done); // call "done" if the promise is rejected (see error.js)
+      .catch((error) => { console.error(error); done(error); });
     });
   });
   describe('/PUT/:survey', () => {
@@ -115,7 +115,7 @@ describe('Survey Controller', () => {
         .catch((error) => { expect(error).status(404); })
         .then(done)
       ))
-      .catch(done); // call "done" if the promise is rejected (see error.js)
+      .catch((error) => { console.error(error); done(error); });
     });
     it('responds with a 404 status code for non-existant resources', (done) => {
       request(app).delete('/api/surveys/nonexistantresource')

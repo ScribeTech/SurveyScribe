@@ -8,9 +8,9 @@ settings.default = {
   root,
   port: 8000,
   database: { uri: 'mongodb://localhost/surveyscribe' },
-  public: './public',
-  index: 'index.html', // relative to "public"
-  log: './server/logs/access.log',
+  public: path.join(root, './public'),
+  index: path.join(root, './public/index.html'),
+  log: path.join(root, './server/logs/access.log'),
   session: { secret: 'RANDOM SECRET KEY' }
 };
 

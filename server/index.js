@@ -12,7 +12,7 @@ app.use(require('./middleware/log.js')(config)); // log activity
 
 // Routes
 app.use(express.static(config.public)); // server static files
-app.use('/api', require('./config/routes.js')(config)); // handle api calls
+app.use(require('./config/routes.js')(config)); // handle api calls
 app.use(require('./config/error.js')(config)); // handle errors
 
 // Server
