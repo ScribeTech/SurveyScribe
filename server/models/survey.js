@@ -2,41 +2,33 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const OptionSchema = Schema({
-  label: String,
-  votes: Number
-});
+const options = { discriminatorKey: 'kind' };
 
 const QuestionSchema = Schema({
-  _id: String,
-  label: String,
-  options: [OptionSchema]
-}, { _id: false });
+  title: String,
+  required: Boolean
+});
 
 const SurveySchema = Schema({
   title: String,
   questions: [QuestionSchema]
-});
+}, options);
 
-SurveySchema.statics.sample = () => ({
-  title: 'Example Survey',
-  questions: [
-    {
-      label: 'What is your favorite color?',
-      options: [
-        { label: 'Red', votes: 0 },
-        { label: 'Green', votes: 0 },
-        { label: 'Blue', votes: 0 }
-      ]
-    },
-    {
-      label: 'Which do you like more?',
-      options: [
-        { label: 'Dogs' },
-        { label: 'Cats' }
-      ]
-    }
-  ]
-});
+SurveySchema.path('questions').discriminator('Select', Schema({
+  options: [String],
+  maxSelection: Number
+}), options);
+
+SurveySchema.path('questions').discriminator('Scale', Schema({
+  min: Number,
+  max: Number,
+  labels: [String]
+}), options);
+
+SurveySchema.path('questions').discriminator('Text', Schema({
+  max: Number
+}), options);
+
+SurveySchema.statics.sample = () => ({});
 
 module.exports = mongoose.model('Survey', SurveySchema);

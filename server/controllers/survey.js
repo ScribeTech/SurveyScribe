@@ -1,4 +1,4 @@
-const Survey = require('../models/survey.js');
+const Survey = require('../models/response.js');
 
 exports.list = (request, response, next) => {
   Survey.find({}).exec()
