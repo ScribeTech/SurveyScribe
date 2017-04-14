@@ -10,7 +10,6 @@ export function normalizeSurveys(surveys) {
   return normSurveys;
 }
 
-// TODO: write denormalizeSurveys
 export function normalizeSurvey(survey) {
   const converted = {
     questions: {},
@@ -20,11 +19,11 @@ export function normalizeSurvey(survey) {
   survey.questions.forEach((question) => {
     converted.questions[question._id] = {
       id: question._id,
-      type: question.type,
+      kind: question.kind,
       required: question.required,
-      label: question.label
+      title: question.title
     };
-    switch (question.type) {
+    switch (question.kind) {
       case 'Select':
         converted.questions[question._id].maxSelection = question.maxSelection;
         converted.options[question._id] = [];

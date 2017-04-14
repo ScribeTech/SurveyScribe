@@ -9,7 +9,7 @@ export const mongoSurvey = {
   "questions": [
     {
       "_id": "58ee6466aa8ac36d6d74fe9f",
-      "type": "Scale",
+      "kind": "Scale",
       "required": false,
       "title": "How much do you like burritos?",
       "min": 0,
@@ -18,14 +18,14 @@ export const mongoSurvey = {
     },
     {
       "_id": "58ee6466aa8ac36d6d74fe9e",
-      "type": "Text",
+      "kind": "Text",
       "required": false,
       "title": "Explain your rating.",
       "max": 1000
     },
     {
       "_id": "58ee63c65a2d576d5125b4c1",
-      "type": "Select",
+      "kind": "Select",
       "required": false,
       "title": "What is your favorite color?",
       "options": [
