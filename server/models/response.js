@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
+const { _id, ObjectId } = require('./id.js');
 
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
 
 const AnswerSchema = Schema({
+  _id,
   question: { type: ObjectId, ref: 'Survey.questions' }
 }, { discriminatorKey: 'kind' });
 
 const ResponseSchema = Schema({
+  _id,
   participant: { type: String, ref: 'Session.sid', select: false },
     /* /!\ DANGER /!\
      * The 'participant' field stores a sessionID. Be careful how you handle
