@@ -7,10 +7,7 @@ module.exports = (config) => {
   const development = (error, request, response) => {
     console.error(error);
     response.status(error.status || 500);
-    response.format({
-      json() { response.json(error); },
-      default() { response.send(error.message); }
-    });
+    response.json(error);
   };
 
   // 500: Don't leak stack traces on the production server
@@ -19,7 +16,7 @@ module.exports = (config) => {
     response.send(error.message || 'Something went wrong. Contact customer support.');
   };
 
-  router.use(process.env.NODE_ENV === 'production' ? development : production);
+  router.use(process.env.NODE_ENV === 'production' ? production : development);
 
   return router;
 };

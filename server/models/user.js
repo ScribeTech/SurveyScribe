@@ -52,7 +52,7 @@ UserSchema.methods.hashPassword = function (plaintext) {
 
 UserSchema.statics.sample = () => ({
   name: 'John Doe',
-  password: 'password12345678'
+  password: 'CorrectHorseBatteryStaple'
 });
 
 module.exports = mongoose.model('User', UserSchema);

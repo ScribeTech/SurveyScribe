@@ -3,7 +3,7 @@ const User = require('../models/user.js');
 exports.login = (request, response) => {
   const name = request.body.name;
   const password = request.body.password;
-  User.findOne({ name }, 'name hash')
+  User.findOne({ name }, 'hash+')
   .then((user) => {
     if (!user) { throw Error('User not found'); }
     if (!user.verifyPassword(password)) { throw Error('Wrong password'); }
