@@ -20,7 +20,7 @@ module.exports = (config) => {
 
   router.route('/api/users')
   .get(auth.isLoggedIn, user.list)
-  .post(auth.isLoggedIn, user.create);
+  .post(user.create);
 
   router.route('/api/users/:user')
   .get(user.read)
