@@ -23,6 +23,7 @@ exports.logout = (request, response) => {
 
 exports.isLoggedIn = (request, response, next) => {
   if (request.session.user) {
+    console.log(request.session.user);
     next();
   } else {
     response.sendStatus(401);

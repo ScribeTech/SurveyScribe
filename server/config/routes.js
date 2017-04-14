@@ -7,25 +7,25 @@ const user = require('../controllers/user.js');
 module.exports = (config) => {
   const router = express.Router();
   router.post('/login', auth.login);
-  router.post('/logout', auth.logout, auth.isLoggedIn);
+  router.post('/logout', auth.isLoggedIn, auth.logout);
 
-  router.route('/api/surveys', auth.isLoggedIn)
-  .get(survey.list)
-  .post(survey.create);
+  router.route('/api/surveys')
+  .get(auth.isLoggedIn, survey.list)
+  .post(auth.isLoggedIn, survey.create);
 
   router.route('/api/surveys/:survey')
   .get(survey.read)
-  .put(survey.update, auth.isLoggedIn)
-  .delete(survey.delete, auth.isLoggedIn);
+  .put(auth.isLoggedIn, survey.update)
+  .delete(auth.isLoggedIn, survey.delete);
 
-  router.route('/api/users', auth.isLoggedIn)
-  .get(user.list)
-  .post(user.create);
+  router.route('/api/users')
+  .get(auth.isLoggedIn, user.list)
+  .post(auth.isLoggedIn, user.create);
 
-  router.route('/api/users/:user', auth.isLoggedIn)
+  router.route('/api/users/:user')
   .get(user.read)
-  .put(user.update, auth.isSameUser)
-  .delete([user.delete, auth.logout], auth.isSameUser);
+  .put(auth.isSameUser, user.update)
+  .delete(auth.isSameUser, [user.delete, auth.logout]);
 
   // 404: Not Found - Unknown route, or MongoDB Couldn't Find Something
   router.use('/api/*', (error, request, response, next) => {
