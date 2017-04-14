@@ -27,21 +27,9 @@ describe('User Model', () => {
     });
   });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   describe('.verifyPassword', () => {
     it('is a function', () => {
       expect(User.schema.methods.verifyPassword).to.be.function;
-=======
-  describe('.authenticate', () => {
-    it('is a function', () => {
-      expect(User.schema.methods.authenticate).to.be.function;
->>>>>>> Fix schemas
-=======
-  describe('.verifyPassword', () => {
-    it('is a function', () => {
-      expect(User.schema.methods.verifyPassword).to.be.function;
->>>>>>> (fix) User test refers to an old function name
     });
 
     it('returns true if the password matches and false if it doesn\'t', (done) => {
@@ -50,18 +38,8 @@ describe('User Model', () => {
       User.create(expected)
       .then(user => User.findById(user._id, 'name hash').exec())
       .then((user) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
         expect(user.verifyPassword(expected.password)).to.be.true;
         expect(user.verifyPassword(mistmatch)).to.be.false;
-=======
-        expect(user.authenticate(expected.password)).to.be.true;
-        expect(user.authenticate(mistmatch)).to.be.false;
->>>>>>> Fix schemas
-=======
-        expect(user.verifyPassword(expected.password)).to.be.true;
-        expect(user.verifyPassword(mistmatch)).to.be.false;
->>>>>>> (fix) User test refers to an old function name
         done();
       })
       .catch(done); // immediately output errors instead of timing out
@@ -80,15 +58,7 @@ describe('User Model', () => {
         expect(user.password).to.be.undefined;
         expect(user.hash).to.exist;
         expect(Buffer.isBuffer(user.hash)).to.be.true;
-<<<<<<< HEAD
-<<<<<<< HEAD
         expect(user.verifyPassword(expected.password, user.hash));
-=======
-        expect(user.authenticate(expected.password, user.hash));
->>>>>>> Fix schemas
-=======
-        expect(user.verifyPassword(expected.password, user.hash));
->>>>>>> (fix) User test refers to an old function name
         done();
       })
       .catch(done); // immediately output errors instead of timing out
