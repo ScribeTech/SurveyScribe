@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router';
 
 let nameVal = '';
 let passWordVal = '';
+let signInError = 'test';
 
 const styles = {
   main: {
@@ -20,6 +21,9 @@ const styles = {
   },
   createaccount: {
     marginTop: 30
+  },
+  signinerror: {
+    display: 'block'
   }
 };
 
@@ -34,24 +38,33 @@ const handleClick = (props) => {
       password: passWordVal.input.value
     })
   })
-  .then(response => response.json())
+  .then((response) => {
+    console.log("response", response)
+
+    return response.json();
+  })
   .then((result) => {
-    console.log("result", result)
-    // Adding survey to state and changing the view to edit
-    // props.addSurvey(result._id, result.title);
-    // browserHistory.push(`survey/${result._id}/${props.surveys.length}/edit`);
+    if (result.error) {
+      console.log(result.message)
+      signInError = result.message;
+      //styles.signinerror.display = 'block';
+    }
   })
   .catch((error) => {
-    console.log("Asfd")
     throw error;
   });
 };
+
+
 
 const SignIn = (props) => (
   <Layout title="Sign In">
     <div>
       <Card style={styles.main}>
         <CardTitle title="Please Sign Up" />
+        <div style={styles.signinerror}>
+          {signInError}
+        </div>
         <div style={styles.textbox}>
           <TextField
             floatingLabelText="Name"

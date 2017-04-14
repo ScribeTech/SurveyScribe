@@ -30,10 +30,10 @@ module.exports = (config) => {
 
   // 404: Not Found - Unknown route, or MongoDB Couldn't Find Something
   router.use('/api/*', (error, request, response, next) => {
-    console.log('error routes', error);
     if (error && error.name === 'AssertionError') {
+      console.log('error.message', error.message);
       response.status(400).json({ error: true, message: error.message });
-      next(error);
+      // next(error);
     } else if (error &&
         error.value !== 'nonexistantresource' &&
         error.status !== 404) {
