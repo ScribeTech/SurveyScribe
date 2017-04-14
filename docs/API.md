@@ -61,7 +61,7 @@ api/surveys/:survey/responses/:response
 
 ``` json
 {
-  "_id": "58ee6904fdebd16dfdd99f95",
+  "_id": "H1J73vRal",
   "name": "Jane Smith"
 }
 ```
@@ -70,14 +70,14 @@ api/surveys/:survey/responses/:response
 
 ``` json
 {
-  "_id": "58ee6904fdebd16dfdd99f91",
+  "_id": "B1M1X3P0Tg",
   "questions": [
     {
-      "_id": "58ee6466aa8ac36d6d74fe9f",
+      "_id": "SymJ73PRax",
       "value": 10
     },
     {
-      "_id": "58ee6466aa8ac36d6d74fe9e",
+      "_id": "rJEymhvApg",
       "value": "I love them with all my soul!!!"
     },
     {
@@ -92,16 +92,16 @@ api/surveys/:survey/responses/:response
 
 ``` json
 {
-  "_id": "58ee63c65a2d576d5125b4c5",
+  "_id": "B1vy7hwCpl",
   "owners": [
-    "58ee63c65a2d576d5125b4c3",
-    "58ee63c65a2d576d5125b4c2",
-    "58ee63c65a2d576d5125b4c0"
+    "H1J73vRal",
+    "rydkXhwRTx",
+    "H1N7hw06g"
   ],
   "title": "Example Survey",
   "questions": [
     {
-      "_id": "58ee6466aa8ac36d6d74fe9f",
+      "_id": "SklEQnPRpe",
       "type": "Scale",
       "required": false,
       "title": "How much do you like burritos?",
@@ -110,21 +110,21 @@ api/surveys/:survey/responses/:response
       "labels": ["Not at All", "Somewhat", "Extremely"]
     },
     {
-      "_id": "58ee6466aa8ac36d6d74fe9e",
+      "_id": "BJZV72wRpx",
       "type": "Text",
       "required": false,
       "title": "Explain your rating.",
       "max": 1000
     },
     {
-      "_id": "58ee63c65a2d576d5125b4c1",
+      "_id": "rkf47nwCax",
       "type": "Select",
       "required": false,
       "title": "What is your favorite color?",
       "options": [
-        { "_id": "58ee6466aa8ac36d6d74fe9a", "label": "Red"},
-        { "_id": "58ee6466aa8ac36d6d74fe9b", "label": "Green"},
-        { "_id": "58ee6466aa8ac36d6d74fe9c", "label": "Blue"}
+        { "_id": "Bk74m2v0Tg", "label": "Red"},
+        { "_id": "SJ4VX2wRae", "label": "Green"},
+        { "_id": "HyHV7hDATx", "label": "Blue"}
       ],
       "maxSelection": 0
     }
@@ -141,9 +141,9 @@ api/surveys/:survey/responses/:response
 - **200** OK - Return all surveys owned by the current user
   ``` json
   [
-    { "_id": "58ee63c65a2d576d5125b4bc", "title": "Example Survey" },
-    { "_id": "58ee63c65a2d576d5125b4bd", "title": "Intrusive MARKETING Survey" },
-    { "_id": "58ee63c65a2d576d5125b4bf", "title": "Test Survey" }
+    { "_id": "HJ1_AwA6l", "title": "Example Survey" },
+    { "_id": "rJx1dCwApe", "title": "Intrusive MARKETING Survey" },
+    { "_id": "HJW1dRvAal", "title": "Test Survey" }
   ]
   ```
 - **401** UNAUTHORIZED - if not authenticated
@@ -257,14 +257,34 @@ api/surveys/:survey/responses/:response
 
 #### GET `api/users`
 
-- **200** OK return all users
-- **401** UNAUTHORIZED if not authenticated
+- **200** OK - return all users
+  ``` json
+  [  
+    { "_id": "H1J73vRal", "name": "Jane Smith" },
+    { "_id": "HyekQ2vRpx", "name": "John Jones" },
+    { "_id": "ryW1XhwC6l", "name": "Bob Silver" },
+  ]
+  ```
+- **401** UNAUTHORIZED - if not authenticated
 
 #### POST `api/users`
 
-- **201** CREATED create new user and return it
-- **400** BAD REQUEST if invalid input
-- **409** CONFLICT if the username already exists
+- **Request body** -
+  ``` json
+  {
+    "name": "Jane Smith",
+    "password": "CorrectHorseBatteryStaple"
+  }
+  ```
+- **201** CREATED - create new user and return it
+  ``` json
+  {
+    "name": "Jane Smith",
+    "_id": "H1J73vRal"
+  }
+  ```
+- **400** BAD REQUEST - if invalid input
+- **409** CONFLICT - if the username already exists
 
 #### PUT, PATCH, DELETE `api/users`
 
@@ -272,21 +292,34 @@ api/surveys/:survey/responses/:response
 
 #### GET `api/users/:user`
 
-- **200** OK return the user
-- **401** UNAUTHORIZED if not authenticated
-- **404** NOT FOUND if user does not exist
+- **200** OK - return the user
+  ``` json
+  {
+    "name": "Jane Smith",
+    "_id": "H1J73vRal"
+  }
+  ```
+- **401** UNAUTHORIZED - if not authenticated
+- **404** NOT FOUND - if user does not exist
 
 #### PUT `api/users/:user`
 
-- **200** OK only update part of the user
-- **400** BAD REQUEST if invalid input
-- **401** UNAUTHORIZED if this is not the current user
+- **Request body**
+  ``` json
+  {
+    "name": "Jane",
+    "password": "CorrectHorseBatteryStaple"
+  }
+  ```
+- **200** OK - update the user
+- **400** BAD REQUEST - if invalid input
+- **401** UNAUTHORIZED - if this is not the current user
 
 #### DELETE `api/users/:user`
 
-- **200** OK log out and delete the user
-- **401** UNAUTHORIZED if not authenticated
-- **401** UNAUTHORIZED if this is not the current user
+- **200** OK - log out and delete the user
+- **401** UNAUTHORIZED - if not authenticated
+- **401** UNAUTHORIZED - if this is not the current user
 
 #### PATCH, POST `api/users/:user`
 
@@ -295,18 +328,30 @@ api/surveys/:survey/responses/:response
 ### Authentication
 
 #### POST `api/login`
-
-- **200** OK authenticate the user
-- **400** BAD REQUEST if invalid input
+- **Request body**
+  ``` json
+  {
+    "name": "Jane Smith",
+    "password": "CorrectHorseBatteryStaple"
+  }
+  ```
+- **200** OK - authenticate the user
+  ``` json
+  {
+    "_id": "H1J73vRal",
+    "name": "Jane Smith"
+  }
+  ```
+- **400** BAD REQUEST - if invalid input
 
 #### GET, PUT, PATCH, DELETE `api/login`
 
 - **405** METHOD NOT ALLOWED
 
 #### POST `api/logout`
-
-- **200** OK remove user authentication
-- **401** UNAUTHORIZED if not authenticated
+- **Request body** - (empty)
+- **200** OK - remove user authentication
+- **401** UNAUTHORIZED - if not authenticated
 
 #### GET, PUT, PATCH, DELETE `api/logout`
 
