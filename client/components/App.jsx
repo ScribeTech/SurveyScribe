@@ -8,7 +8,8 @@ function mapStateToProps(state) {
   return {
     surveys: state.surveys,
     questions: state.questions,
-    options: state.options
+    options: state.options,
+    signin: state.signin
   };
 }
 

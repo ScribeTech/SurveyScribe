@@ -7,7 +7,6 @@ import { browserHistory } from 'react-router';
 
 let nameVal = '';
 let passWordVal = '';
-let signInError = 'test';
 
 const styles = {
   main: {
@@ -46,8 +45,8 @@ const handleClick = (props) => {
   .then((result) => {
     if (result.error) {
       console.log(result.message)
-      signInError = result.message;
-      //styles.signinerror.display = 'block';
+      console.log("props", props)
+
     }
   })
   .catch((error) => {
@@ -63,7 +62,7 @@ const SignIn = (props) => (
       <Card style={styles.main}>
         <CardTitle title="Please Sign Up" />
         <div style={styles.signinerror}>
-          {signInError}
+          {}
         </div>
         <div style={styles.textbox}>
           <TextField

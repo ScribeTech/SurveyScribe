@@ -32,7 +32,8 @@ export function normalize(mongoData) {
   const state = {
     surveys: [],
     questions: {},
-    options: {}
+    options: {},
+    signin: { error: false }
   };
 
   mongoData.forEach((survey) => {

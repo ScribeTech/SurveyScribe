@@ -1,12 +1,13 @@
 import { generate as ObjectId } from 'shortid';
 
 // update state
-export function updateState(surveys, questions, options) {
+export function updateState(surveys, questions, options, signin) {
   return {
     type: 'UPDATE_STATE',
     surveys,
     questions,
-    options
+    options,
+    signin
   };
 }
 // add survey
@@ -122,6 +123,14 @@ export function toggleSelected(questionId, i) {
   return {
     type: 'TOGGLE_SELECT',
     questionId,
+    i
+  };
+}
+
+// toggle error
+export function toggleError(i) {
+  return {
+    type: 'TOGGLE_ERROR',
     i
   };
 }
