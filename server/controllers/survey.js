@@ -2,13 +2,15 @@ const Survey = require('../models/survey.js');
 
 exports.list = (request, response, next) => {
   const _id = request.session.user;
-  Survey.find({ _id }).exec()
+  Survey.find({ owners: { $in: [_id] } }).exec()
     .then((data) => { response.status(200).json(data); })
     .catch(next);
 };
 
 exports.create = (request, response, next) => {
-  Survey.create(request.body)
+  // Add the current user as an owner before creating the survey
+  const survey = Object.assign({}, request.body, { owners: [request.session.user] });
+  Survey.create(survey)
   .then((data) => { response.status(201).json(data); })
   .catch(next);
 };
