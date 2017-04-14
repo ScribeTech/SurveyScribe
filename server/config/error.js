@@ -5,7 +5,7 @@ module.exports = (config) => {
 
   // 500: Do send stack traces in development mode
   const development = (error, request, response) => {
-    console.error(error);
+    console.error('error test herer', error);
     response.status(error.status || 500);
     response.json(error);
   };

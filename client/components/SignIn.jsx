@@ -24,8 +24,6 @@ const styles = {
 };
 
 const handleClick = (props) => {
-  console.log("nameVal", nameVal.input.value)
-  console.log("passWordVal", passWordVal.input.value)
   fetch('/api/users/', {
     method: 'POST',
     headers: {
@@ -44,6 +42,7 @@ const handleClick = (props) => {
     // browserHistory.push(`survey/${result._id}/${props.surveys.length}/edit`);
   })
   .catch((error) => {
+    console.log("Asfd")
     throw error;
   });
 };
