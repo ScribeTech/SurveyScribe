@@ -2,7 +2,7 @@ const Survey = require('../models/survey.js');
 
 exports.list = (request, response, next) => {
   const _id = request.session.user;
-  Survey.find({ owners: { $in: [_id] } }).exec()
+  Survey.find({ owners: { $in: [_id] } }, '_id title').exec()
     .then((data) => { response.status(200).json(data); })
     .catch(next);
 };

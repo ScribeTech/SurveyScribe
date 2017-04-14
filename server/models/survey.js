@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
+const { _id, ObjectId } = require('./id.js');
 
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
 
 const QuestionSchema = Schema({
+  _id,
   title: String,
   required: Boolean
 }, { discriminatorKey: 'kind' });
 
 const SurveySchema = Schema({
+  _id,
   title: String,
   owners: [{ type: ObjectId, ref: 'User' }],
   questions: [QuestionSchema]
@@ -17,7 +19,7 @@ const SurveySchema = Schema({
 const Questions = SurveySchema.path('questions');
 
 Questions.discriminator('Select', Schema({
-  options: [{ label: String }],
+  options: [{ _id, label: String }],
   maxSelection: Number
 }));
 

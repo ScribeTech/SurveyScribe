@@ -70,6 +70,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "request": "^2.81.0",
+    "shortid": "^2.2.8",
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
     "sodium": "^2.0.1",

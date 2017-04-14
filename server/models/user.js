@@ -1,10 +1,12 @@
 const assert = require('assert');
-const mongoose = require('mongoose');
 const sodium = require('sodium').api;
+const mongoose = require('mongoose');
+const { _id } = require('./id.js');
 
 const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
+  _id,
   name: { type: String, required: true, index: { unique: true } },
   hash: { type: String, required: true, select: false }
 });
