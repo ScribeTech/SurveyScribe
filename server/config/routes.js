@@ -6,8 +6,9 @@ const user = require('../controllers/user.js');
 
 module.exports = (config) => {
   const router = express.Router();
-  router.post('/login', auth.login);
-  router.post('/logout', auth.isLoggedIn, auth.logout);
+
+  router.post('/api/login', auth.login);
+  router.post('/api/logout', auth.isLoggedIn, auth.logout);
 
   router.route('/api/surveys')
   .get(auth.isLoggedIn, survey.list)
@@ -20,7 +21,7 @@ module.exports = (config) => {
 
   router.route('/api/users')
   .get(auth.isLoggedIn, user.list)
-  .post(auth.isLoggedIn, user.create);
+  .post(user.create);
 
   router.route('/api/users/:user')
   .get(user.read)

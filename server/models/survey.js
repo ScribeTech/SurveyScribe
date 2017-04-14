@@ -1,33 +1,35 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-
-const options = { discriminatorKey: 'kind' };
+const ObjectId = Schema.Types.ObjectId;
 
 const QuestionSchema = Schema({
   title: String,
   required: Boolean
-});
+}, { discriminatorKey: 'kind' });
 
 const SurveySchema = Schema({
   title: String,
+  owners: [{ type: ObjectId, ref: 'User' }],
   questions: [QuestionSchema]
-}, options);
+});
 
-SurveySchema.path('questions').discriminator('Select', Schema({
-  options: [String],
+const Questions = SurveySchema.path('questions');
+
+Questions.discriminator('Select', Schema({
+  options: [{ label: String }],
   maxSelection: Number
-}), options);
+}));
 
-SurveySchema.path('questions').discriminator('Scale', Schema({
+Questions.discriminator('Scale', Schema({
   min: Number,
   max: Number,
   labels: [String]
-}), options);
+}));
 
-SurveySchema.path('questions').discriminator('Text', Schema({
+Questions.discriminator('Text', Schema({
   max: Number
-}), options);
+}));
 
 SurveySchema.statics.sample = () => ({});
 

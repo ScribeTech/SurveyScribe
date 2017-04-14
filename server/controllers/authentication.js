@@ -3,12 +3,15 @@ const User = require('../models/user.js');
 exports.login = (request, response) => {
   const name = request.body.name;
   const password = request.body.password;
-  User.findOne({ name }, 'name hash')
+  User.findOne({ name }, '_id name hash')
   .then((user) => {
+    const _id = user._id;
     if (!user) { throw Error('User not found'); }
     if (!user.verifyPassword(password)) { throw Error('Wrong password'); }
-    request.session.regenerate(() => { request.session.user = user.id; });
-    response.status(200).send({ name });
+    request.session.regenerate(() => {
+      request.session.user = _id;
+      response.status(200).send({ name, _id });
+    });
   })
   .catch((error) => {
     console.error(error);
@@ -23,7 +26,6 @@ exports.logout = (request, response) => {
 
 exports.isLoggedIn = (request, response, next) => {
   if (request.session.user) {
-    console.log(request.session.user);
     next();
   } else {
     response.sendStatus(401);
