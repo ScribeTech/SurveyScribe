@@ -11,7 +11,7 @@ settings.default = {
   public: path.join(root, './public'),
   index: path.join(root, './public/index.html'),
   log: path.join(root, './server/logs/access.log'),
-  session: { secret: 'RANDOM SECRET KEY' }
+  session: { secret: 'RANDOM SECRET KEY', secure: false }
 };
 
 settings.development = {};
@@ -30,7 +30,10 @@ settings.production = {
       pass: process.env.dbPass
     }
   },
-  session: { secret: process.env.sessionSecret || settings.default.session.secret }
+  session: {
+    secret: process.env.sessionSecret || settings.default.session.secret,
+    secure: true
+  }
 };
 
 const env = process.env.NODE_ENV || 'development';
