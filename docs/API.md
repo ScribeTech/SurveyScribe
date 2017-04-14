@@ -82,7 +82,7 @@ api/surveys/:survey/responses/:response
     },
     {
       "_id": "58ee63c65a2d576d5125b4c1",
-      "values": ["58ee6466aa8ac36d6d74fe9a"]
+      "value": ["58ee6466aa8ac36d6d74fe9a"]
     }
   ]
 }
