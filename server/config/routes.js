@@ -6,6 +6,7 @@ const user = require('../controllers/user.js');
 
 module.exports = (config) => {
   const router = express.Router();
+
   router.post('/api/login', auth.login);
   router.post('/api/logout', auth.isLoggedIn, auth.logout);
 

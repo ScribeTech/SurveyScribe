@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
   name: { type: String, required: true, index: { unique: true } },
-  hash: { type: Buffer, required: true, select: false }
+  hash: { type: String, required: true, select: false }
 });
 
 // Hash plaintext passwords before storing
@@ -43,11 +43,13 @@ UserSchema.methods.verifyPassword = function (plaintext, hash = this.hash) {
 
 // Hash plain text passwords using Argon2i. Sodium automatically adds salt.
 UserSchema.methods.hashPassword = function (plaintext) {
-  return sodium.crypto_pwhash_str(
+  const hash = sodium.crypto_pwhash_str(
     Buffer.from(plaintext),
     sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
     sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE
-  );
+  )
+  .toString('ascii');
+  return hash;
 };
 
 UserSchema.statics.sample = () => ({
