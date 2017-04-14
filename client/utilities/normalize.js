@@ -1,30 +1,55 @@
-// options needs to be an array of
-
-// TODO: write normalizeSurveys
-export function normalizeSurveys() {
-
-  questions[survey.id].forEach((question) => {
-    const mongoQ = {
-      _id: question.id,
-      label: question.label,
-      options: []
-    };
-
-    if (options[question.id]) {
-      options[question.id].forEach((option) => {
-        const mongoOp = {
-          label: option.label,
-          votes: option.votes
-        };
-        mongoQ.options.push(mongoOp);
-      });
-    }
-
-    mongoData.questions.push(mongoQ);
+export function normalizeSurveys(surveys) {
+  const normSurveys = [];
+  surveys.forEach((survey) => {
+    normSurveys.push({
+      id: survey._id,
+      title: survey.title
+    });
   });
 
-  return mongoData;
+  return normSurveys;
 }
+
+// TODO: write denormalizeSurveys
+export function normalizeSurvey(survey) {
+  const converted = {
+    questions: {},
+    options: {}
+  };
+
+  survey.questions.forEach((question) => {
+    converted.questions[question._id] = {
+      id: question._id,
+      type: question.type,
+      required: question.required,
+      label: question.label
+    };
+    switch (question.type) {
+      case 'Select':
+        converted.questions[question._id].maxSelection = question.maxSelection;
+        converted.options[question._id] = [];
+        question.options.forEach((option) => {
+          converted.options[question._id].push({
+            id: option._id,
+            label: option.label
+          });
+        });
+
+        break;
+      case 'Scale':
+        converted.questions[question._id].min = question.min;
+        converted.questions[question._id].max = question.max;
+        break;
+      case 'Text':
+        converted.questions[question._id].max = question.max;
+        break;
+      default:
+        break;
+    }
+  });
+  return converted;
+}
+
 
 export function normalize(mongoData) {
   const state = {
