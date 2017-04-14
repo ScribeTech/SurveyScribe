@@ -12,7 +12,13 @@ exports.create = (request, response, next) => {
   const survey = Object.assign({}, request.body, { owners: [request.session.user] });
   Survey.create(survey)
   .then((data) => { response.status(201).json(data); })
-  .catch(next);
+  .catch((error) => {
+    if (error.name === 'StrictModeError') {
+      response.sendStatus(400);
+    } else {
+      next(error);
+    }
+  });
 };
 
 exports.read = (request, response, next) => {
@@ -24,14 +30,20 @@ exports.read = (request, response, next) => {
       next({ status: 404 });
     }
   })
-  .catch(next);
+  .catch((error) => {
+    if (error.name === 'StrictModeError') {
+      response.sendStatus(400);
+    } else {
+      next(error);
+    }
+  });
 };
 
 exports.update = (request, response, next) => {
   const _id = request.params.survey;
-  Survey.update({ _id }, request.body).exec()
+  Survey.update({ _id }, request.body, { runValidators: true }).exec()
   .then((result) => { response.status(200).json(result); })
-  .catch(next);
+  .catch((error) => { console.error(">>> 400 ERROR"); response.sendStatus(400); });
 };
 
 exports.delete = (request, response, next) => {

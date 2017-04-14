@@ -21,6 +21,7 @@ exports.read = (request, response, next) => {
 
 exports.update = (request, response, next) => {
   const _id = request.params.response;
+  // force mongoose to run validators and throw an error if there is bad data
   Response.update({ _id }, request.body).exec()
   .then((result) => { response.status(200).json(result); })
   .catch(next);

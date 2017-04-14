@@ -5,6 +5,7 @@ const { expect, request } = chai;
 
 const app = require('../index.js');
 const User = require('../models/user.js');
+
 const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 describe('User routes', () => {

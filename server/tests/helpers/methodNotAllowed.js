@@ -1,55 +1,28 @@
 const chai = require('chai');
 chai.use(require('chai-http'));
 
-const { expect, request } = chai;
-const app = require('../../server/index.js');
+chai.use(require('chai-shallow-deep-equal'));
+const app = require('../../index.js');
 
-exports.MethodNotAllowed = (method, route) => {
-  if (method === 'put') {
-    return (
-      it('should return 405 METHOD NOT ALLOWED', (done) => {
-        request(app).put(route)
-          .then((response) => {
-            expect(response).status(405);
-            done();
-          })
-          .catch((error) => { done(error); });
+const { expect } = chai;
+const agent = chai.request.agent(app);
+
+module.exports = (METHOD, route) => (
+  () => {
+    const method = METHOD.toLowerCase();
+    it('should return 405 METHOD NOT ALLOWED', (done) => {
+      agent.post('/api/login')
+      .send({ name: 'testinguser', password: 'testinguser123' })
+      .then(() => {
+        const expected = ['get', 'put', 'post', 'delete', 'patch', 'all'];
+        expect(expected).to.include(method);
+        expect(agent[method]).to.be.a('function');
+        return agent[method](route);
       })
-    );
-  } else if (method === 'delete') {
-    return (
-      it('should return 405 METHOD NOT ALLOWED', (done) => {
-        request(app).delete(route)
-          .then((response) => {
-            expect(response).status(405);
-            done();
-          })
-          .catch((error) => { done(error); });
-      })
-    );
-  } else if (method === 'post') {
-    return (
-      it('should return 405 METHOD NOT ALLOWED', (done) => {
-        request(app).post(route)
-          .then((response) => {
-            expect(response).status(405);
-            done();
-          })
-          .catch((error) => { done(error); });
-      })
-    );
-  } else if (method === 'get') {
-    return (
-      it('should return 405 METHOD NOT ALLOWED', (done) => {
-        request(app).get(route)
-          .then((response) => {
-            expect(response).status(405);
-            done();
-          })
-          .catch((error) => { done(error); });
-      })
-    );
+      .catch((response) => {
+        expect(response).status(405);
+        done();
+      });
+    });
   }
-
-  return 'try different method';
-};
+);
