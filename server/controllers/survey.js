@@ -1,4 +1,4 @@
-const Survey = require('../models/response.js');
+const Survey = require('../models/survey.js');
 
 exports.list = (request, response, next) => {
   const _id = request.session.user;
