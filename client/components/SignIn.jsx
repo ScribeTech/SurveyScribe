@@ -22,7 +22,12 @@ const styles = {
     marginTop: 30
   },
   signinerror: {
-    marginleft: 20
+    marginLeft: 20,
+    background: '#ffe6e6',
+    color: '#c86e6e',
+    padding: '10px',
+    border: '1px solid #f5c8c8',
+    width: 260
   }
 };
 
@@ -77,7 +82,7 @@ const SignIn = (props) => (
     <div>
       <Card style={styles.main}>
         <CardTitle title="Please Sign Up" />
-        <div style={styles.signinerror}>
+        <div>
           {renderError(props)}
         </div>
         <div style={styles.textbox}>
