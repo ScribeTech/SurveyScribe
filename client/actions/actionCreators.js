@@ -134,3 +134,17 @@ export function toggleError(i) {
     i
   };
 }
+
+export function errorFalse(i) {
+  return {
+    type: 'ERROR_FALSE',
+    i
+  };
+}
+
+export function errorTrue(message) {
+  return {
+    type: 'ERROR_TRUE',
+    message
+  };
+}

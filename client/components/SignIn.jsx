@@ -22,7 +22,7 @@ const styles = {
     marginTop: 30
   },
   signinerror: {
-    display: 'block'
+    marginleft: 20
   }
 };
 
@@ -38,15 +38,17 @@ const handleClick = (props) => {
     })
   })
   .then((response) => {
-    console.log("response", response)
+    console.log("response", response);
 
     return response.json();
   })
   .then((result) => {
     if (result.error) {
-      console.log(result.message)
-      console.log("props", props)
-      props.toggleError(0)
+      props.errorTrue(result.message);
+      console.log(result.message);
+      console.log("props", props);
+    } else {
+      props.errorFalse();
     }
   })
   .catch((error) => {
@@ -55,8 +57,20 @@ const handleClick = (props) => {
 };
 
 const renderError = (props) => {
-  console.log("props renderError", props)
-}
+  renderError.propTypes = {}.isRequired;
+
+  if (props.signin.error) {
+    return (
+      <div style={styles.signinerror}>
+        {props.signin.message}
+      </div>
+    );
+  } else {
+    return (
+      <div />
+    );
+  }
+};
 
 const SignIn = (props) => (
   <Layout title="Sign In">
