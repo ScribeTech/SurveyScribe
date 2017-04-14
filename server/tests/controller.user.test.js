@@ -2,8 +2,10 @@ const chai = require('chai');
 chai.use(require('chai-http'));
 
 const { expect, request } = chai;
+
 const app = require('../index.js');
 const User = require('../models/user.js');
+const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 describe('User routes', () => {
   beforeEach((done) => {
@@ -38,23 +40,9 @@ describe('User routes', () => {
       });
     });
 
-    describe('PUT', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
+    describe('PUT', MethodNotAllowed('put', '/api/users'));
 
-      });
-    });
-
-    describe('PATCH', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('DELETE', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
+    describe('DELETE', MethodNotAllowed('delete', '/api/users'));
   });
 
   describe('/api/users/:user', () => {
@@ -72,7 +60,7 @@ describe('User routes', () => {
       });
     });
 
-    describe('PATCH', () => {
+    describe('PUT', () => {
       it('should return 201 and create new user', () => {
 
       });
@@ -100,16 +88,6 @@ describe('User routes', () => {
       });
     });
 
-    describe('PUT', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('POST', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
+    describe('POST', MethodNotAllowed('post', '/api/users/notallowed'));
   });
 });

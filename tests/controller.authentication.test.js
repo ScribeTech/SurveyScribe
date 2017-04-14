@@ -3,7 +3,8 @@ chai.use(require('chai-http'));
 chai.use(require('chai-shallow-deep-equal'));
 
 const { expect, request } = chai;
-const app = require('../index.js');
+const app = require('../server/index.js');
+const { MethodNotAllowed } = require('./helpers/methodNotAllowed.js');
 
 describe('Authentication routes', () => {
   describe('/api/login', () => {
@@ -17,29 +18,11 @@ describe('Authentication routes', () => {
       });
     });
 
-    describe('GET', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
+    describe('GET', MethodNotAllowed('get', '/api/login'));
 
-      });
-    });
+    describe('PUT', MethodNotAllowed('put', '/api/login'));
 
-    describe('PUT', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('PATCH', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('DELETE', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
+    describe('DELETE', MethodNotAllowed('delete', '/api/login'));
   });
 
   describe('/api/logout', () => {
@@ -53,28 +36,10 @@ describe('Authentication routes', () => {
       });
     });
 
-    describe('GET', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
+    describe('GET', MethodNotAllowed('get', '/api/logout'));
 
-      });
-    });
+    describe('PUT', MethodNotAllowed('put', '/api/logout'));
 
-    describe('PUT', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('PATCH', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('DELETE', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
+    describe('DELETE', MethodNotAllowed('delete', '/api/logout'));
   });
 });

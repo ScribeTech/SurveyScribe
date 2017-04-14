@@ -1,6 +1,5 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
 import * as actionCreators from '../actions/actionCreators';
 import Main from './Main';
 

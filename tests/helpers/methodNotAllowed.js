@@ -22,16 +22,7 @@ exports.MethodNotAllowed = (method, route) => {
         request(app).delete(route)
           .then((response) => {
             expect(response).status(405);
-          })
-          .catch((error) => { done(error); });
-      })
-    );
-  } else if (method === 'patch') {
-    return (
-      it('should return 405 METHOD NOT ALLOWED', (done) => {
-        request(app).patch(route)
-          .then((response) => {
-            expect(response).status(405);
+            done();
           })
           .catch((error) => { done(error); });
       })
@@ -42,6 +33,18 @@ exports.MethodNotAllowed = (method, route) => {
         request(app).post(route)
           .then((response) => {
             expect(response).status(405);
+            done();
+          })
+          .catch((error) => { done(error); });
+      })
+    );
+  } else if (method === 'get') {
+    return (
+      it('should return 405 METHOD NOT ALLOWED', (done) => {
+        request(app).get(route)
+          .then((response) => {
+            expect(response).status(405);
+            done();
           })
           .catch((error) => { done(error); });
       })
