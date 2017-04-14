@@ -49,43 +49,19 @@ export function normalizeSurvey(survey) {
   return converted;
 }
 
-
-export function normalize(mongoData) {
-  const state = {
-    surveys: [],
-    questions: {},
-    options: {},
-    signin: { error: false }
+export function normalizeResponses(responses) {
+  const converted = {
+    responses: {}
   };
 
-  mongoData.forEach((survey) => {
-    const surveyId = survey._id;
-
-    state.surveys.push({
-      id: surveyId,
-      title: survey.title
-    });
-
-    state.questions[surveyId] = [];
-
-    survey.questions.forEach((question) => {
-      const questionId = question._id;
-
-      state.questions[surveyId].push({
-        id: questionId,
-        label: question.label
-      });
-
-      state.options[questionId] = [];
-
-      question.options.forEach((option) => {
-        state.options[questionId].push({
-          label: option.label,
-          votes: option.votes
-        });
+  responses.forEach((response) => {
+    converted.responses[response._id] = [];
+    response.questions.forEach((question) => {
+      converted.responses[response._id].push({
+        question: question._id,
+        response: question.value
       });
     });
   });
-
-  return state;
+  return converted;
 }
