@@ -21,22 +21,22 @@ describe('REDUCERS', () => {
   describe('UPDATE_STATE', () => {
     it('should rewrite all stored survey data', () => {
       const converted = normalize(pretendMongoSurveys);
-
       const action = {
         type: 'UPDATE_STATE',
         surveys: converted.surveys,
         questions: converted.questions,
-        options: converted.options
+        options: converted.options,
+        signin: converted.signin
       };
 
       deepFreeze(initialState);
 
       const changedState = reducer(initialState, action);
-
       expect(changedState).to.not.deep.equal(initialState);
       expect(changedState.surveys).to.deep.equal(converted.surveys);
       expect(changedState.questions).to.deep.equal(converted.questions);
       expect(changedState.options).to.deep.equal(converted.options);
+      expect(changedState.signin).to.deep.equal(converted.signin);
     });
   });
   describe('Surveys', () => {

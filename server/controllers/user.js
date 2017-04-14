@@ -9,6 +9,10 @@ exports.list = (request, response, next) => {
 exports.create = (request, response, next) => {
   User.create(request.body)
   .then((data) => { response.status(201).json(data); })
+  .catch((error) => {
+    console.log('error user create', error);
+    next(error);
+  })
   .catch(next);
 };
 

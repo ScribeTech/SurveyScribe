@@ -20,6 +20,7 @@ UserSchema.virtual('password')
     assert.ok(plaintext.length >= 8, 'Password should be 8 characters or longer');
     this.hash = this.hashPassword(plaintext);
   });
+
   /* .get()
    * /!\ DANGER /!\
    * There should never be a function to get plaintext passwords. The
