@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { generate as ObjectId } from 'shortid';
 
 // update state
 export function updateState(surveys, questions, options) {
@@ -40,7 +40,7 @@ export function addQuestion(surveyId, questionType) {
   return {
     type: 'ADD_QUESTION',
     surveyId,
-    id: Types.ObjectId(),
+    id: ObjectId(),
     questionType
   };
 }
