@@ -31,14 +31,37 @@ describe('UTILITIES', () => {
         expect(converted.options).to.exist;
         expect(converted.options).to.be.Object;
       });
-      it('should create different question shapes for each type', () => {
+      it('should have a boolean required in each question', () => {
         const converted = normalizeSurvey(mongoSurvey);
-        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].type).to.equal('Scale');
-        expect(converted.questions['58ee6466aa8ac36d6d74fe9e'].type).to.equal('Text');
-        expect(converted.questions['58ee63c65a2d576d5125b4c1'].type).to.equal('Select');
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].required).to.equal(false);
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9e'].required).to.equal(false);
+        expect(converted.questions['58ee63c65a2d576d5125b4c1'].required).to.equal(false);
+      });
+      it('should have a numeric min and a max for SCALE', () => {
+        const converted = normalizeSurvey(mongoSurvey);
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].kind).to.equal('Scale');
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].min).to.equal(0);
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].min).to.be.Number;
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].max).to.equal(10);
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].max).to.be.Number;
+      });
+      it('should have a numeric max number of characters for TEXT', () => {
+        const converted = normalizeSurvey(mongoSurvey);
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9e'].kind).to.equal('Text');
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9e'].max).to.equal(1000);
+        expect(converted.questions['58ee6466aa8ac36d6d74fe9e'].max).to.be.Number;
+      });
+      it('should have a numeric maxSelection for SELECT', () => {
+        const converted = normalizeSurvey(mongoSurvey);
+        expect(converted.questions['58ee63c65a2d576d5125b4c1'].kind).to.equal('Select');
+        expect(converted.questions['58ee63c65a2d576d5125b4c1'].maxSelection).to.equal(0);
+        expect(converted.questions['58ee63c65a2d576d5125b4c1'].maxSelection).to.be.Number;
       });
       it('should only have options for SELECT questions', () => {
-
+        const converted = normalizeSurvey(mongoSurvey);
+        expect(converted.options['58ee63c65a2d576d5125b4c1']).to.exist;
+        expect(converted.options['58ee6466aa8ac36d6d74fe9e']).to.not.exist;
+        expect(converted.options['58ee6466aa8ac36d6d74fe9f']).to.not.exist;
       });
     });
     // describe('normalizeResponses', () => {
