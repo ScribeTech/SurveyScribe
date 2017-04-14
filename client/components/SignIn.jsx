@@ -46,7 +46,7 @@ const handleClick = (props) => {
     if (result.error) {
       console.log(result.message)
       console.log("props", props)
-
+      props.toggleError(0)
     }
   })
   .catch((error) => {
@@ -54,7 +54,9 @@ const handleClick = (props) => {
   });
 };
 
-
+const renderError = (props) => {
+  console.log("props renderError", props)
+}
 
 const SignIn = (props) => (
   <Layout title="Sign In">
@@ -62,7 +64,7 @@ const SignIn = (props) => (
       <Card style={styles.main}>
         <CardTitle title="Please Sign Up" />
         <div style={styles.signinerror}>
-          {}
+          {renderError(props)}
         </div>
         <div style={styles.textbox}>
           <TextField
