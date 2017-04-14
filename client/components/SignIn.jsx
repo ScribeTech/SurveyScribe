@@ -3,7 +3,6 @@ import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import Layout from './Layout';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import { browserHistory } from 'react-router';
 
 let nameVal = '';
 let passWordVal = '';
@@ -42,16 +41,10 @@ const handleClick = (props) => {
       password: passWordVal.input.value
     })
   })
-  .then((response) => {
-    console.log("response", response);
-
-    return response.json();
-  })
+  .then(response => (response.json()))
   .then((result) => {
     if (result.error) {
       props.errorTrue(result.message);
-      console.log(result.message);
-      console.log("props", props);
     } else {
       props.errorFalse();
     }
@@ -77,7 +70,7 @@ const renderError = (props) => {
   }
 };
 
-const SignIn = (props) => (
+const SignIn = props => (
   <Layout title="Sign In">
     <div>
       <Card style={styles.main}>
