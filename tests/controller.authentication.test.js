@@ -4,11 +4,16 @@ chai.use(require('chai-shallow-deep-equal'));
 
 const { expect, request } = chai;
 <<<<<<< HEAD
+<<<<<<< HEAD
 const app = require('../server/index.js');
 const { MethodNotAllowed } = require('./helpers/methodNotAllowed.js');
 =======
 const app = require('../index.js');
 >>>>>>> Routes test skeleton
+=======
+const app = require('../server/index.js');
+const { MethodNotAllowed } = require('./helpers/methodNotAllowed.js');
+>>>>>>> Working on tests
 
 describe('Authentication routes', () => {
   describe('/api/login', () => {
@@ -23,6 +28,7 @@ describe('Authentication routes', () => {
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     describe('GET', MethodNotAllowed('get', '/api/login'));
 
     describe('PUT', MethodNotAllowed('put', '/api/login'));
@@ -31,19 +37,13 @@ describe('Authentication routes', () => {
 =======
     describe('GET', () => {
       it('should return 405 METHOD NOT ALLOWED', () => {
+=======
+    describe('GET', MethodNotAllowed('get', '/api/login'));
+>>>>>>> Working on tests
 
-      });
-    });
+    describe('PUT', MethodNotAllowed('put', '/api/login'));
 
-    describe('PUT', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('PATCH', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
+<<<<<<< HEAD
       });
     });
 
@@ -53,6 +53,9 @@ describe('Authentication routes', () => {
       });
     });
 >>>>>>> Routes test skeleton
+=======
+    describe('DELETE', MethodNotAllowed('delete', '/api/login'));
+>>>>>>> Working on tests
   });
 
   describe('/api/logout', () => {
@@ -67,6 +70,7 @@ describe('Authentication routes', () => {
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     describe('GET', MethodNotAllowed('get', '/api/logout'));
 
     describe('PUT', MethodNotAllowed('put', '/api/logout'));
@@ -75,19 +79,13 @@ describe('Authentication routes', () => {
 =======
     describe('GET', () => {
       it('should return 405 METHOD NOT ALLOWED', () => {
+=======
+    describe('GET', MethodNotAllowed('get', '/api/logout'));
+>>>>>>> Working on tests
 
-      });
-    });
+    describe('PUT', MethodNotAllowed('put', '/api/logout'));
 
-    describe('PUT', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
-      });
-    });
-
-    describe('PATCH', () => {
-      it('should return 405 METHOD NOT ALLOWED', () => {
-
+<<<<<<< HEAD
       });
     });
 
@@ -97,5 +95,8 @@ describe('Authentication routes', () => {
       });
     });
 >>>>>>> Routes test skeleton
+=======
+    describe('DELETE', MethodNotAllowed('delete', '/api/logout'));
+>>>>>>> Working on tests
   });
 });
