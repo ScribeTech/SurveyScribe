@@ -34,7 +34,6 @@ describe('UTILITIES', () => {
       it('should create different question shapes for each type', () => {
         const converted = normalizeSurvey(mongoSurvey);
         expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].type).to.equal('Scale');
-        expect(converted.questions['58ee6466aa8ac36d6d74fe9f'].type).to.equal('Scale');
         expect(converted.questions['58ee6466aa8ac36d6d74fe9e'].type).to.equal('Text');
         expect(converted.questions['58ee63c65a2d576d5125b4c1'].type).to.equal('Select');
       });
