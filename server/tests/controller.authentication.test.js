@@ -3,14 +3,16 @@ chai.use(require('chai-http'));
 chai.use(require('chai-shallow-deep-equal'));
 
 const { expect, request } = chai;
+
 const app = require('../index.js');
 const User = require('mongoose').model('User');
-const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
+
+const REST = require('./helpers/REST.js');
 
 describe('Authentication routes', () => {
   beforeEach((done) => {
     User.remove({})
-    .then(() => User.create({ name: 'testinguser', password: 'testinguser123' }))
+    .then(() => User.create(User.sample()))
     .then(() => done());
   });
   afterEach((done) => {
@@ -28,11 +30,11 @@ describe('Authentication routes', () => {
       });
     });
 
-    describe('GET', MethodNotAllowed('get', '/api/login'));
+    describe('GET', REST.MethodNotAllowed('get', '/api/login'));
 
-    describe('PUT', MethodNotAllowed('put', '/api/login'));
+    describe('PUT', REST.MethodNotAllowed('put', '/api/login'));
 
-    describe('DELETE', MethodNotAllowed('delete', '/api/login'));
+    describe('DELETE', REST.MethodNotAllowed('delete', '/api/login'));
   });
 
   describe('/api/logout', () => {
@@ -46,10 +48,10 @@ describe('Authentication routes', () => {
       });
     });
 
-    describe('GET', MethodNotAllowed('get', '/api/logout'));
+    describe('GET', REST.MethodNotAllowed('get', '/api/logout'));
 
-    describe('PUT', MethodNotAllowed('put', '/api/logout'));
+    describe('PUT', REST.MethodNotAllowed('put', '/api/logout'));
 
-    describe('DELETE', MethodNotAllowed('delete', '/api/logout'));
+    describe('DELETE', REST.MethodNotAllowed('delete', '/api/logout'));
   });
 });
