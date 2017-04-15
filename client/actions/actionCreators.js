@@ -148,3 +148,11 @@ export function errorTrue(message) {
     message
   };
 }
+
+export function editUser(id, name) {
+  return {
+    type: 'EDIT_USER',
+    id,
+    name
+  };
+}
