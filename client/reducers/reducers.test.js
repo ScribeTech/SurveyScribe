@@ -9,12 +9,15 @@ import { responses } from '../data/responses';
 import { aggregates } from '../data/responses';
 import { mongoSurveys } from '../data/mongoSurveys';
 import { mongoSurvey } from '../data/mongoSurvey';
-import { normalizeSurveys, normalizeSurvey } from '../utilities/normalize';
+import { mongoResponses } from '../data/mongoResponses';
+import { normalizeSurveys, normalizeSurvey, normalizeResponses } from '../utilities/normalize';
 
 const initialState = {
   surveys,
-  questions,
-  options
+  questions: {},
+  options: {},
+  responses: {},
+  aggregates: {}
 };
 
 const { expect } = chai;
@@ -34,13 +37,12 @@ describe('REDUCERS', () => {
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
-
         expect(changedState).to.not.deep.equal(initialState.surveys);
-        expect(changedState).to.deep.equal(converted);
+        expect(changedState.surveys).to.deep.equal(converted);
       });
     });
     describe('UPDATE_SURVEY', () => {
-      it('should rewrite all stored question data', () => {
+      it('should rewrite all stored question and option data', () => {
         const converted = normalizeSurvey(mongoSurvey);
 
         const action = {
@@ -53,8 +55,44 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState).to.not.deep.equal(initialState.questions);
+        expect(changedState).to.not.deep.equal(
+          { questions: initialState.questions, options: initialState.options });
         expect(changedState.questions).to.deep.equal(converted.questions);
+        expect(changedState.options).to.deep.equal(converted.options);
+      });
+    });
+    describe('UPDATE_RESPONSES', () => {
+      it('should rewrite all stored responses data', () => {
+        const converted = normalizeResponses(mongoResponses);
+
+        const action = {
+          type: 'UPDATE_RESPONSES',
+          responses: converted
+        };
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState).to.not.deep.equal(initialState.responses);
+        expect(changedState.responses).to.equal(converted);
+      });
+    });
+    describe('UPDATE_AGGREGATES', () => {
+      it('should rewrite all stored aggregates data', () => {
+        const converted = normalizeResponses(mongoResponses);
+
+        const action = {
+          type: 'UPDATE_AGGREGATES',
+          aggregates: converted
+        };
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState).to.not.deep.equal(initialState.aggregates);
+        expect(changedState.aggregates).to.equal(converted);
       });
     });
   });

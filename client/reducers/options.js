@@ -1,7 +1,5 @@
 function questionOptions(state = [], action) {
   switch (action.type) {
-    case 'UPDATE_SURVEY':
-      return action.options || state;
     case 'ADD_OPTION':
       return [
         ...state,
@@ -58,7 +56,7 @@ export function options(state = {}, action) {
     };
   }
   switch (action.type) {
-    case 'UPDATE_STATE':
+    case 'UPDATE_SURVEY':
       return action.options;
     default:
       return state;

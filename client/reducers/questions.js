@@ -1,7 +1,5 @@
 function surveyQuestions(state = [], action) {
   switch (action.type) {
-    case 'UPDATE_SURVEY':
-      return action.questions;
     case 'ADD_QUESTION':
       return [
         ...state,
@@ -36,7 +34,7 @@ export function questions(state = {}, action) {
     };
   }
   switch (action.type) {
-    case 'UPDATE_STATE':
+    case 'UPDATE_SURVEY':
       return action.questions;
     default:
       return state;
