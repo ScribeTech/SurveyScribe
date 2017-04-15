@@ -2,40 +2,52 @@ const chai = require('chai');
 chai.use(require('chai-http'));
 chai.use(require('chai-shallow-deep-equal'));
 
-const { expect } = chai;
 const app = require('../index.js');
+const Survey = require('mongoose').model('Survey');
+const User = require('mongoose').model('User');
+const login = require('./helpers/login.js');
 const REST = require('./helpers/REST.js');
 
-const agent = chai.request.agent(app);
+const { expect, request } = chai;
 
-describe('Response routes', () => {
+describe('Survey routes', () => {
   beforeEach((done) => {
-    Response.remove({})
-      .then(() => User.remove({}))
-      .then(() => User.create({ name: 'testinguser', password: 'testinguser123' }))
-      .then(() => done());
+    Survey.remove({})
+    .then(() => User.remove({}))
+    .then(() => User.create(User.sample()))
+    .then(() => done());
   });
   afterEach((done) => {
-    Response.remove({})
-      .then(() => User.remove({}))
-      .then(() => done());
+    Survey.remove({})
+    .then(() => User.remove({}))
+    .then(() => done());
   });
-
-  describe('/api/responses', () => {
-    xdescribe('GET', () => {
-      it('should return 200 and all of current user\'s or session\'s responses', () => {});
+  describe('/api/survey', () => {
+    describe('GET', () => {
+      it('should return 200 and all of user\'s surveys', (done) => {
+        const expected = Survey.sample();
+        const agent = request.agent(app);
+        login(agent)
+          .then(() => Survey.create(expected))
+          .then(() => agent.get('/api/surveys'))
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body[0]).to.shallowDeepEqual(expected);
+            done();
+          })
+          .catch(done);
+      });
+      REST.Unauthorized('get', '/api/surveys')();
     });
 
     describe('POST', () => {
-      it('should return 201 and creates response', (done) => {
-        const expected = Response.sample();
-
-        agent.post('/api/login')
-          .send({ name: 'testinguser', password: 'testinguser123' })
-          .then(() =>
-            agent.post('/api/responses')
-              .send(expected)
-          )
+      it('should return 201 when survey is created', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        login(agent)
+          .then(() => agent.post('/api/surveys').send(expected))
           .then((response) => {
             expect(response).status(201);
             expect(response).to.be.json;
@@ -46,93 +58,200 @@ describe('Response routes', () => {
           .catch(done);
       });
 
-      REST.BadRequest('post', '/api/responses', { invalid: 'input' })();
+      REST.BadRequest('post', '/api/surveys', { invalid: '12345678910' })();
+      REST.Unauthorized('post', '/api/surveys')();
+      xit('should return 401 if user\'s not the owner', (done) => {});
     });
-
-    describe('PUT', REST.MethodNotAllowed('put', '/api/responses'));
-    describe('DELETE', REST.MethodNotAllowed('delete', '/api/responses'));
+    describe('PUT', REST.MethodNotAllowed('put', '/api/surveys'));
+    describe('DELETE', REST.MethodNotAllowed('delete', '/api/surveys'));
   });
 
-  describe('/api/responses/:response', () => {
+  xdescribe('/api/survey/:survey', () => {
     describe('GET', () => {
-      it('should return 200 and specified response', (done) => {
-        const expected = Response.sample();
-
-        Response.create(expected)
+      it('should return 200 and specified survey', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        Survey.create(expected)
           .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-            )
+          )
           .then(() =>
-            agent.get('/api/responses/58ee6904fdebd16dfdd99f91')
+            agent.get('/api/survey/58ee63c65a2d576d5125b4bc')
           )
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
-            expect(response.body.length);
-            expect(response.body[0]).to.shallowDeepEqual(expected);
+            expect(response.body).to.shallowDeepEqual(expected);
             done();
           })
           .catch(done);
       });
 
-      xit('should return 401 if user\'s not the owner', () => {});
+      it('should return 404 if survey doesn\'t exist', (done) => {
+        const agent = request.agent(app);
+        agent.post('/api/login')
+          .send({ name: 'testinguser', password: 'testinguser123' })
+          .then(() => {
+            agent.get('app/survey/invalidsurvey')
+              .then((response) => {
+                expect(response).status(404);
+              })
+              .catch(done);
+          });
+      });
 
-      REST.NotFound('get', '/api/responses/:response')();
+      REST.Unauthorized('get', '/api/survey/:survey')();
     });
 
     describe('PUT', () => {
-      it('should return 200 and update part of response', (done) => {
-        const expected = Response.sample();
-
-        Response.create(expected)
+      it('should return 200 and update part of the survey', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        Survey.create(expected)
           .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
           )
           .then(() =>
-            agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
-              .send({ answers: [{ value: 'hello' }] })
+            agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
+              .send({ title: 'another title' })
           )
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
             expect(response.body.length);
-            expect(response.body[0].answers[0].value).to.equal('hello');
+            expect(response.body[0].title).to.equal('another title');
             done();
           })
           .catch(done);
       });
 
-      REST.BadRequest('put', '/api/responses/58ee6904fdebd16dfdd99f91', { invalid: 'input' })();
-      REST.Unauthorized('put', '/api/responses/58ee6904fdebd16dfdd99f91')();
+      REST.BadRequest('put', '/api/surveys/:survey', { invalid: '12345678910' })();
+      REST.Unauthorized('put', 'api/surveys/:survey')();
       xit('should return 401 if user\'s not the owner', () => {});
     });
 
     describe('DELETE', () => {
-      it('should return 200 and delete the response', (done) => {
-        const expected = Response.sample();
-
-        Response.create(expected)
+      it('should return 200 and delete the survey', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        Survey.create(expected)
           .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
           )
           .then(() =>
-            agent.delete('/api/responses/58ee6904fdebd16dfdd99f91')
+            agent.delete('/api/survey/58ee63c65a2d576d5125b4bc')
           )
           .then((response) => {
             expect(response).status(200);
+            expect(response.body.length).to.equal(0);
             done();
           })
           .catch(done);
       });
 
+      REST.Unauthorized('delete', 'api/surveys/:survey')();
       xit('should return 401 if user\'s not the owner', () => {});
-
-      REST.NotFound('delete', '/api/responses/:responses')();
     });
 
-    describe('POST', REST.MethodNotAllowed('post', '/api/responses/58ee6904fdebd16dfdd99f91'));
+    describe('POST', REST.MethodNotAllowed('post', '/api/surveys/:survey'));
+  });
+
+  xdescribe('/api/survey/:survey/responses', () => {
+    describe('GET', () => {
+      it('should return 200 and all of survey\'s responses', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        Survey.create(expected)
+          .then(() =>
+            agent.post('/api/login')
+              .send({ name: 'testinguser', password: 'testinguser123' })
+          )
+          .then(() =>
+            agent.get('/api/surveys/58ee63c65a2d576d5125b4bc/responses')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            done();
+          })
+          .catch(done);
+      });
+
+      it('should return 404 if survey doesn\'t exist', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        Survey.create(expected)
+          .then(() =>
+            agent.post('/api/login')
+              .send({ name: 'testinguser', password: 'testinguser123' })
+              .then(() => {
+                agent.get('/api/surveys/doesnotexist/responses')
+                  .then((response) => {
+                    expect(response).status(404);
+                    done();
+                  })
+                  .catch(done);
+              })
+          );
+      });
+
+      REST.Unauthorized('get', '/api/survey/:survey/responses')();
+      xit('should return 401 if user\'s not the owner', () => {});
+    });
+
+    describe('PUT', REST.MethodNotAllowed('put', '/api/surveys/:survey/responses'));
+    describe('DELETE', REST.MethodNotAllowed('delete', '/api/surveys/:survey/responses'));
+  });
+
+  xdescribe('/api/survey/:survey/responses/:response', () => {
+    describe('GET', () => {
+      it('should return 200 and specified response', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        Survey.create(expected)
+          .then(() =>
+            agent.post('/api/login')
+              .send({ name: 'testinguser', password: 'testinguser123' })
+          )
+          .then(() =>
+            agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            done();
+          })
+          .catch(done);
+      });
+
+      it('should return 404 if survey doesn\'t exist', (done) => {
+        const agent = request.agent(app);
+        const expected = Survey.sample();
+        Survey.create(expected)
+          .then(() =>
+            agent.post('/api/login')
+              .send({ name: 'testinguser', password: 'testinguser123' })
+              .then(() => {
+                agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/doesnotexist')
+                  .then((response) => {
+                    expect(response).status(404);
+                    done();
+                  })
+                  .catch(done);
+              })
+          );
+      });
+
+      REST.Unauthorized('get', '/api/survey/:survey/responses/:response');
+      xit('should return 401 if user\'s not the owner', () => {});
+    });
+    describe('POST', REST.MethodNotAllowed('post', '/api/surveys/:survey/responses/:response'));
+    describe('PUT', REST.MethodNotAllowed('put', '/api/surveys/:survey/responses/:response'));
+    describe('DELETE', REST.MethodNotAllowed('delete', '/api/surveys/:survey/responses/:response'));
   });
 });
