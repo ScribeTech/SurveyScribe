@@ -164,7 +164,7 @@ describe('REDUCERS', () => {
     const initialState = {
       surveys,
       questions,
-      options: {},
+      options,
       responses: {},
       aggregates: {}
     };
@@ -178,50 +178,164 @@ describe('REDUCERS', () => {
         const action = Object.assign({}, question, { type: 'ADD_QUESTION' });
 
         deepFreeze(initialState);
-        console.log('initial', initialState.questions);
         const changedState = reducer(initialState, action);
-        console.log('changed', changedState.questions);
-        expect(Object.keys(changedState.questions).length).to.equal(4);
+        expect(Object.keys(changedState.questions).length)
+               .to.equal(Object.keys(initialState.questions).length + 1);
         expect(changedState.questions[question.id].kind).to.equal(question.kind);
+      });
+      it('should include required, title, min, max for SCALE questions', () => {
+        const question = {
+          id: '46ef6467aa8ac36d6d74fb3f',
+          kind: 'Scale'
+        };
+
+        const action = Object.assign({}, question, { type: 'ADD_QUESTION' });
+
+        deepFreeze(initialState);
+        const changedState = reducer(initialState, action);
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].required).to.be.Boolean;
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].title).to.be.String;
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].min).to.be.Number;
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].max).to.be.Number;
+      });
+      it('should include required, title, max for TEXT questions', () => {
+        const question = {
+          id: '46ef6467aa8ac36d6d74fb3f',
+          kind: 'Text'
+        };
+
+        const action = Object.assign({}, question, { type: 'ADD_QUESTION' });
+
+        deepFreeze(initialState);
+        const changedState = reducer(initialState, action);
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].required).to.be.Boolean;
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].title).to.be.String;
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].max).to.be.Number;
+      });
+      it('should include required, title, maxSelection for SELECT questions', () => {
+        const question = {
+          id: '46ef6467aa8ac36d6d74fb3f',
+          kind: 'Select'
+        };
+
+        const action = Object.assign({}, question, { type: 'ADD_QUESTION' });
+
+        deepFreeze(initialState);
+        const changedState = reducer(initialState, action);
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].required).to.be.Boolean;
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].title).to.be.String;
+        expect(changedState.questions['46ef6467aa8ac36d6d74fb3f'].maxSelection).to.be.Number;
       });
     });
     describe('REMOVE_QUESTION', () => {
       it('should remove a question from the current list of questions', () => {
         const action = {
-          surveyId: 1,
           type: 'REMOVE_QUESTION',
-          i: 2
+          id: '58ee6466aa8ac36d6d74fe9f'
         };
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
-
-        expect(changedState.questions[1].length).to.equal(2);
-        expect(changedState.questions[1][2]).to.not.exist;
+        expect(Object.keys(changedState.questions).length)
+               .to.equal(Object.keys(initialState.questions).length - 1);
+        expect(changedState.questions['58ee6466aa8ac36d6d74fe9f']).to.not.exist;
+      });
+      it('should remove options if SELECT question', () => {
+        const action = {
+          type: 'REMOVE_QUESTION',
+          id: '58ee63c65a2d576d5125b4c1',
+          kind: 'Select'
+        };
+        deepFreeze(initialState);
+        const changedState = reducer(initialState, action);
+        expect(Object.keys(changedState.options).length)
+               .to.equal(Object.keys(initialState.options).length - 1);
+        expect(changedState.options[action.id]).to.not.exist;
       });
     });
-    xdescribe('EDIT_QUESTION', () => {
-      xit('should edit an existing question in the list of questions', () => {
-        const surveyId = 1;
+    describe('EDIT_QUESTION', () => {
+      it('should edit an existing question in the list of questions', () => {
         const question = {
-          i: 1,
-          label: 'Megan and Jin are the BEST'
+          id: '58ee63c65a2d576d5125b4c1',
+          kind: 'Select',
+          data: {
+            title: 'Are Megan and Jin the best?',
+            required: true,
+            maxSelection: 1
+          }
         };
 
-        const action = Object.assign({}, question, { type: 'EDIT_QUESTION', surveyId });
+        const action = Object.assign({}, question, { type: 'EDIT_QUESTION' });
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.questions[1].length).to.equal(3);
-        expect(JSON.stringify(changedState.questions[1][1].label))
-          .to.equal(JSON.stringify(question.label));
-        expect(JSON.stringify(changedState.questions[1][0]))
-          .to.equal(JSON.stringify(initialState.questions[1][0]));
-        expect(JSON.stringify(changedState.questions[1][2]))
-          .to.equal(JSON.stringify(initialState.questions[1][2]));
+        expect(Object.keys(changedState.questions).length)
+               .to.equal(Object.keys(initialState.questions).length);
+        expect(changedState.questions[question.id].id)
+               .to.equal(initialState.questions[question.id].id);
+        expect(changedState.questions[question.id])
+               .to.not.deep.equal(initialState.questions[question.id]);
+      });
+      it('should edit Select questions', () => {
+        const question = {
+          id: '58ee63c65a2d576d5125b4c1',
+          kind: 'Select',
+          data: {
+            title: 'Are Megan and Jin the best?',
+            required: true,
+            maxSelection: 1
+          }
+        };
+
+        const action = Object.assign({}, question, { type: 'EDIT_QUESTION' });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(Object.keys(changedState.questions).length)
+        .to.equal(Object.keys(initialState.questions).length);
+        expect(changedState.questions[question.id].title)
+        .to.equal(question.data.title);
+        expect(changedState.questions[question.id].required)
+        .to.equal(question.data.required);
+        expect(changedState.questions[question.id].maxSelection)
+        .to.equal(question.data.maxSelection);
+      });
+      it('should edit Scale questions', () => {
+        const question = {
+          id: '58ee6466aa8ac36d6d74fe9f',
+          kind: 'Scale',
+          data: {
+            title: 'How much do you like TACOS?',
+            required: true,
+            min: 2,
+            max: 17
+          }
+        };
+
+        const action = Object.assign({}, question, { type: 'EDIT_QUESTION' });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(Object.keys(changedState.questions).length)
+               .to.equal(Object.keys(initialState.questions).length);
+        expect(changedState.questions[question.id].title)
+               .to.equal(question.data.title);
+        expect(changedState.questions[question.id].required)
+               .to.equal(question.data.required);
+        expect(changedState.questions[question.id].min)
+               .to.equal(question.data.min);
+        expect(changedState.questions[question.id].max)
+               .to.equal(question.data.max);
+      });
+      it('should edit Text questions', () => {
+
       });
     });
   });
@@ -283,45 +397,8 @@ describe('REDUCERS', () => {
           .to.equal(JSON.stringify(initialState.options[1][2]));
       });
     });
-<<<<<<< HEAD
-    describe('INCREMENT_VOTES', () => {
-      it('should increment the votes for an existing option', () => {
-        const option = {
-          type: 'INCREMENT_VOTES',
-          questionId: 2,
-          i: 1
-        };
-
-        deepFreeze(initialState);
-
-        const changedState = reducer(initialState, option);
-
-        expect(changedState.options[2][1].votes)
-          .to.equal(initialState.options[2][1].votes + 1);
-      });
-    });
-    describe('DECREMENT_VOTES', () => {
-      it('should decrement the votes for an existing option', () => {
-        const option = {
-          type: 'DECREMENT_VOTES',
-          questionId: 2,
-          i: 1
-        };
-
-        deepFreeze(initialState);
-
-        const changedState = reducer(initialState, option);
-
-        expect(changedState.options[2][1].votes)
-          .to.equal(initialState.options[2][1].votes - 1);
-      });
-    });
-    describe('TOGGLE_SELECT', () => {
-      it('should toggle an option\'s selected status', () => {
-=======
     xdescribe('TOGGLE_SELECT', () => {
       xit('should toggle an option\'s selected status', () => {
->>>>>>> Add ADD_QUESTION reducer and test
         const option = {
           type: 'TOGGLE_SELECT',
           questionId: 1,
@@ -344,8 +421,8 @@ describe('REDUCERS', () => {
       });
     });
   });
-  describe('TOGGLE_ERROR', () => {
-    it('should toggle signin.error true/false', () => {
+  xdescribe('TOGGLE_ERROR', () => {
+    xit('should toggle signin.error true/false', () => {
       const signin = {
         type: 'TOGGLE_ERROR',
         i: 0

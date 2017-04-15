@@ -66,22 +66,21 @@ export function addQuestion(kind) {
   };
 }
 // edit question (data is Object holding kind-specific data)
-export function editQuestion(id, title, kind, required, data) {
+export function editQuestion(id, kind, data) {
   return {
     type: 'EDIT_QUESTION',
     id,
-    title,
     kind,
-    required,
     data
   };
 }
 
-// remove question
-export function removeQuestion(id) {
+// remove question (kind only necessary for SELECT questions)
+export function removeQuestion(id, kind) {
   return {
     type: 'REMOVE_QUESTION',
-    id
+    id,
+    kind
   };
 }
 
