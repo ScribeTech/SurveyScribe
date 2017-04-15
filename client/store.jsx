@@ -8,7 +8,6 @@ import { mongoSurveys } from './data/mongoSurveys';
 import { normalizeSurveys } from './utilities/normalize';
 
 const surveys = normalizeSurveys(mongoSurveys);
-const test = 'test'
 const defaultState = {
   surveys,
   questions: {},
