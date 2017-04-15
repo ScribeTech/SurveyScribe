@@ -11,9 +11,8 @@ app.use(require('./middleware/session.js')(config)); // track sessions
 app.use(require('./middleware/log.js')(config)); // log activity
 
 // Routes
-app.use(express.static(config.public)); // server static files
-app.use(require('./config/routes.js')(config)); // handle api calls
-app.use(require('./config/error.js')(config)); // handle errors
+app.use(express.static(config.public)); // static files
+app.use(require('./config/routes.js')(config)); // api calls
 
 // Server
 if (module.parent) { module.exports = app; /* export for testing */ } else {

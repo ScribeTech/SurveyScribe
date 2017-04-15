@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongooseConnection = require('mongoose').connection;
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
@@ -7,7 +7,8 @@ const MongoStore = require('connect-mongo')(session);
 
 module.exports = config => session({
   resave: false, // don't save session if unmodified
-  saveUninitialized: false, // don't create session until something stored
+  saveUninitialized: true, // create session even before something is stored
   secret: config.session.secret,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+  store: new MongoStore({ mongooseConnection }),
+  cookie: { secure: config.session.secure }
 });

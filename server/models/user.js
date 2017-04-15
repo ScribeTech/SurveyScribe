@@ -1,13 +1,15 @@
 const assert = require('assert');
-const mongoose = require('mongoose');
 const sodium = require('sodium').api;
+const mongoose = require('mongoose');
+const { _id } = require('./id.js');
 
 const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
+  _id,
   name: { type: String, required: true, index: { unique: true } },
-  hash: { type: Buffer, required: true, select: false }
-});
+  hash: { type: String, required: true, select: false }
+}, { strict: 'throw' });
 
 // Hash plaintext passwords before storing
 // NOTE: this function will not work as an arrow function
@@ -18,6 +20,7 @@ UserSchema.virtual('password')
     assert.ok(plaintext.length >= 8, 'Password should be 8 characters or longer');
     this.hash = this.hashPassword(plaintext);
   });
+
   /* .get()
    * /!\ DANGER /!\
    * There should never be a function to get plaintext passwords. The
@@ -28,7 +31,7 @@ UserSchema.virtual('password')
 
 // Test if the user entered the correct password. Use this function at log in.
 // NOTE: this function will not work as an arrow function
-UserSchema.methods.authenticate = function (plaintext, hash = this.hash) {
+UserSchema.methods.verifyPassword = function (plaintext, hash = this.hash) {
   /* /!\ DANGER /!\
    * Only use this function to compare password hashes. Do not use `===` or
    * `Buffer.comopare()` because both leak information about the correct
@@ -43,16 +46,18 @@ UserSchema.methods.authenticate = function (plaintext, hash = this.hash) {
 
 // Hash plain text passwords using Argon2i. Sodium automatically adds salt.
 UserSchema.methods.hashPassword = function (plaintext) {
-  return sodium.crypto_pwhash_str(
+  const hash = sodium.crypto_pwhash_str(
     Buffer.from(plaintext),
     sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE,
     sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE
-  );
+  )
+  .toString('ascii');
+  return hash;
 };
 
 UserSchema.statics.sample = () => ({
   name: 'John Doe',
-  password: 'password12345678'
+  password: 'CorrectHorseBatteryStaple'
 });
 
 module.exports = mongoose.model('User', UserSchema);

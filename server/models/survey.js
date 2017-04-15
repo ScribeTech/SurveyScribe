@@ -1,42 +1,38 @@
 const mongoose = require('mongoose');
+const { _id, ObjectId } = require('./id.js');
 
 const Schema = mongoose.Schema;
 
-const OptionSchema = Schema({
-  label: String,
-  votes: Number
-});
-
 const QuestionSchema = Schema({
-  _id: String,
-  label: String,
-  options: [OptionSchema]
-}, { _id: false });
+  _id,
+  title: String,
+  required: Boolean
+}, { discriminatorKey: 'kind' });
 
 const SurveySchema = Schema({
+  _id,
   title: String,
+  owners: [{ type: ObjectId, ref: 'User' }],
   questions: [QuestionSchema]
-});
+}, { strict: 'throw' });
 
-SurveySchema.statics.sample = () => ({
-  title: 'Example Survey',
-  questions: [
-    {
-      label: 'What is your favorite color?',
-      options: [
-        { label: 'Red', votes: 0 },
-        { label: 'Green', votes: 0 },
-        { label: 'Blue', votes: 0 }
-      ]
-    },
-    {
-      label: 'Which do you like more?',
-      options: [
-        { label: 'Dogs' },
-        { label: 'Cats' }
-      ]
-    }
-  ]
-});
+const Questions = SurveySchema.path('questions');
+
+Questions.discriminator('Select', Schema({
+  options: [{ _id, label: String }],
+  maxSelection: Number
+}));
+
+Questions.discriminator('Scale', Schema({
+  min: Number,
+  max: Number,
+  labels: [String]
+}));
+
+Questions.discriminator('Text', Schema({
+  max: Number
+}));
+
+SurveySchema.statics.sample = () => ({});
 
 module.exports = mongoose.model('Survey', SurveySchema);

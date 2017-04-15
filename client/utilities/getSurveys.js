@@ -31,11 +31,6 @@ export const updateSurvey = (props, survey, url) => {
     body: JSON.stringify(denormalize(survey, props.questions, props.options))
   })
   .then(() => {
-    props.socket.emit('new vote', {
-      survey: props.surveys,
-      questions: props.questions,
-      options: props.options
-    });
     if (url) {
       getSurveys(props, url);
     }

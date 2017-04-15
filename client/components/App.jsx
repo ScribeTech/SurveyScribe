@@ -1,17 +1,14 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
 import * as actionCreators from '../actions/actionCreators';
 import Main from './Main';
-
-const clientSocket = io.connect({ path: '/api/result' });
 
 function mapStateToProps(state) {
   return {
     surveys: state.surveys,
-    socket: clientSocket,
     questions: state.questions,
-    options: state.options
+    options: state.options,
+    signin: state.signin
   };
 }
 
