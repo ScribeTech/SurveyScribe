@@ -6,8 +6,6 @@ function remove(state = {}, action) {
 
 function questionOptions(state = [], action) {
   switch (action.type) {
-    case 'UPDATE_SURVEY':
-      return action.options || state;
     case 'ADD_OPTION':
       return [
         ...state,
