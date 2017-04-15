@@ -335,14 +335,66 @@ describe('REDUCERS', () => {
                .to.equal(question.data.max);
       });
       it('should edit Text questions', () => {
+        const question = {
+          id: '58ee6466aa8ac36d6d74fe9e',
+          kind: 'Text',
+          data: {
+            title: 'Tell me about your favorite fish.',
+            required: true,
+            max: 2000
+          }
+        };
 
+        const action = Object.assign({}, question, { type: 'EDIT_QUESTION' });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(Object.keys(changedState.questions).length)
+               .to.equal(Object.keys(initialState.questions).length);
+        expect(changedState.questions[question.id].title)
+               .to.equal(question.data.title);
+        expect(changedState.questions[question.id].required)
+               .to.equal(question.data.required);
+        expect(changedState.questions[question.id].max)
+               .to.equal(question.data.max);
+      });
+      it('should not change alterable properties that are not passed inside of data', () => {
+        const question = {
+          id: '58ee6466aa8ac36d6d74fe9e',
+          kind: 'Text',
+          data: {
+            max: 2000
+          }
+        };
+
+        const action = Object.assign({}, question, { type: 'EDIT_QUESTION' });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.questions[question.id].max)
+               .to.not.equal(initialState.questions[question.id].max);
+        expect(changedState.questions[question.id].required)
+               .to.equal(initialState.questions[question.id].required);
+        expect(changedState.questions[question.id].title)
+               .to.equal(initialState.questions[question.id].title);
       });
     });
   });
-  xdescribe('Options', () => {
+  describe('Options', () => {
+    const initialState = {
+      surveys,
+      questions,
+      options,
+      responses: {},
+      aggregates: {},
+    };
     xdescribe('ADD_OPTION', () => {
-      xit('should add a option to the current list of options', () => {
-        const questionId = 1;
+      xit('should add a option to the current list of Select options', () => {
+        const questionId = '';
         const option = {
           label: 'Cat'
         };
@@ -356,6 +408,9 @@ describe('REDUCERS', () => {
         expect(changedState.options[questionId].length).to.equal(4);
         expect(JSON.stringify(changedState.options[questionId][3].label))
           .to.equal(JSON.stringify(option.label));
+      });
+      it('should not add an option for a question that is not a Select question', () => {
+
       });
     });
     xdescribe('REMOVE_OPTION', () => {
@@ -421,8 +476,9 @@ describe('REDUCERS', () => {
       });
     });
   });
-  xdescribe('TOGGLE_ERROR', () => {
-    xit('should toggle signin.error true/false', () => {
+  describe('TOGGLE_ERROR', () => {
+    const initialState = [];
+    it('should toggle signin.error true/false', () => {
       const signin = {
         type: 'TOGGLE_ERROR',
         i: 0
