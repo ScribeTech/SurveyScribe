@@ -13,13 +13,7 @@ exports.create = (request, response, next) => {
   const survey = Object.assign({}, request.body, { owners: [request.session.user] });
   Survey.create(survey)
   .then((data) => { response.status(201).json(data); })
-  .catch((error) => {
-    if (error.name === 'StrictModeError') {
-      response.sendStatus(400);
-    } else {
-      next(error);
-    }
-  });
+  .catch(next);
 };
 
 exports.read = (request, response, next) => {
@@ -31,13 +25,7 @@ exports.read = (request, response, next) => {
       next({ status: 404 });
     }
   })
-  .catch((error) => {
-    if (error.name === 'StrictModeError') {
-      response.sendStatus(400);
-    } else {
-      next(error);
-    }
-  });
+  .catch(next);
 };
 
 exports.update = (request, response, next) => {
