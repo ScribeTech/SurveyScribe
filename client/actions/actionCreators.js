@@ -7,6 +7,31 @@ export function updateSurveys(surveys) {
   };
 }
 
+// update survey's questions and options
+export function updateSurvey(questions, options) {
+  return {
+    type: 'UPDATE_SURVEY',
+    questions,
+    options
+  };
+}
+
+// update responses
+export function updateResponses(responses) {
+  return {
+    type: 'UPDATE_RESPONSES',
+    responses
+  };
+}
+
+// update aggregates
+export function updateAggregates(aggregates) {
+  return {
+    type: 'UPDATE_AGGREGATES',
+    aggregates
+  };
+}
+
 export function addSurvey(id, title) {
   return {
     type: 'ADD_SURVEY',
@@ -30,11 +55,6 @@ export function removeSurvey(i) {
     type: 'REMOVE_SURVEY',
     i
   };
-}
-
-// update survey's questions and options
-export function updateSurvey(id) {
-  
 }
 
 // add question (data is Object holding kind-specific data)

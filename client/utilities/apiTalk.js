@@ -32,7 +32,7 @@ export const getSurvey = (props, url) => {
   .then(response => response.json())
   .then((result) => {
     const converted = normalizeSurvey(result);
-    props.updateSurveys(converted.questions, converted.options);
+    props.updateSurvey(converted.questions, converted.options);
     if (url) {
       browserHistory.push(url);
     }
@@ -45,7 +45,6 @@ export const getSurvey = (props, url) => {
 // make response aggregates for a particular survey
 export const makeAggregates = (questions, responses) => {
   const aggregates = {};
-  console.log('questions', questions);
   for (const questionId in questions) {
     const question = questions[questionId];
     switch (question.kind) {
@@ -53,11 +52,12 @@ export const makeAggregates = (questions, responses) => {
         aggregates[question.id] = {};
         for (const responseId in responses) {
           const response = responses[responseId];
-          for (const optionId in response[question.id]) {
+          for (const i in response[question.id].response) {
+            const optionId = response[question.id].response[i];
             if (aggregates[question.id][optionId]) {
               aggregates[question.id][optionId] += 1;
             } else {
-              aggregates[question.id].pus;
+              aggregates[question.id][optionId] = 1;
             }
           }
         }
@@ -95,7 +95,7 @@ export const getResponses = (props, url) => {
     const responses = normalizeResponses(result);
     props.updateResponses(responses);
 
-    const aggregates = makeAggregates(props.questions, props.options, converted);
+    const aggregates = makeAggregates(props.questions, props.options, responses);
     props.updateAggregates(aggregates);
   });
 };

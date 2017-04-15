@@ -2,9 +2,6 @@ import chai from 'chai';
 import { mongoSurveys } from '../data/mongoSurveys';
 import { mongoSurvey } from '../data/mongoSurvey';
 import { mongoResponses } from '../data/mongoResponses';
-// import { mongoResponse } from '../data/mongoResponse';
-// import { mongoUsers } from '../data/mongoUsers';
-// import { mongoUser } from '../data/mongoUser';
 import { normalizeSurveys, normalizeSurvey, normalizeResponses } from './normalize';
 
 const { expect } = chai;
@@ -59,7 +56,6 @@ describe('NORMALIZE', () => {
   describe('normalizeResponses', () => {
     it('should break responses into responses redux state', () => {
       const converted = normalizeResponses(mongoResponses);
-      console.log('converted', converted);
       expect(converted).to.be.Object;
       expect(converted['58ee6904fdebd16dfdd99f91']).to.be.Object;
       expect(converted['58ee6904fdebd16dfdd99f92']).to.be.Object;

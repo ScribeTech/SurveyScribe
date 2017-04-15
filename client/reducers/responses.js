@@ -1,5 +1,10 @@
 export function responses(state = {}, action) {
-  return state;
+  switch (action.type) {
+    case 'UPDATE_RESPONSES':
+      return action.responses;
+    default:
+      return state;
+  }
 }
 
 export default responses;

@@ -1,5 +1,7 @@
 function surveyQuestions(state = [], action) {
   switch (action.type) {
+    case 'UPDATE_SURVEY':
+      return action.questions;
     case 'ADD_QUESTION':
       return [
         ...state,

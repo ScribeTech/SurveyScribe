@@ -3,11 +3,12 @@ import deepFreeze from 'deep-freeze';
 import reducer from './index';
 
 import surveys from '../data/surveys';
-import questions from '../data/questions';
-import options from '../data/options';
-import responses from '../data/responses';
-import aggregates from '../data/responses';
-import mongoSurveys from '../data/mongoSurveys';
+import { questions } from '../data/questions';
+import { options } from '../data/options';
+import { responses } from '../data/responses';
+import { aggregates } from '../data/responses';
+import { mongoSurveys } from '../data/mongoSurveys';
+import { mongoSurvey } from '../data/mongoSurvey';
 import { normalizeSurveys, normalizeSurvey } from '../utilities/normalize';
 
 const initialState = {
@@ -19,8 +20,8 @@ const initialState = {
 const { expect } = chai;
 
 describe('REDUCERS', () => {
-   // unit tests for surveys reducer
-  describe('Surveys', () => {
+  // unit tests for update actions
+  describe('Update', () => {
     describe('UPDATE_SURVEYS', () => {
       it('should rewrite all stored survey data', () => {
         const converted = normalizeSurveys(mongoSurveys);
@@ -34,14 +35,31 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState).to.not.deep.equal(initialState);
-        expect(changedState.surveys).to.deep.equal(converted);
-        expect(changedState.questions).to.deep.equal(initialState.questions);
-        expect(changedState.options).to.deep.equal(initialState.options);
-        expect(changedState.responses).to.deep.equal(initialState.responses);
-        expect(changedState.aggregates).to.deep.equal(initialState.responses);
+        expect(changedState).to.not.deep.equal(initialState.surveys);
+        expect(changedState).to.deep.equal(converted);
       });
     });
+    describe('UPDATE_SURVEY', () => {
+      it('should rewrite all stored question data', () => {
+        const converted = normalizeSurvey(mongoSurvey);
+
+        const action = {
+          type: 'UPDATE_SURVEY',
+          questions: converted.questions,
+          options: converted.options
+        };
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState).to.not.deep.equal(initialState.questions);
+        expect(changedState.questions).to.deep.equal(converted.questions);
+      });
+    });
+  });
+   // unit tests for surveys reducer
+  describe('Surveys', () => {
     describe('ADD_SURVEY', () => {
       it('should add a survey to the current list of surveys', () => {
         const survey = {

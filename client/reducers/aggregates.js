@@ -1,5 +1,10 @@
 export function aggregates(state = {}, action) {
-  return state;
+  switch (action.type) {
+    case 'UPDATE_AGGREGATES':
+      return action.aggregates;
+    default:
+      return state;
+  }
 }
 
 export default aggregates;
