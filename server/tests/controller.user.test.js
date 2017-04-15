@@ -6,12 +6,12 @@ const { expect, request } = chai;
 const app = require('../index.js');
 const User = require('../models/user.js');
 
-const REST = require('./helpers/REST.js');
+const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 describe('User routes', () => {
   beforeEach((done) => {
     User.remove({})
-    .then(() => User.create(User.sample()))
+    .then(() => User.create({ name: 'testinguser', password: 'testinguser123' }))
     .then(() => done());
   });
   afterEach((done) => {
@@ -21,46 +21,77 @@ describe('User routes', () => {
 
   describe('/api/users', () => {
     describe('GET', () => {
-      xit('should return 200 and all users', () => {});
+      xit('should return 200 and all users', () => {
 
-      REST.Unauthorized('get', '/api/users')();
+      });
+
+      xit('should return 401 if user\'s not authenticated', () => {
+
+      });
     });
 
     describe('POST', () => {
-      xit('should return 201 and create new user', () => {});
-      xit('should return 409 if username already exists', () => {});
+      xit('should return 201 and create new user', () => {
 
-      REST.BadRequest('post', '/api/users', { invalid: true })();
+      });
+
+      xit('should return 400 if invalid input', () => {
+
+      });
+
+      xit('should return 409 if username already exists', () => {
+
+      });
     });
 
-    describe('PUT', REST.MethodNotAllowed('put', '/api/users'));
-    describe('DELETE', REST.MethodNotAllowed('delete', '/api/users'));
+    describe('PUT', MethodNotAllowed('put', '/api/users'));
+
+    describe('DELETE', MethodNotAllowed('delete', '/api/users'));
   });
 
-  xdescribe('/api/users/:user', () => {
-    describe('GET', () => {
-      xit('should return 200 and specified user', () => {});
+  describe('/api/users/:user', () => {
+    xdescribe('GET', () => {
+      it('should return 200 and specified user', () => {
 
-      REST.Unauthorized('get', '/api/users/:user')();
-      REST.NotFound('get', '/api/users/:user')();
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 404 if user does not exist', () => {
+
+      });
     });
 
-    describe('PUT', () => {
-      REST.BadRequest('put', '/api/users/:user', { invalid: true })();
-      REST.Unauthorized('put', '/api/users/:user')();
-      REST.NotFound('put', '/api/users/:user')();
+    xdescribe('PUT', () => {
+      it('should return 201 and create new user', () => {
 
-      xit('should return 401 if user does not equal current user', () => {});
+      });
+
+      it('should return 400 if invalid input', () => {
+
+      });
+
+      it('should return 401 if user does not equal current user', () => {
+
+      });
     });
 
-    describe('DELETE', () => {
-      xit('should return 200 log out and delete the user', () => {});
-      xit('should return 401 if user does not equal current user', () => {});
+    xdescribe('DELETE', () => {
+      it('should return 200 log out and delete the user', () => {
 
-      REST.Unauthorized('delete', '/api/users/:user')();
-      REST.NotFound('delete', '/api/users/:user')();
+      });
+
+      it('should return 401 if user\'s not authenticated', () => {
+
+      });
+
+      it('should return 401 if user does not equal current user', () => {
+
+      });
     });
 
-    describe('POST', REST.MethodNotAllowed('post', '/api/users/:user'));
+    describe('POST', MethodNotAllowed('post', '/api/users/notallowed'));
   });
 });

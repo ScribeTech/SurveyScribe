@@ -6,7 +6,7 @@ const { expect } = chai;
 const User = require('mongoose').model('User');
 // const Response = require('mongoose').model('Response');
 const app = require('../index.js');
-const REST = require('./helpers/REST.js');
+const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 const agent = chai.request.agent(app);
 
@@ -24,8 +24,24 @@ xdescribe('Response routes', () => {
   });
 
   describe('/api/responses', () => {
-    xdescribe('GET', () => {
-      it('should return 200 and all of current user\'s or session\'s responses', () => {});
+    describe('GET', () => {
+      it('should return 200 and all of current user\'s or session\'s responses', () => {
+
+      });
+
+      it('should return 401 if user\'s not authenticated', (done) => {
+        const expected = Response.sample();
+
+        Response.create(expected)
+          .then(() => {
+            agent.get('/api/responses/');
+          })
+          .then((response) => { done(response); })
+          .catch((error) => {
+            expect(error).status(401);
+            done();
+          });
+      });
     });
 
     describe('POST', () => {
@@ -48,11 +64,40 @@ xdescribe('Response routes', () => {
           });
       });
 
-      REST.BadRequest('post', '/api/responses', { invalid: 'input' })();
+      it('should return 400 if invalid input', (done) => {
+        agent.post('/api/login')
+          .send({ name: 'testinguser', password: 'testinguser123' })
+          .then(() => {
+            agent.post('/api/responses')
+              .send({ invalid: 'input' })
+              .then(done)
+              .catch((error) => {
+                expect(error).status(400);
+                done();
+              });
+          });
+      });
+
+      it('should return 401 if user\'s not authenticated', (done) => {
+        const expected = Response.sample();
+
+        agent.post('/api/responses')
+          .send(expected)
+          .then(done)
+          .catch((error) => {
+            expect(error).status(401);
+            done();
+          });
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
     });
 
-    describe('PUT', REST.MethodNotAllowed('put', '/api/responses'));
-    describe('DELETE', REST.MethodNotAllowed('delete', '/api/responses'));
+    describe('PUT', MethodNotAllowed('put', '/api/responses'));
+
+    describe('DELETE', MethodNotAllowed('delete', '/api/responses'));
   });
 
   describe('/api/responses/:response', () => {
@@ -78,9 +123,39 @@ xdescribe('Response routes', () => {
           });
       });
 
-      xit('should return 401 if user\'s not the owner', () => {});
+      it('should return 401 if user\'s not authenticated', (done) => {
+        Response.create()
+          .then(() => {
+            agent.get('/api/responses/58ee6904fdebd16dfdd99f91');
+          })
+          .then(done)
+          .catch((error) => {
+            expect(error).status(401);
+            done();
+          });
+      });
 
-      REST.NotFound('get', '/api/responses/:response')();
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
+
+      it('should return 404 if response does not exist', (done) => {
+        const expected = Response.sample();
+
+        Response.create(expected)
+          .then(() => {
+            agent.post('/api/login')
+              .send({ name: 'testinguser', password: 'testinguser123' })
+              .then(() => {
+                agent.get('/api/responses/doesnotexist')
+                  .then(done)
+                  .catch((error) => {
+                    expect(error).status(404);
+                    done();
+                  });
+              });
+          });
+      });
     });
 
     describe('PUT', () => {
@@ -106,9 +181,43 @@ xdescribe('Response routes', () => {
           });
       });
 
-      REST.BadRequest('put', '/api/responses/58ee6904fdebd16dfdd99f91', { invalid: 'input' })();
-      REST.Unauthorized('put', '/api/responses/58ee6904fdebd16dfdd99f91')();
-      xit('should return 401 if user\'s not the owner', () => {});
+      it('should return 400 if invalid input', (done) => {
+        const expected = Response.sample();
+
+        Response.create(expected)
+          .then(() => {
+            agent.post('/api/login')
+              .send({ name: 'testinguser', password: 'testinguser123' })
+              .then(() => {
+                agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
+                  .send({ invalid: 'input' })
+                  .then(done)
+                  .catch((error) => {
+                    expect(error).status(400);
+                    done();
+                  });
+              });
+          });
+      });
+
+      it('should return 401 if user\'s not authenticated', (done) => {
+        const expected = Response.sample();
+
+        Response.create(expected)
+          .then(() => {
+            agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
+              .send({ answers: [{ value: 'hello' }] });
+          })
+          .then(() => done())
+          .catch((error) => {
+            expect(error).status(401);
+            done();
+          });
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
     });
 
     describe('DELETE', () => {
@@ -130,11 +239,44 @@ xdescribe('Response routes', () => {
           });
       });
 
-      xit('should return 401 if user\'s not the owner', () => {});
+      it('should return 404 if response does not exist', (done) => {
+        const expected = Response.sample();
 
-      REST.NotFound('delete', '/api/responses/:responses')();
+        Response.create(expected)
+          .then(() => {
+            agent.post('/api/login')
+              .send({ name: 'testinguser', password: 'testinguser123' })
+              .then(() => {
+                agent.delete('/api/responses/doesnotexist')
+                  .then(done)
+                  .catch((error) => {
+                    expect(error).status(404);
+                    done();
+                  });
+              });
+          });
+      });
+
+      it('should return 401 if user\'s not authenticated', (done) => {
+        const expected = Response.sample();
+
+        Response.create(expected)
+          .then(() => {
+            agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
+              .send({ answers: [{ value: 'hello' }] });
+          })
+          .then(() => done())
+          .catch((error) => {
+            expect(error).status(401);
+            done();
+          });
+      });
+
+      it('should return 401 if user\'s not the owner', () => {
+
+      });
     });
 
-    describe('POST', REST.MethodNotAllowed('post', '/api/responses/58ee6904fdebd16dfdd99f91'));
+    describe('POST', MethodNotAllowed('post', '/api/responses/58ee6904fdebd16dfdd99f91'));
   });
 });
