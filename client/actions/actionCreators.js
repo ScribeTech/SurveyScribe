@@ -89,7 +89,6 @@ export function addOption(questionId, kind, label) {
   return {
     type: 'ADD_OPTION',
     kind,
-    questionId,
     label
   };
 }

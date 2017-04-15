@@ -360,7 +360,7 @@ describe('REDUCERS', () => {
         expect(changedState.questions[question.id].max)
                .to.equal(question.data.max);
       });
-      it('should not change alterable properties that are not passed inside of data', () => {
+      it('should not change alterable properties that are not passed inside of data for Text', () => {
         const question = {
           id: '58ee6466aa8ac36d6d74fe9e',
           kind: 'Text',
@@ -382,6 +382,30 @@ describe('REDUCERS', () => {
         expect(changedState.questions[question.id].title)
                .to.equal(initialState.questions[question.id].title);
       });
+      it('should not change alterable properties that are not passed inside of data for Scale', () => {
+        const question = {
+          id: '58ee6466aa8ac36d6d74fe9f',
+          kind: 'Scale',
+          data: {
+            max: 2000
+          }
+        };
+
+        const action = Object.assign({}, question, { type: 'EDIT_QUESTION' });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.questions[question.id].max)
+               .to.not.equal(initialState.questions[question.id].max);
+        expect(changedState.questions[question.id].required)
+               .to.equal(initialState.questions[question.id].required);
+        expect(changedState.questions[question.id].title)
+               .to.equal(initialState.questions[question.id].title);
+        expect(changedState.questions[question.id].min)
+               .to.equal(initialState.questions[question.id].min);
+      });
     });
   });
   describe('Options', () => {
@@ -392,10 +416,11 @@ describe('REDUCERS', () => {
       responses: {},
       aggregates: {},
     };
-    xdescribe('ADD_OPTION', () => {
+    describe('ADD_OPTION', () => {
       xit('should add a option to the current list of Select options', () => {
-        const questionId = '';
+        const questionId = '58ee63c65a2d576d5125b4c1';
         const option = {
+          questionId,
           label: 'Cat'
         };
 
