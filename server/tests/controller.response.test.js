@@ -3,6 +3,7 @@ chai.use(require('chai-http'));
 chai.use(require('chai-shallow-deep-equal'));
 
 const app = require('../index.js');
+<<<<<<< HEAD
 const Response = require('mongoose').model('Response');
 const User = require('mongoose').model('User');
 const login = require('./helpers/login.js');

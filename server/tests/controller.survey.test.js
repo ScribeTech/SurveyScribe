@@ -89,7 +89,6 @@ describe('Survey routes', () => {
       });
 
       REST.NotFound('get', '/api/survey/doesnotexist');
-
       REST.Unauthorized('get', '/api/survey/:survey')();
     });
 
@@ -97,7 +96,6 @@ describe('Survey routes', () => {
       it('should return 200 and update part of the survey', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
-
         Survey.create(expected)
           .then(() =>
             agent.post('/api/login')
@@ -172,7 +170,6 @@ describe('Survey routes', () => {
       });
 
       REST.NotFound('get', '/api/suvey/doesnotexist/responses');
-
       REST.Unauthorized('get', '/api/survey/:survey/responses')();
       xit('should return 401 if user\'s not the owner', () => {});
     });
@@ -204,7 +201,6 @@ describe('Survey routes', () => {
       });
 
       REST.NotFound('get', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/doesnotexist');
-
       REST.Unauthorized('get', '/api/survey/:survey/responses/:response');
       xit('should return 401 if user\'s not the owner', () => {});
     });
