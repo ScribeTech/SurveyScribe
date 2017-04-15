@@ -64,4 +64,5 @@ SurveySchema.statics.sample = () => ({
   ]
 });
 
+
 module.exports = mongoose.model('Survey', SurveySchema);

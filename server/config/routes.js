@@ -43,6 +43,7 @@ module.exports = () => {
     .all(error.invalidMethod);
 
   router.use('/api/*', error.notFound); // 404: Not Found
+  router.use('/api/*', error.badRequest);
   router.use(error.sendIndex); // always send the index for client routes
   router.use(error.generic); // 500: Internal Server Error
 

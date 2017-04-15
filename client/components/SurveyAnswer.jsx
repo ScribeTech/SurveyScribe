@@ -5,7 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 import { List, ListItem } from 'material-ui/List';
 
 import Content from './Content';
-import { updateSurvey } from '../utilities/getSurveys';
+import { updateSurvey } from '../utilities/apiTalk';
 
 const Answer = (props) => {
   // Load the currently selected survey

@@ -1,16 +1,37 @@
 import { generate as ObjectId } from 'shortid';
 
-// update state
-export function updateState(surveys, questions, options, signin) {
+export function updateSurveys(surveys) {
   return {
-    type: 'UPDATE_STATE',
-    surveys,
-    questions,
-    options,
-    signin
+    type: 'UPDATE_SURVEYS',
+    surveys
   };
 }
-// add survey
+
+// update survey's questions and options
+export function updateSurvey(questions, options) {
+  return {
+    type: 'UPDATE_SURVEY',
+    questions,
+    options
+  };
+}
+
+// update responses
+export function updateResponses(responses) {
+  return {
+    type: 'UPDATE_RESPONSES',
+    responses
+  };
+}
+
+// update aggregates
+export function updateAggregates(aggregates) {
+  return {
+    type: 'UPDATE_AGGREGATES',
+    aggregates
+  };
+}
+
 export function addSurvey(id, title) {
   return {
     type: 'ADD_SURVEY',
@@ -36,43 +57,44 @@ export function removeSurvey(i) {
   };
 }
 
-// add question
-export function addQuestion(surveyId, questionType) {
+// add question (data is Object holding kind-specific data)
+export function addQuestion(kind) {
   return {
     type: 'ADD_QUESTION',
-    surveyId,
     id: ObjectId(),
-    questionType
+    kind
   };
 }
-// edit question
-export function editQuestion(surveyId, i, label) {
+// edit question (data is Object holding kind-specific data)
+export function editQuestion(id, kind, data) {
   return {
     type: 'EDIT_QUESTION',
-    surveyId,
-    i,
-    label
-  };
-}
-// remove question
-export function removeQuestion(surveyId, i) {
-  return {
-    type: 'REMOVE_QUESTION',
-    surveyId,
-    i
+    id,
+    kind,
+    data
   };
 }
 
-// add Option
-export function addOption(questionId, label) {
+// remove question (kind only necessary for SELECT questions)
+export function removeQuestion(id, kind) {
+  return {
+    type: 'REMOVE_QUESTION',
+    id,
+    kind
+  };
+}
+
+// add SELECT option
+export function addOption(questionId, kind, label) {
   return {
     type: 'ADD_OPTION',
+    kind,
     questionId,
     label
   };
 }
 
-// edit option
+// edit SELECT option
 export function editOption(questionId, i, label) {
   return {
     type: 'EDIT_OPTION',
@@ -82,17 +104,7 @@ export function editOption(questionId, i, label) {
   };
 }
 
-// edit slide
-export function editSlider(questionId, i, value) {
-  return {
-    type: 'EDIT_OPTION',
-    questionId,
-    i,
-    value
-  };
-}
-
-// remove option
+// remove SELECT option
 export function removeOption(questionId, i) {
   return {
     type: 'REMOVE_OPTION',
@@ -100,33 +112,6 @@ export function removeOption(questionId, i) {
     i
   };
 }
-
-// increment votes
-export function increment(questionId, i) {
-  return {
-    type: 'INCREMENT_VOTES',
-    questionId,
-    i
-  };
-}
-// decrement votes
-export function decrement(questionId, i) {
-  return {
-    type: 'DECREMENT_VOTES',
-    questionId,
-    i
-  };
-}
-
-// toggle selected
-export function toggleSelected(questionId, i) {
-  return {
-    type: 'TOGGLE_SELECT',
-    questionId,
-    i
-  };
-}
-
 // toggle error
 export function toggleError(i) {
   return {
@@ -146,5 +131,13 @@ export function errorTrue(message) {
   return {
     type: 'ERROR_TRUE',
     message
+  };
+}
+
+export function editUser(id, name) {
+  return {
+    type: 'EDIT_USER',
+    id,
+    name
   };
 }

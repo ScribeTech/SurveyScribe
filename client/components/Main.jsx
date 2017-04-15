@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSurveys } from '../utilities/getSurveys';
+import { getSurveys } from '../utilities/apiTalk';
 
 const Main = props =>
   (<div onLoad={() => getSurveys(props)} >

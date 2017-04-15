@@ -66,9 +66,34 @@ describe('User Model', () => {
       .catch(done); // immediately output errors instead of timing out
     });
 
-    xit('rejects passwords shorter than 8 characters');
-    xit('allows very long passwords');
-    xit('allows uncommon symbols');
+    it('rejects passwords shorter than 8 characters', () => {
+      const expected = User.shortPasswordSample();
+      User.create(expected)
+      .catch((error) => {
+        expect(error.name).to.equal('AssertionError');
+        expect(error.message).to.equal('Password should be 8 characters or longer');
+      });
+    });
+
+    it('allows very long passwords', () => {
+      const expected = User.longPasswordSample();
+      User.create(expected)
+      .then((user) => {
+        expect(user.name).to.equal('John Doe');
+        expect(user.hash).to.exist;
+        expect(user._id).to.exist;
+      });
+    });
+
+    it('allows uncommon symbols', () => {
+      const expected = User.symbolPasswordSample();
+      User.create(expected)
+      .then((user) => {
+        expect(user.name).to.equal('Jane Doe');
+        expect(user.hash).to.exist;
+        expect(user._id).to.exist;
+      });
+    });
     xit('does not directly update password hashes');
   });
 

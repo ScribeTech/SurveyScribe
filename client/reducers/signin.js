@@ -12,6 +12,12 @@ export function signin(state = [], action) {
         message: action.message
       });
 
+    case 'EDIT_USER':
+      return Object.assign({}, state[0], {
+        name: action.name,
+        id: action.id
+      });
+
     case 'UPDATE_STATE':
       return action.signin;
     default:
