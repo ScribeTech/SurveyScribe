@@ -31,7 +31,7 @@ const styles = {
 };
 
 const handleClick = (props) => {
-  fetch('/api/users/', {
+  fetch('/api/login/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,9 +44,10 @@ const handleClick = (props) => {
   .then(response => (response.json()))
   .then((result) => {
     if (result.error) {
-      props.errorTrue(result.message);
+      props.errorTrue(result.error);
     } else {
       props.errorFalse();
+      console.log("result", result)
     }
   })
   .catch((error) => {
@@ -70,11 +71,11 @@ const renderError = (props) => {
   }
 };
 
-const SignIn = props => (
-  <Layout title="Sign Up">
+const Login = props => (
+  <Layout title="Log in">
     <div>
       <Card style={styles.main}>
-        <CardTitle title="Please Sign Up" />
+        <CardTitle title="Please Log In" />
         <div>
           {renderError(props)}
         </div>
@@ -91,11 +92,11 @@ const SignIn = props => (
           />
         </div>
         <CardActions>
-          <FlatButton style={styles.createaccount} label="Create Account" onClick={() => handleClick(props)} />
+          <FlatButton style={styles.createaccount} label="Log In" onClick={() => handleClick(props)} />
         </CardActions>
       </Card>
     </div>
   </Layout>
 );
 
-export default SignIn;
+export default Login;

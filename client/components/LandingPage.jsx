@@ -22,7 +22,11 @@ const LandingPage = props => (
         <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => getSurveys(props, 'survey')} />
       </div>
       <Link to="/signin">
-        Signin
+        Sign Up
+      </Link>
+      &nbsp;||&nbsp;
+      <Link to="/login">
+        Log In
       </Link>
     </div>
     <footer>Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, and Jin Chung</footer>
