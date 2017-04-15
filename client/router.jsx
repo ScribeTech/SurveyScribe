@@ -38,7 +38,7 @@ const router = (
           <Route path="survey" component={SurveyGrid} />
           <Route path="signin" component={SignIn} />
           <Route path="login" component={Login} />
-          <Route path="survey/:surveyID/edit" component={SurveyEdit} />
+          <Route path="survey/:surveyID/:index/edit" component={SurveyEdit} />
           <Route path="survey/:surveyID/answer" component={SurveyAnswer} />
           <Route path="survey/:surveyID/results" component={Results} />
           <Route path="survey/:surveyID/finish" component={Finish} />
