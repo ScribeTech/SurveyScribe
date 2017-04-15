@@ -13,7 +13,7 @@ import Slider from 'material-ui/Slider';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
-import { getSurveys, updateSurvey } from '../utilities/getSurveys';
+import { getSurveys, updateSurvey } from '../utilities/apiTalk';
 
 const actions = (props, survey) => [
   { label: 'Save',
@@ -73,7 +73,7 @@ const renderMessage = (props, question) => {
   const surveyID = props.params.surveyID;
   const [survey] = props.surveys.filter(s => s.id === surveyID);
 
-  if (question.type === 'mulChoice' || question.type === undefined) {
+  if (question.kind === 'Select' || question.kind === undefined) {
     return (
       props.options[question.id] && props.options[question.id].map((option, j) => (
         <div>
@@ -98,7 +98,7 @@ const renderMessage = (props, question) => {
         </div>
       ))
     );
-  } else if (question.type === 'slider') {
+  } else if (question.kind === 'Scale') {
     return (
       <div>
         <Slider
@@ -117,7 +117,7 @@ const renderMessage = (props, question) => {
 };
 
 const renderAddOption = (props, question) => {
-  if (question.type === 'mulChoice') {
+  if (question.kind === 'Select') {
     return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />;
   }
   renderAddOption.propTypes = {}.isRequired;

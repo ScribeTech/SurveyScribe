@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import Logo from '../assets/Logo.svg';
 import Github from '../assets/GitHub-Mark.svg';
-import { getSurveys } from '../utilities/getSurveys';
+import { getSurveys } from '../utilities/apiTalk';
 
 const LandingPage = props => (
   <div className="landing-outer">

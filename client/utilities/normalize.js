@@ -1,69 +1,65 @@
-// options needs to be an array of
-export function denormalize(survey, questions, options) {
-  const mongoData = {};
-
-  mongoData.title = survey.title;
-  mongoData.questions = [];
-
-  questions[survey.id].forEach((question) => {
-    const mongoQ = {
-      _id: question.id,
-      label: question.label,
-      options: []
-    };
-
-    if (options[question.id]) {
-      options[question.id].forEach((option) => {
-        const mongoOp = {
-          label: option.label,
-          votes: option.votes
-        };
-        mongoQ.options.push(mongoOp);
-      });
-    }
-
-    mongoData.questions.push(mongoQ);
-  });
-
-  return mongoData;
-}
-
-export function normalize(mongoData) {
-  const state = {
-    surveys: [],
-    questions: {},
-    options: {},
-    signin: { error: false }
-  };
-
-  mongoData.forEach((survey) => {
-    const surveyId = survey._id;
-
-    state.surveys.push({
-      id: surveyId,
+export function normalizeSurveys(surveys) {
+  const normSurveys = [];
+  surveys.forEach((survey) => {
+    normSurveys.push({
+      id: survey._id,
       title: survey.title
     });
-
-    state.questions[surveyId] = [];
-
-    survey.questions.forEach((question) => {
-      const questionId = question._id;
-
-      state.questions[surveyId].push({
-        id: questionId,
-        label: question.label
-      });
-
-      state.options[questionId] = [];
-
-      question.options.forEach((option) => {
-        state.options[questionId].push({
-          label: option.label,
-          votes: option.votes
-        });
-      });
-    });
   });
 
-  return state;
+  return normSurveys;
+}
+
+export function normalizeSurvey(survey) {
+  const converted = {
+    questions: {},
+    options: {}
+  };
+
+  survey.questions.forEach((question) => {
+    converted.questions[question._id] = {
+      id: question._id,
+      kind: question.kind,
+      required: question.required,
+      title: question.title
+    };
+    switch (question.kind) {
+      case 'Select':
+        converted.questions[question._id].maxSelection = question.maxSelection;
+        converted.options[question._id] = [];
+        question.options.forEach((option) => {
+          converted.options[question._id].push({
+            id: option._id,
+            label: option.label
+          });
+        });
+
+        break;
+      case 'Scale':
+        converted.questions[question._id].min = question.min;
+        converted.questions[question._id].max = question.max;
+        break;
+      case 'Text':
+        converted.questions[question._id].max = question.max;
+        break;
+      default:
+        break;
+    }
+  });
+  return converted;
+}
+
+export function normalizeResponses(responses) {
+  const converted = {};
+
+  responses.forEach((response) => {
+    converted[response._id] = {};
+    response.questions.forEach((question) => {
+      converted[response._id][question._id] = {
+        question: question._id,
+        response: question.value
+      };
+    });
+  });
+  return converted;
 }

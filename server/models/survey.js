@@ -35,4 +35,5 @@ Questions.discriminator('Text', Schema({
 
 SurveySchema.statics.sample = () => ({});
 
+
 module.exports = mongoose.model('Survey', SurveySchema);

@@ -1,3 +1,9 @@
+function remove(state = {}, action) {
+  const result = Object.assign({}, state);
+  delete result[action.id];
+  return result;
+}
+
 function questionOptions(state = [], action) {
   switch (action.type) {
     case 'ADD_OPTION':
@@ -49,15 +55,14 @@ function questionOptions(state = [], action) {
 }
 
 export function options(state = {}, action) {
-  if (typeof action.questionId !== 'undefined') {
-    return {
-      ...state,
-      [action.questionId]: questionOptions(state[action.questionId], action)
-    };
-  }
   switch (action.type) {
-    case 'UPDATE_STATE':
+    case 'UPDATE_SURVEY':
       return action.options;
+    case 'REMOVE_QUESTION':
+      if (action.kind === 'Select') {
+        return remove(state, action);
+      }
+      return state;
     default:
       return state;
   }
