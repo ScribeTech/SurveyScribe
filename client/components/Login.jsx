@@ -47,9 +47,7 @@ const handleClick = (props) => {
       props.errorTrue(result.error);
     } else {
       props.errorFalse();
-      console.log("result", result)
       props.editUser(result._id, result.name);
-
     }
   })
   .catch((error) => {
