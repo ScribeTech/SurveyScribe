@@ -71,7 +71,7 @@ api/surveys/:survey/responses/:response
 ``` json
 {
   "_id": "B1M1X3P0Tg",
-  "questions": [
+  "answers": [
     {
       "_id": "SymJ73PRax",
       "value": 10
