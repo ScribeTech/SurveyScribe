@@ -46,34 +46,40 @@ export const getSurvey = (props, url) => {
 export const makeAggregates = (questions, responses) => {
   const aggregates = {};
   console.log('questions', questions);
-  Object.values(questions).forEach((question) => {
+  for (const questionId in questions) {
+    const question = questions[questionId];
     switch (question.kind) {
       case 'Select':
         aggregates[question.id] = {};
-        Object.values(responses).forEach((response) => {
-          Object.values(response[question.id].response).forEach((optionId) => {
+        for (const responseId in responses) {
+          const response = responses[responseId];
+          for (const optionId in response[question.id]) {
             if (aggregates[question.id][optionId]) {
               aggregates[question.id][optionId] += 1;
             } else {
               aggregates[question.id].pus;
             }
-          });
-        });
+          }
+        }
         break;
       case 'Scale':
         aggregates[question.id] = [];
-        Object.values(responses).forEach((response) => {
+        for (const responseId in responses) {
+          const response = responses[responseId];
           aggregates[question.id].push((response[question.id].response));
-        });
+        }
         break;
       case 'Text':
         aggregates[question.id] = [];
+        for (const responseId in responses) {
+          const response = responses[responseId];
+          aggregates[question.id].push((response[question.id].response));
+        }
         break;
       default:
         break;
     }
-  });
-
+  }
   return aggregates;
 };
 

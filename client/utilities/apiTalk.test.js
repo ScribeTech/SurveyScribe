@@ -12,8 +12,16 @@ const { expect } = chai;
 
 describe('makeAggregates', () => {
   it('should return a list of aggregated responses to a survey', () => {
-    console.log('responsess', responses);
-    const aggregates = makeAggregates(questions, options, responses);
-    console.log(aggregates);
+    const aggregates = makeAggregates(questions, responses);
+    expect(aggregates).to.be.Object;
+    expect(aggregates['58ee6466aa8ac36d6d74fe9f']).to.be.Object;
+    expect(aggregates['58ee6466aa8ac36d6d74fe9f']).to.be.Array;
+    expect(aggregates['58ee6466aa8ac36d6d74fe9f'][0]).to.be.Number;
+    expect(aggregates['58ee6466aa8ac36d6d74fe9e']).to.be.Object;
+    expect(aggregates['58ee6466aa8ac36d6d74fe9e']).to.be.Array;
+    expect(aggregates['58ee6466aa8ac36d6d74fe9e'][0]).to.be.String;
+    expect(aggregates['58ee63c65a2d576d5125b4c1']).to.be.Object;
+    expect(aggregates['58ee63c65a2d576d5125b4c1']).to.be.Object;
+    expect(aggregates['58ee63c65a2d576d5125b4c1']['']).to.be.String;
   });
 });
