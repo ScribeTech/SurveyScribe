@@ -37,7 +37,7 @@ describe('User routes', () => {
     describe('DELETE', REST.MethodNotAllowed('delete', '/api/users'));
   });
 
-  describe('/api/users/:user', () => {
+  xdescribe('/api/users/:user', () => {
     describe('GET', () => {
       xit('should return 200 and specified user', () => {});
 
