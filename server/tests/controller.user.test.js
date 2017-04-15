@@ -10,33 +10,36 @@ const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 describe('User routes', () => {
   beforeEach((done) => {
-    User.remove({}, done); // Empty the database to ensure predictablility
+    User.remove({})
+    .then(() => User.create({ name: 'testinguser', password: 'testinguser123' }))
+    .then(() => done());
   });
   afterEach((done) => {
-    User.remove({}, done); // Empty the database to ensure predictablility
+    User.remove({})
+    .then(() => done());
   });
 
   describe('/api/users', () => {
     describe('GET', () => {
-      it('should return 200 and all users', () => {
+      xit('should return 200 and all users', () => {
 
       });
 
-      it('should return 401 if user\'s not authenticated', () => {
+      xit('should return 401 if user\'s not authenticated', () => {
 
       });
     });
 
     describe('POST', () => {
-      it('should return 201 and create new user', () => {
+      xit('should return 201 and create new user', () => {
 
       });
 
-      it('should return 400 if invalid input', () => {
+      xit('should return 400 if invalid input', () => {
 
       });
 
-      it('should return 409 if username already exists', () => {
+      xit('should return 409 if username already exists', () => {
 
       });
     });
@@ -47,7 +50,7 @@ describe('User routes', () => {
   });
 
   describe('/api/users/:user', () => {
-    describe('GET', () => {
+    xdescribe('GET', () => {
       it('should return 200 and specified user', () => {
 
       });
@@ -61,7 +64,7 @@ describe('User routes', () => {
       });
     });
 
-    describe('PUT', () => {
+    xdescribe('PUT', () => {
       it('should return 201 and create new user', () => {
 
       });
@@ -75,7 +78,7 @@ describe('User routes', () => {
       });
     });
 
-    describe('DELETE', () => {
+    xdescribe('DELETE', () => {
       it('should return 200 log out and delete the user', () => {
 
       });

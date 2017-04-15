@@ -4,16 +4,26 @@ chai.use(require('chai-shallow-deep-equal'));
 
 const { expect, request } = chai;
 const app = require('../index.js');
+const User = require('mongoose').model('User');
 const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 describe('Authentication routes', () => {
+  beforeEach((done) => {
+    User.remove({})
+    .then(() => User.create({ name: 'testinguser', password: 'testinguser123' }))
+    .then(() => done());
+  });
+  afterEach((done) => {
+    User.remove({})
+    .then(() => done());
+  });
   describe('/api/login', () => {
     describe('POST', () => {
-      it('should return 200 and authenticate the user', () => {
+      xit('should return 200 and authenticate the user', () => {
 
       });
 
-      it('should return 400 for invalid input', () => {
+      xit('should return 400 for invalid input', () => {
 
       });
     });
@@ -27,11 +37,11 @@ describe('Authentication routes', () => {
 
   describe('/api/logout', () => {
     describe('POST', () => {
-      it('should return 200 and all users', () => {
+      xit('should return 200 and all users', () => {
 
       });
 
-      it('should return 401 if user\'s not authenticated', () => {
+      xit('should return 401 if user\'s not authenticated', () => {
 
       });
     });

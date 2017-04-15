@@ -1,3 +1,4 @@
+const assert = require('assert');
 const User = require('../models/user.js');
 
 exports.login = (request, response) => {
@@ -5,17 +6,16 @@ exports.login = (request, response) => {
   const password = request.body.password;
   User.findOne({ name }, '_id name hash')
   .then((user) => {
+    assert.ok(user, 'User not found');
+    assert.ok(user.verifyPassword(password), 'Wrong password');
     const _id = user._id;
-    if (!user) { throw Error('User not found'); }
-    if (!user.verifyPassword(password)) { throw Error('Wrong password'); }
     request.session.regenerate(() => {
       request.session.user = _id;
       response.status(200).send({ name, _id });
     });
   })
   .catch((error) => {
-    console.error(error);
-    response.status(403).json({ error });
+    response.status(400).json({ error: error.message });
   });
 };
 
