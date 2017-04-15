@@ -60,4 +60,19 @@ UserSchema.statics.sample = () => ({
   password: 'CorrectHorseBatteryStaple'
 });
 
+UserSchema.statics.shortPasswordSample = () => ({
+  name: 'John Doe',
+  password: '1234567'
+});
+
+UserSchema.statics.longPasswordSample = () => ({
+  name: 'John Doe',
+  password: '1234567dneifnewilvn33ndkfi350dnvi3nt93nti2jengkcnv0sigfneirj2rjijrndifnx'
+});
+
+UserSchema.statics.symbolPasswordSample = () => ({
+  name: 'Jane Doe',
+  password: '$#!@#%^&*(^&dfdfsjd#$@#$%^!+_'
+});
+
 module.exports = mongoose.model('User', UserSchema);

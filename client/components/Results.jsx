@@ -131,7 +131,6 @@ const Results = (props) => {
 
 
   props.socket.on('change result', (data) => {
-    console.log("results data", data);
     props.updateState(data.survey, data.questions, data.options);
   });
 
