@@ -21,6 +21,14 @@ exports.notFound = (error, request, response, next) => {
   }
 };
 
+exports.badRequest = (error, request, response, next) => {
+  if (error && (error.name === 'AssertionError' || error.name === 'StrictModeError')) {
+    response.status(400).json({ error: true, message: error.message });
+  } else {
+    next(error);
+  }
+};
+
 // Do send stack traces in development mode
 const development = (error, request, response) => {
   console.error(error);
