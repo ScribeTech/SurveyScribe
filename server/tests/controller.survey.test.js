@@ -180,6 +180,7 @@ describe('Survey routes', () => {
       });
 
       REST.NotFound('get', '/api/suvey/doesnotexist/responses');
+      REST.Unauthorized('get', '/api/survey/:survey/responses')();
       xit('should return 401 if user\'s not the owner', () => {});
     });
 
