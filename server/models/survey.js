@@ -14,7 +14,7 @@ const SurveySchema = Schema({
   title: String,
   owners: [{ type: ObjectId, ref: 'User' }],
   questions: [QuestionSchema]
-});
+}, { strict: 'throw' });
 
 const Questions = SurveySchema.path('questions');
 

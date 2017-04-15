@@ -9,7 +9,7 @@ const UserSchema = Schema({
   _id,
   name: { type: String, required: true, index: { unique: true } },
   hash: { type: String, required: true, select: false }
-});
+}, { strict: 'throw' });
 
 // Hash plaintext passwords before storing
 // NOTE: this function will not work as an arrow function

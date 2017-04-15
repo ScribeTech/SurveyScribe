@@ -19,7 +19,7 @@ const ResponseSchema = Schema({
      */
   survey: { type: ObjectId, ref: 'Survey' },
   answers: [AnswerSchema]
-});
+}, { strict: 'throw' });
 
 const Answers = ResponseSchema.path('answers');
 
