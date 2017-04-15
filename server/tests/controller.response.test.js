@@ -3,9 +3,9 @@ chai.use(require('chai-http'));
 chai.use(require('chai-shallow-deep-equal'));
 
 const { expect } = chai;
-const User = require('mongoose').model('User');
-// const Response = require('mongoose').model('Response');
 const app = require('../index.js');
+const User = require('mongoose').model('User');
+const Response = require('mongoose').model('Response');
 const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
 
 const agent = chai.request.agent(app);

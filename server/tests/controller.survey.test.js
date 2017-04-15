@@ -7,6 +7,7 @@ const app = require('../index.js');
 const Survey = require('mongoose').model('Survey');
 const User = require('mongoose').model('User');
 const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
+const Unauthorized401 = require('./helpers/Unauthorized.js');
 
 const agent = chai.request.agent(app);
 
@@ -45,16 +46,7 @@ describe('Survey routes', () => {
           );
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() => agent.get('/api/surveys'))
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('get', '/api/survey');
     });
 
     describe('POST', () => {
@@ -90,17 +82,7 @@ describe('Survey routes', () => {
           });
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Survey.sample();
-
-        agent.post('/api/surveys')
-          .send(expected)
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('post', '/api/survey');
 
       it('should return 401 if user\'s not the owner', (done) => {
         done();
@@ -110,7 +92,7 @@ describe('Survey routes', () => {
     describe('DELETE', MethodNotAllowed('delete', '/api/surveys'));
   });
 
-  xdescribe('/api/survey/:survey', () => {
+  describe('/api/survey/:survey', () => {
     describe('GET', () => {
       it('should return 200 and specified survey', (done) => {
         const expected = Survey.sample();
@@ -145,19 +127,7 @@ describe('Survey routes', () => {
           });
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Survey.sample();
-
-        Survey.create(expected)
-          .then(() => {
-            agent.get('/api/survey/58ee63c65a2d576d5125b4bc');
-          })
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('get', '/api/survey/58ee63c65a2d576d5125b4bc');
     });
 
     describe('PUT', () => {
@@ -202,20 +172,7 @@ describe('Survey routes', () => {
           });
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Survey.sample();
-
-        Survey.create(expected)
-          .then(() => {
-            agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
-              .send({ title: 'not authenticated' });
-          })
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('put', '/api/survey/58ee63c65a2d576d5125b4bc');
 
       it('should return 401 if user\'s not the owner', () => {
 
@@ -242,20 +199,7 @@ describe('Survey routes', () => {
           });
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Survey.sample();
-
-
-        Survey.create(expected)
-          .then(() => {
-            agent.delete('/api/survey/58ee63c65a2d576d5125b4bc');
-          })
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('delete', '/api/survey/58ee63c65a2d576d5125b4bc');
 
       it('should return 401 if user\'s not the owner', () => {
 
@@ -265,7 +209,7 @@ describe('Survey routes', () => {
     describe('POST', MethodNotAllowed('post', '/api/surveys/58ee63c65a2d576d5125b4c5'));
   });
 
-  xdescribe('/api/survey/:survey/responses', () => {
+  describe('/api/survey/:survey/responses', () => {
     describe('GET', () => {
       it('should return 200 and all of survey\'s responses', (done) => {
         const expected = Survey.sample();
@@ -305,19 +249,7 @@ describe('Survey routes', () => {
           );
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Survey.sample();
-
-        Survey.create(expected)
-          .then(() => {
-            agent.get('/api/surveys/58ee63c65a2d576d5125b4bc/responses');
-          })
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('get', '/api/surveys/58ee63c65a2d576d5125b4bc/responses');
 
       it('should return 401 if user\'s not the owner', () => {
 
@@ -328,7 +260,7 @@ describe('Survey routes', () => {
     describe('DELETE', MethodNotAllowed('delete', '/api/surveys/58ee63c65a2d576d5125b4c5/responses'));
   });
 
-  xdescribe('/api/survey/:survey/responses/:response', () => {
+  describe('/api/survey/:survey/responses/:response', () => {
     describe('GET', () => {
       it('should return 200 and specified response', (done) => {
         const expected = Survey.sample();
@@ -368,19 +300,7 @@ describe('Survey routes', () => {
           );
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Survey.sample();
-
-        Survey.create(expected)
-          .then(() => {
-            agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91');
-          })
-          .then((response) => { done(response); })
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('get', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91');
 
       it('should return 401 if user\'s not the owner', () => {
 
