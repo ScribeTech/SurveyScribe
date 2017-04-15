@@ -32,18 +32,17 @@ describe('Survey routes', () => {
           .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/surveys')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    expect(response.body[0]).to.shallowDeepEqual(expected);
-                    done();
-                  })
-                  .catch(done);
-              })
-          );
+          )
+          .then(() =>
+            agent.get('/api/surveys')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            done();
+          })
+          .catch(done);
       });
 
       Unauthorized401('get', '/api/survey');
@@ -55,30 +54,31 @@ describe('Survey routes', () => {
 
         agent.post('/api/login')
           .send({ name: 'testinguser', password: 'testinguser123' })
-          .then(() => {
+          .then(() =>
             agent.post('/api/surveys')
               .send(expected)
-              .then((response) => {
-                expect(response).status(201);
-                expect(response).to.be.json;
-                expect(response.body.length);
-                expect(response.body[0]).to.shallowDeepEqual(expected);
-                done();
-              })
-              .catch(done);
-          });
+          )
+          .then((response) => {
+            expect(response).status(201);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body).to.shallowDeepEqual(expected);
+            done();
+          })
+          .catch(done);
       });
 
       it('should return 400 if invalid input', (done) => {
         agent.post('/api/login')
           .send({ name: 'testinguser', password: 'testinguser123' })
-          .then(() => {
+          .then(() =>
             agent.post('/api/surveys')
               .send({ invalid: 'input' })
-              .catch((response) => {
-                expect(response).status(400);
-                done();
-              });
+          )
+          .then(done)
+          .catch((response) => {
+            expect(response).status(400);
+            done();
           });
       });
 
@@ -98,33 +98,33 @@ describe('Survey routes', () => {
         const expected = Survey.sample();
 
         Survey.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/survey/58ee63c65a2d576d5125b4bc')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    expect(response.body).to.shallowDeepEqual(expected);
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.get('/api/survey/58ee63c65a2d576d5125b4bc')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body).to.shallowDeepEqual(expected);
+            done();
+          })
+          .catch(done);
       });
 
       it('should return 404 if survey doesn\'t exist', (done) => {
         agent.post('/api/login')
           .send({ name: 'testinguser', password: 'testinguser123' })
-          .then(() => {
+          .then(() =>
             agent.get('app/survey/invalidsurvey')
-              .then((response) => {
-                expect(response).status(404);
-              })
-              .catch(done);
-          });
+          )
+          .then((response) => {
+            expect(response).status(404);
+          })
+          .catch(done);
       });
 
       Unauthorized401('get', '/api/survey/58ee63c65a2d576d5125b4bc');
@@ -135,41 +135,41 @@ describe('Survey routes', () => {
         const expected = Survey.sample();
 
         Survey.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
-                  .send({ title: 'another title' })
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    expect(response.body[0].title).to.equal('another title');
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
+              .send({ title: 'another title' })
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body[0].title).to.equal('another title');
+            done();
+          })
+          .catch(done);
       });
 
       it('should return 400 if invalid input', (done) => {
         const expected = Survey.sample();
 
         Survey.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
-                  .send({ invalid: 'input' })
-                  .then((response) => {
-                    expect(response).status(400);
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
+              .send({ invalid: 'input' })
+          )
+          .then((response) => {
+            expect(response).status(400);
+            done();
+          })
+          .catch(done);
       });
 
       Unauthorized401('put', '/api/survey/58ee63c65a2d576d5125b4bc');
@@ -184,19 +184,19 @@ describe('Survey routes', () => {
         const expected = Survey.sample();
 
         Survey.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.delete('/api/survey/58ee63c65a2d576d5125b4bc')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response.body.length).to.equal(0);
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.delete('/api/survey/58ee63c65a2d576d5125b4bc')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response.body.length).to.equal(0);
+            done();
+          })
+          .catch(done);
       });
 
       Unauthorized401('delete', '/api/survey/58ee63c65a2d576d5125b4bc');
@@ -238,15 +238,15 @@ describe('Survey routes', () => {
           .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/surveys/doesnotexist/responses')
-                  .then((response) => {
-                    expect(response).status(404);
-                    done();
-                  })
-                  .catch(done);
-              })
-          );
+          )
+          .then(() =>
+            agent.get('/api/surveys/doesnotexist/responses')
+          )
+          .then((response) => {
+            expect(response).status(404);
+            done();
+          })
+          .catch(done);
       });
 
       Unauthorized401('get', '/api/surveys/58ee63c65a2d576d5125b4bc/responses');

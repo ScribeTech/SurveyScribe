@@ -7,10 +7,11 @@ const app = require('../index.js');
 const User = require('mongoose').model('User');
 const Response = require('mongoose').model('Response');
 const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
+const Unauthorized401 = require('./helpers/Unauthorized.js');
 
 const agent = chai.request.agent(app);
 
-xdescribe('Response routes', () => {
+describe('Response routes', () => {
   beforeEach((done) => {
     Response.remove({})
       .then(() => User.remove({}))
@@ -29,19 +30,7 @@ xdescribe('Response routes', () => {
 
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Response.sample();
-
-        Response.create(expected)
-          .then(() => {
-            agent.get('/api/responses/');
-          })
-          .then((response) => { done(response); })
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('get', '/api/responses');
     });
 
     describe('POST', () => {
@@ -50,18 +39,18 @@ xdescribe('Response routes', () => {
 
         agent.post('/api/login')
           .send({ name: 'testinguser', password: 'testinguser123' })
-          .then(() => {
+          .then(() =>
             agent.post('/api/responses')
               .send(expected)
-              .then((response) => {
-                expect(response).status(201);
-                expect(response).to.be.json;
-                expect(response.body.length);
-                expect(response.body[0]).to.shallowDeepEqual(expected);
-                done();
-              })
-              .catch(done);
-          });
+          )
+          .then((response) => {
+            expect(response).status(201);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body[0]).to.shallowDeepEqual(expected);
+            done();
+          })
+          .catch(done);
       });
 
       it('should return 400 if invalid input', (done) => {
@@ -78,17 +67,7 @@ xdescribe('Response routes', () => {
           });
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Response.sample();
-
-        agent.post('/api/responses')
-          .send(expected)
-          .then(done)
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('post', '/api/responses');
 
       it('should return 401 if user\'s not the owner', () => {
 
@@ -106,34 +85,24 @@ xdescribe('Response routes', () => {
         const expected = Response.sample();
 
         Response.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/responses/58ee6904fdebd16dfdd99f91')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    expect(response.body[0]).to.shallowDeepEqual(expected);
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.get('/api/responses/58ee6904fdebd16dfdd99f91')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body[0]).to.shallowDeepEqual(expected);
+            done();
+          })
+          .catch(done);
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        Response.create()
-          .then(() => {
-            agent.get('/api/responses/58ee6904fdebd16dfdd99f91');
-          })
-          .then(done)
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('get', '/api/responses/58ee6904fdebd16dfdd99f91');
 
       it('should return 401 if user\'s not the owner', () => {
 
@@ -143,17 +112,17 @@ xdescribe('Response routes', () => {
         const expected = Response.sample();
 
         Response.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/responses/doesnotexist')
-                  .then(done)
-                  .catch((error) => {
-                    expect(error).status(404);
-                    done();
-                  });
-              });
+          )
+          .then(() =>
+            agent.get('/api/responses/doesnotexist')
+          )
+          .then(done)
+          .catch((error) => {
+            expect(error).status(404);
+            done();
           });
       });
     });
@@ -163,22 +132,22 @@ xdescribe('Response routes', () => {
         const expected = Response.sample();
 
         Response.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
-                  .send({ answers: [{ value: 'hello' }] })
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    expect(response.body[0].answers[0].value).to.equal('hello');
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
+              .send({ answers: [{ value: 'hello' }] })
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body[0].answers[0].value).to.equal('hello');
+            done();
+          })
+          .catch(done);
       });
 
       it('should return 400 if invalid input', (done) => {
@@ -200,20 +169,7 @@ xdescribe('Response routes', () => {
           });
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Response.sample();
-
-        Response.create(expected)
-          .then(() => {
-            agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
-              .send({ answers: [{ value: 'hello' }] });
-          })
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('put', '/api/responses/58ee6904fdebd16dfdd99f91');
 
       it('should return 401 if user\'s not the owner', () => {
 
@@ -225,18 +181,18 @@ xdescribe('Response routes', () => {
         const expected = Response.sample();
 
         Response.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.delete('/api/responses/58ee6904fdebd16dfdd99f91')
-                  .then((response) => {
-                    expect(response).status(200);
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.delete('/api/responses/58ee6904fdebd16dfdd99f91')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            done();
+          })
+          .catch(done);
       });
 
       it('should return 404 if response does not exist', (done) => {
@@ -257,20 +213,7 @@ xdescribe('Response routes', () => {
           });
       });
 
-      it('should return 401 if user\'s not authenticated', (done) => {
-        const expected = Response.sample();
-
-        Response.create(expected)
-          .then(() => {
-            agent.put('/api/responses/58ee6904fdebd16dfdd99f91')
-              .send({ answers: [{ value: 'hello' }] });
-          })
-          .then(() => done())
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
-      });
+      Unauthorized401('put', '/api/responses/58ee6904fdebd16dfdd99f91');
 
       it('should return 401 if user\'s not the owner', () => {
 

@@ -8,7 +8,7 @@ const Survey = require('mongoose').model('Survey');
 const { expect } = chai;
 const agent = chai.request.agent(app);
 
-module.exports = (METHOD, route, skiplogin) => {
+module.exports = (METHOD, route) => {
   const method = METHOD.toLowerCase();
   return (
     it('should return 401 if user\'s not authenticated', (done) => {
@@ -16,16 +16,15 @@ module.exports = (METHOD, route, skiplogin) => {
       expect(expected).to.include(method);
       expect(agent[method]).to.be.a('function');
 
-      const sample = Survey.sample();
-      Survey.create(sample)
-          .then(() => {
-            agent[method](route);
-          })
-          .then((response) => { done(response); })
-          .catch((error) => {
-            expect(error).status(401);
-            done();
-          });
+      Survey.create()
+        .then(() => {
+          agent[method](route);
+        })
+        .then(done)
+        .catch((error) => {
+          expect(error).status(401);
+          done();
+        });
     })
   );
 };

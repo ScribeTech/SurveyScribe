@@ -34,31 +34,26 @@ Questions.discriminator('Text', Schema({
 }));
 
 SurveySchema.statics.sample = () => ({
-  owners: [
-    'H1J73vRal',
-    'rydkXhwRTx',
-    'H1N7hw06g'
-  ],
   title: 'Example Survey',
   questions: [
     {
-      type: 'Scale',
       required: false,
       title: 'How much do you like burritos?',
+      kind: 'Scale',
       min: 0,
       max: 10,
       labels: ['Not at All', 'Somewhat', 'Extremely']
     },
     {
-      type: 'Text',
       required: false,
       title: 'Explain your rating.',
+      kind: 'Text',
       max: 1000
     },
     {
-      type: 'Select',
       required: false,
       title: 'What is your favorite color?',
+      kind: 'Select',
       options: [
         { label: 'Red' },
         { label: 'Green' },

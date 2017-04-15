@@ -6,6 +6,7 @@ const { expect, request } = chai;
 const app = require('../index.js');
 const User = require('mongoose').model('User');
 const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
+const Unauthorized401 = require('./helpers/Unauthorized.js');
 
 describe('Authentication routes', () => {
   beforeEach((done) => {
@@ -41,9 +42,7 @@ describe('Authentication routes', () => {
 
       });
 
-      xit('should return 401 if user\'s not authenticated', () => {
-
-      });
+      Unauthorized401('post', '/api/logout');
     });
 
     describe('GET', MethodNotAllowed('get', '/api/logout'));

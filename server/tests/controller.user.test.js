@@ -7,6 +7,7 @@ const app = require('../index.js');
 const User = require('../models/user.js');
 
 const MethodNotAllowed = require('./helpers/methodNotAllowed.js');
+const Unauthorized401 = require('./helpers/Unauthorized.js');
 
 describe('User routes', () => {
   beforeEach((done) => {
@@ -25,9 +26,7 @@ describe('User routes', () => {
 
       });
 
-      xit('should return 401 if user\'s not authenticated', () => {
-
-      });
+      Unauthorized401('get', '/api/users');
     });
 
     describe('POST', () => {
@@ -55,9 +54,7 @@ describe('User routes', () => {
 
       });
 
-      it('should return 401 if user\'s not authenticated', () => {
-
-      });
+      Unauthorized401('get', '/api/users/:users');
 
       it('should return 404 if user does not exist', () => {
 
@@ -83,9 +80,7 @@ describe('User routes', () => {
 
       });
 
-      it('should return 401 if user\'s not authenticated', () => {
-
-      });
+      Unauthorized401('delete', '/api/users/:users');
 
       it('should return 401 if user does not equal current user', () => {
 
