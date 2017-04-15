@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const AnswerSchema = Schema({
   _id,
   question: { type: ObjectId, ref: 'Survey.questions' }
-}, { discriminatorKey: 'kind', strict: 'throw' });
+}, { discriminatorKey: 'kind' });
 
 const ResponseSchema = Schema({
   _id,
@@ -19,7 +19,7 @@ const ResponseSchema = Schema({
      */
   survey: { type: ObjectId, ref: 'Survey' },
   answers: [AnswerSchema]
-});
+}, { strict: 'throw' });
 
 const Answers = ResponseSchema.path('answers');
 

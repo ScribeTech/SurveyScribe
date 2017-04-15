@@ -1,4 +1,5 @@
 const Survey = require('../models/survey.js');
+const Response = require('../models/response.js');
 
 exports.list = (request, response, next) => {
   const _id = request.session.user;
@@ -43,7 +44,7 @@ exports.update = (request, response, next) => {
   const _id = request.params.survey;
   Survey.update({ _id }, request.body, { runValidators: true }).exec()
   .then((result) => { response.status(200).json(result); })
-  .catch((error) => { console.error(">>> 400 ERROR"); response.sendStatus(400); });
+  .catch(() => { response.sendStatus(400); });
 };
 
 exports.delete = (request, response, next) => {
@@ -55,5 +56,12 @@ exports.delete = (request, response, next) => {
       next({ status: 404 });
     }
   })
+  .catch(next);
+};
+
+exports.responses = (request, response, next) => {
+  const survey = request.params.survey;
+  Response.find({ survey }).exec()
+  .then((data) => { response.status(200).json(data); })
   .catch(next);
 };
