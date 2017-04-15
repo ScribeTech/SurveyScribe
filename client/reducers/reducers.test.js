@@ -476,25 +476,27 @@ describe('REDUCERS', () => {
       });
     });
   });
-  describe('TOGGLE_ERROR', () => {
+  describe('Sign In', () => {
     const initialState = [];
-    it('should toggle signin.error true/false', () => {
-      const signin = {
-        type: 'TOGGLE_ERROR',
-        i: 0
-      };
+    describe('TOGGLE_ERROR', () => {
+      it('should toggle signin.error true/false', () => {
+        const signin = {
+          type: 'TOGGLE_ERROR',
+          i: 0
+        };
 
-      deepFreeze(initialState);
+        deepFreeze(initialState);
 
-      const changedState = reducer(initialState, signin);
+        const changedState = reducer(initialState, signin);
 
-      expect(changedState.signin.error)
+        expect(changedState.signin.error)
         .to.equal(true);
 
-      const flippedState = reducer(changedState, signin);
+        const flippedState = reducer(changedState, signin);
 
-      expect(flippedState.signin.error)
+        expect(flippedState.signin.error)
         .to.equal(false);
+      });
     });
   });
 });
