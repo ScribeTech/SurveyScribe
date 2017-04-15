@@ -87,11 +87,11 @@ describe('REDUCERS', () => {
 
         expect(changedState.surveys.length).to.equal(3);
         expect(JSON.stringify(changedState.surveys[1].title))
-               .to.equal(JSON.stringify(survey.title));
+          .to.equal(JSON.stringify(survey.title));
         expect(JSON.stringify(changedState.surveys[0]))
-               .to.equal(JSON.stringify(initialState.surveys[0]));
+          .to.equal(JSON.stringify(initialState.surveys[0]));
         expect(JSON.stringify(changedState.surveys[2]))
-               .to.equal(JSON.stringify(initialState.surveys[2]));
+          .to.equal(JSON.stringify(initialState.surveys[2]));
       });
     });
   });
@@ -113,7 +113,7 @@ describe('REDUCERS', () => {
 
         expect(changedState.questions[surveyId].length).to.equal(4);
         expect(JSON.stringify(changedState.questions[surveyId][3]))
-                   .to.equal(JSON.stringify(question));
+          .to.equal(JSON.stringify(question));
       });
     });
     describe('REMOVE_QUESTION', () => {
@@ -148,11 +148,11 @@ describe('REDUCERS', () => {
 
         expect(changedState.questions[1].length).to.equal(3);
         expect(JSON.stringify(changedState.questions[1][1].label))
-               .to.equal(JSON.stringify(question.label));
+          .to.equal(JSON.stringify(question.label));
         expect(JSON.stringify(changedState.questions[1][0]))
-               .to.equal(JSON.stringify(initialState.questions[1][0]));
+          .to.equal(JSON.stringify(initialState.questions[1][0]));
         expect(JSON.stringify(changedState.questions[1][2]))
-               .to.equal(JSON.stringify(initialState.questions[1][2]));
+          .to.equal(JSON.stringify(initialState.questions[1][2]));
       });
     });
   });
@@ -172,7 +172,7 @@ describe('REDUCERS', () => {
 
         expect(changedState.options[questionId].length).to.equal(4);
         expect(JSON.stringify(changedState.options[questionId][3].label))
-                   .to.equal(JSON.stringify(option.label));
+          .to.equal(JSON.stringify(option.label));
       });
     });
     describe('REMOVE_OPTION', () => {
@@ -207,11 +207,11 @@ describe('REDUCERS', () => {
 
         expect(changedState.options[questionId].length).to.equal(3);
         expect(JSON.stringify(changedState.options[questionId][option.i].label))
-               .to.equal(JSON.stringify(option.label));
+          .to.equal(JSON.stringify(option.label));
         expect(JSON.stringify(changedState.options[questionId][0]))
-               .to.equal(JSON.stringify(initialState.options[1][0]));
+          .to.equal(JSON.stringify(initialState.options[1][0]));
         expect(JSON.stringify(changedState.options[questionId][2]))
-               .to.equal(JSON.stringify(initialState.options[1][2]));
+          .to.equal(JSON.stringify(initialState.options[1][2]));
       });
     });
     describe('INCREMENT_VOTES', () => {
@@ -227,7 +227,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, option);
 
         expect(changedState.options[2][1].votes)
-               .to.equal(initialState.options[2][1].votes + 1);
+          .to.equal(initialState.options[2][1].votes + 1);
       });
     });
     describe('DECREMENT_VOTES', () => {
@@ -243,7 +243,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, option);
 
         expect(changedState.options[2][1].votes)
-               .to.equal(initialState.options[2][1].votes - 1);
+          .to.equal(initialState.options[2][1].votes - 1);
       });
     });
     describe('TOGGLE_SELECT', () => {
@@ -259,13 +259,33 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, option);
 
         expect(changedState.options[1][0].selected)
-               .to.equal(true);
+          .to.equal(true);
 
         const flippedState = reducer(changedState, option);
 
         expect(flippedState.options[1][0].selected)
-               .to.equal(false);
+          .to.equal(false);
       });
+    });
+  });
+  describe('TOGGLE_ERROR', () => {
+    it('should toggle signin.error true/false', () => {
+      const signin = {
+        type: 'TOGGLE_ERROR',
+        i: 0
+      };
+
+      deepFreeze(initialState);
+
+      const changedState = reducer(initialState, signin);
+
+      expect(changedState.signin.error)
+        .to.equal(true);
+
+      const flippedState = reducer(changedState, signin);
+
+      expect(flippedState.signin.error)
+        .to.equal(false);
     });
   });
 });
