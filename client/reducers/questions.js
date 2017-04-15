@@ -2,6 +2,8 @@ import { remove } from './util';
 
 function select(state = {}, action) {
   switch (action.type) {
+    case 'UPDATE_SURVEY':
+      return action.questions;
     case 'ADD_QUESTION':
       return Object.assign({}, state,
         { id: action.id, kind: action.kind, required: false, title: '', maxSelection: 0 });

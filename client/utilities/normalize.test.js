@@ -2,7 +2,6 @@ import chai from 'chai';
 import { mongoSurveys } from '../data/mongoSurveys';
 import { mongoSurvey } from '../data/mongoSurvey';
 import { mongoResponses } from '../data/mongoResponses';
-
 import { normalizeSurveys, normalizeSurvey, normalizeResponses } from './normalize';
 
 const { expect } = chai;
