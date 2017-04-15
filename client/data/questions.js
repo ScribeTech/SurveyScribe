@@ -1,4 +1,4 @@
-const questions = {
+export const questions = {
   '58ee6466aa8ac36d6d74fe9f':
       { id: '58ee6466aa8ac36d6d74fe9f',
         kind: 'Scale',

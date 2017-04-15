@@ -32,6 +32,11 @@ export function removeSurvey(i) {
   };
 }
 
+// update survey's questions and options
+export function updateSurvey(id) {
+  
+}
+
 // add question (data is Object holding kind-specific data)
 export function addQuestion(kind) {
   return {

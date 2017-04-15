@@ -14,7 +14,7 @@ const defaultState = {
   questions: {},
   options: {},
   responses: {},
-  agg_responses: {}
+  aggregates: {}
 };
 
 const enhancers = compose(

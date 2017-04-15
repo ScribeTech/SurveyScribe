@@ -59,19 +59,20 @@ describe('NORMALIZE', () => {
   describe('normalizeResponses', () => {
     it('should break responses into responses redux state', () => {
       const converted = normalizeResponses(mongoResponses);
-      expect(converted.responses).to.be.Object;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91']).to.be.Array;
-      expect(converted.responses['58ee6904fdebd16dfdd99f92']).to.be.Array;
-      expect(converted.responses['58ee6904fdebd16dfdd99f93']).to.be.Array;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][0]).to.be.Object;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][0].question).to.be.String;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][0].value).to.be.Number;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][1]).to.be.Object;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][1].question).to.be.String;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][1].value).to.be.String;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][2]).to.be.Object;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][2].question).to.be.String;
-      expect(converted.responses['58ee6904fdebd16dfdd99f91'][2].value).to.be.Array;
+      console.log('converted', converted);
+      expect(converted).to.be.Object;
+      expect(converted['58ee6904fdebd16dfdd99f91']).to.be.Object;
+      expect(converted['58ee6904fdebd16dfdd99f92']).to.be.Object;
+      expect(converted['58ee6904fdebd16dfdd99f93']).to.be.Object;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f']).to.be.Object;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f'].question).to.be.String;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f'].value).to.be.Number;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f']).to.be.Object;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f'].question).to.be.String;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f'].value).to.be.String;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f']).to.be.Object;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f'].question).to.be.String;
+      expect(converted['58ee6904fdebd16dfdd99f91']['58ee6466aa8ac36d6d74fe9f'].value).to.be.Array;
     });
   });
 });

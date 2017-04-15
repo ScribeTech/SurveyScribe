@@ -5,6 +5,8 @@ import reducer from './index';
 import surveys from '../data/surveys';
 import questions from '../data/questions';
 import options from '../data/options';
+import responses from '../data/responses';
+import aggregates from '../data/responses';
 import mongoSurveys from '../data/mongoSurveys';
 import { normalizeSurveys, normalizeSurvey } from '../utilities/normalize';
 
@@ -36,6 +38,8 @@ describe('REDUCERS', () => {
         expect(changedState.surveys).to.deep.equal(converted);
         expect(changedState.questions).to.deep.equal(initialState.questions);
         expect(changedState.options).to.deep.equal(initialState.options);
+        expect(changedState.responses).to.deep.equal(initialState.responses);
+        expect(changedState.aggregates).to.deep.equal(initialState.responses);
       });
     });
     describe('ADD_SURVEY', () => {

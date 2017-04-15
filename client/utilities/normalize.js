@@ -50,17 +50,15 @@ export function normalizeSurvey(survey) {
 }
 
 export function normalizeResponses(responses) {
-  const converted = {
-    responses: {}
-  };
+  const converted = {};
 
   responses.forEach((response) => {
-    converted.responses[response._id] = [];
+    converted[response._id] = {};
     response.questions.forEach((question) => {
-      converted.responses[response._id].push({
+      converted[response._id][question._id] = {
         question: question._id,
         response: question.value
-      });
+      };
     });
   });
   return converted;
