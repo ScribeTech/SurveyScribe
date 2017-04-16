@@ -10,7 +10,7 @@ const REST = require('./helpers/REST.js');
 
 const { expect, request } = chai;
 
-describe('Survey routes', () => {
+xdescribe('Survey routes', () => {
   beforeEach((done) => {
     Survey.remove({})
     .then(() => User.remove({}))
