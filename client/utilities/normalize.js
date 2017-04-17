@@ -1,10 +1,10 @@
 export function normalizeSurveys(surveys) {
-  const normSurveys = [];
+  const normSurveys = {};
   surveys.forEach((survey) => {
-    normSurveys.push({
+    normSurveys[survey._id] = {
       id: survey._id,
       title: survey.title
-    });
+    };
   });
 
   return normSurveys;

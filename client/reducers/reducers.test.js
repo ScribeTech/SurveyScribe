@@ -117,8 +117,8 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.surveys.length).to.equal(4);
-        expect(JSON.stringify(changedState.surveys[3])).to.equal(JSON.stringify(survey));
+        expect(Object.keys(changedState.surveys).length).to.equal(4);
+        expect(changedState.surveys[survey.id]).to.deep.equal(survey);
       });
     });
 
@@ -126,36 +126,37 @@ describe('REDUCERS', () => {
       it('should remove a survey from the current list of surveys', () => {
         const action = {
           type: 'REMOVE_SURVEY',
-          i: 2
+          id: '58ee63c65a2d576d5125b4bd'
         };
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
-        expect(changedState.surveys.length).to.equal(2);
-        expect(changedState.surveys[2]).to.not.exist;
+        expect(Object.keys(changedState.surveys).length).to.equal(2);
+        expect(changedState.surveys[action.id]).to.not.exist;
       });
     });
 
     describe('EDIT_SURVEY', () => {
       it('should edit an existing survey in the list of surveys', () => {
         const survey = {
+          id: '58ee63c65a2d576d5125b4bc',
           title: 'Fabulous'
         };
 
-        const action = Object.assign({}, survey, { type: 'EDIT_SURVEY', i: 1 });
+        const action = Object.assign({}, survey, { type: 'EDIT_SURVEY' });
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.surveys.length).to.equal(3);
-        expect(JSON.stringify(changedState.surveys[1].title))
-          .to.equal(JSON.stringify(survey.title));
-        expect(JSON.stringify(changedState.surveys[0]))
-          .to.equal(JSON.stringify(initialState.surveys[0]));
-        expect(JSON.stringify(changedState.surveys[2]))
-          .to.equal(JSON.stringify(initialState.surveys[2]));
+        expect(Object.keys(changedState.surveys).length).to.equal(3);
+        expect(changedState.surveys[survey.id].title)
+          .to.equal(survey.title);
+        expect(changedState.surveys['58ee63c65a2d576d5125b4bd'])
+          .to.equal(initialState.surveys['58ee63c65a2d576d5125b4bd']);
+        expect(changedState.surveys['58ee63c65a2d576d5125b4bf'])
+          .to.equal(initialState.surveys['58ee63c65a2d576d5125b4bf']);
       });
     });
   });

@@ -41,19 +41,19 @@ export function addSurvey(id, title) {
 }
 
 // edit survey
-export function editSurvey(i, title) {
+export function editSurvey(id, title) {
   return {
     type: 'EDIT_SURVEY',
-    i,
+    id,
     title
   };
 }
 
 // remove survey
-export function removeSurvey(i) {
+export function removeSurvey(id) {
   return {
     type: 'REMOVE_SURVEY',
-    i
+    id
   };
 }
 

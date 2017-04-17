@@ -1,5 +1,6 @@
 import { browserHistory } from 'react-router';
 import { normalizeSurveys, normalizeSurvey, normalizeResponses } from './normalize';
+import { denormalizeSurvey, denormalizeResponse } from './denormalize';
 
 export const getSurveys = (props, url) => {
   fetch('/api/surveys', {
@@ -33,6 +34,27 @@ export const getSurvey = (props, url) => {
   .then((result) => {
     const converted = normalizeSurvey(result);
     props.updateSurvey(converted.questions, converted.options);
+    if (url) {
+      browserHistory.push(url);
+    }
+  })
+  .catch((error) => {
+    throw error;
+  });
+};
+
+export const postSurvey = (props, url) => {
+  fetch(`/api/surveys/${props.params.surveyID}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(denormalizeSurvey(
+      props.surveys[props.params.surveyID],
+      props.questions,
+      props.options))
+  })
+  .then(() => {
     if (url) {
       browserHistory.push(url);
     }
@@ -100,18 +122,20 @@ export const getResponses = (props, url) => {
   });
 };
 
-
-// export const updateSurvey = (props, survey, url) => {
-//   fetch(`/api/surveys/${props.params.surveyID}`, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(denormalize(survey, props.questions, props.options))
-//   })
-//   .then(() => {
-//     if (url) {
-//       getSurveys(props, url);
-//     }
-//   });
-// };
+export const postResponse = (props, url) => {
+  fetch(`/api/surveys/${props.params.surveyID}/response`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(denormalizeResponse(props.survey[props.params.surveyId], props.responses))
+  })
+  .then(() => {
+    if (url) {
+      getResponses(props, url);
+    }
+  })
+  .catch((error) => {
+    throw error;
+  });
+};
