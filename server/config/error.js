@@ -32,7 +32,7 @@ exports.handle = (error, request, response, next) => {
              error === 400) {
     status = 400;
     message = error.message || 'Bad request';
-  } else if (error.status === 401 || error === 401) {
+  } else if (error.status === 401 || error.status === 401 || error === 401) {
     status = 401;
     message = 'Unauthorized';
   } else if (error === 405) {
