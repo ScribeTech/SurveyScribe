@@ -10,10 +10,11 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import Slider from 'material-ui/Slider';
+import _ from 'lodash';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
-import { getSurveys, updateSurvey } from '../utilities/apiTalk';
+import { getSurveys, getSurvey, updateSurvey } from '../utilities/apiTalk';
 
 const actions = (props, survey) => [
   { label: 'Save',
@@ -71,7 +72,7 @@ const styles = {
 
 const renderMessage = (props, question) => {
   const surveyID = props.params.surveyID;
-  const [survey] = props.surveys.filter(s => s.id === surveyID);
+  const [survey] = _.filter(props.surveys, s => s.id === surveyID);
 
   if (question.kind === 'Select' || question.kind === undefined) {
     return (
@@ -79,7 +80,7 @@ const renderMessage = (props, question) => {
         <div>
           <ListItem disabled>
             <TextField
-              id={survey.id.toString()}
+              id={option.id.toString()}
               floatingLabelText="Option"
               defaultValue={option.label}
               onChange={(e) => {
@@ -111,6 +112,14 @@ const renderMessage = (props, question) => {
         />
       </div>
     );
+  } else if (question.kind === 'Text') {
+    return (
+      <div>
+        <TextField
+          floatingLabelText="Short Answer"
+          />
+      </div>
+    )
   }
 
   renderMessage.propTypes = {}.isRequired;
@@ -118,7 +127,7 @@ const renderMessage = (props, question) => {
 
 const renderAddOption = (props, question) => {
   if (question.kind === 'Select') {
-    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id)} />;
+    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, 'option')} />;
   }
   renderAddOption.propTypes = {}.isRequired;
 };
@@ -127,7 +136,7 @@ const Edit = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
-  const [survey] = props.surveys.filter(s => s.id === surveyID);
+  const [survey] = _.filter(props.surveys, s => s.id === surveyID);
   // Render
   return (
     <Layout title="Survey Edit" actions={actions(props, survey)}>
@@ -136,26 +145,25 @@ const Edit = (props) => {
         id={survey.id.toString()}
         defaultValue={survey.title}
         onChange={(e) => {
-          props.editSurvey(props.params.index, e.target.value);
+          props.editSurvey(survey.id, e.target.value);
         }}
         style={styles.title}
       />
-      {props.questions[survey.id] && props.questions[survey.id].map((question, i) => (
+      {_.map(props.questions, (question, i) => (
         <List key={question.id}>
-          {`${i + 1}.   `}
           <TextField
             id={survey.id.toString()}
             floatingLabelText="Question"
-            defaultValue={question.label}
+            defaultValue={question.title}
             onChange={(e) => {
               // editing question in state
-              props.editQuestion(surveyID, i, e.target.value);
+              props.editQuestion(question.id, question.kind, e.target.value);
             }}
             style={styles.list}
             multiLine
           />
           <IconButton
-            onClick={() => props.removeQuestion(survey.id, i)}
+            onClick={() => props.removeQuestion(question.id, question.kind)}
             style={styles.quesitonIconButton}
           >
             <CloseIcon />
@@ -164,17 +172,9 @@ const Edit = (props) => {
           {renderAddOption(props, question)}
         </List>
       ))}
-      <FloatingActionButton
-        onClick={() => props.addQuestion(survey.id)}
-        className="floatingActionButton"
-        zDepth={3}
-      >
-        <ContentAdd />
-      </FloatingActionButton>
       <IconMenu
         iconButtonElement={
           <FloatingActionButton
-            // onClick={() => props.addQuestion(survey.id)}
             className="floatingActionButton"
             zDepth={3}
           >
@@ -184,8 +184,9 @@ const Edit = (props) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
       >
-        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion(survey.id, 'mulChoice')} />
-        <MenuItem primaryText="Slider" onClick={() => props.addQuestion(survey.id, 'slider')} />
+        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion('Select')} />
+        <MenuItem primaryText="Slider" onClick={() => props.addQuestion('Scale')} />
+        <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
       </IconMenu>
     </Layout>
   );

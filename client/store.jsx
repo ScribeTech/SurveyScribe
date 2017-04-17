@@ -5,13 +5,15 @@ import { browserHistory } from 'react-router';
 import rootReducer from './reducers/index';
 
 import { mongoSurveys } from './data/mongoSurveys';
+import { questions } from './data/questions';
+import { options } from './data/options';
 import { normalizeSurveys } from './utilities/normalize';
 
 const surveys = normalizeSurveys(mongoSurveys);
 const defaultState = {
   surveys,
-  questions: {},
-  options: {},
+  questions,
+  options,
   responses: {},
   aggregates: {},
   signin: []
