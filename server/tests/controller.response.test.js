@@ -7,6 +7,7 @@ const Response = require('mongoose').model('Response');
 const User = require('mongoose').model('User');
 const login = require('./helpers/login.js');
 const REST = require('./helpers/REST.js');
+const RouteExpect = require('./helpers/RouteExpect.js');
 
 const { expect, request } = chai;
 
@@ -46,6 +47,9 @@ describe('Response routes', () => {
       });
 
       REST.BadRequest('post', '/api/responses', { invalid: '12345678910' })();
+
+      REST.Unauthorized('post', '/api/responses')();
+      xit('should return 401 if user\'s not the owner', () => {});
     });
     describe('PUT', REST.MethodNotAllowed('put', '/api/responses'));
     describe('DELETE', REST.MethodNotAllowed('delete', '/api/Responses'));
