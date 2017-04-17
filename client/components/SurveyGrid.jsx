@@ -61,7 +61,7 @@ const SurveyTile = props => (
             <Card />
             Copy This Link
             <div className="link">
-              <input id="url" className="url" type="text" value={`http://www.website.com/survey/${props.id}/answer`} readOnly />
+              <input id="url" className="url" type="text" value={`${window.location.href}/${props.id}/answer`} readOnly />
               <ClipboardButton className="copybtn" data-clipboard-target="#url">
                 <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
               </ClipboardButton>
