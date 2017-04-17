@@ -3,7 +3,7 @@ const Response = require('../models/response.js');
 
 // Only allow owners to access a survey
 const isOwner = (doc, request) => {
-  if (doc.owners && doc.owners.includes(request.session.user)) {
+  if (doc && doc.owners.includes(request.session.user)) {
     return Promise.resolve(doc);
   }
   return Promise.reject(401);
@@ -47,19 +47,21 @@ exports.delete = (request, response, next) => {
 
 exports.response = {};
 
-exports.response = {
-  list: (request, response, next) => {
-    const survey = request.params.survey;
-    Response.find({ survey }).exec()
-    .then(doc => response.status(200).json(doc))
-    .catch(next);
-  }
+exports.response.list = (request, response, next) => {
+  const survey = request.params.survey;
+  Survey.findById(survey).exec()
+  .then(doc => isOwner(doc, request))
+  .then(() => Response.find({ survey }).exec())
+  .then(doc => response.status(200).json(doc))
+  .catch(next);
 };
 
 exports.response.read = (request, response, next) => {
   const survey = request.params.survey;
   const _id = request.params.response;
-  Response.find({ _id, survey }).exec()
+  Survey.findById(survey).exec()
+  .then(doc => isOwner(doc, request))
+  .then(() => Response.find({ _id, survey }).exec())
   .then(doc => response.status(200).json(doc))
   .catch(next);
 };

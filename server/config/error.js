@@ -25,7 +25,7 @@ exports.handle = (error, request, response, next) => {
     message = 'Not found';
   } else if (error.name === 'AssertionError' || error.name === 'StrictModeError' || error === 400) {
     status = 400;
-    message = 'Bad request';
+    message = error.message || 'Bad request';
   } else if (error.status === 401 || error.status === 401 || error === 401) {
     status = 401;
     message = 'Unauthorized';
