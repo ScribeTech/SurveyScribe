@@ -2,7 +2,11 @@ const shortid = require('shortid');
 
 exports.schema = {
   type: String,
-  default: shortid.generate
+  unique: true,
+  index: true,
+  required: true,
+  default: shortid.generate,
+  validate: { validator: shortid.isValid }
 };
 
 // Syntactic Sugar

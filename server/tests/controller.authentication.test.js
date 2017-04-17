@@ -39,13 +39,8 @@ describe('Authentication routes', () => {
 
   describe('/api/logout', () => {
     describe('POST', () => {
-      xit('should return 200 and all users', () => {
-
-      });
-
-      xit('should return 401 if user\'s not authenticated', () => {
-
-      });
+      xit('should return 200 and log out the user', () => {});
+      REST.Unauthorized('post', '/api/surveys')();
     });
 
     describe('GET', REST.MethodNotAllowed('get', '/api/logout'));
