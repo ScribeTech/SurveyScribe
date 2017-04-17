@@ -111,6 +111,27 @@ export function removeOption(questionId, i) {
     i
   };
 }
+
+// add answer ---- KIND AND OPTIONID ONLY FOR ADDING SELECT OPTION
+export function addAnswer(questionId, value, kind, optionId) {
+  return {
+    type: 'ADD_ANSWER',
+    questionId,
+    value,
+    kind,
+    optionId
+  };
+}
+
+// remove answer --- KIND AND i ONLY FOR REMOVING 1 SELECT OPTION
+export function removeAnswer(questionId, kind, i) {
+  return {
+    type: 'REMOVE_ANSWER',
+    questionId,
+    kind,
+    i
+  };
+}
 // toggle error
 export function toggleError(i) {
   return {

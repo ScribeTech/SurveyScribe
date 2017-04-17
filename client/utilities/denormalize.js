@@ -42,6 +42,18 @@ export function denormalizeSurvey(survey, questions, options) {
   return converted;
 }
 
-export function denormalizeResponse() {
+export function denormalizeResponse(surveyId, response, questions) {
+  const converted = {};
+  converted.survey = surveyId;
+  converted.answers = [];
+  Object.keys(questions).forEach((questionId) => {
+    const answer = {
+      question: questionId,
+      kind: questions[questionId].kind,
+      value: response[questionId].value
+    };
 
+    converted.answers.push(answer);
+  });
+  return converted;
 }
