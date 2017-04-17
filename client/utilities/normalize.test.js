@@ -48,7 +48,8 @@ describe('NORMALIZE', () => {
     });
     it('should only have options for SELECT questions', () => {
       const converted = normalizeSurvey(mongoSurvey);
-      expect(converted.options['58ee63c65a2d576d5125b4c1']).to.exist;
+      expect(converted.options['58ee63c65a2d576d5125b4c1']).to.be.Object;
+      expect(converted.options['58ee63c65a2d576d5125b4c1']['58ee6466aa8ac36d6d74fe9a']).to.be.Object;
       expect(converted.options['58ee6466aa8ac36d6d74fe9e']).to.not.exist;
       expect(converted.options['58ee6466aa8ac36d6d74fe9f']).to.not.exist;
     });

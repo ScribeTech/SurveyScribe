@@ -6,13 +6,15 @@ import rootReducer from './reducers/index';
 
 import { mongoSurveys } from './data/mongoSurveys';
 import { normalizeSurveys } from './utilities/normalize';
+import { surveys } from './data/surveys';
 
-const surveys = normalizeSurveys(mongoSurveys);
+
 const defaultState = {
   surveys,
   questions: {},
   options: {},
   responses: {},
+  response: {},
   aggregates: {},
   signin: []
 };
