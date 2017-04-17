@@ -1,4 +1,4 @@
-const surveys = {
+export const surveys = {
   '58ee63c65a2d576d5125b4bc': {
      id: '58ee63c65a2d576d5125b4bc',
      title: 'Example Survey' },
