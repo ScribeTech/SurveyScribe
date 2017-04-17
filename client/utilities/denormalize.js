@@ -42,6 +42,6 @@ export function denormalizeSurvey(survey, questions, options) {
   return converted;
 }
 
-export function denormalizeResponse() {
+export function denormalizeResponse(response) {
 
-}
+};

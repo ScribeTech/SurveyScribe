@@ -43,7 +43,7 @@ describe('DENORMALIZE', () => {
   });
   describe('denormalizeResponse', () => {
     it('should convert responses into mongo form', () => {
-
+      const converted = denormalizeResponse('58ee63c65a2d576d5125b4bc', response, )
     });
   });
 });
