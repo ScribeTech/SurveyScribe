@@ -50,7 +50,7 @@ export function denormalizeResponse(surveyId, response, questions) {
     const answer = {
       question: questionId,
       kind: questions[questionId].kind,
-      value: response[questionId].value
+      value: response.questions[questionId].value
     };
 
     converted.answers.push(answer);

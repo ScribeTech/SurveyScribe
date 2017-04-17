@@ -13,6 +13,6 @@ export const response =
       value: [
       '58ee6466aa8ac36d6d74fe9a',
       '58ee6466aa8ac36d6d74fe9b',
-      '58ee6466aa8ac36d6d74fe9c'] } }
+      '58ee6466aa8ac36d6d74fe9c'] }
   }
 }

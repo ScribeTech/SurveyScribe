@@ -3,6 +3,7 @@ import { surveys } from '../data/surveys';
 import { questions } from '../data/questions';
 import { options } from '../data/options';
 import { responses } from '../data/responses';
+import { response } from '../data/response';
 import { mongoSurvey } from '../data/mongoSurvey';
 import { denormalizeSurvey, denormalizeResponse } from '../utilities/denormalize';
 
@@ -43,7 +44,15 @@ describe('DENORMALIZE', () => {
   });
   describe('denormalizeResponse', () => {
     it('should convert responses into mongo form', () => {
-      const converted = denormalizeResponse('58ee63c65a2d576d5125b4bc', response, )
+      const converted = denormalizeResponse('58ee63c65a2d576d5125b4bc', response, questions);
+      expect(converted).to.be.Object;
+      expect(converted.survey).to.equal('58ee63c65a2d576d5125b4bc');
+      expect(converted.answers).to.be.Array;
+      expect(converted.answers[0]).to.be.Object;
+      expect(converted.answers[0].question).to.be.String;
+      expect(converted.answers[0].kind).to.equal(questions[converted.answers[0].question].kind);
+      expect(converted.answers[0].value)
+             .to.equal(response.questions[converted.answers[0].question].value);
     });
   });
 });

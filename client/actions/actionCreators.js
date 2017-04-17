@@ -57,7 +57,10 @@ export function removeSurvey(id) {
   };
 }
 
-// add question (data is Object holding kind-specific data)
+// edit question (data is Object holding question kind specific data
+// SELECT data = { required, maxSelection }
+// SCALE  data = { required, min, max }
+// TEXT data = { required, max }
 export function addQuestion(kind) {
   return {
     type: 'ADD_QUESTION',
@@ -65,7 +68,10 @@ export function addQuestion(kind) {
     kind
   };
 }
-// edit question (data is Object holding kind-specific data)
+// edit question (data is Object holding question kind specific data
+// SELECT data = { required, maxSelection }
+// SCALE  data = { required, min, max }
+// TEXT data = { required, max }
 export function editQuestion(id, kind, data) {
   return {
     type: 'EDIT_QUESTION',
@@ -75,7 +81,7 @@ export function editQuestion(id, kind, data) {
   };
 }
 
-// remove question (kind only necessary for SELECT questions)
+// remove question (kind is only necessary for SELECT questions)
 export function removeQuestion(id, kind) {
   return {
     type: 'REMOVE_QUESTION',
@@ -112,7 +118,7 @@ export function removeOption(questionId, i) {
   };
 }
 
-// add answer ---- KIND AND OPTIONID ONLY FOR ADDING SELECT OPTION
+// add answer ---- kind and optionID only for add a Select options
 export function addAnswer(questionId, value, kind, optionId) {
   return {
     type: 'ADD_ANSWER',
@@ -123,7 +129,8 @@ export function addAnswer(questionId, value, kind, optionId) {
   };
 }
 
-// remove answer --- KIND AND i ONLY FOR REMOVING 1 SELECT OPTION
+// remove answer --- KIND AND i only for removing one Select option
+// to remove an entire Select response, leave off kind and i
 export function removeAnswer(questionId, kind, i) {
   return {
     type: 'REMOVE_ANSWER',
