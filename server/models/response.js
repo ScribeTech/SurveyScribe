@@ -39,7 +39,6 @@ Answers.discriminator('Scale', Schema({
 }));
 
 ResponseSchema.statics.sample = () => ({
-  _id,
   survey: 'B1vy7hwCpl',
   answers: [
     {
