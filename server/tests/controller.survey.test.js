@@ -71,14 +71,9 @@ describe('Survey routes', () => {
       it('should return 200 and specified survey', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() =>
-            agent.post('/api/login')
-              .send({ name: 'testinguser', password: 'testinguser123' })
-          )
-          .then(() =>
-            agent.get('/api/survey/58ee63c65a2d576d5125b4bc')
-          )
+        login(agent)
+          .then(() => Survey.create(expected))
+          .then(() => agent.get('/api/survey/58ee63c65a2d576d5125b4bc'))
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
@@ -96,14 +91,11 @@ describe('Survey routes', () => {
       it('should return 200 and update part of the survey', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() =>
-            agent.post('/api/login')
-              .send({ name: 'testinguser', password: 'testinguser123' })
-          )
-          .then(() =>
-            agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
-              .send({ title: 'another title' })
+        login(agent)
+        .then(() => Survey.create(expected))
+          .then(() => agent
+            .put('/api/survey/58ee63c65a2d576d5125b4bc')
+            .send({ title: 'another title' })
           )
           .then((response) => {
             expect(response).status(200);
@@ -124,14 +116,9 @@ describe('Survey routes', () => {
       it('should return 200 and delete the survey', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() =>
-            agent.post('/api/login')
-              .send({ name: 'testinguser', password: 'testinguser123' })
-          )
-          .then(() =>
-            agent.delete('/api/survey/58ee63c65a2d576d5125b4bc')
-            )
+        login(agent)
+          .then(() => Survey.create(expected))
+          .then(() => agent.delete('/api/survey/58ee63c65a2d576d5125b4bc'))
           .then((response) => {
             expect(response).status(200);
             expect(response.body.length).to.equal(0);
@@ -152,14 +139,9 @@ describe('Survey routes', () => {
       it('should return 200 and all of survey\'s responses', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() =>
-            agent.post('/api/login')
-              .send({ name: 'testinguser', password: 'testinguser123' })
-          )
-          .then(() =>
-            agent.get('/api/surveys/58ee63c65a2d576d5125b4bc/responses')
-          )
+        login(agent)
+          .then(() => Survey.create(expected))
+          .then(() => agent.get('/api/surveys/58ee63c65a2d576d5125b4bc/responses'))
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
@@ -183,14 +165,9 @@ describe('Survey routes', () => {
       it('should return 200 and specified response', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() =>
-            agent.post('/api/login')
-              .send({ name: 'testinguser', password: 'testinguser123' })
-          )
-          .then(() =>
-            agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91')
-          )
+        login(agent)
+          .then(() => Survey.create(expected))
+          .then(() => agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91'))
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
