@@ -19,17 +19,20 @@ const SurveySchema = Schema({
 const Questions = SurveySchema.path('questions');
 
 Questions.discriminator('Select', Schema({
+  _id,
   options: [{ _id, label: String }],
   maxSelection: Number
 }));
 
 Questions.discriminator('Scale', Schema({
+  _id,
   min: Number,
   max: Number,
   labels: [String]
 }));
 
 Questions.discriminator('Text', Schema({
+  _id,
   max: Number
 }));
 

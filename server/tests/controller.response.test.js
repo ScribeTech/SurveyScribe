@@ -7,11 +7,10 @@ const Response = require('mongoose').model('Response');
 const User = require('mongoose').model('User');
 const login = require('./helpers/login.js');
 const REST = require('./helpers/REST.js');
-const RouteExpect = require('./helpers/RouteExpect.js');
 
 const { expect, request } = chai;
 
-xdescribe('Response routes', () => {
+describe('Response routes', () => {
   beforeEach((done) => {
     Response.remove({})
     .then(() => User.remove({}))
@@ -25,7 +24,7 @@ xdescribe('Response routes', () => {
   });
   describe('/api/response', () => {
     describe('GET', () => {
-      it('should return 200 and all of user\'s responses', (done) => {
+      it('should return 200 and all of this session\'s responses', (done) => {
         const expected = Response.sample();
         const agent = request.agent(app);
         login(agent)
@@ -40,7 +39,7 @@ xdescribe('Response routes', () => {
           })
           .catch(done);
       });
-      REST.Unauthorized('get', '/api/responses')();
+      xit('should not return other session\'s responses');
     });
 
     describe('POST', () => {

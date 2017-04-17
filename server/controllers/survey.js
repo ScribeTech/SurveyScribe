@@ -1,55 +1,65 @@
 const Survey = require('../models/survey.js');
 const Response = require('../models/response.js');
 
+// Only allow owners to access a survey
+const isOwner = (doc, request) => {
+  if (doc.owners && doc.owners.includes(request.session.user)) {
+    return Promise.resolve(doc);
+  }
+  return Promise.reject(401);
+};
+
 exports.list = (request, response, next) => {
   const _id = request.session.user;
   Survey.find({ owners: { $in: [_id] } }, '_id title').exec()
-    .then((data) => { response.status(200).json(data); })
-    .catch(next);
+  .then(docs => response.status(200).json(docs))
+  .catch(next);
 };
 
 exports.create = (request, response, next) => {
-  // Add the current user as an owner before creating the survey
-  const survey = Object.assign({}, request.body, { owners: [request.session.user] });
+  // the current user is the default owner
+  const owners = request.body.owners || request.session.user;
+  const survey = Object.assign({}, request.body, { owners });
   Survey.create(survey)
-  .then((data) => { response.status(201).json(data); })
+  .then(doc => response.status(201).json(doc))
   .catch(next);
 };
 
 exports.read = (request, response, next) => {
   Survey.findById(request.params.survey).exec()
-  .then((data) => {
-    if (data) {
-      response.status(200).json(data);
-    } else {
-      next({ status: 404 });
-    }
-  })
+  .then(doc => isOwner(doc, request))
+  .then(doc => response.status(200).json(doc))
   .catch(next);
 };
 
 exports.update = (request, response, next) => {
   const _id = request.params.survey;
-  Survey.update({ _id }, request.body, { runValidators: true }).exec()
-  .then((result) => { response.status(200).json(result); })
-  .catch(() => { response.sendStatus(400); });
+  Survey.findOneAndUpdate({ _id }, request.body, { runValidators: true }).exec()
+  .then(doc => response.status(200).json(doc))
+  .catch(next);
 };
 
 exports.delete = (request, response, next) => {
   Survey.findByIdAndRemove(request.params.survey).exec()
-  .then((data) => {
-    if (data) {
-      response.status(200).json(data);
-    } else {
-      next({ status: 404 });
-    }
-  })
+  .then(doc => response.status(200).json(doc))
   .catch(next);
 };
 
-exports.responses = (request, response, next) => {
+exports.response = {};
+
+exports.response = {
+  list: (request, response, next) => {
+    const survey = request.params.survey;
+    Response.find({ survey }).exec()
+    .then(doc => response.status(200).json(doc))
+    .catch(next);
+  }
+};
+
+exports.response.read = (request, response, next) => {
   const survey = request.params.survey;
-  Response.find({ survey }).exec()
-  .then((data) => { response.status(200).json(data); })
+  const _id = request.params.response;
+  Response.find({ _id, survey }).exec()
+  .then(doc => response.status(200).json(doc))
   .catch(next);
 };
