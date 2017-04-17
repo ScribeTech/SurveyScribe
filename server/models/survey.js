@@ -33,7 +33,36 @@ Questions.discriminator('Text', Schema({
   max: Number
 }));
 
-SurveySchema.statics.sample = () => ({});
+SurveySchema.statics.sample = () => ({
+  title: 'Example Survey',
+  questions: [
+    {
+      required: false,
+      title: 'How much do you like burritos?',
+      kind: 'Scale',
+      min: 0,
+      max: 10,
+      labels: ['Not at All', 'Somewhat', 'Extremely']
+    },
+    {
+      required: false,
+      title: 'Explain your rating.',
+      kind: 'Text',
+      max: 1000
+    },
+    {
+      required: false,
+      title: 'What is your favorite color?',
+      kind: 'Select',
+      options: [
+        { label: 'Red' },
+        { label: 'Green' },
+        { label: 'Blue' }
+      ],
+      maxSelection: 0
+    }
+  ]
+});
 
 
 module.exports = mongoose.model('Survey', SurveySchema);

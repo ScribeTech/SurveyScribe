@@ -24,7 +24,7 @@ describe('Survey routes', () => {
   });
   describe('/api/survey', () => {
     describe('GET', () => {
-      it('should return 200 and all of user\'s surveys', (done) => {
+      xit('should return 200 and all of user\'s surveys', (done) => {
         const expected = Survey.sample();
         const agent = request.agent(app);
         login(agent)
@@ -43,7 +43,7 @@ describe('Survey routes', () => {
     });
 
     describe('POST', () => {
-      it('should return 201 when survey is created', (done) => {
+      xit('should return 201 when survey is created', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
         login(agent)
@@ -72,34 +72,23 @@ describe('Survey routes', () => {
         const agent = request.agent(app);
         const expected = Survey.sample();
         Survey.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/survey/58ee63c65a2d576d5125b4bc')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body).to.shallowDeepEqual(expected);
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.get('/api/survey/58ee63c65a2d576d5125b4bc')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body).to.shallowDeepEqual(expected);
+            done();
+          })
+          .catch(done);
       });
 
-      it('should return 404 if survey doesn\'t exist', (done) => {
-        const agent = request.agent(app);
-        agent.post('/api/login')
-          .send({ name: 'testinguser', password: 'testinguser123' })
-          .then(() => {
-            agent.get('app/survey/invalidsurvey')
-              .then((response) => {
-                expect(response).status(404);
-              })
-              .catch(done);
-          });
-      });
+      REST.NotFound('get', '/api/survey/doesnotexist');
 
       REST.Unauthorized('get', '/api/survey/:survey')();
     });
@@ -108,23 +97,24 @@ describe('Survey routes', () => {
       it('should return 200 and update part of the survey', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
+
         Survey.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
-                  .send({ title: 'another title' })
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    expect(response.body[0].title).to.equal('another title');
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.put('/api/survey/58ee63c65a2d576d5125b4bc')
+              .send({ title: 'another title' })
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            expect(response.body[0].title).to.equal('another title');
+            done();
+          })
+          .catch(done);
       });
 
       REST.BadRequest('put', '/api/surveys/:survey', { invalid: '12345678910' })();
@@ -137,19 +127,19 @@ describe('Survey routes', () => {
         const agent = request.agent(app);
         const expected = Survey.sample();
         Survey.create(expected)
-          .then(() => {
+          .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.delete('/api/survey/58ee63c65a2d576d5125b4bc')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response.body.length).to.equal(0);
-                    done();
-                  })
-                  .catch(done);
-              });
-          });
+          )
+          .then(() =>
+            agent.delete('/api/survey/58ee63c65a2d576d5125b4bc')
+            )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response.body.length).to.equal(0);
+            done();
+          })
+          .catch(done);
       });
 
       REST.Unauthorized('delete', 'api/surveys/:survey')();
@@ -168,36 +158,20 @@ describe('Survey routes', () => {
           .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/surveys/58ee63c65a2d576d5125b4bc/responses')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    done();
-                  })
-                  .catch(done);
-              })
-          );
+          )
+          .then(() =>
+            agent.get('/api/surveys/58ee63c65a2d576d5125b4bc/responses')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            done();
+          })
+          .catch(done);
       });
 
-      it('should return 404 if survey doesn\'t exist', (done) => {
-        const agent = request.agent(app);
-        const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() =>
-            agent.post('/api/login')
-              .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/surveys/doesnotexist/responses')
-                  .then((response) => {
-                    expect(response).status(404);
-                    done();
-                  })
-                  .catch(done);
-              })
-          );
-      });
+      REST.NotFound('get', '/api/suvey/doesnotexist/responses');
 
       REST.Unauthorized('get', '/api/survey/:survey/responses')();
       xit('should return 401 if user\'s not the owner', () => {});
@@ -216,36 +190,20 @@ describe('Survey routes', () => {
           .then(() =>
             agent.post('/api/login')
               .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91')
-                  .then((response) => {
-                    expect(response).status(200);
-                    expect(response).to.be.json;
-                    expect(response.body.length);
-                    done();
-                  })
-                  .catch(done);
-              })
-          );
+          )
+          .then(() =>
+            agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/58ee6904fdebd16dfdd99f91')
+          )
+          .then((response) => {
+            expect(response).status(200);
+            expect(response).to.be.json;
+            expect(response.body.length);
+            done();
+          })
+          .catch(done);
       });
 
-      it('should return 404 if survey doesn\'t exist', (done) => {
-        const agent = request.agent(app);
-        const expected = Survey.sample();
-        Survey.create(expected)
-          .then(() =>
-            agent.post('/api/login')
-              .send({ name: 'testinguser', password: 'testinguser123' })
-              .then(() => {
-                agent.get('/api/surveys/58ee63c65a2d576d5125b4c5/responses/doesnotexist')
-                  .then((response) => {
-                    expect(response).status(404);
-                    done();
-                  })
-                  .catch(done);
-              })
-          );
-      });
+      REST.NotFound('get', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/doesnotexist');
 
       REST.Unauthorized('get', '/api/survey/:survey/responses/:response');
       xit('should return 401 if user\'s not the owner', () => {});
