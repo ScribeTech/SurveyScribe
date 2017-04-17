@@ -1,8 +1,4 @@
-function remove(state = {}, action) {
-  const result = Object.assign({}, state);
-  delete result[action.id];
-  return result;
-}
+import { remove } from './util';
 
 function select(state = {}, action) {
   switch (action.type) {

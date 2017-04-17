@@ -32,7 +32,7 @@ const Header = props => (
                     <Card />
                     Copy This Link
                     <div className="link">
-                      <input id="url" className="url" type="text" value={`http://www.website.com/survey/${props.children[1][0].key}/answer`} readOnly />
+                      <input id="url" className="url" type="text" value={`${window.location.href}/${props.children[1][0].key}/answer`} readOnly />
                       <ClipboardButton className="copybtn" data-clipboard-target="#url">
                         <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
                       </ClipboardButton>
