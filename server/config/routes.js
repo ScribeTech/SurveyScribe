@@ -18,7 +18,7 @@ module.exports = () => {
     .all(error.invalidMethod);
 
   router.route('/api/surveys')
-    .get(auth.isLoggedIn, survey.list)
+    .get(survey.list) // .get(auth.isLoggedIn, survey.list)
     .post(auth.isLoggedIn, survey.create)
     .all(error.invalidMethod);
 
