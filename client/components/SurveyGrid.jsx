@@ -36,7 +36,7 @@ const handleClick = (props) => {
   .then((result) => {
     // Adding survey to state and changing the view to edit
     props.addSurvey(result._id, result.title);
-    browserHistory.push(`survey/${result._id}/${props.surveys.length}/edit`);
+    browserHistory.push(`survey/${result._id}/edit`);
   })
   .catch((error) => {
     throw error;
@@ -50,7 +50,7 @@ const SurveyTile = props => (
         <CardTitle style={styles.cardTitle} title={props.title} />
       </Link>
       <CardActions>
-        <Link to={`/survey/${props.id}/${props.index}/edit`}><FlatButton label="Edit" /></Link>
+        <Link to={`/survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
         <IconMenu
           iconButtonElement={<FlatButton label="Share" />}

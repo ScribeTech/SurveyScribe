@@ -14,6 +14,8 @@
     "no-console": "off",
     "no-underscore-dangle": ["error", { "allow": ["_id", "__t", "__REDUX_DEVTOOLS_EXTENSION__"] }],
     "no-unused-vars": "warn",
-    "no-unused-expressions": "off"
+    "no-unused-expressions": "off",
+    "no-restricted-syntax": ["off", "BinaryExpression[operator='in']"],
+    "guard-for-in": "warn"
   }
 }

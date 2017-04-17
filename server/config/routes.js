@@ -37,12 +37,13 @@ module.exports = () => {
     .all(error.invalidMethod);
 
   router.route('/api/users/:user')
-    .get(user.read)
-    .put(auth.isSameUser, user.update)
-    .delete(auth.isSameUser, [user.delete, auth.logout])
+    .get(auth.isLoggedIn, user.read)
+    .put(auth.isLoggedIn, user.update)
+    .delete(auth.isLoggedIn, [user.delete, auth.logout])
     .all(error.invalidMethod);
 
   router.use('/api/*', error.notFound); // 404: Not Found
+  router.use('/api/*', error.badRequest);
   router.use(error.sendIndex); // always send the index for client routes
   router.use(error.generic); // 500: Internal Server Error
 

@@ -35,4 +35,23 @@ Answers.discriminator('Scale', Schema({
   value: Number
 }));
 
+ResponseSchema.statics.sample = () => ({
+  participant: 'H1J73vRal',
+  survey: 'B1vy7hwCpl',
+  answers: [
+    {
+      kind: 'Scale',
+      value: 10
+    },
+    {
+      kind: 'Text',
+      value: 'I love them with all my soul!!!'
+    },
+    {
+      kind: 'Select',
+      value: ['58ee6466aa8ac36d6d74fe9a']
+    }
+  ]
+});
+
 module.exports = mongoose.model('Response', ResponseSchema);
