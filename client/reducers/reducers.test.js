@@ -2,7 +2,7 @@ import chai from 'chai';
 import deepFreeze from 'deep-freeze';
 import reducer from './index';
 
-import surveys from '../data/surveys';
+import { surveys } from '../data/surveys';
 import { questions } from '../data/questions';
 import { options } from '../data/options';
 import { responses } from '../data/responses';
@@ -117,8 +117,8 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.surveys.length).to.equal(4);
-        expect(JSON.stringify(changedState.surveys[3])).to.equal(JSON.stringify(survey));
+        expect(Object.keys(changedState.surveys).length).to.equal(4);
+        expect(changedState.surveys[survey.id]).to.deep.equal(survey);
       });
     });
 
@@ -126,36 +126,37 @@ describe('REDUCERS', () => {
       it('should remove a survey from the current list of surveys', () => {
         const action = {
           type: 'REMOVE_SURVEY',
-          i: 2
+          id: '58ee63c65a2d576d5125b4bd'
         };
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
-        expect(changedState.surveys.length).to.equal(2);
-        expect(changedState.surveys[2]).to.not.exist;
+        expect(Object.keys(changedState.surveys).length).to.equal(2);
+        expect(changedState.surveys[action.id]).to.not.exist;
       });
     });
 
     describe('EDIT_SURVEY', () => {
       it('should edit an existing survey in the list of surveys', () => {
         const survey = {
+          id: '58ee63c65a2d576d5125b4bc',
           title: 'Fabulous'
         };
 
-        const action = Object.assign({}, survey, { type: 'EDIT_SURVEY', i: 1 });
+        const action = Object.assign({}, survey, { type: 'EDIT_SURVEY' });
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.surveys.length).to.equal(3);
-        expect(JSON.stringify(changedState.surveys[1].title))
-          .to.equal(JSON.stringify(survey.title));
-        expect(JSON.stringify(changedState.surveys[0]))
-          .to.equal(JSON.stringify(initialState.surveys[0]));
-        expect(JSON.stringify(changedState.surveys[2]))
-          .to.equal(JSON.stringify(initialState.surveys[2]));
+        expect(Object.keys(changedState.surveys).length).to.equal(3);
+        expect(changedState.surveys[survey.id].title)
+          .to.equal(survey.title);
+        expect(changedState.surveys['58ee63c65a2d576d5125b4bd'])
+          .to.equal(initialState.surveys['58ee63c65a2d576d5125b4bd']);
+        expect(changedState.surveys['58ee63c65a2d576d5125b4bf'])
+          .to.equal(initialState.surveys['58ee63c65a2d576d5125b4bf']);
       });
     });
   });
@@ -360,7 +361,7 @@ describe('REDUCERS', () => {
         expect(changedState.questions[question.id].max)
                .to.equal(question.data.max);
       });
-      it('should not change alterable properties that are not passed inside of data', () => {
+      it('should not change alterable properties that are not passed inside of data for Text', () => {
         const question = {
           id: '58ee6466aa8ac36d6d74fe9e',
           kind: 'Text',
@@ -382,6 +383,30 @@ describe('REDUCERS', () => {
         expect(changedState.questions[question.id].title)
                .to.equal(initialState.questions[question.id].title);
       });
+      it('should not change alterable properties that are not passed inside of data for Scale', () => {
+        const question = {
+          id: '58ee6466aa8ac36d6d74fe9f',
+          kind: 'Scale',
+          data: {
+            max: 2000
+          }
+        };
+
+        const action = Object.assign({}, question, { type: 'EDIT_QUESTION' });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.questions[question.id].max)
+               .to.not.equal(initialState.questions[question.id].max);
+        expect(changedState.questions[question.id].required)
+               .to.equal(initialState.questions[question.id].required);
+        expect(changedState.questions[question.id].title)
+               .to.equal(initialState.questions[question.id].title);
+        expect(changedState.questions[question.id].min)
+               .to.equal(initialState.questions[question.id].min);
+      });
     });
   });
   describe('Options', () => {
@@ -392,10 +417,11 @@ describe('REDUCERS', () => {
       responses: {},
       aggregates: {},
     };
-    xdescribe('ADD_OPTION', () => {
+    describe('ADD_OPTION', () => {
       xit('should add a option to the current list of Select options', () => {
-        const questionId = '';
+        const questionId = '58ee63c65a2d576d5125b4c1';
         const option = {
+          questionId,
           label: 'Cat'
         };
 

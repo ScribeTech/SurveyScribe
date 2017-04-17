@@ -1,22 +1,19 @@
-export function surveys(state = [], action) {
+import { remove } from './util';
+
+export function surveys(state = {}, action) {
   switch (action.type) {
     case 'ADD_SURVEY':
-      return [...state,
-        {
-          id: action.id,
-          title: action.title
-        }
-      ];
+      return {
+        ...state,
+        [action.id]: Object.assign({}, { id: action.id, title: action.title })
+      };
     case 'REMOVE_SURVEY':
-      return [...state.slice(0, action.i),
-        ...state.slice(action.i + 1)
-      ];
+      return remove(state, action);
     case 'EDIT_SURVEY':
-      return [
-        ...state.slice(0, action.i),
-        Object.assign({}, state[action.i], { title: action.title }),
-        ...state.slice(action.i + 1)
-      ];
+      return {
+        ...state,
+        [action.id]: Object.assign({}, state[action.id], { title: action.title })
+      };
     case 'UPDATE_STATE':
       return action.surveys;
     default:

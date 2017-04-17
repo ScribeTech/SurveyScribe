@@ -10,8 +10,8 @@ describe('NORMALIZE', () => {
   describe('normalizeSurveys', () => {
     it('should break surveys into surveys redux state', () => {
       const converted = normalizeSurveys(mongoSurveys);
-      expect(converted).to.be.Array;
-      expect(converted[0].title).to.equal(mongoSurveys[0].title);
+      expect(converted).to.be.Object;
+      expect(converted['58ee63c65a2d576d5125b4bc'].title).to.equal(mongoSurveys[0].title);
     });
   });
   describe('normalizeSurvey', () => {
