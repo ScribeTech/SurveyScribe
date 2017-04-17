@@ -7,6 +7,7 @@ const Response = require('mongoose').model('Response');
 const User = require('mongoose').model('User');
 const login = require('./helpers/login.js');
 const REST = require('./helpers/REST.js');
+const RouteExpect = require('./helpers/RouteExpect.js');
 
 const { expect, request } = chai;
 
