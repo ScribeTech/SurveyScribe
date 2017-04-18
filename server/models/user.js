@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
   _id,
-  name: { type: String, required: true, index: { unique: true } },
+  name: { type: String, required: true },
   hash: { type: String, required: true, select: false }
 }, { strict: 'throw' });
 

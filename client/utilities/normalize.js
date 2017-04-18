@@ -28,10 +28,10 @@ export function normalizeSurvey(survey) {
         converted.questions[question._id].maxSelection = question.maxSelection;
         converted.options[question._id] = [];
         question.options.forEach((option) => {
-          converted.options[question._id].push({
+          converted.options[question._id][option._id] = {
             id: option._id,
             label: option.label
-          });
+          };
         });
 
         break;
@@ -57,7 +57,7 @@ export function normalizeResponses(responses) {
     response.questions.forEach((question) => {
       converted[response._id][question._id] = {
         question: question._id,
-        response: question.value
+        value: question.value
       };
     });
   });

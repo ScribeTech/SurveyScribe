@@ -5,42 +5,42 @@ exports.sendIndex = (request, response) => {
   response.sendFile(config.index);
 };
 
+// 404: Not Found
+exports.notFound = (request, response, next) => {
+  next(404); // trigger an express error
+};
+
 // 405: Method not allowed
-exports.invalidMethod = (request, response) => {
-  response.sendStatus(405);
+exports.invalidMethod = (request, response, next) => {
+  next(405); // trigger an express error
 };
 
-// 404: Not Found - Unknown route, or MongoDB Couldn't Find Something
-exports.notFound = (error, request, response, next) => {
-  if (error &&
-      error.value !== 'nonexistantresource' &&
-      error.status !== 404) {
-    next(error);
-  } else {
-    response.status(404).json({ message: 'Not found' });
+// Catch exceptions and rejected promises
+exports.handle = (error, request, response, next) => {
+  let status = 500;
+  let message = 'Something went wrong. Contact our support team.';
+
+  if (error.value === 'nonexistantresource' ||
+      error.status === 404 ||
+      error === 404) {
+    status = 404;
+    message = 'Not found';
+  } else if (error.name === 'AssertionError' ||
+             error.name === 'StrictModeError' ||
+             error.name === 'ValidatorError' ||
+             error.name === 'ValidationError' ||
+             error === 400) {
+    status = 400;
+    message = error.message || 'Bad request';
+  } else if (error.status === 401 || error === 401) {
+    status = 401;
+    message = 'Unauthorized';
+  } else if (error === 405) {
+    status = 405;
+    message = 'Method not allowed';
+  } else if (process.env.NODE_ENV === 'development') {
+    // Output the error
+    setTimeout(() => console.error(error), 0);
   }
+  response.status(status).json({ error: true, message });
 };
-
-exports.badRequest = (error, request, response, next) => {
-  if (error && (error.name === 'AssertionError' || error.name === 'StrictModeError')) {
-    response.status(400).json({ error: true, message: error.message });
-  } else {
-    next(error);
-  }
-};
-
-// Do send stack traces in development mode
-const development = (error, request, response) => {
-  console.error(error);
-  response.status(error.status || 500);
-  response.json(error);
-};
-
-// Don't leak stack traces on the production server
-const production = (error, request, response) => {
-  response.status(error.status || 500);
-  response.send(error.message || 'Something went wrong. Contact customer support.');
-};
-
-// 500: Internal Server Error
-exports.generic = process.env.NODE_ENV === 'production' ? production : development;

@@ -8,13 +8,15 @@ import { mongoSurveys } from './data/mongoSurveys';
 import { questions } from './data/questions';
 import { options } from './data/options';
 import { normalizeSurveys } from './utilities/normalize';
+import { surveys } from './data/surveys';
 
-const surveys = normalizeSurveys(mongoSurveys);
+
 const defaultState = {
   surveys,
   questions,
   options,
   responses: {},
+  response: {},
   aggregates: {},
   signin: []
 };

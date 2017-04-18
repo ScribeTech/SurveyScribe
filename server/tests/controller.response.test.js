@@ -10,7 +10,7 @@ const REST = require('./helpers/REST.js');
 
 const { expect, request } = chai;
 
-xdescribe('Response routes', () => {
+describe('Response routes', () => {
   beforeEach((done) => {
     Response.remove({})
     .then(() => User.remove({}))
@@ -24,22 +24,23 @@ xdescribe('Response routes', () => {
   });
   describe('/api/response', () => {
     describe('GET', () => {
-      it('should return 200 and all of user\'s responses', (done) => {
+      it('should return 200 and all of this session\'s responses', (done) => {
         const expected = Response.sample();
         const agent = request.agent(app);
         login(agent)
-          .then(() => Response.create(expected))
+          .then(() => agent.post('/api/responses').send(expected))
           .then(() => agent.get('/api/responses'))
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
-            expect(response.body.length);
+            expect(response.body.length).to.exist;
+            console.log('>>> body >>>', response.body);
             expect(response.body[0]).to.shallowDeepEqual(expected);
             done();
           })
           .catch(done);
       });
-      REST.Unauthorized('get', '/api/responses')();
+      xit('should not return other session\'s responses');
     });
 
     describe('POST', () => {
@@ -51,16 +52,14 @@ xdescribe('Response routes', () => {
           .then((response) => {
             expect(response).status(201);
             expect(response).to.be.json;
-            expect(response.body.length);
-            expect(response.body[0]).to.shallowDeepEqual(expected);
+            expect(response.body).to.shallowDeepEqual(expected);
             done();
           })
           .catch(done);
       });
 
       REST.BadRequest('post', '/api/responses', { invalid: '12345678910' })();
-      REST.Unauthorized('post', '/api/responses')();
-      xit('should return 401 if user\'s not the owner', (done) => {});
+      xit('should return 401 if user\'s not the owner', () => {});
     });
     describe('PUT', REST.MethodNotAllowed('put', '/api/responses'));
     describe('DELETE', REST.MethodNotAllowed('delete', '/api/Responses'));
