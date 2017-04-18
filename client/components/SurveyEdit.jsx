@@ -19,12 +19,12 @@ import { getSurveys, getSurvey, updateSurvey } from '../utilities/apiTalk';
 const actions = (props, survey) => [
   { label: 'Save',
     callback: () => {
-      updateSurvey(props, survey);
+      putSurvey(props, survey);
     }
   },
   { label: 'Share',
     callback: () => {
-      updateSurvey(props, survey, `/survey/${props.params.surveyID}/answer`);
+      putSurvey(props, survey, `/survey/${props.params.surveyID}/answer`);
     }
   },
   {
@@ -76,7 +76,7 @@ const renderMessage = (props, question) => {
 
   if (question.kind === 'Select' || question.kind === undefined) {
     return (
-      props.options[question.id] && props.options[question.id].map((option, j) => (
+      props.options[question.id] && _.map(props.options[question.id], (option, j) => (
         <div>
           <ListItem disabled>
             <TextField
@@ -112,14 +112,6 @@ const renderMessage = (props, question) => {
         />
       </div>
     );
-  } else if (question.kind === 'Text') {
-    return (
-      <div>
-        <TextField
-          floatingLabelText="Short Answer"
-          />
-      </div>
-    )
   }
 
   renderMessage.propTypes = {}.isRequired;
