@@ -2,9 +2,7 @@ import chai from 'chai';
 import { surveys } from '../data/surveys';
 import { questions } from '../data/questions';
 import { options } from '../data/options';
-import { responses } from '../data/responses';
 import { response } from '../data/response';
-import { mongoSurvey } from '../data/mongoSurvey';
 import { denormalizeSurvey, denormalizeResponse } from '../utilities/denormalize';
 
 const { expect } = chai;
@@ -52,7 +50,7 @@ describe('DENORMALIZE', () => {
       expect(converted.answers[0].question).to.be.String;
       expect(converted.answers[0].kind).to.equal(questions[converted.answers[0].question].kind);
       expect(converted.answers[0].value)
-             .to.equal(response.questions[converted.answers[0].question].value);
+             .to.equal(response[converted.answers[0].question].value);
     });
   });
 });

@@ -5,8 +5,7 @@ import reducer from './index';
 import { surveys } from '../data/surveys';
 import { questions } from '../data/questions';
 import { options } from '../data/options';
-import { responses } from '../data/responses';
-import { aggregates } from '../data/aggregates';
+import { response } from '../data/response';
 import { mongoSurveys } from '../data/mongoSurveys';
 import { mongoSurvey } from '../data/mongoSurvey';
 import { mongoResponses } from '../data/mongoResponses';
@@ -489,64 +488,97 @@ describe('REDUCERS', () => {
           .to.equal(initialState.options[questionId]['58ee6466aa8ac36d6d74fe9c'].label);
       });
     });
-    xdescribe('TOGGLE_SELECT', () => {
-      xit('should toggle an option\'s selected status', () => {
-        const option = {
-          type: 'TOGGLE_SELECT',
-          questionId: 1,
-          i: 0
+  });
+  describe('Response', () => {
+    const initialState = {
+      surveys,
+      questions,
+      options,
+      response
+    };
+    describe('ADD_ANSWER', () => {
+      it('should add a new answer to an empty Scale/Text response', () => {
+        const action = {
+          type: 'ADD_ANSWER',
+          kind: 'Scale',
+          questionId: '48ff63c65a2d576d5125ff4b',
+          value: 9
         };
 
         deepFreeze(initialState);
 
-        const changedState = reducer(initialState, option);
-
-        expect(changedState.options[1][0].selected)
-          .to.equal(true);
-
-        const flippedState = reducer(changedState, option);
-
-        expect(flippedState.options[1][0].selected)
-          .to.equal(false);
+        const changedState = reducer(initialState, action);
+        expect(Object.keys(changedState.response).length)
+               .to.equal(Object.keys(initialState.response).length + 1);
+        expect(changedState.response[action.questionId].value).to.equal(action.value);
       });
-      xit('should keep track of how many option\'s have been selected', () => {
-      });
-    });
-  });
-  describe('Response', () => {
-    describe('ADD_ANSWER', () => {
-      xit('should add a new answer to an empty Scale/Text response', () => {
+      it('should overwrite a previous Scale/Text response', () => {
+        const action = {
+          type: 'ADD_ANSWER',
+          questionId: '58ee6466aa8ac36d6d74fe9e',
+          value: 'WOW what a catch I believe'
+        };
 
-      });
-      xit('should overwrite a previous Scale/Text response', () => {
+        deepFreeze(initialState);
 
-      });
-      xit('should add a new answer to a Select response', () => {
+        const changedState = reducer(initialState, action);
 
+        expect(Object.keys(changedState.response).length)
+               .to.equal(Object.keys(initialState.response).length);
+        expect(changedState.response[action.questionId].questionId)
+               .to.equal(initialState.response[action.questionId].questionId);
+        expect(changedState.response[action.questionId].value)
+               .to.not.equal(initialState.response[action.questionId].value);
       });
-      xit('should not add a new answer to a Select response if kind is not included', () => {
+      it('should add a new answer to a Select response', () => {
+        const action = {
+          type: 'ADD_ANSWER',
+          questionId: '58ee63c65a2d576d5125b4c1',
+          kind: 'Select',
+          value: '57dd63c65a2d576d51254445'
+        };
 
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.response[action.questionId].value.length)
+               .to.equal(initialState.response[action.questionId].value.length + 1);
+        expect(changedState.response[action.questionId]
+              .value[changedState.response[action.questionId].value.length - 1])
+              .to.equal(action.value);
       });
     });
     describe('REMOVE_ANSWER', () => {
-      xit('should remove a Scale/Text response', () => {
+      it('should remove a response', () => {
+        const action = {
+          type: 'REMOVE_ANSWER',
+          questionId: '58ee63c65a2d576d5125b4c1'
+        };
 
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+
+        expect(changedState.response[action.questionId]).to.not.exist;
+        expect(Object.keys(changedState.response).length)
+               .to.equal(Object.keys(initialState.response).length - 1);
       });
-      xit('should remove one Select response if kind and optionId are included', () => {
+      it('should remove one Select response if kind and index (i) are included', () => {
+        const action = {
+          type: 'REMOVE_ANSWER',
+          questionId: '58ee63c65a2d576d5125b4c1',
+          kind: 'Select',
+          i: 2
+        };
 
-      });
-      xit('should remove an entire Select response if kind and optionId are not included', () => {
+        deepFreeze(initialState);
 
-      });
-    });
-    describe('INCREMENT_SELECT', () => {
-      xit('should increase selected property for a Select ? by 1', () => {
+        const changedState = reducer(initialState, action);
 
-      });
-    });
-    describe('DECREMENT_SELECT', () => {
-      xit('should decrease selected property for a Select ? by 1', () => {
-
+        expect(changedState.response[action.questionId]).to.exist;
+        expect(changedState.response[action.questionId].value.length)
+               .to.equal(initialState.response[action.questionId].value.length - 1);
       });
     });
   });

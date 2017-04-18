@@ -122,18 +122,17 @@ export function removeOption(questionId, id, kind) {
   };
 }
 
-// add answer ---- kind and optionID only for add a Select options
-export function addAnswer(questionId, value, kind, optionId) {
+// add answer
+export function addAnswer(questionId, value, kind) {
   return {
     type: 'ADD_ANSWER',
     questionId,
     value,
-    kind,
-    optionId
+    kind
   };
 }
 
-// remove answer --- KIND AND i only for removing one Select option
+// remove answer --- kind and i only for removing one Select option
 // to remove an entire Select response, leave off kind and i
 export function removeAnswer(questionId, kind, i) {
   return {
