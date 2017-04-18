@@ -33,6 +33,7 @@ const styles = {
 const handleClick = (props) => {
   fetch('/api/login/', {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -41,9 +42,8 @@ const handleClick = (props) => {
       password: passWordVal.input.value
     })
   })
-  .then(response => (response.json()))
+  .then(response => response.json())
   .then((result) => {
-    console.log(result);
     if (result.error) {
       props.errorTrue(result.error);
     } else {
