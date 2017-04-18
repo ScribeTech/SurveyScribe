@@ -122,6 +122,15 @@ export function removeOption(questionId, id, kind) {
   };
 }
 
+// toggle SELECTED options
+export function toggleSelected(questionId, id, kind) {
+  return {
+    type: 'TOGGLE_SELECTED',
+    questionId,
+    id
+  };
+}
+
 // add answer
 export function addAnswer(questionId, value, kind) {
   return {

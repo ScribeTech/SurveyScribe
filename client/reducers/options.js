@@ -14,6 +14,11 @@ function questionOptions(state = {}, action) {
         ...state,
         [action.id]: Object.assign({}, state[action.id], { label: action.label })
       };
+    case 'TOGGLE_SELECTED':
+      return {
+        ...state,
+        [action.id]: Object.assign({}, state[action.id], { selected: !state[action.id].selected })
+      };
     default:
       return state;
   }
