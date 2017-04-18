@@ -542,10 +542,10 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(Object.keys(changedState.response[action.questionId].value).length)
-               .to.equal(Object.keys(initialState.response[action.questionId].value).length + 1);
+        expect(changedState.response[action.questionId].value.length)
+               .to.equal(initialState.response[action.questionId].value.length + 1);
         expect(changedState.response[action.questionId]
-              .value[action.value])
+              .value[changedState.response[action.questionId].value.length - 1])
               .to.equal(action.value);
       });
     });
@@ -569,52 +569,16 @@ describe('REDUCERS', () => {
           type: 'REMOVE_ANSWER',
           questionId: '58ee63c65a2d576d5125b4c1',
           kind: 'Select',
-          id: '58ee6466aa8ac36d6d74fe9c'
+          i: 2
         };
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
+
         expect(changedState.response[action.questionId]).to.exist;
-        expect(Object.keys(changedState.response[action.questionId].value).length)
-               .to.equal(Object.keys(initialState.response[action.questionId].value).length - 1);
-      });
-    });
-  });
-  describe('Response', () => {
-    describe('ADD_ANSWER', () => {
-      xit('should add a new answer to an empty Scale/Text response', () => {
-
-      });
-      xit('should overwrite a previous Scale/Text response', () => {
-
-      });
-      xit('should add a new answer to a Select response', () => {
-
-      });
-      xit('should not add a new answer to a Select response if kind is not included', () => {
-
-      });
-    });
-    describe('REMOVE_ANSWER', () => {
-      xit('should remove a Scale/Text response', () => {
-
-      });
-      xit('should remove one Select response if kind and optionId are included', () => {
-
-      });
-      xit('should remove an entire Select response if kind and optionId are not included', () => {
-
-      });
-    });
-    describe('INCREMENT_SELECT', () => {
-      xit('should increase selected property for a Select ? by 1', () => {
-
-      });
-    });
-    describe('DECREMENT_SELECT', () => {
-      xit('should decrease selected property for a Select ? by 1', () => {
-
+        expect(changedState.response[action.questionId].value.length)
+               .to.equal(initialState.response[action.questionId].value.length - 1);
       });
     });
   });

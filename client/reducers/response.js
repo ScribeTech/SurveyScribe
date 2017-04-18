@@ -3,6 +3,7 @@ import { remove } from './util';
 function select(state = {}, action) {
   switch (action.type) {
     case 'ADD_ANSWER':
+      console.log(state.value);
       return {
         question: action.questionId,
         value: {
