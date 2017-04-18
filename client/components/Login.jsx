@@ -13,23 +13,21 @@ let passWordVal = '';
 const styles = {
   main: {
     position: 'relative',
-    top: 150,
     margin: 'auto',
-    width: 600
-  },
-  textbox: {
-    marginLeft: 20
-  },
-  createaccount: {
-    marginTop: 30
+    maxWidth: '33em'
   },
   signinerror: {
-    marginLeft: 20,
+    display: 'block',
+    boxSizing: 'border-box',
     background: '#ffe6e6',
     color: '#c86e6e',
+    margin: '0 15px',
     padding: '10px',
     border: '1px solid #f5c8c8',
-    width: 260
+  },
+  textbox: {
+    width: '100%',
+    padding: '0 20px',
   }
 };
 
@@ -80,7 +78,7 @@ const Login = props => (
   <Layout title="Log in">
     <div>
       <Card style={styles.main}>
-        <CardTitle title="Please Log In" />
+        <CardTitle title="Log in" />
         <div>
           {renderError(props)}
         </div>
@@ -89,6 +87,7 @@ const Login = props => (
             floatingLabelText="Name"
             type="username"
             ref={(name) => { nameVal = name; }}
+            fullWidth
           />
         </div>
         <div style={styles.textbox}>
@@ -96,6 +95,7 @@ const Login = props => (
             floatingLabelText="Password"
             type="password"
             ref={(password) => { passWordVal = password; }}
+            fullWidth
           />
         </div>
         <CardActions>

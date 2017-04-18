@@ -22,7 +22,7 @@ const LandingPage = props => (
         <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => getSurveys(props, '/survey')} />
       </div>
       <Link to="/signin">
-        Sign Up
+        Sign up
       </Link>
       &nbsp;||&nbsp;
       <Link to="/login">

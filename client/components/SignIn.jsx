@@ -1,9 +1,9 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
-import Layout from './Layout';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Layout from './Layout';
 
 let nameVal = '';
 let passWordVal = '';
@@ -11,23 +11,21 @@ let passWordVal = '';
 const styles = {
   main: {
     position: 'relative',
-    top: 150,
     margin: 'auto',
-    width: 600
-  },
-  textbox: {
-    marginLeft: 20
-  },
-  createaccount: {
-    marginTop: 30
+    maxWidth: '33em'
   },
   signinerror: {
-    marginLeft: 20,
+    display: 'block',
+    boxSizing: 'border-box',
     background: '#ffe6e6',
     color: '#c86e6e',
+    margin: '0 15px',
     padding: '10px',
     border: '1px solid #f5c8c8',
-    width: 260
+  },
+  textbox: {
+    width: '100%',
+    padding: '0 20px',
   }
 };
 
@@ -66,18 +64,17 @@ const renderError = (props) => {
         {props.signin.message}
       </div>
     );
-  } else {
-    return (
-      <div />
-    );
   }
+  return (
+    <div />
+  );
 };
 
 const SignIn = props => (
-  <Layout title="Sign Up">
+  <Layout title="Sign up">
     <div>
       <Card style={styles.main}>
-        <CardTitle title="Please Sign Up" />
+        <CardTitle title="Sign up" />
         <div>
           {renderError(props)}
         </div>
@@ -86,6 +83,7 @@ const SignIn = props => (
             floatingLabelText="Name"
             type="username"
             ref={(name) => { nameVal = name; }}
+            fullWidth
           />
         </div>
         <div style={styles.textbox}>
@@ -93,6 +91,7 @@ const SignIn = props => (
             floatingLabelText="Password"
             type="password"
             ref={(password) => { passWordVal = password; }}
+            fullWidth
           />
         </div>
         <CardActions>
