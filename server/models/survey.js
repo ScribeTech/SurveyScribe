@@ -12,7 +12,7 @@ const QuestionSchema = Schema({
 const SurveySchema = Schema({
   _id,
   title: String,
-  owners: [{ type: ObjectId, ref: 'User', required: true }],
+  owners: [{ type: ObjectId, ref: 'User' }],
   questions: [QuestionSchema]
 }, { strict: 'throw' });
 
@@ -36,8 +36,9 @@ Questions.discriminator('Text', Schema({
   max: Number
 }));
 
-SurveySchema.statics.sample = () => ({
+SurveySchema.statics.sample = owner => ({
   title: 'Example Survey',
+  owners: [owner],
   questions: [
     {
       required: false,

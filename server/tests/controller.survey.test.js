@@ -25,17 +25,22 @@ describe('Survey routes', () => {
   });
   describe('/api/survey', () => {
     describe('GET', () => {
-      xit('should return 200 and all of user\'s surveys', (done) => {
-        const expected = Survey.sample();
+      it('should return 200 and all of user\'s surveys', (done) => {
         const agent = request.agent(app);
+        let seed;
         login(agent)
-          .then(() => Survey.create(expected))
+          .then((response) => {
+            seed = Survey.sample(response.body._id);
+            return agent.post('/api/surveys').send(seed);
+          })
           .then(() => agent.get('/api/surveys'))
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
-            expect(response.body.length);
-            expect(response.body[0]).to.shallowDeepEqual(expected);
+            expect(response.body).to.be.an('array');
+            const actual = response.body[0].title;
+            const expected = seed.title;
+            expect(actual).to.equal(expected);
             done();
           })
           .catch(done);
@@ -44,16 +49,18 @@ describe('Survey routes', () => {
     });
 
     describe('POST', () => {
-      xit('should return 201 when survey is created', (done) => {
+      it('should return 201 when survey is created', (done) => {
         const agent = request.agent(app);
-        const expected = Survey.sample();
+        let expected;
         login(agent)
-          .then(() => agent.post('/api/surveys').send(expected))
+          .then((response) => {
+            expected = Survey.sample(response.body._id);
+            return agent.post('/api/surveys').send(expected);
+          })
           .then((response) => {
             expect(response).status(201);
             expect(response).to.be.json;
-            expect(response.body.length);
-            expect(response.body[0]).to.shallowDeepEqual(expected);
+            expect(response.body).to.shallowDeepEqual(expected);
             done();
           })
           .catch(done);
@@ -71,9 +78,12 @@ describe('Survey routes', () => {
     describe('GET', () => {
       it('should return 200 and specified survey', (done) => {
         const agent = request.agent(app);
-        const expected = Survey.sample();
+        let expected;
         login(agent)
-          .then(() => agent.post('/api/surveys').send(expected))
+          .then((response) => {
+            expected = Survey.sample(response.body._id);
+            return agent.post('/api/surveys').send(expected);
+          })
           .then(response => agent.get(`/api/surveys/${response.body._id}`))
           .then((response) => {
             expect(response).status(200);
@@ -102,10 +112,13 @@ describe('Survey routes', () => {
     describe('PUT', () => {
       it('should return 200 and update part of the survey', (done) => {
         const agent = request.agent(app);
-        const expected = Survey.sample();
         const update = { title: 'another title' };
+        let expected;
         login(agent)
-        .then(() => agent.post('/api/surveys').send(expected))
+        .then((response) => {
+          expected = Survey.sample(response.body._id);
+          return agent.post('/api/surveys').send(expected);
+        })
         .then(response => agent.put(`/api/surveys/${response.body._id}`).send(update))
         .then((response) => {
           expect(response).status(200);
@@ -123,12 +136,21 @@ describe('Survey routes', () => {
     describe('DELETE', () => {
       it('should return 200 and delete the survey', (done) => {
         const agent = request.agent(app);
-        const sample = Survey.sample();
+        let sample;
         login(agent)
+          .then((response) => {
+            sample = Survey.sample(response.body._id);
+            return agent.post('/api/surveys').send(sample);
+          })
           .then(() => agent.post('/api/surveys').send(sample))
           .then(response => agent.delete(`/api/surveys/${response.body._id}`))
           .then((response) => {
             expect(response).status(200);
+            return Promise.resolve(response.body);
+          })
+          .then(doc => Survey.findById(doc._id).exec())
+          .then((doc) => {
+            expect(doc).to.not.exist;
             done();
           })
           .catch(done);
