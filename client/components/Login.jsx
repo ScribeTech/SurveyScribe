@@ -44,6 +44,7 @@ const handleClick = (props) => {
   })
   .then(response => response.json())
   .then((result) => {
+    console.log(result);
     if (result.error) {
       props.errorTrue(result.error);
     } else {
