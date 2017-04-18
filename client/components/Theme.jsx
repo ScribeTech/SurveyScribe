@@ -47,7 +47,10 @@ const Dark = props => (
 );
 
 Dark.propTypes = {
-  children: React.PropTypes.element.isRequired
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.arrayOf(React.PropTypes.element)
+  ]).isRequired
 };
 
 const Light = props => (
@@ -56,8 +59,6 @@ const Light = props => (
   </MuiThemeProvider>
 );
 
-Light.propTypes = {
-  children: React.PropTypes.element.isRequired
-};
+Light.propTypes = Dark.propTypes;
 
 export { Light, Dark };

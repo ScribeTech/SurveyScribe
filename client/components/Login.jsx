@@ -70,8 +70,8 @@ const Login = props => (
       </div>
     </div>
     <Snackbar
-      open={props.signin.error}
-      message={props.signin.message}
+      open={props.signin.error || false}
+      message={props.signin.message || ''}
       autoHideDuration={4000}
     />
   </Dark>
