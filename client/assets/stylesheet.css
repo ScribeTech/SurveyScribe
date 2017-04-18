@@ -18,20 +18,23 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.light a {
-  vertical-align: baseline;
-  color: #3498DB;
+a {
   cursor: pointer;
   text-decoration: none;
+}
+
+footer a {
+  vertical-align: baseline;
+  color: #3498DB;
   border-bottom: .08rem solid #EEE;
   margin: 0 .125rem;
 }
 
-.light a:hover {
+footer a:hover {
   border-bottom: 1px solid #3498DB;
 }
 
-.light a:visited {
+footer a:visited {
   color: #2980B9;
 }
 
