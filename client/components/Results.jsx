@@ -76,17 +76,63 @@ const Results = (props) => {
   };
 
   const makeSelectConfig = (data, question, resQuestion) => {
-    console.log("data", data);
-    console.log("resQuestion", resQuestion);
     const graphCategories = [];
     const graphData = [];
     _.forEach(props.options[question.id], (option) => {
       graphCategories.push(option.label);
     });
     _.forEach(data, (oneQuestion) => {
-      graphData.push(oneQuestion)
+      graphData.push(oneQuestion);
     });
-    
+
+    const config = {
+      chart: {
+        type: 'bar'
+      },
+      title: {
+        text: question.title
+      },
+      legend: {
+        enabled: false
+      },
+      tooltip: {
+        valueSuffix: ' Votes',
+        followPointer: 'true',
+        pointFormat: '<b>{point.y}</b><br/>',
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        categories: graphCategories
+      },
+      plotOptions: {
+        series: {
+          animation: {
+            duration: 2000
+          }
+        }
+      },
+      series: [{
+        data: graphData,
+        color: '#00bcd4'
+      }]
+    };
+
+    return config;
+  };
+
+  const makeTextConfig = (data, question) => {
+    console.log("data", data);
+    const graphCategories = [];
+    const graphData = [];
+    _.forEach(props.options[question.id], (option) => {
+      graphCategories.push(option.label);
+    });
+    _.forEach(data, (oneQuestion) => {
+      graphData.push(oneQuestion);
+    });
+
     const config = {
       chart: {
         type: 'bar'
@@ -139,8 +185,6 @@ const Results = (props) => {
         //console.log("resQuestion", resQuestion, kind);
         if (kind === 'Scale') {
           config = makeScaleConfig(props.aggregates[resQuestion.question], question);
-        } else if (kind === 'Text') {
-
         } else if (kind === 'Select') {
           config = makeSelectConfig(props.aggregates[resQuestion.question], question, resQuestion);
         }
@@ -179,7 +223,6 @@ const Results = (props) => {
     //     color: '#00bcd4'
     //   }]
     // };
-    console.log("config", config)
     return config;
   };
 
@@ -193,13 +236,51 @@ const Results = (props) => {
   //   [5.4], [6.0], [7.5], [6.0], [5.0]
   // ];
 
+  const styles = {
+    textTitle: {
+      textAlign: 'center',
+      fontSize: 18
+    },
+    textBody: {
+      marginLeft: 100
+    }
+  }
+  const renderGraphs = (question) => {
+    if(question.kind === 'Scale' || question.kind === 'Select'){
+      return (
+        <div>
+          <ReactHighcharts config={makeQuestionGraph(question)} />
+        </div>
+      );
+    } else {
+      console.log("question", question)
+      var textList = [];
+      _.map(props.responses, (user) => {
+        textList.push(user[question.id].response)
+      });
+      console.log("textList", textList)
+      return (
+        <div>
+          <h4 style={styles.textTitle}>{question.title} </h4>
+          {_.map(textList, (text, i) => {
+            return (
+              <div style={styles.textBody}>
+                {`${i + 1}.   `}{text}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+  };
+
 
   return (
     <Layout title="Results">
       <h1>{survey.title}</h1>
       <div>
         {_.map(props.questions, question => (
-          <ReactHighcharts config={makeQuestionGraph(question)} />
+          renderGraphs(question)
         ))}
       </div>
     </Layout>
