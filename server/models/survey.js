@@ -36,7 +36,7 @@ Questions.discriminator('Text', Schema({
   max: Number
 }));
 
-SurveySchema.statics.sample = owner => ({
+SurveySchema.statics.sample = (owner = _id.default()) => ({
   title: 'Example Survey',
   owners: [owner],
   questions: [

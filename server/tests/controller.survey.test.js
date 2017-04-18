@@ -29,8 +29,8 @@ describe('Survey routes', () => {
         const agent = request.agent(app);
         let seed;
         login(agent)
-          .then((response) => {
-            seed = Survey.sample(response.body._id);
+          .then((user) => {
+            seed = Survey.sample(user._id);
             return agent.post('/api/surveys').send(seed);
           })
           .then(() => agent.get('/api/surveys'))
@@ -53,8 +53,8 @@ describe('Survey routes', () => {
         const agent = request.agent(app);
         let expected;
         login(agent)
-          .then((response) => {
-            expected = Survey.sample(response.body._id);
+          .then((user) => {
+            expected = Survey.sample(user._id);
             return agent.post('/api/surveys').send(expected);
           })
           .then((response) => {
@@ -80,8 +80,8 @@ describe('Survey routes', () => {
         const agent = request.agent(app);
         let expected;
         login(agent)
-          .then((response) => {
-            expected = Survey.sample(response.body._id);
+          .then((user) => {
+            expected = Survey.sample(user._id);
             return agent.post('/api/surveys').send(expected);
           })
           .then(response => agent.get(`/api/surveys/${response.body._id}`))
@@ -115,8 +115,8 @@ describe('Survey routes', () => {
         const update = { title: 'another title' };
         let expected;
         login(agent)
-        .then((response) => {
-          expected = Survey.sample(response.body._id);
+        .then((user) => {
+          expected = Survey.sample(user._id);
           return agent.post('/api/surveys').send(expected);
         })
         .then(response => agent.put(`/api/surveys/${response.body._id}`).send(update))
@@ -138,8 +138,8 @@ describe('Survey routes', () => {
         const agent = request.agent(app);
         let sample;
         login(agent)
-          .then((response) => {
-            sample = Survey.sample(response.body._id);
+          .then((user) => {
+            sample = Survey.sample(user._id);
             return agent.post('/api/surveys').send(sample);
           })
           .then(() => agent.post('/api/surveys').send(sample))
@@ -162,18 +162,18 @@ describe('Survey routes', () => {
     describe('POST', REST.MethodNotAllowed('post', '/api/surveys/:survey'));
   });
 
-  xdescribe('/api/survey/:survey/responses', () => {
+  describe('/api/survey/:survey/responses', () => {
     describe('GET', () => {
       it('should return 200 and all of survey\'s responses', (done) => {
         const agent = request.agent(app);
-        const expected = Survey.sample();
         login(agent)
-          .then(() => Survey.create(expected))
-          .then(() => agent.get('/api/surveys/58ee63c65a2d576d5125b4bc/responses'))
+          .then(user => Survey.sample(user._id))
+          .then(expected => Survey.create(expected))
+          .then(doc => agent.get(`/api/surveys/${doc._id}/responses`))
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
-            expect(response.body.length);
+            expect(response.body).to.be.an('array');
             done();
           })
           .catch(done);

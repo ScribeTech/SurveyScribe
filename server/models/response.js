@@ -38,9 +38,9 @@ Answers.discriminator('Scale', Schema({
   value: Number
 }));
 
-ResponseSchema.statics.sample = participant => ({
+ResponseSchema.statics.sample = (participant = _id.default(), survey = _id.default()) => ({
   participant,
-  survey: 'B1vy7hwCpl',
+  survey,
   answers: [
     {
       kind: 'Scale',
