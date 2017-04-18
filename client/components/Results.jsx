@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import ReactHighcharts from 'react-highcharts';
 import Layout from './Layout';
 
@@ -6,61 +7,17 @@ const Results = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
-  const [survey] = props.surveys.filter(s => s.id === surveyID);
+  const survey = _.filter(props.surveys, { id: surveyID });
 
-  const makeConfig = (question) => {
-    const votes = [];
-    const options = [];
-    props.options[question.id].forEach((option) => {
-      votes.push(option.votes);
-      options.push(option.label);
-    });
-    const config = {
-      chart: {
-        type: 'bar'
-      },
-      title: {
-        text: question.label
-      },
-      legend: {
-        enabled: false
-      },
-      tooltip: {
-        valueSuffix: ' Votes',
-        followPointer: 'true',
-        pointFormat: '<b>{point.y}</b><br/>',
-      },
-      credits: {
-        enabled: false
-      },
-      xAxis: {
-        categories: options
-      },
-      plotOptions: {
-        series: {
-          animation: {
-            duration: 2000
-          }
-        }
-      },
-      series: [{
-        data: votes,
-        color: '#00bcd4'
-      }]
-    };
-
-    return config;
+  const styles = {
+    textTitle: {
+      textAlign: 'center',
+      fontSize: 18
+    },
+    textBody: {
+      marginLeft: 100
+    }
   };
-
-  const graphData = [
-    [6.2], [6.5], [5.5], [5.0], [5.8],
-    [7.0], [5.1], [6.0], [7.2], [6.2],
-    [7.5], [7.9], [7.9], [5.4], [6.0],
-    [4.2], [6.2], [7.0], [5.0], [6.6],
-    [5.5], [7.0], [6.8], [7.5], [7.2],
-    [7.0], [7.0], [7.9], [7.5], [6.0],
-    [5.4], [6.0], [7.5], [6.0], [5.0]
-  ];
 
   const histogram = (data, step) => {
     const histo = {};
@@ -89,19 +46,17 @@ const Results = (props) => {
     return arr;
   };
 
-  const makeSliderConfig = (Data) => {
-    // const votes = [];
-    // const options = [];
-    // props.options[data.id].forEach((option) => {
-    //   votes.push(option.votes);
-    //   options.push(option.label);
-    // });
+  const makeScaleConfig = (data, question) => {
+    const graphData = [];
+    for (let i = 0; i < data.length; i += 1) {
+      graphData.push([data[i]]);
+    }
     const config = {
       chart: {
         type: 'column'
       },
       title: {
-        text: 'Highcharts Histogram'
+        text: question.title
       },
       xAxis: {
         gridLineWidth: 1
@@ -122,22 +77,107 @@ const Results = (props) => {
         data: histogram(graphData, 1),
         pointPadding: 0,
         groupPadding: 0,
-        pointPlacement: 'between'
+        pointPlacement: 'between',
+        color: '#00bcd4'
       }]
     };
 
     return config;
   };
 
+  const makeSelectConfig = (data, question) => {
+    const graphCategories = [];
+    const graphData = [];
+    _.forEach(props.options[question.id], (option) => {
+      graphCategories.push(option.label);
+    });
+    _.forEach(data, (oneQuestion) => {
+      graphData.push(oneQuestion);
+    });
+
+    const config = {
+      chart: {
+        type: 'bar'
+      },
+      title: {
+        text: question.title
+      },
+      legend: {
+        enabled: false
+      },
+      tooltip: {
+        valueSuffix: ' Votes',
+        followPointer: 'true',
+        pointFormat: '<b>{point.y}</b><br/>',
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        categories: graphCategories
+      },
+      plotOptions: {
+        series: {
+          animation: {
+            duration: 2000
+          }
+        }
+      },
+      series: [{
+        data: graphData,
+        color: '#00bcd4'
+      }]
+    };
+
+    return config;
+  };
+
+  const makeQuestionGraph = (question) => {
+    let config = '';
+    const kind = question.kind;
+    if (kind === 'Scale') {
+      config = makeScaleConfig(props.aggregates[question.id], question);
+    } else if (kind === 'Select') {
+      config = makeSelectConfig(props.aggregates[question.id], question);
+    }
+    return config;
+  };
+
+  const renderGraphs = (question) => {
+    renderGraphs.propTypes = {}.isRequired;
+
+    if (question.kind === 'Scale' || question.kind === 'Select') {
+      return (
+        <div>
+          <ReactHighcharts config={makeQuestionGraph(question)} />
+        </div>
+      );
+    } else {
+      const textList = [];
+      _.map(props.responses, (user) => {
+        textList.push(user[question.id].response);
+      });
+      return (
+        <div>
+          <h4 style={styles.textTitle}>{question.title} </h4>
+          {_.map(textList, (text, i) => (
+            <div style={styles.textBody}>
+              {`${i + 1}.   `}{text}
+            </div>
+          ))}
+        </div>
+      );
+    }
+  };
+
   return (
     <Layout title="Results">
       <h1>{survey.title}</h1>
       <div>
-        {props.questions[surveyID].map(question => (
-          <ReactHighcharts config={makeConfig(question)} />
+        {_.map(props.questions, question => (
+          renderGraphs(question)
         ))}
       </div>
-      <ReactHighcharts config={makeSliderConfig('data')} />
     </Layout>
   );
 };

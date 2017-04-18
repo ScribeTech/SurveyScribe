@@ -9,8 +9,12 @@ exports.login = (request, response) => {
     assert.ok(user, 'User not found');
     assert.ok(user.verifyPassword(password), 'Wrong password');
     const _id = user._id;
+    // console.log('request authfile', request);
+    response.cookie('userid', _id, { maxAge: 900000, httpOnly: true });
     request.session.regenerate(() => {
       request.session.user = _id;
+      // console.log('request.session', request.session);
+      // response.cookie(user, '_id');
       response.status(200).send({ name, _id });
     });
   })

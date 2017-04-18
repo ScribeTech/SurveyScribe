@@ -52,7 +52,7 @@ const handleClick = (props) => {
     }
   })
   .catch((error) => {
-    throw error;
+    console.log('login handleClick error', error);
   });
 };
 
