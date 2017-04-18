@@ -90,31 +90,34 @@ export function removeQuestion(id, kind) {
   };
 }
 
-// add SELECT option
+// add a SELECT option
 export function addOption(questionId, kind, label) {
   return {
     type: 'ADD_OPTION',
+    questionId,
     kind,
+    id: ObjectId(),
     label
   };
 }
 
 // edit SELECT option
-export function editOption(questionId, i, label) {
+export function editOption(questionId, kind, id, label) {
   return {
     type: 'EDIT_OPTION',
     questionId,
-    i,
+    kind,
+    id,
     label
   };
 }
 
 // remove SELECT option
-export function removeOption(questionId, i) {
+export function removeOption(questionId, id) {
   return {
     type: 'REMOVE_OPTION',
     questionId,
-    i
+    id
   };
 }
 

@@ -8,7 +8,7 @@ export function surveys(state = {}, action) {
         [action.id]: Object.assign({}, { id: action.id, title: action.title })
       };
     case 'REMOVE_SURVEY':
-      return remove(state, action);
+      return remove(state, action.id);
     case 'EDIT_SURVEY':
       return {
         ...state,
