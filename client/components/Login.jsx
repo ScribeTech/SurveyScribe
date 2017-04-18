@@ -88,6 +88,7 @@ const Login = props => (
         <div style={styles.textbox}>
           <TextField
             floatingLabelText="Password"
+            type="password"
             ref={(password) => { passWordVal = password; }}
           />
         </div>
