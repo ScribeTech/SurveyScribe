@@ -581,6 +581,43 @@ describe('REDUCERS', () => {
       });
     });
   });
+  describe('Response', () => {
+    describe('ADD_ANSWER', () => {
+      xit('should add a new answer to an empty Scale/Text response', () => {
+
+      });
+      xit('should overwrite a previous Scale/Text response', () => {
+
+      });
+      xit('should add a new answer to a Select response', () => {
+
+      });
+      xit('should not add a new answer to a Select response if kind is not included', () => {
+
+      });
+    });
+    describe('REMOVE_ANSWER', () => {
+      xit('should remove a Scale/Text response', () => {
+
+      });
+      xit('should remove one Select response if kind and optionId are included', () => {
+
+      });
+      xit('should remove an entire Select response if kind and optionId are not included', () => {
+
+      });
+    });
+    describe('INCREMENT_SELECT', () => {
+      xit('should increase selected property for a Select ? by 1', () => {
+
+      });
+    });
+    describe('DECREMENT_SELECT', () => {
+      xit('should decrease selected property for a Select ? by 1', () => {
+
+      });
+    });
+  });
   describe('Sign In', () => {
     const initialState = {
       signin: {}
