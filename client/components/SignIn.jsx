@@ -81,6 +81,7 @@ const SignIn = props => (
         <div style={styles.textbox}>
           <TextField
             floatingLabelText="Name"
+            type="username"
             ref={(name) => { nameVal = name; }}
           />
         </div>

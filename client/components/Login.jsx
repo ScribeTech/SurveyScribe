@@ -43,6 +43,7 @@ const handleClick = (props) => {
   })
   .then(response => (response.json()))
   .then((result) => {
+    console.log(result);
     if (result.error) {
       props.errorTrue(result.error);
     } else {
@@ -82,6 +83,7 @@ const Login = props => (
         <div style={styles.textbox}>
           <TextField
             floatingLabelText="Name"
+            type="username"
             ref={(name) => { nameVal = name; }}
           />
         </div>
