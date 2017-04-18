@@ -7,9 +7,12 @@ import IconMenu from 'material-ui/IconMenu';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ClipboardButton from 'react-clipboard.js';
+import _ from 'lodash';
 import 'whatwg-fetch';
+
 import Layout from './Layout';
 import Clipboard from '../assets/Copy.svg';
+import { getSurvey } from '../utilities/apiTalk';
 
 const styles = {
   card: {
@@ -50,7 +53,7 @@ const SurveyTile = props => (
         <CardTitle style={styles.cardTitle} title={props.title} />
       </Link>
       <CardActions>
-        <Link to={`/survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
+        <FlatButton label="Edit" onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}/>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
         <IconMenu
           iconButtonElement={<FlatButton label="Share" />}
@@ -61,7 +64,7 @@ const SurveyTile = props => (
             <Card />
             Copy This Link
             <div className="link">
-              <input id="url" className="url" type="text" value={`${window.location.href}/${props.id}/answer`} readOnly />
+              <input id="url" className="url" type="text" value={`${window.location.href.split('/s')[0]}/survey/${props.id}/answer`} readOnly />
               <ClipboardButton className="copybtn" data-clipboard-target="#url">
                 <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
               </ClipboardButton>
@@ -91,7 +94,9 @@ const SurveyGrid = props => (
   <Layout title="Surveys">
     <Grid>
       <Row>
-        {props.surveys.map((survey, i) => <SurveyTile key={survey.id} {...survey} index={i} />)}
+        {_.map(props.surveys, (survey, i) =>
+          <SurveyTile key={survey.id} {...survey} index={i} />)
+        }
       </Row>
     </Grid>
     <FloatingActionButton

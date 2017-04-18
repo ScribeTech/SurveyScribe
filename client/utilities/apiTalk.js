@@ -23,8 +23,8 @@ export const getSurveys = (props, url) => {
   });
 };
 
-export const getSurvey = (props, url) => {
-  fetch(`/api/surveys/${props.params.surveyID}`, {
+export const getSurvey = (props, url, id) => {
+  fetch(`/api/surveys/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -44,8 +44,8 @@ export const getSurvey = (props, url) => {
 };
 
 export const putSurvey = (props, url) => {
-  fetch('/api/surveys/', {
-    method: 'POST',
+  fetch(`/api/surveys/${props.params.surveyID}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },

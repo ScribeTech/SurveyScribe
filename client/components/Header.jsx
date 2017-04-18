@@ -26,13 +26,14 @@ const Header = props => (
           if (p.label === 'Share') {
             return (
               <MenuItem
+                key={p.label}
                 primaryText={p.label}
                 menuItems={[
                   <div className="copy">
                     <Card />
                     Copy This Link
                     <div className="link">
-                      <input id="url" className="url" type="text" value={`${window.location.href}/${props.children[1][0].key}/answer`} readOnly />
+                      <input id="url" className="url" type="text" value={`${window.location.href.split('/s')[0]}/survey/${window.location.href.split('/')[4]}/answer`} readOnly />
                       <ClipboardButton className="copybtn" data-clipboard-target="#url">
                         <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
                       </ClipboardButton>
@@ -43,7 +44,7 @@ const Header = props => (
               />
             );
           }
-          return (<MenuItem primaryText={p.label} onClick={p.callback} />);
+          return (<MenuItem key={p.label} primaryText={p.label} onClick={p.callback} />);
         }
         )}
       </IconMenu>
