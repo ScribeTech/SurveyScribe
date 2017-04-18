@@ -1,7 +1,7 @@
 import React from 'react';
+import _ from 'lodash';
 import ReactHighcharts from 'react-highcharts';
 import Layout from './Layout';
-import _ from 'lodash';
 
 const Results = (props) => {
   // Load the currently selected survey
@@ -77,7 +77,8 @@ const Results = (props) => {
         data: histogram(graphData, 1),
         pointPadding: 0,
         groupPadding: 0,
-        pointPlacement: 'between'
+        pointPlacement: 'between',
+        color: '#00bcd4'
       }]
     };
 
@@ -131,78 +132,16 @@ const Results = (props) => {
     return config;
   };
 
-  const makeTextConfig = (data, question) => {
-    const graphCategories = [];
-    const graphData = [];
-    _.forEach(props.options[question.id], (option) => {
-      graphCategories.push(option.label);
-    });
-    _.forEach(data, (oneQuestion) => {
-      graphData.push(oneQuestion);
-    });
-
-    const config = {
-      chart: {
-        type: 'bar'
-      },
-      title: {
-        text: question.title
-      },
-      legend: {
-        enabled: false
-      },
-      tooltip: {
-        valueSuffix: ' Votes',
-        followPointer: 'true',
-        pointFormat: '<b>{point.y}</b><br/>',
-      },
-      credits: {
-        enabled: false
-      },
-      xAxis: {
-        categories: graphCategories
-      },
-      plotOptions: {
-        series: {
-          animation: {
-            duration: 2000
-          }
-        }
-      },
-      series: [{
-        data: graphData,
-        color: '#00bcd4'
-      }]
-    };
-
-    return config;
-  };
-
   const makeQuestionGraph = (question) => {
     let config = '';
-    console.log("question", question)
-
-    var kind = question.kind;
+    const kind = question.kind;
     if (kind === 'Scale') {
       config = makeScaleConfig(props.aggregates[question.id], question);
     } else if (kind === 'Select') {
       config = makeSelectConfig(props.aggregates[question.id], question);
     }
-
-          console.log("config", config)
     return config;
   };
-
-  // const graphData = [
-  //   [6.2], [6.5], [5.5], [5.0], [5.8],
-  //   [7.0], [5.1], [6.0], [7.2], [6.2],
-  //   [7.5], [7.9], [7.9], [5.4], [6.0],
-  //   [4.2], [6.2], [7.0], [5.0], [6.6],
-  //   [5.5], [7.0], [6.8], [7.5], [7.2],
-  //   [7.0], [7.0], [7.9], [7.5], [6.0],
-  //   [5.4], [6.0], [7.5], [6.0], [5.0]
-  // ];
-
 
   const renderGraphs = (question) => {
     renderGraphs.propTypes = {}.isRequired;
@@ -214,20 +153,18 @@ const Results = (props) => {
         </div>
       );
     } else {
-      var textList = [];
+      const textList = [];
       _.map(props.responses, (user) => {
         textList.push(user[question.id].response);
       });
       return (
         <div>
           <h4 style={styles.textTitle}>{question.title} </h4>
-          {_.map(textList, (text, i) => {
-            return (
-              <div style={styles.textBody}>
-                {`${i + 1}.   `}{text}
-              </div>
-            );
-          })}
+          {_.map(textList, (text, i) => (
+            <div style={styles.textBody}>
+              {`${i + 1}.   `}{text}
+            </div>
+          ))}
         </div>
       );
     }
