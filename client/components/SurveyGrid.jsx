@@ -13,7 +13,6 @@ import 'whatwg-fetch';
 import Layout from './Layout';
 import Clipboard from '../assets/Copy.svg';
 import { getSurvey } from '../utilities/apiTalk';
-import _ from 'lodash';
 
 const styles = {
   card: {

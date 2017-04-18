@@ -8,7 +8,6 @@ import { mongoSurveys } from './data/mongoSurveys';
 import { questions } from './data/questions';
 import { options } from './data/options';
 import { normalizeSurveys } from './utilities/normalize';
-import { surveys } from './data/surveys';
 
 const surveys = normalizeSurveys(mongoSurveys);
 //hard coding the test data for now so i can work on views
