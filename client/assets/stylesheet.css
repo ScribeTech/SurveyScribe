@@ -66,19 +66,13 @@ a:hover {
     color: #FFF;
   }
 
-.error {
-  display: 'block';
-  background: '#E67E22' !important;
-  color: '#FFF' !important;
-}
-
 .button {
   margin: 1.5rem 0;
 }
 
 .center {
   width: 100%;
-  max-width: 25rem;
+  max-width: 20rem;
   margin: 0 auto;
   position: absolute;
   top: 50%;

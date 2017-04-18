@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Snackbar from 'material-ui/Snackbar';
 
 import { Dark } from './Theme';
 import Logo from '../assets/images/logo-dark.svg';
@@ -47,11 +48,6 @@ const Login = props => (
     <div className="jumbotron">
       <div className="center">
         <div><img className="logo" src={Logo} alt="logo" /></div>
-        {props.signin.error ? (
-          <div className="error">
-            {props.signin.message}
-          </div>
-        ) : ''}
         <TextField
           floatingLabelText="Name"
           ref={(name) => { nameVal = name; }}
@@ -73,6 +69,11 @@ const Login = props => (
         <Link to="/signin" className="button"><FlatButton fullWidth>Create Account</FlatButton></Link>
       </div>
     </div>
+    <Snackbar
+      open={props.signin.error}
+      message={props.signin.message}
+      autoHideDuration={4000}
+    />
   </Dark>
 );
 

@@ -4,26 +4,39 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { fade } from 'material-ui/utils/colorManipulator';
 
+const colors = {
+  black: '#444',
+  white: '#FFF',
+  grey: '#EEE',
+  primary: '#3498db',
+  primaryDark: '#2980b9',
+  error: '#E74C3C'
+};
+
 const light = {
   palette: {
-    textColor: '#666',
-    alternateTextColor: '#FFF',
-    canvasColor: '#FFF',
-    borderColor: '#EEE',
-    primary1Color: '#3498db',
-    primary2Color: '#2980b9',
+    textColor: colors.black,
+    alternateTextColor: colors.white,
+    canvasColor: colors.white,
+    borderColor: colors.grey,
+    primary1Color: colors.primary,
+    primary2Color: colors.primaryDark,
   }
 };
 
 const dark = {
   palette: {
-    textColor: '#FFF',
-    alternateTextColor: '#FFF',
-    canvasColor: '#2980b9',
-    borderColor: fade('#FFF', 0.25),
-    primary1Color: '#3498db',
-    primary2Color: '#2980b9',
-    disabledColor: fade('#FFF', 0.75)
+    textColor: colors.white,
+    alternateTextColor: colors.white,
+    canvasColor: colors.primaryDark,
+    borderColor: fade(colors.white, 0.25),
+    primary1Color: colors.primary,
+    primary2Color: colors.primaryDark,
+    disabledColor: fade(colors.white, 0.75)
+  },
+  snackbar: {
+    textColor: colors.white,
+    backgroundColor: colors.black
   }
 };
 
