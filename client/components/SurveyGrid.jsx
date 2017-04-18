@@ -13,6 +13,7 @@ import 'whatwg-fetch';
 import Layout from './Layout';
 import Clipboard from '../assets/Copy.svg';
 import { getSurvey } from '../utilities/apiTalk';
+import _ from 'lodash';
 
 const styles = {
   card: {
@@ -95,9 +96,13 @@ const SurveyGrid = props => (
   <Layout title="Surveys">
     <Grid>
       <Row>
+<<<<<<< HEAD
         {_.map(props.surveys, (survey, i) =>
           <SurveyTile key={survey.id} {...survey} {...props} index={i} />)
         }
+=======
+        {_.map(props.surveys, ((survey, i) => <SurveyTile key={survey.id} {...survey} index={i} />))}
+>>>>>>> working on results view
       </Row>
     </Grid>
     <FloatingActionButton

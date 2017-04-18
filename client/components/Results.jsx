@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactHighcharts from 'react-highcharts';
 import Layout from './Layout';
+import _ from 'lodash';
 
 const Results = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
-  const [survey] = props.surveys.filter(s => s.id === surveyID);
+  console.log("props.surveys", props.surveys)
+  console.log("surveyID", surveyID)
+  //const [survey] = props.surveys.filter(s => s.id === surveyID);
+  const survey = _.filter(props.survey, s => s.id === surveyID);
+  console.log("survey", survey);
 
   const makeConfig = (question) => {
     const votes = [];
@@ -61,6 +66,7 @@ const Results = (props) => {
     [7.0], [7.0], [7.9], [7.5], [6.0],
     [5.4], [6.0], [7.5], [6.0], [5.0]
   ];
+
 
   const histogram = (data, step) => {
     const histo = {};
@@ -133,7 +139,7 @@ const Results = (props) => {
     <Layout title="Results">
       <h1>{survey.title}</h1>
       <div>
-        {props.questions[surveyID].map(question => (
+        {_.map(props.questions[surveyID], question => (
           <ReactHighcharts config={makeConfig(question)} />
         ))}
       </div>

@@ -49,6 +49,7 @@
     "express-session": "^1.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
+    "filter-objects": "^2.1.1",
     "helmet": "^3.5.0",
     "highcharts": "^5.0.10",
     "history": "^4.6.1",

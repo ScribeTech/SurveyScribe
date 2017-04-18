@@ -1,10 +1,8 @@
 const express = require('express');
 const config = require('./config/config.js');
-const cookieParser = require('cookie-parser');
 require('./config/database.js')(config);
 
 const app = express();
-app.use(cookieParser());
 
 // Middleware
 app.use(require('body-parser').urlencoded({ extended: false })); // Parse data sent by clients
