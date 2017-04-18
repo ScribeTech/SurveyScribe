@@ -7,7 +7,6 @@ const Survey = require('mongoose').model('Survey');
 const User = require('mongoose').model('User');
 const login = require('./helpers/login.js');
 const REST = require('./helpers/REST.js');
-const RouteExpect = require('./helpers/RouteExpect.js');
 
 const { expect, request } = chai;
 
@@ -23,7 +22,7 @@ describe('Survey routes', () => {
     .then(() => User.remove({}))
     .then(() => done());
   });
-  describe('/api/survey', () => {
+  describe('/api/surveys', () => {
     describe('GET', () => {
       it('should return 200 and all of user\'s surveys', (done) => {
         const agent = request.agent(app);
@@ -68,7 +67,7 @@ describe('Survey routes', () => {
 
       REST.BadRequest('post', '/api/surveys', { invalid: '12345678910' })();
       REST.Unauthorized('post', '/api/surveys')();
-      xit('should return 401 if user\'s not the owner', (done) => {});
+      xit('should return 401 if user\'s not the owner', () => {});
     });
     describe('PUT', REST.MethodNotAllowed('put', '/api/surveys'));
     describe('DELETE', REST.MethodNotAllowed('delete', '/api/surveys'));
@@ -106,7 +105,7 @@ describe('Survey routes', () => {
         .catch(done);
       });
 
-      REST.NotFound('get', '/api/survey/doesnotexist');
+      REST.NotFound('get', '/api/surveys/doesnotexist');
     });
 
     describe('PUT', () => {
@@ -162,7 +161,7 @@ describe('Survey routes', () => {
     describe('POST', REST.MethodNotAllowed('post', '/api/surveys/:survey'));
   });
 
-  describe('/api/survey/:survey/responses', () => {
+  describe('/api/surveys/:survey/responses', () => {
     describe('GET', () => {
       it('should return 200 and all of survey\'s responses', (done) => {
         const agent = request.agent(app);
@@ -179,8 +178,8 @@ describe('Survey routes', () => {
           .catch(done);
       });
 
-      REST.NotFound('get', '/api/suvey/doesnotexist/responses');
-      REST.Unauthorized('get', '/api/survey/:survey/responses')();
+      REST.NotFound('get', '/api/suveys/doesnotexist/responses');
+      REST.Unauthorized('get', '/api/surveys/:survey/responses')();
       xit('should return 401 if user\'s not the owner', () => {});
     });
 
@@ -188,7 +187,7 @@ describe('Survey routes', () => {
     describe('DELETE', REST.MethodNotAllowed('delete', '/api/surveys/:survey/responses'));
   });
 
-  xdescribe('/api/survey/:survey/responses/:response', () => {
+  xdescribe('/api/surveys/:survey/responses/:response', () => {
     describe('GET', () => {
       it('should return 200 and specified response', (done) => {
         const agent = request.agent(app);
@@ -206,7 +205,7 @@ describe('Survey routes', () => {
       });
 
       REST.NotFound('get', '/api/surveys/58ee63c65a2d576d5125b4c5/responses/doesnotexist');
-      REST.Unauthorized('get', '/api/survey/:survey/responses/:response');
+      REST.Unauthorized('get', '/api/surveys/:survey/responses/:response');
       xit('should return 401 if user\'s not the owner', () => {});
     });
     describe('POST', REST.MethodNotAllowed('post', '/api/surveys/:survey/responses/:response'));

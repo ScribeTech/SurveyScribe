@@ -16,6 +16,7 @@ exports.invalidMethod = (request, response, next) => {
 };
 
 // Catch exceptions and rejected promises
+// NOTE: Ignore the linter. This will break if `next` is not an argument.
 exports.handle = (error, request, response, next) => {
   let status = 500;
   let message = 'Something went wrong. Contact our support team.';
