@@ -36,7 +36,8 @@ const actions = (props, survey) => [
   { label: 'Delete',
     callback: () => {
       fetch(`/api/surveys/${props.params.surveyID}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        credentials: 'same-origin'
       })
       .then(() => {
         getSurveys(props);

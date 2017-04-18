@@ -27,6 +27,7 @@ const styles = {
 const handleClick = (props) => {
   fetch('/api/surveys', {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -83,7 +84,7 @@ SurveyTile.propTypes = {
     React.PropTypes.number,
     React.PropTypes.string
   ]).isRequired,
-  index: React.PropTypes.number
+  index: React.PropTypes.string
 };
 
 SurveyTile.defaultProps = {
@@ -95,7 +96,7 @@ const SurveyGrid = props => (
     <Grid>
       <Row>
         {_.map(props.surveys, (survey, i) =>
-          <SurveyTile key={survey.id} {...survey} index={i} />)
+          <SurveyTile key={survey.id} {...survey} {...props} index={i} />)
         }
       </Row>
     </Grid>
@@ -111,7 +112,7 @@ const SurveyGrid = props => (
 );
 
 SurveyGrid.propTypes = {
-  surveys: React.PropTypes.arrayOf(React.PropTypes.shape({
+  surveys: React.PropTypes.objectOf(React.PropTypes.shape({
     id: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number

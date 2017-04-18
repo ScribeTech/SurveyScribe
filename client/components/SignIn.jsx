@@ -33,6 +33,7 @@ const styles = {
 const handleClick = (props) => {
   fetch('/api/users/', {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -81,6 +82,7 @@ const SignIn = props => (
         <div style={styles.textbox}>
           <TextField
             floatingLabelText="Name"
+            type="username"
             ref={(name) => { nameVal = name; }}
           />
         </div>

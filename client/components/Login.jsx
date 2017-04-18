@@ -33,6 +33,7 @@ const styles = {
 const handleClick = (props) => {
   fetch('/api/login/', {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -41,7 +42,7 @@ const handleClick = (props) => {
       password: passWordVal.input.value
     })
   })
-  .then(response => (response.json()))
+  .then(response => response.json())
   .then((result) => {
     if (result.error) {
       props.errorTrue(result.error);
@@ -82,6 +83,7 @@ const Login = props => (
         <div style={styles.textbox}>
           <TextField
             floatingLabelText="Name"
+            type="username"
             ref={(name) => { nameVal = name; }}
           />
         </div>
