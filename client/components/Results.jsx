@@ -9,6 +9,16 @@ const Results = (props) => {
   const surveyID = props.params.surveyID;
   const survey = _.filter(props.surveys, { id: surveyID });
 
+  const styles = {
+    textTitle: {
+      textAlign: 'center',
+      fontSize: 18
+    },
+    textBody: {
+      marginLeft: 100
+    }
+  };
+
   const histogram = (data, step) => {
     const histo = {};
     let x;
@@ -37,8 +47,6 @@ const Results = (props) => {
   };
 
   const makeScaleConfig = (data, question) => {
-    // expects data to be 2d array
-    console.log("data", data)
     const graphData = [];
     for (let i = 0; i < data.length; i += 1) {
       graphData.push([data[i]]);
@@ -172,21 +180,16 @@ const Results = (props) => {
 
   const makeQuestionGraph = (question) => {
     let config = '';
-    // props.options[question.id].forEach((option) => {
-    //   votes.push(option.votes);
-    //   options.push(option.label);
-    // });
-    _.map(props.responses, (user) => {
-      _.map(user, (resQuestion) => {
-        const kind = props.questions[resQuestion.question].kind;
-        //console.log("resQuestion", resQuestion, kind);
-        if (kind === 'Scale') {
-          config = makeScaleConfig(props.aggregates[resQuestion.question], question);
-        } else if (kind === 'Select') {
-          config = makeSelectConfig(props.aggregates[resQuestion.question], question, resQuestion);
-        }
-      });
-    });
+    console.log("question", question)
+
+    var kind = question.kind;
+    if (kind === 'Scale') {
+      config = makeScaleConfig(props.aggregates[question.id], question);
+    } else if (kind === 'Select') {
+      config = makeSelectConfig(props.aggregates[question.id], question);
+    }
+
+          console.log("config", config)
     return config;
   };
 
@@ -200,17 +203,11 @@ const Results = (props) => {
   //   [5.4], [6.0], [7.5], [6.0], [5.0]
   // ];
 
-  const styles = {
-    textTitle: {
-      textAlign: 'center',
-      fontSize: 18
-    },
-    textBody: {
-      marginLeft: 100
-    }
-  }
+
   const renderGraphs = (question) => {
-    if(question.kind === 'Scale' || question.kind === 'Select'){
+    renderGraphs.propTypes = {}.isRequired;
+
+    if (question.kind === 'Scale' || question.kind === 'Select') {
       return (
         <div>
           <ReactHighcharts config={makeQuestionGraph(question)} />
@@ -219,7 +216,7 @@ const Results = (props) => {
     } else {
       var textList = [];
       _.map(props.responses, (user) => {
-        textList.push(user[question.id].response)
+        textList.push(user[question.id].response);
       });
       return (
         <div>
@@ -235,7 +232,6 @@ const Results = (props) => {
       );
     }
   };
-
 
   return (
     <Layout title="Results">
