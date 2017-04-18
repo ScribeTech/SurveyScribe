@@ -1,4 +1,4 @@
-const app = require('../../index.js');
+require('../../index.js');
 const User = require('mongoose').model('User');
 
 module.exports = (agent, user = User.sample()) => (

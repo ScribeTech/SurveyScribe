@@ -172,7 +172,7 @@ describe('Response routes', () => {
         .catch(done);
       });
 
-      REST.Unauthorized('delete', 'api/Responses/:Response')();
+      REST.Unauthorized('delete', 'api/responses/:response')();
     });
 
     describe('POST', REST.MethodNotAllowed('post', '/api/Responses/:Response'));

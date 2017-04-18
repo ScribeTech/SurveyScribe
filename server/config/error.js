@@ -16,6 +16,7 @@ exports.invalidMethod = (request, response, next) => {
 };
 
 // Catch exceptions and rejected promises
+// NOTE: Ignore the linter. This will break if `next` is not an argument.
 exports.handle = (error, request, response, next) => {
   let status = 500;
   let message = 'Something went wrong. Contact our support team.';
@@ -38,9 +39,14 @@ exports.handle = (error, request, response, next) => {
   } else if (error === 405) {
     status = 405;
     message = 'Method not allowed';
+  } else if (process.env.NODE_ENV === 'development') {
+    // Output the error
+    setTimeout(() => console.error(error), 0);
   }
+
   if (process.env.NODE_ENV === 'development') {
     setTimeout(() => console.error(error), 0);
   }
+
   response.status(status).json({ error: true, message });
 };
