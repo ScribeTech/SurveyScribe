@@ -38,6 +38,7 @@ const Results = (props) => {
 
   const makeScaleConfig = (data, question) => {
     // expects data to be 2d array
+    console.log("data", data)
     const graphData = [];
     for (let i = 0; i < data.length; i += 1) {
       graphData.push([data[i]]);
@@ -75,7 +76,7 @@ const Results = (props) => {
     return config;
   };
 
-  const makeSelectConfig = (data, question, resQuestion) => {
+  const makeSelectConfig = (data, question) => {
     const graphCategories = [];
     const graphData = [];
     _.forEach(props.options[question.id], (option) => {
@@ -123,7 +124,6 @@ const Results = (props) => {
   };
 
   const makeTextConfig = (data, question) => {
-    console.log("data", data);
     const graphCategories = [];
     const graphData = [];
     _.forEach(props.options[question.id], (option) => {
@@ -171,9 +171,6 @@ const Results = (props) => {
   };
 
   const makeQuestionGraph = (question) => {
-    const votes = [];
-    const options = [];
-    const responses = [];
     let config = '';
     // props.options[question.id].forEach((option) => {
     //   votes.push(option.votes);
@@ -190,39 +187,6 @@ const Results = (props) => {
         }
       });
     });
-    // const config = {
-    //   chart: {
-    //     type: 'bar'
-    //   },
-    //   title: {
-    //     text: question.title
-    //   },
-    //   legend: {
-    //     enabled: false
-    //   },
-    //   tooltip: {
-    //     valueSuffix: ' Votes',
-    //     followPointer: 'true',
-    //     pointFormat: '<b>{point.y}</b><br/>',
-    //   },
-    //   credits: {
-    //     enabled: false
-    //   },
-    //   xAxis: {
-    //     categories: options
-    //   },
-    //   plotOptions: {
-    //     series: {
-    //       animation: {
-    //         duration: 2000
-    //       }
-    //     }
-    //   },
-    //   series: [{
-    //     data: votes,
-    //     color: '#00bcd4'
-    //   }]
-    // };
     return config;
   };
 
@@ -253,12 +217,10 @@ const Results = (props) => {
         </div>
       );
     } else {
-      console.log("question", question)
       var textList = [];
       _.map(props.responses, (user) => {
         textList.push(user[question.id].response)
       });
-      console.log("textList", textList)
       return (
         <div>
           <h4 style={styles.textTitle}>{question.title} </h4>
