@@ -1,14 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Redirect } from 'react-router';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 
 // Material UI
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // Import Components
@@ -29,17 +25,6 @@ import store, { history } from './store';
 // Import Styles
 import './assets/stylesheet.css';
 
-const muiTheme = getMuiTheme({
-  palette: {
-    textColor: '#666',
-    alternateTextColor: '#FFF',
-    canvasColor: '#FFF',
-    borderColor: '#EEE',
-    primary1Color: '#3498db',
-    primary2Color: '#2980b9',
-  }
-});
-
 const checkAuth = (currStore) => {
   const state = currStore.getState();
   if (state.signin.name === undefined) {
@@ -49,23 +34,21 @@ const checkAuth = (currStore) => {
 };
 
 const router = (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={App} >
-          <IndexRoute component={LandingPage} />
-          <Route path="/survey" component={SurveyGrid} onEnter={() => checkAuth(store)} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/login" component={Login} />
-          <Route path="/survey/:surveyID/edit" component={SurveyEdit} />
-          <Route path="/survey/:surveyID/answer" component={SurveyAnswer} />
-          <Route path="/survey/:surveyID/results" component={Results} />
-          <Route path="/survey/:surveyID/finish" component={Finish} />
-          <Route path="*" component={NotFoundPage} />
-        </Route>
-      </Router>
-    </Provider>
-  </MuiThemeProvider>
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={App} >
+        <IndexRoute component={LandingPage} />
+        <Route path="/survey" component={SurveyGrid} onEnter={() => checkAuth(store)} />
+        <Route path="/signin" component={SignIn} />
+        <Route path="/login" component={Login} />
+        <Route path="/survey/:surveyID/edit" component={SurveyEdit} />
+        <Route path="/survey/:surveyID/answer" component={SurveyAnswer} />
+        <Route path="/survey/:surveyID/results" component={Results} />
+        <Route path="/survey/:surveyID/finish" component={Finish} />
+        <Route path="*" component={NotFoundPage} />
+      </Route>
+    </Router>
+  </Provider>
 );
 
 injectTapEventPlugin();

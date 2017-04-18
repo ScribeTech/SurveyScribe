@@ -10,7 +10,6 @@ html, body {
 
 body {
   text-size-adjust: 100%;
-  color: #333;
   font-family: "Roboto", sans-serif;
   font-size: 1.125em;
   line-height: 1.5;
@@ -20,7 +19,6 @@ body {
 }
 
 a {
-  color: #3498DB; /* primary color */
   text-decoration: none;
 }
 
@@ -29,7 +27,7 @@ a:hover {
 }
 
 .jumbotron {
-  background: #2980B9; /* primary color: dark */
+  background: #2980B9;
   color: #FFF;
   height: 100vh;
   position: relative;
@@ -40,16 +38,34 @@ a:hover {
   .jumbotron h1 {
     font-size: 2.369rem;
     font-weight: lighter;
+    margin-top: .25rem;
   }
 
   .jumbotron h2 {
     font-size: 1.333rem;
     font-weight: lighter;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .jumbotron .links {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    text-align: right;
+    padding: 2rem;
+  }
+  .jumbotron .links > a {
+    margin-right: -1rem;
+  }
+
+  .jumbotron a {
+    color: #FFF;
   }
 
 .center {
-  max-width: 25em;
+  width: 100%;
+  max-width: 25rem;
   margin: 0 auto;
   position: absolute;
   top: 50%;
@@ -58,7 +74,7 @@ a:hover {
 }
 
 footer {
-  color: #AAA;
+  color: #888;
   font-size: .75rem;
   text-align: center;
   padding: 1rem;

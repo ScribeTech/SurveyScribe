@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { Card, CardTitle, CardActions } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import Layout from './Layout';
+import { Link } from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import theme from '../utilities/theme';
+import Logo from '../assets/images/logo-dark.svg';
 
 import Layout from './Layout';
 import { getSurveys } from '../utilities/apiTalk';
@@ -12,11 +15,6 @@ let nameVal = '';
 let passWordVal = '';
 
 const styles = {
-  main: {
-    position: 'relative',
-    margin: 'auto',
-    maxWidth: '33em'
-  },
   signinerror: {
     display: 'block',
     boxSizing: 'border-box',
@@ -25,10 +23,6 @@ const styles = {
     margin: '0 15px',
     padding: '10px',
     border: '1px solid #f5c8c8',
-  },
-  textbox: {
-    width: '100%',
-    padding: '0 20px',
   }
 };
 
@@ -68,44 +62,33 @@ const renderError = (props) => {
         {props.signin.message}
       </div>
     );
-  } else {
-    return (
-      <div />
-    );
   }
+
+  return '';
 };
 
 const Login = props => (
-  <Layout title="Log in">
-    <div>
-      <Card style={styles.main}>
-        <CardTitle title="Log in" />
-        <div>
-          {renderError(props)}
-        </div>
-        <div style={styles.textbox}>
-          <TextField
-            floatingLabelText="Name"
-            type="username"
-            ref={(name) => { nameVal = name; }}
-            fullWidth
-          />
-        </div>
-        <div style={styles.textbox}>
-          <TextField
-            floatingLabelText="Password"
-            type="password"
-            ref={(password) => { passWordVal = password; }}
-            fullWidth
-          />
-        </div>
-        <CardActions>
-          <FlatButton style={styles.createaccount} label="Log In" onClick={() => handleClick(props)} />
-          <Link to="/signin" ><FlatButton style={styles.createaccount} label="Create an Account" /></Link>
-        </CardActions>
-      </Card>
+  <MuiThemeProvider muiTheme={getMuiTheme(theme.dark)}>
+    <div className="jumbotron">
+      <div className="center">
+        <div><img className="logo" src={Logo} alt="logo" /></div>
+        {renderError(props)}
+        <TextField
+          floatingLabelText="Name"
+          ref={(name) => { nameVal = name; }}
+          fullWidth
+        />
+        <TextField
+          floatingLabelText="Password"
+          type="password"
+          ref={(password) => { passWordVal = password; }}
+          fullWidth
+        />
+        <RaisedButton primary fullWidth label="Log In" onClick={() => handleClick(props)} />
+        <Link to="/signin"><FlatButton fullWidth>Create Account</FlatButton></Link>
+      </div>
     </div>
-  </Layout>
+  </MuiThemeProvider>
 );
 
 export default Login;
