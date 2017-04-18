@@ -75,7 +75,17 @@ const Results = (props) => {
     return config;
   };
 
-  const makeSelectConfig = (data) => {
+  const makeSelectConfig = (data, question, resQuestion) => {
+    console.log("data", data);
+    console.log("resQuestion", resQuestion);
+    const graphCategories = [];
+    const graphData = [];
+    _.forEach(props.options[question.id], (option) => {
+      graphCategories.push(option.label);
+    });
+    _.forEach(data, (oneQuestion) => {
+      graphData.push(oneQuestion)
+    });
     
     const config = {
       chart: {
@@ -96,7 +106,7 @@ const Results = (props) => {
         enabled: false
       },
       xAxis: {
-        categories: options
+        categories: graphCategories
       },
       plotOptions: {
         series: {
@@ -106,7 +116,7 @@ const Results = (props) => {
         }
       },
       series: [{
-        data: votes,
+        data: graphData,
         color: '#00bcd4'
       }]
     };
@@ -128,11 +138,11 @@ const Results = (props) => {
         const kind = props.questions[resQuestion.question].kind;
         //console.log("resQuestion", resQuestion, kind);
         if (kind === 'Scale') {
-          config = makeScaleConfig(props.aggregates[question.id], question);
+          config = makeScaleConfig(props.aggregates[resQuestion.question], question);
         } else if (kind === 'Text') {
 
         } else if (kind === 'Select') {
-          config = makeSelectConfig(props.aggregates[question.id], question);
+          config = makeSelectConfig(props.aggregates[resQuestion.question], question, resQuestion);
         }
       });
     });
