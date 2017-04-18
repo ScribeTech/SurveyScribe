@@ -5,6 +5,7 @@ import { denormalizeSurvey, denormalizeResponse } from './denormalize';
 export const getSurveys = (props, url) => {
   fetch('/api/surveys', {
     method: 'GET',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     }
@@ -26,6 +27,7 @@ export const getSurveys = (props, url) => {
 export const getSurvey = (props, url, id) => {
   fetch(`/api/surveys/${id}`, {
     method: 'GET',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -46,6 +48,7 @@ export const getSurvey = (props, url, id) => {
 export const putSurvey = (props, url) => {
   fetch(`/api/surveys/${props.params.surveyID}`, {
     method: 'PUT',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -108,6 +111,7 @@ export const makeAggregates = (questions, responses) => {
 export const getResponses = (props, url) => {
   fetch(`/api/surveys/${props.params.surveyId}/responses`, {
     method: 'GET',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -125,6 +129,7 @@ export const getResponses = (props, url) => {
 export const postResponse = (props, url) => {
   fetch('/api/reponses/', {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },

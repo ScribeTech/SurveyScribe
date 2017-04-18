@@ -33,6 +33,7 @@ const styles = {
 const handleClick = (props) => {
   fetch('/api/users/', {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },

@@ -14,7 +14,7 @@ export function surveys(state = {}, action) {
         ...state,
         [action.id]: Object.assign({}, state[action.id], { title: action.title })
       };
-    case 'UPDATE_STATE':
+    case 'UPDATE_SURVEYS':
       return action.surveys;
     default:
       return state;
