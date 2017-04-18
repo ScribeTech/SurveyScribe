@@ -38,14 +38,9 @@ Answers.discriminator('Scale', Schema({
   value: Number
 }));
 
-<<<<<<< HEAD
 ResponseSchema.statics.sample = (participant = _id.default(), survey = _id.default()) => ({
   participant,
   survey,
-=======
-ResponseSchema.statics.sample = () => ({
-  survey: 'B1vy7hwCpl',
->>>>>>> (fix) Response tests are broken
   answers: [
     {
       kind: 'Scale',
