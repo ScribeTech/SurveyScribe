@@ -44,6 +44,9 @@ a:hover {
   .jumbotron h2 {
     font-size: 1.333rem;
     font-weight: lighter;
+  }
+
+  .jumbotron h1 + h2 {
     margin-bottom: 2rem;
   }
 
@@ -62,6 +65,16 @@ a:hover {
   .jumbotron a {
     color: #FFF;
   }
+
+.error {
+  display: 'block';
+  background: '#E67E22' !important;
+  color: '#FFF' !important;
+}
+
+.button {
+  margin: 1.5rem 0;
+}
 
 .center {
   width: 100%;

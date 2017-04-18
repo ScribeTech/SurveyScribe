@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import { Link } from 'react-router';
-import Logo from '../assets/images/logo-dark.svg';
+
 import { Dark } from './Theme';
+import Logo from '../assets/images/logo-dark.svg';
 
 
 import Layout from './Layout';
@@ -12,18 +14,6 @@ import { getSurveys } from '../utilities/apiTalk';
 
 let nameVal = '';
 let passWordVal = '';
-
-const styles = {
-  signinerror: {
-    display: 'block',
-    boxSizing: 'border-box',
-    background: '#ffe6e6',
-    color: '#c86e6e',
-    margin: '0 15px',
-    padding: '10px',
-    border: '1px solid #f5c8c8',
-  }
-};
 
 const handleClick = (props) => {
   fetch('/api/login/', {
@@ -52,26 +42,16 @@ const handleClick = (props) => {
   });
 };
 
-const renderError = (props) => {
-  renderError.propTypes = {}.isRequired;
-
-  if (props.signin.error) {
-    return (
-      <div style={styles.signinerror}>
-        {props.signin.message}
-      </div>
-    );
-  }
-
-  return '';
-};
-
 const Login = props => (
   <Dark>
     <div className="jumbotron">
       <div className="center">
         <div><img className="logo" src={Logo} alt="logo" /></div>
-        {renderError(props)}
+        {props.signin.error ? (
+          <div className="error">
+            {props.signin.message}
+          </div>
+        ) : ''}
         <TextField
           floatingLabelText="Name"
           ref={(name) => { nameVal = name; }}
@@ -83,11 +63,19 @@ const Login = props => (
           ref={(password) => { passWordVal = password; }}
           fullWidth
         />
-        <RaisedButton primary fullWidth label="Log In" onClick={() => handleClick(props)} />
-        <Link to="/signin"><FlatButton fullWidth>Create Account</FlatButton></Link>
+        <RaisedButton
+          label="Login"
+          className="button"
+          primary
+          fullWidth
+          onClick={() => handleClick(props)}
+        />
+        <Link to="/signin" className="button"><FlatButton fullWidth>Create Account</FlatButton></Link>
       </div>
     </div>
   </Dark>
 );
+
+Login.propTypes = {}.isRequired;
 
 export default Login;
