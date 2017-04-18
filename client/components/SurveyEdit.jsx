@@ -112,14 +112,6 @@ const renderMessage = (props, question) => {
         />
       </div>
     );
-  } else if (question.kind === 'Text') {
-    return (
-      <div>
-        <TextField
-          floatingLabelText="Short Answer"
-          />
-      </div>
-    )
   }
 
   renderMessage.propTypes = {}.isRequired;
