@@ -14,7 +14,7 @@ import _ from 'lodash';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
-import { getSurveys, getSurvey, updateSurvey } from '../utilities/apiTalk';
+import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
 const actions = (props, survey) => [
   { label: 'Save',
@@ -77,7 +77,7 @@ const renderMessage = (props, question) => {
   if (question.kind === 'Select' || question.kind === undefined) {
     return (
       props.options[question.id] && _.map(props.options[question.id], (option, j) => (
-        <div>
+        <div key={option.id} >
           <ListItem disabled>
             <TextField
               id={option.id.toString()}

@@ -9,8 +9,10 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ClipboardButton from 'react-clipboard.js';
 import _ from 'lodash';
 import 'whatwg-fetch';
+
 import Layout from './Layout';
 import Clipboard from '../assets/Copy.svg';
+import { getSurvey } from '../utilities/apiTalk';
 
 const styles = {
   card: {
@@ -51,7 +53,7 @@ const SurveyTile = props => (
         <CardTitle style={styles.cardTitle} title={props.title} />
       </Link>
       <CardActions>
-        <Link to={`/survey/${props.id}/edit`}><FlatButton label="Edit" /></Link>
+        <FlatButton label="Edit" onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}/>
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
         <IconMenu
           iconButtonElement={<FlatButton label="Share" />}

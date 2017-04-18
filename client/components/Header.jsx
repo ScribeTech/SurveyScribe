@@ -26,6 +26,7 @@ const Header = props => (
           if (p.label === 'Share') {
             return (
               <MenuItem
+                key={p.label}
                 primaryText={p.label}
                 menuItems={[
                   <div className="copy">
@@ -43,7 +44,7 @@ const Header = props => (
               />
             );
           }
-          return (<MenuItem primaryText={p.label} onClick={p.callback} />);
+          return (<MenuItem key={p.label} primaryText={p.label} onClick={p.callback} />);
         }
         )}
       </IconMenu>
