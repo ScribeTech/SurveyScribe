@@ -42,7 +42,7 @@ const dark = {
 
 const Dark = props => (
   <MuiThemeProvider muiTheme={getMuiTheme(dark)}>
-    <div>{props.children}</div>
+    <div className="dark">{props.children}</div>
   </MuiThemeProvider>
 );
 
@@ -55,7 +55,7 @@ Dark.propTypes = {
 
 const Light = props => (
   <MuiThemeProvider muiTheme={getMuiTheme(light)}>
-    <div>{props.children}</div>
+    <div className="light">{props.children}</div>
   </MuiThemeProvider>
 );
 

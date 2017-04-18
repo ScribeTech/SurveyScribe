@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 
+import Footer from './Footer';
 import Logo from '../assets/images/logo-dark.svg';
 import { Dark, Light } from './Theme';
 
@@ -22,11 +23,7 @@ const LandingPage = props => (
         </div>
       </div>
     </Dark>
-    <Light>
-      <footer>
-        Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, and Jin Chung
-      </footer>
-    </Light>
+    <Light><Footer /></Light>
   </div>
 );
 

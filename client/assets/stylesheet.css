@@ -18,12 +18,21 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-a {
+.light a {
+  vertical-align: baseline;
+  color: #3498DB;
+  cursor: pointer;
   text-decoration: none;
+  border-bottom: .08rem solid #EEE;
+  margin: 0 .125rem;
 }
 
-a:hover {
-  text-decoration: underline;
+.light a:hover {
+  border-bottom: 1px solid #3498DB;
+}
+
+.light a:visited {
+  color: #2980B9;
 }
 
 .jumbotron {
@@ -82,7 +91,7 @@ a:hover {
 
 footer {
   color: #888;
-  font-size: .75rem;
+  font-size: .85rem;
   text-align: center;
   padding: 1rem;
 }
