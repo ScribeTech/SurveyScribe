@@ -3,10 +3,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import theme from '../utilities/theme';
 import Logo from '../assets/images/logo-dark.svg';
+import { Dark } from './Theme';
+
 
 import Layout from './Layout';
 import { getSurveys } from '../utilities/apiTalk';
@@ -68,7 +67,7 @@ const renderError = (props) => {
 };
 
 const Login = props => (
-  <MuiThemeProvider muiTheme={getMuiTheme(theme.dark)}>
+  <Dark>
     <div className="jumbotron">
       <div className="center">
         <div><img className="logo" src={Logo} alt="logo" /></div>
@@ -88,7 +87,7 @@ const Login = props => (
         <Link to="/signin"><FlatButton fullWidth>Create Account</FlatButton></Link>
       </div>
     </div>
-  </MuiThemeProvider>
+  </Dark>
 );
 
 export default Login;

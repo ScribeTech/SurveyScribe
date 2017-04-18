@@ -3,16 +3,13 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import Logo from '../assets/images/logo-dark.svg';
-
-import theme from '../utilities/theme';
+import { Dark, Light } from './Theme';
 
 const LandingPage = props => (
   <div>
-    <MuiThemeProvider muiTheme={getMuiTheme(theme.dark)}>
+    <Dark>
       <div className="jumbotron">
         <div className="center">
           <div><img className="logo" src={Logo} alt="logo" /></div>
@@ -24,12 +21,12 @@ const LandingPage = props => (
           <Link to="/login"><FlatButton>Login</FlatButton></Link>
         </div>
       </div>
-    </MuiThemeProvider>
-    <MuiThemeProvider muiTheme={getMuiTheme(theme.light)}>
+    </Dark>
+    <Light>
       <footer>
         Created by Nathan Clark Baumgartner, Megan Rabuse, Elijah Schow, and Jin Chung
       </footer>
-    </MuiThemeProvider>
+    </Light>
   </div>
 );
 

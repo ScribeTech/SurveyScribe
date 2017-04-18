@@ -56,7 +56,7 @@ a:hover {
     padding: 2rem;
   }
   .jumbotron .links > a {
-    margin-right: -1rem;
+    margin-right: -.5rem;
   }
 
   .jumbotron a {

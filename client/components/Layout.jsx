@@ -1,20 +1,18 @@
 import React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import Header from './Header';
 import Content from './Content';
-import theme from '../utilities/theme';
+import { Light } from './Theme';
 
 const Layout = props => (
-  <MuiThemeProvider muiTheme={getMuiTheme(theme.light)}>
+  <Light>
     <div>
       <Header {...props} />
       <Content>
         {props.children}
       </Content>
     </div>
-  </MuiThemeProvider>
+  </Light>
 );
 
 Layout.propTypes = {
