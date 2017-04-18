@@ -18,11 +18,7 @@ describe('REDUCERS', () => {
   // unit tests for update actions
   describe('Update', () => {
     const initialState = {
-      surveys,
-      questions: {},
-      options: {},
-      responses: {},
-      aggregates: {}
+      surveys
     };
     describe('UPDATE_SURVEYS', () => {
       it('should rewrite all stored survey data', () => {
@@ -165,9 +161,7 @@ describe('REDUCERS', () => {
     const initialState = {
       surveys,
       questions,
-      options,
-      responses: {},
-      aggregates: {}
+      options
     };
     describe('ADD_QUESTION', () => {
       it('should add a question to the current list of questions', () => {
@@ -409,57 +403,74 @@ describe('REDUCERS', () => {
       });
     });
   });
+  // unit tests for options
   describe('Options', () => {
     const initialState = {
       surveys,
       questions,
-      options,
-      responses: {},
-      aggregates: {},
+      options
     };
     describe('ADD_OPTION', () => {
-      xit('should add a option to the current list of Select options', () => {
+      it('should add a option to the current list of Select options', () => {
         const questionId = '58ee63c65a2d576d5125b4c1';
         const option = {
           questionId,
+          kind: 'Select',
+          id: 'k943c65a2djh895125n77r',
           label: 'Cat'
         };
 
-        const action = Object.assign({}, option, { type: 'ADD_OPTION', questionId });
+        const action = Object.assign({}, option, { type: 'ADD_OPTION' });
+
+        deepFreeze(initialState);
+
+        const changedState = reducer(initialState, action);
+        expect(Object.keys(changedState.options[questionId]).length).to.equal(4);
+        expect(changedState.options[questionId][option.id].label)
+          .to.equal(option.label);
+      });
+      it('should not add an option for a question that is not a Select question', () => {
+        const questionId = '58ee63c65a2d576d5125b4c1';
+        const option = {
+          questionId,
+          kind: 'Scale',
+          id: 'k943c65a2djh895125n77r',
+          label: 'Cat'
+        };
+
+        const action = Object.assign({}, option, { type: 'ADD_OPTION' });
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.options[questionId].length).to.equal(4);
-        expect(JSON.stringify(changedState.options[questionId][3].label))
-          .to.equal(JSON.stringify(option.label));
-      });
-      it('should not add an option for a question that is not a Select question', () => {
-
+        expect(Object.keys(changedState.options[questionId]).length).to.equal(3);
+        expect(changedState.options[questionId][option.id]).to.not.exist;
       });
     });
-    xdescribe('REMOVE_OPTION', () => {
-      xit('should remove a option from the current list of options', () => {
+    describe('REMOVE_OPTION', () => {
+      it('should remove a option from the current list of options', () => {
         const action = {
-          questionId: 1,
+          questionId: '58ee63c65a2d576d5125b4c1',
           type: 'REMOVE_OPTION',
-          i: 2
+          kind: 'Select',
+          id: '58ee6466aa8ac36d6d74fe9a'
         };
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.options[1].length).to.equal(2);
-        expect(changedState.options[1][2]).to.not.exist;
+        expect(Object.keys(changedState.options[action.questionId]).length).to.equal(2);
+        expect(changedState.options[action.questionId][action.id]).to.not.exist;
       });
     });
-    xdescribe('EDIT_OPTION', () => {
-      xit('should edit an existing option in the list of options', () => {
-        const questionId = 1;
+    describe('EDIT_OPTION', () => {
+      it('should edit an existing option in the list of options', () => {
+        const questionId = '58ee63c65a2d576d5125b4c1';
         const option = {
-          i: 1,
+          id: '58ee6466aa8ac36d6d74fe9a',
+          kind: 'Select',
           label: 'Megan and Jin are the TRUE WARRIORS'
         };
 
@@ -469,13 +480,13 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.options[questionId].length).to.equal(3);
-        expect(JSON.stringify(changedState.options[questionId][option.i].label))
-          .to.equal(JSON.stringify(option.label));
-        expect(JSON.stringify(changedState.options[questionId][0]))
-          .to.equal(JSON.stringify(initialState.options[1][0]));
-        expect(JSON.stringify(changedState.options[questionId][2]))
-          .to.equal(JSON.stringify(initialState.options[1][2]));
+        expect(Object.keys(changedState.options[questionId]).length).to.equal(3);
+        expect(changedState.options[questionId][option.id].label)
+          .to.equal(option.label);
+        expect(changedState.options[questionId]['58ee6466aa8ac36d6d74fe9b'].label)
+          .to.equal(initialState.options[questionId]['58ee6466aa8ac36d6d74fe9b'].label);
+        expect(changedState.options[questionId]['58ee6466aa8ac36d6d74fe9c'].label)
+          .to.equal(initialState.options[questionId]['58ee6466aa8ac36d6d74fe9c'].label);
       });
     });
     xdescribe('TOGGLE_SELECT', () => {
@@ -503,7 +514,9 @@ describe('REDUCERS', () => {
     });
   });
   describe('Sign In', () => {
-    const initialState = [];
+    const initialState = {
+      signin: {}
+    };
     describe('TOGGLE_ERROR', () => {
       it('should toggle signin.error true/false', () => {
         const signin = {

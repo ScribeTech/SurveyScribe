@@ -1,50 +1,19 @@
 import { remove } from './util';
 
-function questionOptions(state = [], action) {
+function questionOptions(state = {}, action) {
   switch (action.type) {
     case 'ADD_OPTION':
-      return [
+      return {
         ...state,
-        {
-          label: action.label,
-          votes: 0
-        }
-      ];
+        [action.id]: Object.assign({}, state[action.id], { id: action.id, label: action.label })
+      };
     case 'REMOVE_OPTION':
-      return [
-        ...state.slice(0, action.i),
-        ...state.slice(action.i + 1)
-      ];
+      return remove(state, action.id);
     case 'EDIT_OPTION':
-      return [
-        ...state.slice(0, action.i),
-        Object.assign({}, state[action.i], { label: action.label }),
-        ...state.slice(action.i + 1)
-      ];
-    case 'EDIT_SLIDER':
-      return [
-        ...state.slice(0, action.i),
-        Object.assign({}, state[action.i], { value: action.value }),
-        ...state.slice(action.i + 1)
-      ];
-    case 'INCREMENT_VOTES':
-      return [
-        ...state.slice(0, action.i),
-        Object.assign({}, state[action.i], { votes: state[action.i].votes + 1 }),
-        ...state.slice(action.i + 1)
-      ];
-    case 'DECREMENT_VOTES':
-      return [
-        ...state.slice(0, action.i),
-        Object.assign({}, state[action.i], { votes: state[action.i].votes - 1 }),
-        ...state.slice(action.i + 1)
-      ];
-    case 'TOGGLE_SELECT':
-      return [
-        ...state.slice(0, action.i),
-        Object.assign({}, state[action.i], { selected: !state[action.i].selected }),
-        ...state.slice(action.i + 1)
-      ];
+      return {
+        ...state,
+        [action.id]: Object.assign({}, state[action.id], { label: action.label })
+      };
     default:
       return state;
   }
@@ -56,11 +25,19 @@ export function options(state = {}, action) {
       return action.options;
     case 'REMOVE_QUESTION':
       if (action.kind === 'Select') {
-        return remove(state, action);
+        return remove(state, action.id);
       }
       return state;
     default:
-      return state;
+      switch (action.kind) {
+        case 'Select':
+          return {
+            ...state,
+            [action.questionId]: questionOptions(state[action.questionId], action)
+          };
+        default:
+          return state;
+      }
   }
 }
 

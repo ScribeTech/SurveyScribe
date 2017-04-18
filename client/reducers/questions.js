@@ -54,7 +54,7 @@ export function questions(state = {}, action) {
     case 'UPDATE_SURVEY':
       return action.questions;
     case 'REMOVE_QUESTION':
-      return remove(state, action);
+      return remove(state, action.id);
     default:
       switch (action.kind) {
         case 'Select':
