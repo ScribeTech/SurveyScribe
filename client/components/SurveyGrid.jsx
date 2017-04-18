@@ -96,13 +96,9 @@ const SurveyGrid = props => (
   <Layout title="Surveys">
     <Grid>
       <Row>
-<<<<<<< HEAD
         {_.map(props.surveys, (survey, i) =>
           <SurveyTile key={survey.id} {...survey} {...props} index={i} />)
         }
-=======
-        {_.map(props.surveys, ((survey, i) => <SurveyTile key={survey.id} {...survey} index={i} />))}
->>>>>>> working on results view
       </Row>
     </Grid>
     <FloatingActionButton

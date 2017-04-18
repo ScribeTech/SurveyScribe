@@ -3,8 +3,6 @@ import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import Layout from './Layout';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import cookie from 'react-cookie';
-import { browserHistory } from 'react-router';
 
 let nameVal = '';
 let passWordVal = '';
@@ -39,7 +37,6 @@ const handleClick = (props) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'same-origin',
     body: JSON.stringify({
       name: nameVal.input.value,
       password: passWordVal.input.value
@@ -52,8 +49,6 @@ const handleClick = (props) => {
     } else {
       props.errorFalse();
       props.editUser(result._id, result.name);
-      cookie.save('userId', result._id, { path: '/', maxAge: 6600 });
-      browserHistory.push('/survey');
     }
   })
   .catch((error) => {

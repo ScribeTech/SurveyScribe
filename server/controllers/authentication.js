@@ -29,14 +29,11 @@ exports.logout = (request, response) => {
 };
 
 exports.isLoggedIn = (request, response, next) => {
-  // console.log('request.cookies is loggedin', request.cookies);
-  // if (request.session.user) {
-  //   next();
-  // } else {
-  //   response.sendStatus(401);
-  // }
-  // i hate cookies
-  next();
+  if (request.session.user) {
+    next();
+  } else {
+    response.sendStatus(401);
+  }
 };
 
 exports.isSameUser = (request, response, next) => {
