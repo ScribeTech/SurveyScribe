@@ -9,7 +9,7 @@ import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import { Card } from 'material-ui/Card';
 import ClipboardButton from 'react-clipboard.js';
 import { browserHistory as history, Link } from 'react-router';
-import Clipboard from '../assets/Copy.svg';
+import Clipboard from '../assets/images/Copy.svg';
 
 const Header = props => (
   <AppBar

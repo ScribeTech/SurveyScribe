@@ -28,7 +28,17 @@ import store, { history } from './store';
 
 // Import Styles
 import './assets/stylesheet.css';
-import './assets/content.css';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: '#666',
+    alternateTextColor: '#FFF',
+    canvasColor: '#FFF',
+    borderColor: '#EEE',
+    primary1Color: '#3498db',
+    primary2Color: '#2980b9',
+  }
+});
 
 const checkAuth = (currStore) => {
   const state = currStore.getState();
@@ -39,7 +49,7 @@ const checkAuth = (currStore) => {
 };
 
 const router = (
-  <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={App} >

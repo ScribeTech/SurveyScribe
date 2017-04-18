@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Layout from './Layout';
 
 import Layout from './Layout';
 import { getSurveys } from '../utilities/apiTalk';

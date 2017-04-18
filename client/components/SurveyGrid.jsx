@@ -11,7 +11,7 @@ import _ from 'lodash';
 import 'whatwg-fetch';
 
 import Layout from './Layout';
-import Clipboard from '../assets/Copy.svg';
+import Clipboard from '../assets/images/Copy.svg';
 import { getSurvey, checkAuth } from '../utilities/apiTalk';
 
 const styles = {

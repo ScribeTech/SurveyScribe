@@ -43,7 +43,7 @@ module.exports = {
       filename: 'index.html',
       inject: 'body'
     }),
-    new ExtractTextPlugin('styles.css')
+    new ExtractTextPlugin('[name].css')
   ],
   devServer: {
     historyApiFallback: true,
