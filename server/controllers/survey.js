@@ -18,7 +18,7 @@ exports.list = (request, response, next) => {
 
 exports.create = (request, response, next) => {
   // the current user is the default owner
-  const owners = request.body.owners || request.session.user;
+  const owners = request.body.owners || [request.session.user];
   const survey = Object.assign({}, request.body, { owners });
   Survey.create(survey)
   .then(doc => response.status(201).json(doc))
@@ -33,14 +33,23 @@ exports.read = (request, response, next) => {
 };
 
 exports.update = (request, response, next) => {
-  const _id = request.params.survey;
-  Survey.findOneAndUpdate({ _id }, request.body, { runValidators: true }).exec()
-  .then(doc => response.status(200).json(doc))
+  Survey.findById(request.params.survey).exec()
+  .then(data => isOwner(data, request))
+  .then((data) => {
+    const doc = data;
+    doc.title = request.body.title;
+    doc.owners = request.body.owners;
+    doc.questions = request.body.questions;
+    return doc.save();
+  })
+  .then((result) => { response.status(200).json(result); })
   .catch(next);
 };
 
 exports.delete = (request, response, next) => {
-  Survey.findByIdAndRemove(request.params.survey).exec()
+  Survey.findById(request.params.survey).exec()
+  .then(doc => isOwner(doc, request))
+  .then(doc => doc.remove())
   .then(doc => response.status(200).json(doc))
   .catch(next);
 };

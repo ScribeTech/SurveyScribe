@@ -7,6 +7,7 @@ const Survey = require('mongoose').model('Survey');
 const User = require('mongoose').model('User');
 const login = require('./helpers/login.js');
 const REST = require('./helpers/REST.js');
+const RouteExpect = require('./helpers/RouteExpect.js');
 
 const { expect, request } = chai;
 
@@ -66,14 +67,14 @@ describe('Survey routes', () => {
     describe('DELETE', REST.MethodNotAllowed('delete', '/api/surveys'));
   });
 
-  xdescribe('/api/survey/:survey', () => {
+  describe('/api/surveys/:survey', () => {
     describe('GET', () => {
       it('should return 200 and specified survey', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
         login(agent)
-          .then(() => Survey.create(expected))
-          .then(() => agent.get('/api/survey/58ee63c65a2d576d5125b4bc'))
+          .then(() => agent.post('/api/surveys').send(expected))
+          .then(response => agent.get(`/api/surveys/${response.body._id}`))
           .then((response) => {
             expect(response).status(200);
             expect(response).to.be.json;
@@ -83,51 +84,56 @@ describe('Survey routes', () => {
           .catch(done);
       });
 
+      it('should return 401 if user\'s not the owner', (done) => {
+        const agent = request.agent(app);
+        login(agent)
+        .then(() => Survey.create(Survey.sample()))
+        .then(doc => agent.get(`/api/surveys/${doc._id}`))
+        .catch((response) => {
+          expect(response).status(401);
+          done();
+        })
+        .catch(done);
+      });
+
       REST.NotFound('get', '/api/survey/doesnotexist');
-      REST.Unauthorized('get', '/api/survey/:survey')();
     });
 
     describe('PUT', () => {
       it('should return 200 and update part of the survey', (done) => {
         const agent = request.agent(app);
         const expected = Survey.sample();
+        const update = { title: 'another title' };
         login(agent)
-        .then(() => Survey.create(expected))
-          .then(() => agent
-            .put('/api/survey/58ee63c65a2d576d5125b4bc')
-            .send({ title: 'another title' })
-          )
-          .then((response) => {
-            expect(response).status(200);
-            expect(response).to.be.json;
-            expect(response.body.length);
-            expect(response.body[0].title).to.equal('another title');
-            done();
-          })
-          .catch(done);
+        .then(() => agent.post('/api/surveys').send(expected))
+        .then(response => agent.put(`/api/surveys/${response.body._id}`).send(update))
+        .then((response) => {
+          expect(response).status(200);
+          expect(response).to.be.json;
+          expect(response.body.title).to.equal('another title');
+          done();
+        })
+        .catch(done);
       });
 
-      REST.BadRequest('put', '/api/surveys/:survey', { invalid: '12345678910' })();
-      REST.Unauthorized('put', 'api/surveys/:survey')();
+      xit('should return 400 BAD REQUEST', () => {});
       xit('should return 401 if user\'s not the owner', () => {});
     });
 
     describe('DELETE', () => {
       it('should return 200 and delete the survey', (done) => {
         const agent = request.agent(app);
-        const expected = Survey.sample();
+        const sample = Survey.sample();
         login(agent)
-          .then(() => Survey.create(expected))
-          .then(() => agent.delete('/api/survey/58ee63c65a2d576d5125b4bc'))
+          .then(() => agent.post('/api/surveys').send(sample))
+          .then(response => agent.delete(`/api/surveys/${response.body._id}`))
           .then((response) => {
             expect(response).status(200);
-            expect(response.body.length).to.equal(0);
             done();
           })
           .catch(done);
       });
 
-      REST.Unauthorized('delete', 'api/surveys/:survey')();
       xit('should return 401 if user\'s not the owner', () => {});
     });
 
@@ -152,7 +158,6 @@ describe('Survey routes', () => {
       });
 
       REST.NotFound('get', '/api/suvey/doesnotexist/responses');
-      REST.Unauthorized('get', '/api/survey/:survey/responses')();
       xit('should return 401 if user\'s not the owner', () => {});
     });
 

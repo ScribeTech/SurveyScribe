@@ -12,7 +12,7 @@ const QuestionSchema = Schema({
 const SurveySchema = Schema({
   _id,
   title: String,
-  owners: [{ type: ObjectId, ref: 'User' }],
+  owners: [{ type: ObjectId, ref: 'User', required: true }],
   questions: [QuestionSchema]
 }, { strict: 'throw' });
 
