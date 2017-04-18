@@ -84,13 +84,13 @@ const renderMessage = (props, question) => {
               floatingLabelText="Option"
               defaultValue={option.label}
               onChange={(e) => {
-                props.editOption(question.id, j, e.target.value);
+                props.editOption(question.id, question.kind, option.id, e.target.value);
               }}
               style={styles.option}
               multiLine
             />
             <IconButton
-              onClick={() => props.removeOption(question.id, j)}
+              onClick={() => props.removeOption(question.id, option.id, question.kind)}
               style={styles.optionIconButton}
             >
               <CloseIcon />
@@ -119,7 +119,7 @@ const renderMessage = (props, question) => {
 
 const renderAddOption = (props, question) => {
   if (question.kind === 'Select') {
-    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, 'option')} />;
+    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, 'New Option')} />;
   }
   renderAddOption.propTypes = {}.isRequired;
 };

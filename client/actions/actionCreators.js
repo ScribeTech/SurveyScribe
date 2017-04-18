@@ -113,11 +113,12 @@ export function editOption(questionId, kind, id, label) {
 }
 
 // remove SELECT option
-export function removeOption(questionId, id) {
+export function removeOption(questionId, id, kind) {
   return {
     type: 'REMOVE_OPTION',
     questionId,
-    id
+    id,
+    kind
   };
 }
 
