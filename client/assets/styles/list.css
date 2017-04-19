@@ -7,13 +7,14 @@
 }
 
 .list-item .primary {
-  font-size: 1.333rem;
-  font-weight: lighter;
+  font-size: 1.25rem;
+  font-weight: normal;
 }
 
 .list-item .secondary {
-  color: #888;
-  font-size: .85rem;
+  color: #AAA;
+  font-weight: normal;
+  font-size: .8rem;
 }
 
 .list-item-body,
@@ -28,6 +29,6 @@
 
 .list-item svg,
 .list-item img {
-  width: 3rem !important;
-  height: 3rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
 }
