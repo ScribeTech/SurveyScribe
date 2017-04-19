@@ -52,9 +52,17 @@ export function denormalizeResponse(surveyId, response, questions) {
     const answer = {
       question: questionId,
       kind: questions[questionId].kind,
-      value: response.questions[questionId].value
+      value: response[questionId].value
     };
 
+    if (answer.kind === 'Select') {
+      answer.value = [];
+      Object.keys(response[questionId].value).forEach((id) => {
+        answer.value.push(id);
+      });
+    } else {
+      answer.value = response[questionId].value;
+    }
     converted.answers.push(answer);
   });
   return converted;

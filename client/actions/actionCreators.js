@@ -57,10 +57,6 @@ export function removeSurvey(id) {
   };
 }
 
-// edit question (data is Object holding question kind specific data
-// SELECT data = { required, maxSelection }
-// SCALE  data = { required, min, max }
-// TEXT data = { required, max }
 export function addQuestion(kind) {
   return {
     type: 'ADD_QUESTION',
@@ -69,9 +65,9 @@ export function addQuestion(kind) {
   };
 }
 // edit question (data is Object holding question kind specific data
-// SELECT data = { required, maxSelection }
-// SCALE  data = { required, min, max }
-// TEXT data = { required, max }
+// SELECT data = { title, required, maxSelection }
+// SCALE  data = { title, required, min, max }
+// TEXT data = { title, required, max }
 export function editQuestion(id, kind, data) {
   return {
     type: 'EDIT_QUESTION',
@@ -122,25 +118,42 @@ export function removeOption(questionId, id, kind) {
   };
 }
 
-// add answer ---- kind and optionID only for add a Select options
-export function addAnswer(questionId, value, kind, optionId) {
+// toggle selected for SELECTED options
+export function toggleSelected(questionId, id, kind) {
+  return {
+    type: 'TOGGLE_SELECTED',
+    questionId,
+    id
+  };
+}
+
+// toggle disabled for SELECTED options
+// response is array of chosen responses
+export function toggleDisabled(questionId, id) {
+  return {
+    type: 'TOGGLE_DISABLED',
+    questionId,
+    id
+  };
+}
+// add answer
+export function addAnswer(questionId, value, kind) {
   return {
     type: 'ADD_ANSWER',
     questionId,
     value,
-    kind,
-    optionId
+    kind
   };
 }
 
-// remove answer --- KIND AND i only for removing one Select option
+// remove answer --- kind and i only for removing one Select option
 // to remove an entire Select response, leave off kind and i
-export function removeAnswer(questionId, kind, i) {
+export function removeAnswer(questionId, kind, id) {
   return {
     type: 'REMOVE_ANSWER',
     questionId,
     kind,
-    i
+    id
   };
 }
 // toggle error

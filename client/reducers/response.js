@@ -1,17 +1,19 @@
 import { remove } from './util';
 
-function select(state = [], action) {
+function select(state = {}, action) {
   switch (action.type) {
     case 'ADD_ANSWER':
-      return [
-        ...state,
-        action.optionId
-      ];
+      return {
+        question: action.questionId,
+        value: {
+          ...state.value,
+          [action.value]: action.value
+        }
+      };
     case 'REMOVE_ANSWER':
-      return [
-        ...state(0, action.i),
-        ...state(action.i + 1)
-      ];
+      return Object.assign({}, state, {
+        value: remove(state.value, action.id)
+      });
     default:
       return state;
   }
@@ -22,7 +24,7 @@ export function response(state = {}, action) {
     case 'Select':
       return {
         ...state,
-        [action.questionId]: select(state[action.questionId], action)
+        [action.questionId]: select(state[action.questionId], action),
       };
     default:
       switch (action.type) {

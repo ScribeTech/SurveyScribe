@@ -17,7 +17,7 @@ import 'whatwg-fetch';
 import Layout from './Layout';
 import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
-const actions = (props, survey) => [
+const actions = props => [
   { label: 'Save',
     callback: () => {
       putSurvey(props, '/survey');
@@ -74,11 +74,10 @@ const styles = {
 
 const renderMessage = (props, question) => {
   const surveyID = props.params.surveyID;
-  const [survey] = _.filter(props.surveys, s => s.id === surveyID);
 
   if (question.kind === 'Select' || question.kind === undefined) {
     return (
-      _.map(props.options[question.id], (option, j) => (
+      _.map(props.options[question.id], option => (
         <div key={option.id} >
           <ListItem disabled>
             <TextField
@@ -143,12 +142,13 @@ const Edit = (props) => {
         }}
         style={styles.title}
       />
-      {_.map(props.questions, (question, i) => (
+      {_.map(props.questions, question => (
         <List key={question.id}>
           <Toggle
             label="Required Question"
             onToggle={() => {
-              props.editQuestion(question.id, question.kind, { required: !props.questions[question.id].required })
+              props.editQuestion(question.id, question.kind,
+                { required: !props.questions[question.id].required });
             }}
           />
           <TextField
