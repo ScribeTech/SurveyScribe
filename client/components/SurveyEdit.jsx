@@ -117,8 +117,9 @@ const renderMessage = (props, question) => {
         <span>
           <TextField
             floatingLabelText="Min"
+            hintText={'0'}
             onChange={(e) => {
-              //props.editOption(question.id, question.kind, option.id, e.target.value);
+              props.editQuestion(question.id, 'Scale', { min: e.target.value });
             }}
             style={styles.scaleMax}
           />
@@ -127,8 +128,9 @@ const renderMessage = (props, question) => {
         <span>
           <TextField
             floatingLabelText="Max"
+            hintText={'10'}
             onChange={(e) => {
-              //props.editOption(question.id, question.kind, option.id, e.target.value);
+              props.editQuestion(question.id, 'Scale', { max: e.target.value });
             }}
             style={styles.scaleMax}
           />

@@ -65,9 +65,9 @@ export function addQuestion(kind) {
   };
 }
 // edit question (data is Object holding question kind specific data
-// SELECT data = { title, required, maxSelection }
-// SCALE  data = { title, required, min, max }
-// TEXT data = { title, required, max }
+// Select data = { title, required, maxSelection }
+// Scale  data = { title, required, min, max }
+// Text data = { title, required, max }
 export function editQuestion(id, kind, data) {
   return {
     type: 'EDIT_QUESTION',
