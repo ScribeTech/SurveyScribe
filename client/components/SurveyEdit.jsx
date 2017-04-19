@@ -37,30 +37,10 @@ const actions = {
   }
 };
 
-const styles = {
-  option: {
-    marginLeft: '.5rem',
-    marginRight: 0,
-    padding: 0
-  },
-  optionIconButton: {
-    float: 'right',
-    marginTop: '-3.5rem'
-  },
-  quesitonIconButton: {
-    float: 'right',
-    marginTop: '-3.5rem'
-  },
-  scaleMax: {
-    position: 'relative',
-    width: 100,
-    marginTop: -200
-  }
-};
-
 const renderMessage = (props, question) => {
+  let HTML;
   if (question.kind === 'Select' || question.kind === undefined) {
-    return (
+    HTML = (
       _.map(props.options[question.id], option => (
         <div key={option.id} >
           <ListItem disabled>
@@ -71,13 +51,11 @@ const renderMessage = (props, question) => {
               onChange={(e) => {
                 props.editOption(question.id, question.kind, option.id, e.target.value);
               }}
-              style={styles.option}
               multiLine
               fullWidth
             />
             <IconButton
               onClick={() => props.removeOption(question.id, option.id, question.kind)}
-              style={styles.optionIconButton}
             >
               <CloseIcon />
             </IconButton>
@@ -86,14 +64,13 @@ const renderMessage = (props, question) => {
       ))
     );
   } else if (question.kind === 'Scale') {
-    return (
+    HTML = (
       <div>
         <Slider
           step={1}
           defaultValue={0}
           max={props.questions[question.id].max}
           min={props.questions[question.id].min}
-          style={styles.slider}
           ref={(slider) => { sliderRef = slider; }}
         />
         <span>
@@ -104,7 +81,6 @@ const renderMessage = (props, question) => {
               props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
               sliderRef.state.value = e.target.value;
             }}
-            style={styles.scaleMax}
           />
         </span>
         &nbsp;&nbsp;&nbsp;
@@ -116,7 +92,6 @@ const renderMessage = (props, question) => {
               props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
               sliderRef.state.value = props.questions[question.id].min;
             }}
-            style={styles.scaleMax}
           />
         </span>
       </div>
@@ -132,16 +107,20 @@ const renderMessage = (props, question) => {
       />
     );
   }
-
-  renderMessage.propTypes = {}.isRequired;
+  return HTML;
 };
+
+renderMessage.propTypes = {}.isRequired;
 
 const renderAddOption = (props, question) => {
+  let HTML;
   if (question.kind === 'Select') {
-    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />;
+    HTML = <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />;
   }
-  renderAddOption.propTypes = {}.isRequired;
+  return HTML;
 };
+
+renderAddOption.propTypes = {}.isRequired;
 
 const Edit = (props) => {
   const surveyID = props.params.surveyID;
@@ -153,17 +132,21 @@ const Edit = (props) => {
         <Header />
         <div className="layout-minor"><h1>Edit Survey</h1></div>
         <div className="actions layout-major">
-          <RaisedButton primary label="Save" onClick={() => putSurvey(props, survey)} />
-          <FlatButton label="Share" onClick={() => putSurvey(props, survey, `/survey/${props.params.surveyID}/answer`)} />
-          <FlatButton label="Results" onClick={() => getSurveys(props, `/survey/${props.params.surveyID}/results`)} />
+          <RaisedButton primary label="Save" onClick={() => { putSurvey(props, '/survey'); }} />
+          <FlatButton label="Share" onClick={() => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); }} />
+          <FlatButton label="Results" onClick={() => { getSurveys(props, `/survey/${props.params.surveyID}/results`); }} />
           <FlatButton
             label="Delete"
             onClick={
-              () => fetch(`/api/surveys/${props.params.surveyID}`, {
-                method: 'DELETE',
-                credentials: 'same-origin'
-              })
-              .then(() => getSurveys(props))
+              () => {
+                fetch(`/api/surveys/${props.params.surveyID}`, {
+                  method: 'DELETE',
+                  credentials: 'same-origin'
+                })
+                .then(() => {
+                  getSurveys(props, '/survey');
+                });
+              }
             }
           />
         </div>
@@ -174,16 +157,17 @@ const Edit = (props) => {
           onChange={(e) => {
             props.editSurvey(survey.id, e.target.value);
           }}
-          style={styles.title}
         />
         {_.map(props.questions, question => (
           <List key={question.id}>
             <Toggle
               label="Required Question"
               onToggle={() => {
-                props.editQuestion(question.id, question.kind,
-                  { required: !props.questions[question.id].required });
-                }}
+                props.editQuestion(
+                  question.id, question.kind,
+                  { required: !props.questions[question.id].required }
+                );
+              }}
             />
             <TextField
               id={survey.id.toString()}
@@ -193,12 +177,10 @@ const Edit = (props) => {
                 // editing question in state
                 props.editQuestion(question.id, question.kind, { title: e.target.value });
               }}
-              style={styles.list}
               multiLine
             />
             <IconButton
               onClick={() => props.removeQuestion(question.id, question.kind)}
-              style={styles.quesitonIconButton}
             >
               <CloseIcon />
             </IconButton>
