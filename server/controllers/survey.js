@@ -38,11 +38,13 @@ exports.update = (request, response, next) => {
   .then((data) => {
     const doc = data;
     doc.title = request.body.title;
-    doc.owners = request.body.owners;
+    doc.owners = request.body.owners || request.session.user;
     doc.questions = request.body.questions;
     return doc.save();
   })
-  .then((result) => { response.status(200).json(result); })
+  .then((result) => {
+    response.status(200).json(result);
+  })
   .catch(next);
 };
 

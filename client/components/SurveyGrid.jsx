@@ -39,8 +39,8 @@ const handleClick = (props) => {
   .then(response => response.json())
   .then((result) => {
     // Adding survey to state and changing the view to edit
+    getSurvey(props, `/survey/${result._id}/edit`, result._id);
     props.addSurvey(result._id, result.title);
-    browserHistory.push(`survey/${result._id}/edit`);
   })
   .catch((error) => {
     throw error;

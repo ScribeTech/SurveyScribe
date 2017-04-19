@@ -4,6 +4,8 @@ import Layout from './Layout';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
+import { getSurveys } from '../utilities/apiTalk';
+
 let nameVal = '';
 let passWordVal = '';
 
@@ -50,6 +52,7 @@ const handleClick = (props) => {
       props.errorFalse();
       props.editUser(result._id, result.name);
     }
+    getSurveys(props, '/survey');
   })
   .catch((error) => {
     console.log('login handleClick error', error);

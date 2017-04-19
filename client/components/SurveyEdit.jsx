@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import Slider from 'material-ui/Slider';
+import Toggle from 'material-ui/Toggle';
 import _ from 'lodash';
 import 'whatwg-fetch';
 
@@ -19,12 +20,12 @@ import { getSurveys, putSurvey } from '../utilities/apiTalk';
 const actions = (props, survey) => [
   { label: 'Save',
     callback: () => {
-      putSurvey(props, survey);
+      putSurvey(props, '/survey');
     }
   },
   { label: 'Share',
     callback: () => {
-      putSurvey(props, survey, `/survey/${props.params.surveyID}/answer`);
+      putSurvey(props, `/survey/${props.params.surveyID}/answer`);
     }
   },
   {
@@ -40,7 +41,7 @@ const actions = (props, survey) => [
         credentials: 'same-origin'
       })
       .then(() => {
-        getSurveys(props);
+        getSurveys(props, '/survey');
       });
     } }
 ];
@@ -77,7 +78,7 @@ const renderMessage = (props, question) => {
 
   if (question.kind === 'Select' || question.kind === undefined) {
     return (
-      props.options[question.id] && _.map(props.options[question.id], (option, j) => (
+      _.map(props.options[question.id], (option, j) => (
         <div key={option.id} >
           <ListItem disabled>
             <TextField
@@ -120,7 +121,7 @@ const renderMessage = (props, question) => {
 
 const renderAddOption = (props, question) => {
   if (question.kind === 'Select') {
-    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, 'New Option')} />;
+    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />;
   }
   renderAddOption.propTypes = {}.isRequired;
 };
@@ -144,13 +145,19 @@ const Edit = (props) => {
       />
       {_.map(props.questions, (question, i) => (
         <List key={question.id}>
+          <Toggle
+            label="Required Question"
+            onToggle={() => {
+              props.editQuestion(question.id, question.kind, { required: !props.questions[question.id].required })
+            }}
+          />
           <TextField
             id={survey.id.toString()}
             floatingLabelText="Question"
             defaultValue={question.title}
             onChange={(e) => {
               // editing question in state
-              props.editQuestion(question.id, question.kind, e.target.value);
+              props.editQuestion(question.id, question.kind, { title: e.target.value });
             }}
             style={styles.list}
             multiLine
