@@ -55,7 +55,9 @@ const Answer = (props) => {
               defaultValue={Math.floor(props.questions[questionId].max / 2)}
               value={props.response[questionId] ? props.response[questionId].value
                      : props.questions[questionId].min}
-              onChange={e => props.addAnswer(questionId, e.target.value, kind)}
+              onChange={(e, value) => {
+                props.addAnswer(questionId, value, kind);
+              }}
             />
           </div>
         );
