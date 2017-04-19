@@ -104,22 +104,23 @@ const renderMessage = (props, question) => {
       ))
     );
   } else if (question.kind === 'Scale') {
+    console.log("props.questions[question.id].max", typeof props.questions[question.id].max)
     return (
       <div>
         <Slider
           step={1}
           defaultValue={0}
-          max={10}
-          min={0}
+          max={props.questions[question.id].max}
+          min={props.questions[question.id].min}
           style={styles.slider}
-          onChange={(e, value) => console.log("slider value", value)}
+          onChange={(e, value) => console.log('slider value', value)}
         />
         <span>
           <TextField
             floatingLabelText="Min"
             hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
-              props.editQuestion(question.id, 'Scale', { min: e.target.value });
+              props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
             }}
             style={styles.scaleMax}
           />
@@ -130,7 +131,7 @@ const renderMessage = (props, question) => {
             floatingLabelText="Max"
             hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
-              props.editQuestion(question.id, 'Scale', { max: e.target.value });
+              props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
             }}
             style={styles.scaleMax}
           />
