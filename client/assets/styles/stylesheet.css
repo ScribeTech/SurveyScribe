@@ -25,6 +25,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+p {
+  font-weight: lighter;
+}
+
 a {
   color: #3498DB;
   cursor: pointer;
