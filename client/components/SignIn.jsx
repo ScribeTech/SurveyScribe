@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import Layout from './Layout';
 import FlatButton from 'material-ui/FlatButton';
@@ -49,6 +50,7 @@ const handleClick = (props) => {
     } else {
       props.errorFalse();
     }
+    browserHistory.push('/login')
   })
   .catch((error) => {
     throw error;

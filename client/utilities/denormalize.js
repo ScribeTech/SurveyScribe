@@ -18,12 +18,14 @@ export function denormalizeSurvey(survey, questions, options) {
         question.maxSelection = questions[questionId].maxSelection;
         question.options = [];
 
-        Object.keys(options[questionId]).forEach((optionId) => {
-          question.options.push({
-            _id: optionId,
-            label: options[questionId][optionId].label
+        if (options[questionId] !== undefined) {
+          Object.keys(options[questionId]).forEach((optionId) => {
+            question.options.push({
+              _id: optionId,
+              label: options[questionId][optionId].label
+            });
           });
-        });
+        }
         break;
       case 'Scale':
         question.min = questions[questionId].min;
