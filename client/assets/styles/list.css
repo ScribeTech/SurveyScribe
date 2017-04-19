@@ -6,6 +6,10 @@
   margin: 0;
 }
 
+.list-item:last-child {
+  border-bottom: .08rem solid #EEE;
+}
+
 .list-item .primary {
   font-size: 1.25rem;
   font-weight: normal;
