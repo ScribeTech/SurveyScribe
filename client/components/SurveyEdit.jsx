@@ -104,7 +104,6 @@ const renderMessage = (props, question) => {
       ))
     );
   } else if (question.kind === 'Scale') {
-    console.log("props.questions[question.id].max", typeof props.questions[question.id].max)
     return (
       <div>
         <Slider
@@ -151,11 +150,9 @@ const renderAddOption = (props, question) => {
 };
 
 const Edit = (props) => {
-  // Load the currently selected survey
-  // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
   const [survey] = _.filter(props.surveys, s => s.id === surveyID);
-  // Render
+
   return (
     <Layout title="Survey Edit" actions={actions(props, survey)}>
       <TextField
