@@ -136,8 +136,11 @@ export function toggleDisabled(questionId, id) {
     id
   };
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Temp commit for rebase
 // add answer
 export function addAnswer(questionId, value, kind) {
   return {
