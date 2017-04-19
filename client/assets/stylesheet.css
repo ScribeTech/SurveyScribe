@@ -19,24 +19,96 @@ body {
 }
 
 a {
+  color: #3498DB;
   cursor: pointer;
   text-decoration: none;
 }
 
-footer a {
-  vertical-align: baseline;
-  color: #3498DB;
-  border-bottom: .08rem solid #EEE;
-  margin: 0 .125rem;
+h1 {
+  color: #666;
+  font-size: 2.369rem;
+  font-weight: lighter;
+  margin-bottom: 1rem;
 }
 
-footer a:hover {
-  border-bottom: 1px solid #3498DB;
+/*
+ * MEDIA OBJECT
+ * http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+ */
+.media {margin:1rem;}
+.media, .media-body {overflow:hidden; _overflow:visible; zoom:1;}
+.media .img {float:left; margin-right: 1rem;}
+.media .img svg, .media .img img {display:block;}
+.media .imgExt{float:right; margin-left: 1rem;}
+
+/* FLOATING ACTION BUTTON */
+
+.floatingActionButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
 }
 
-footer a:visited {
-  color: #2980B9;
+/* LAYOUT */
+
+.center {
+  width: 100%;
+  max-width: 20rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
+.layout-semiwhole {
+  width: 100%;
+  max-width: 45rem;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+}
+
+.layout-whole {
+  width: 100%;
+}
+
+/* LIST */
+
+.list-item {
+  border-top: .08rem solid #EEE;
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.list-item .primary {
+  font-size: 1.333rem;
+  font-weight: lighter;
+}
+
+.list-item .secondary {
+  color: #888;
+  font-size: .85rem;
+}
+
+.list-item-body,
+.list-item-actions {
+  float: left;
+  width: 50%;
+}
+
+.list-item-actions {
+  text-align: right;
+}
+
+.list-item svg,
+.list-item img {
+  width: 3rem !important;
+  height: 3rem !important;
+}
+
+/* JUMBOTRON */
 
 .jumbotron {
   background: #2980B9;
@@ -82,15 +154,24 @@ footer a:visited {
   margin: 1.5rem 0;
 }
 
-.center {
-  width: 100%;
-  max-width: 20rem;
-  margin: 0 auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* FANCY LINKS */
+
+a.fancy {
+  vertical-align: baseline;
+  color: #3498DB;
+  border-bottom: .08rem solid #EEE;
+  margin: 0 .125rem;
 }
+
+a.fancy:hover {
+  border-bottom: 1px solid #3498DB;
+}
+
+a.fancy:visited {
+  color: #2980B9;
+}
+
+/* FOOTER */
 
 footer {
   color: #888;
@@ -98,6 +179,8 @@ footer {
   text-align: center;
   padding: 1rem;
 }
+
+/* MISCELLANEOUS */
 
 .github {
   display: inline;

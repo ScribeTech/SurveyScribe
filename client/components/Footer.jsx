@@ -12,7 +12,7 @@ const Footer = props => (
     Created by {authors.map(({ name, url, key }, i) => (
       <span key={key}>
         {i ? ', ' : ''}
-        <a href={url} rel="noopener noreferrer">
+        <a href={url} rel="noopener noreferrer" className="fancy">
           {name}
         </a>
       </span>
