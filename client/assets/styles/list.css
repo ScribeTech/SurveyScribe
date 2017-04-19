@@ -1,0 +1,33 @@
+/* LIST */
+
+.list-item {
+  border-top: .08rem solid #EEE;
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.list-item .primary {
+  font-size: 1.333rem;
+  font-weight: lighter;
+}
+
+.list-item .secondary {
+  color: #888;
+  font-size: .85rem;
+}
+
+.list-item-body,
+.list-item-actions {
+  float: left;
+  width: 50%;
+}
+
+.list-item-actions {
+  text-align: right;
+}
+
+.list-item svg,
+.list-item img {
+  width: 3rem !important;
+  height: 3rem !important;
+}

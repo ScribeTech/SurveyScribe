@@ -1,0 +1,16 @@
+/* FANCY LINKS */
+
+a.fancy {
+  vertical-align: baseline;
+  color: #3498DB;
+  border-bottom: .08rem solid #EEE;
+  margin: 0 .125rem;
+}
+
+a.fancy:hover {
+  border-bottom: 1px solid #3498DB;
+}
+
+a.fancy:visited {
+  color: #2980B9;
+}

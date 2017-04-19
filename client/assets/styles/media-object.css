@@ -1,0 +1,30 @@
+/*
+ * MEDIA OBJECT
+ * source: http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+ */
+
+.media {
+  margin:1rem;
+}
+
+.media,
+.media-body {
+  overflow: hidden;
+  _overflow: visible;
+  zoom: 1;
+}
+
+.media .img {
+  float: left;
+  margin-right: 1rem;
+}
+
+.media .img svg,
+.media .img img {
+  display:block;
+}
+
+.media .imgExt {
+  float:right;
+  margin-left: 1rem;
+}

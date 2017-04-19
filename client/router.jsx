@@ -23,7 +23,7 @@ import Login from './components/Login';
 import store, { history } from './store';
 
 // Import Styles
-import './assets/stylesheet.css';
+import './assets/styles/stylesheet.css';
 
 const checkAuth = (currStore) => {
   const state = currStore.getState();

@@ -3,7 +3,6 @@ import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
@@ -11,54 +10,38 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import _ from 'lodash';
 import 'whatwg-fetch';
 
 import { Light } from './Theme';
+import Header from './Header';
 import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
 let sliderRef = '';
 
-const actions = props => [
-  { label: 'Save',
-    callback: () => {
-      putSurvey(props, '/survey');
-    }
-  },
-  { label: 'Share',
-    callback: () => {
-      putSurvey(props, `/survey/${props.params.surveyID}/answer`);
-    }
-  },
-  {
-    label: 'Results',
-    callback: () => {
-      getSurveys(props, `/survey/${props.params.surveyID}/results`);
-    }
-  },
-  { label: 'Delete',
-    callback: () => {
-      fetch(`/api/surveys/${props.params.surveyID}`, {
-        method: 'DELETE',
-        credentials: 'same-origin'
-      })
-      .then(() => {
-        getSurveys(props);
-      });
-    } }
-];
+const actions = {
+  save: (props) => { putSurvey(props, '/survey'); },
+  share: (props) => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); },
+  results: (props) => { getSurveys(props, `/survey/${props.params.surveyID}/results`); },
+  delete: (props) => {
+    fetch(`/api/surveys/${props.params.surveyID}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    })
+    .then(() => {
+      getSurveys(props);
+    });
+  }
+};
 
 const styles = {
   option: {
     marginLeft: '.5rem',
     marginRight: 0,
     padding: 0
-  },
-  list: {
-    // width: 800
-  },
-  title: {
-    // width: 818
   },
   optionIconButton: {
     float: 'right',
@@ -167,7 +150,23 @@ const Edit = (props) => {
   return (
     <Light>
       <div className="layout-semiwhole">
-        <h1>Edit Survey</h1>
+        <Header />
+        <div className="layout-minor"><h1>Edit Survey</h1></div>
+        <div className="actions layout-major">
+          <RaisedButton primary label="Save" onClick={() => putSurvey(props, survey)} />
+          <FlatButton label="Share" onClick={() => putSurvey(props, survey, `/survey/${props.params.surveyID}/answer`)} />
+          <FlatButton label="Results" onClick={() => getSurveys(props, `/survey/${props.params.surveyID}/results`)} />
+          <FlatButton
+            label="Delete"
+            onClick={
+              () => fetch(`/api/surveys/${props.params.surveyID}`, {
+                method: 'DELETE',
+                credentials: 'same-origin'
+              })
+              .then(() => getSurveys(props))
+            }
+          />
+        </div>
         <TextField
           floatingLabelText="Title"
           id={survey.id.toString()}

@@ -7,11 +7,13 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ClipboardButton from 'react-clipboard.js';
 import _ from 'lodash';
 import 'whatwg-fetch';
+
 import Assessment from 'material-ui/svg-icons/action/assessment';
+import Clipboard from 'material-ui/svg-icons/content/content-copy';
 
 import { Light } from './Theme';
-import Clipboard from '../assets/images/Copy.svg';
 import { getSurvey, checkAuth } from '../utilities/apiTalk';
+import Header from './Header';
 
 const handleClick = (props) => {
   fetch('/api/surveys', {
@@ -46,9 +48,7 @@ const Share = props => (
       Copy This Link
       <div className="link">
         <input id="url" className="url" type="text" value={`${window.location.href.split('/s')[0]}/survey/${props.id}/answer`} readOnly />
-        <ClipboardButton className="copybtn" data-clipboard-target="#url">
-          <img className="clipboard" alt="Copy to clipboard" src={Clipboard} />
-        </ClipboardButton>
+        <ClipboardButton data-clipboard-target="#url"><Clipboard /></ClipboardButton>
       </div>
       Use the button to copy the link
     </div>
@@ -88,6 +88,7 @@ SurveyItem.defaultProps = {
 const SurveyList = props => (
   <Light onLoad={() => checkAuth(props)}>
     <div className="layout-semiwhole">
+      <Header />
       <h1>Surveys</h1>
       <div className="list">
         {_.map(props.surveys, (survey, i) =>
