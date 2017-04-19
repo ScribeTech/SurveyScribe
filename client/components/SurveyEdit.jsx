@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Checkbox from 'material-ui/Checkbox';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
@@ -18,6 +19,7 @@ import 'whatwg-fetch';
 
 import { Light } from './Theme';
 import Header from './Header';
+import InlineEdit from './InlineEdit';
 import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
 let sliderRef = '';
@@ -41,27 +43,31 @@ const renderMessage = (props, question) => {
   let HTML;
   if (question.kind === 'Select' || question.kind === undefined) {
     HTML = (
-      _.map(props.options[question.id], option => (
-        <div key={option.id} >
-          <ListItem disabled>
-            <TextField
-              id={option.id.toString()}
-              floatingLabelText="Option"
-              defaultValue={option.label}
-              onChange={(e) => {
-                props.editOption(question.id, question.kind, option.id, e.target.value);
-              }}
-              multiLine
-              fullWidth
+      <div>
+        <List>
+          {_.map(props.options[question.id], option => (
+            <ListItem
+              key={option.id}
+              leftCheckbox={<Checkbox />}
+              primaryText={
+                <InlineEdit
+                  defaultValue={option.label}
+                  placeholder="Option"
+                  onChange={(e) => {
+                    props.editOption(question.id, question.kind, option.id, e.target.value);
+                  }}
+                />
+              }
+              rightIcon={
+                <CloseIcon
+                  onClick={() => props.removeOption(question.id, option.id, question.kind)}
+                />
+              }
             />
-            <IconButton
-              onClick={() => props.removeOption(question.id, option.id, question.kind)}
-            >
-              <CloseIcon />
-            </IconButton>
-          </ListItem>
-        </div>
-      ))
+          ))}
+        </List>
+        <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />
+      </div>
     );
   } else if (question.kind === 'Scale') {
     HTML = (
@@ -112,16 +118,6 @@ const renderMessage = (props, question) => {
 
 renderMessage.propTypes = {}.isRequired;
 
-const renderAddOption = (props, question) => {
-  let HTML;
-  if (question.kind === 'Select') {
-    HTML = <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />;
-  }
-  return HTML;
-};
-
-renderAddOption.propTypes = {}.isRequired;
-
 const Edit = (props) => {
   const surveyID = props.params.surveyID;
   const [survey] = _.filter(props.surveys, s => s.id === surveyID);
@@ -130,8 +126,18 @@ const Edit = (props) => {
     <Light>
       <div className="layout-semiwhole">
         <Header />
-        <div className="layout-minor"><h1>Edit Survey</h1></div>
-        <div className="actions layout-major">
+        <div className="layout-half">
+          <h1>
+            <InlineEdit
+              defaultValue={survey.title}
+              placeholder="Title"
+              onChange={(e) => {
+                props.editSurvey(survey.id, e.target.value);
+              }}
+            />
+          </h1>
+        </div>
+        <div className="actions layout-half">
           <RaisedButton primary label="Save" onClick={() => { putSurvey(props, '/survey'); }} />
           <FlatButton label="Share" onClick={() => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); }} />
           <FlatButton label="Results" onClick={() => { getSurveys(props, `/survey/${props.params.surveyID}/results`); }} />
@@ -150,18 +156,10 @@ const Edit = (props) => {
             }
           />
         </div>
-        <TextField
-          floatingLabelText="Title"
-          id={survey.id.toString()}
-          defaultValue={survey.title}
-          onChange={(e) => {
-            props.editSurvey(survey.id, e.target.value);
-          }}
-        />
         {_.map(props.questions, question => (
-          <List key={question.id}>
+          <div key={question.id}>
             <Toggle
-              label="Required Question"
+              label="Required"
               onToggle={() => {
                 props.editQuestion(
                   question.id, question.kind,
@@ -169,24 +167,22 @@ const Edit = (props) => {
                 );
               }}
             />
-            <TextField
-              id={survey.id.toString()}
-              floatingLabelText="Question"
-              defaultValue={question.title}
-              onChange={(e) => {
-                // editing question in state
-                props.editQuestion(question.id, question.kind, { title: e.target.value });
-              }}
-              multiLine
-            />
+            <h3>
+              <InlineEdit
+                defaultValue={question.title}
+                placeholder="Question"
+                onChange={(e) => {
+                  props.editQuestion(question.id, question.kind, { title: e.target.value });
+                }}
+              />
+            </h3>
             <IconButton
               onClick={() => props.removeQuestion(question.id, question.kind)}
             >
               <CloseIcon />
             </IconButton>
             {renderMessage(props, question)}
-            {renderAddOption(props, question)}
-          </List>
+          </div>
         ))}
         <IconMenu
           iconButtonElement={
