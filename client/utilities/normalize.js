@@ -26,7 +26,7 @@ export function normalizeSurvey(survey) {
     switch (question.kind) {
       case 'Select':
         converted.questions[question._id].maxSelection = question.maxSelection;
-        converted.options[question._id] = [];
+        converted.options[question._id] = {};
         question.options.forEach((option) => {
           converted.options[question._id][option._id] = {
             id: option._id,

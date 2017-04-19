@@ -14,31 +14,60 @@ const Answer = (props) => {
   // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
 
-  const toggleOptions = (questionId, optionId) => {
-    if (!props.options[questionId][optionId].selected) {
-      props.addAnswer(questionId, props.questions[questionId].kind, optionId);
+  const toggleOptions = (questionId, id) => {
+    // select option
+    console.log(id);
+    console.log(props.options[questionId]);
+    if (!props.options[questionId][id].selected) {
+      // add option to response
+      props.addAnswer(questionId, props.questions[questionId].kind, id);
+      // disable other options if maxSelection has been reached
+      if (props.questions[questionId].maxSelection
+          === Object.keys(props.response[questionId].value).length) {
+        Object.keys(props.options[questionId]).forEach((oId) => {
+          if (!props.response[questionId][oId]) {
+            props.toggleDisabled(questionId, oId);
+          }
+        });
+      }
+    // unselect option
     } else {
+      // reenable other options if reducering from maxSelection
+      if (props.questions[questionId].maxSelection
+          === Object.keys(props.response[questionId].value).length) {
+        Object.keys(props.options[questionId]).forEach((oId) => {
+          if (!props.response[questionId][oId]) {
+            props.toggleDisabled(questionId, oId);
+          }
+        });
+      }
+      // remove option from response
       props.removeAnswer(questionId, props.questions[questionId].kind, optionId);
     }
     props.toggleSelected(questionId, optionId, props.questions[questionId].kind);
   };
 
   const renderOption = (questionId) => {
+    renderOption.propTypes = {}.isRequired;
+    return (<div>
+      {_.map(props.options[questionId], (option) => {
+        return (<ListItem
+          leftCheckbox={<Checkbox onCheck={() => toggleOptions(questionId, option.id)} />}
+          primaryText={option.label}
+          disabled={option.disabled}
+        />);
+      })}
+    </div>);
+  };
 
-  }
-  const renderKind = (props, questionId, kind) => {
+  const renderKind = (questionId, kind) => {
     switch (kind) {
       case 'Select':
         return (
           <div>
             <h3>{`${props.questions[questionId].title}`}</h3>
             <List required={props.questions[questionId].required}>
-              {Object.keys(props.options[questionId]).forEach((optionId) => {
-                <ListItem
-                  leftCheckbox={<Checkbox onCheck={() => toggleOptions(questionId, optionId)} />}
-                  primaryText={props.options[questionId][optionId].label}
-                />;
-              })}
+              {renderOption(questionId)}
             </List>
           </div>
         );
@@ -71,6 +100,9 @@ const Answer = (props) => {
               rows={4}
               fullWidth
               multiLine
+              onChange={(e, value) => {
+                props.addAnswer(questionId, value, kind);
+              }}
             />
           </div>
         );
@@ -85,7 +117,7 @@ const Answer = (props) => {
       <h1>{props.surveys[surveyID].title}</h1>
       <div>
         {_.map(props.questions, question => (
-          renderKind(props, question.id, question.kind)
+          renderKind(question.id, question.kind)
         ))}
       </div>
       <RaisedButton onClick={() => putSurvey(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />

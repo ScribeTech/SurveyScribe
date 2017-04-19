@@ -118,7 +118,7 @@ export function removeOption(questionId, id, kind) {
   };
 }
 
-// toggle SELECTED options
+// toggle selected for SELECTED options
 export function toggleSelected(questionId, id, kind) {
   return {
     type: 'TOGGLE_SELECTED',
@@ -127,6 +127,15 @@ export function toggleSelected(questionId, id, kind) {
   };
 }
 
+// toggle disabled for SELECTED options
+// response is array of chosen responses
+export function toggleDisabled(questionId, id) {
+  return {
+    type: 'TOGGLE_DISABLED',
+    questionId,
+    id
+  };
+}
 // add answer
 export function addAnswer(questionId, value, kind) {
   return {
