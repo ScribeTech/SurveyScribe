@@ -3,20 +3,16 @@ import { remove } from './util';
 function select(state = {}, action) {
   switch (action.type) {
     case 'ADD_ANSWER':
-      console.log(state.value);
       return {
         question: action.questionId,
-        value: [
+        value: {
           ...state.value,
-          action.value
-        ]
+          [action.value]: action.value
+        }
       };
     case 'REMOVE_ANSWER':
       return Object.assign({}, state, {
-        value: [
-          ...state.value.slice(0, action.i),
-          ...state.value.slice(action.i + 1)
-        ]
+        value: remove(state.value, action.id)
       });
     default:
       return state;

@@ -55,6 +55,14 @@ export function denormalizeResponse(surveyId, response, questions) {
       value: response[questionId].value
     };
 
+    if (answer.kind === 'Select') {
+      answer.value = [];
+      Object.keys(response[questionId].value).forEach((id) => {
+        answer.value.push(id);
+      });
+    } else {
+      answer.value = response[questionId].value;
+    }
     converted.answers.push(answer);
   });
   return converted;

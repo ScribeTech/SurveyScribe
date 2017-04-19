@@ -69,9 +69,9 @@ export function addQuestion(kind) {
   };
 }
 // edit question (data is Object holding question kind specific data
-// SELECT data = { required, maxSelection }
-// SCALE  data = { required, min, max }
-// TEXT data = { required, max }
+// SELECT data = { title, required, maxSelection }
+// SCALE  data = { title, required, min, max }
+// TEXT data = { title, required, max }
 export function editQuestion(id, kind, data) {
   return {
     type: 'EDIT_QUESTION',
@@ -143,12 +143,12 @@ export function addAnswer(questionId, value, kind) {
 
 // remove answer --- kind and i only for removing one Select option
 // to remove an entire Select response, leave off kind and i
-export function removeAnswer(questionId, kind, i) {
+export function removeAnswer(questionId, kind, id) {
   return {
     type: 'REMOVE_ANSWER',
     questionId,
     kind,
-    i
+    id
   };
 }
 // toggle error
