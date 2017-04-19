@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
 // Material UI
@@ -30,6 +30,13 @@ import store, { history } from './store';
 import './assets/stylesheet.css';
 import './assets/content.css';
 
+const checkAuth = (store) => {
+  let state = store.getState();
+  if (state.signin.name === undefined) {
+    browserHistory.push('/login');
+    location.reload();
+  }
+}
 
 const router = (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -37,13 +44,13 @@ const router = (
       <Router history={history}>
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
-          <Route path="survey" component={SurveyGrid} />
-          <Route path="signin" component={SignIn} />
-          <Route path="login" component={Login} />
-          <Route path="survey/:surveyID/edit" component={SurveyEdit} />
-          <Route path="survey/:surveyID/answer" component={SurveyAnswer} />
-          <Route path="survey/:surveyID/results" component={Results} />
-          <Route path="survey/:surveyID/finish" component={Finish} />
+          <Route path="/survey" component={SurveyGrid} onEnter={() =>checkAuth(store)}/>
+          <Route path="/signin" component={SignIn} />
+          <Route path="/login" component={Login} />
+          <Route path="/survey/:surveyID/edit" component={SurveyEdit} onEnter={() => checkAuth(store)}/>
+          <Route path="/survey/:surveyID/answer" component={SurveyAnswer} />
+          <Route path="/survey/:surveyID/results" component={Results} onEnter={() => checkAuth(store)}/>
+          <Route path="/survey/:surveyID/finish" component={Finish} />
           <Route path="*" component={NotFoundPage} />
         </Route>
       </Router>

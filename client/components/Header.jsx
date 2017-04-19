@@ -45,7 +45,7 @@ const Header = props => (
               />
             );
           } else if (p.label === 'Delete') {
-            return (<Link to="/survey"><MenuItem key={p.label} primaryText={p.label} onClick={p.callback} /> </Link>);
+            return (<Link key={p.label} to="/survey"><MenuItem  primaryText={p.label} onClick={p.callback} /> </Link>);
           } else {
             return (<MenuItem key={p.label} primaryText={p.label} onClick={p.callback} />);
           }

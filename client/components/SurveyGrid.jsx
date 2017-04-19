@@ -12,7 +12,7 @@ import 'whatwg-fetch';
 
 import Layout from './Layout';
 import Clipboard from '../assets/Copy.svg';
-import { getSurvey } from '../utilities/apiTalk';
+import { getSurvey, checkAuth } from '../utilities/apiTalk';
 
 const styles = {
   card: {
@@ -36,7 +36,12 @@ const handleClick = (props) => {
       questions: []
     })
   })
-  .then(response => response.json())
+  .then(response => {
+    if (response.status === 401) {
+      browserHistory.push('/login');
+    }
+    response.json()
+  })
   .then((result) => {
     // Adding survey to state and changing the view to edit
     getSurvey(props, `/survey/${result._id}/edit`, result._id);
@@ -92,7 +97,7 @@ SurveyTile.defaultProps = {
 };
 
 const SurveyGrid = props => (
-  <Layout title="Surveys">
+  <Layout title="Surveys" onLoad={() => checkAuth(props)}>
     <Grid>
       <Row>
         {_.map(props.surveys, (survey, i) =>

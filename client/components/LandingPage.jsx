@@ -19,7 +19,7 @@ const LandingPage = props => (
     <div className="landing-inner">
       <div><img className="logo" src={Logo} alt="logo" /></div>
       <div>
-        <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => getSurveys(props, 'survey')} />
+        <RaisedButton label="Create Survey" style={{ margin: 12 }} onClick={() => getSurveys(props, '/survey')} />
       </div>
       <Link to="/signin">
         Sign Up

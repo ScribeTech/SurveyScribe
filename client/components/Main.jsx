@@ -2,7 +2,7 @@ import React from 'react';
 import { getSurveys } from '../utilities/apiTalk';
 
 const Main = props =>
-  (<div onLoad={() => getSurveys(props)} >
+  (<div>
     { React.cloneElement(props.children, props) }
   </div>);
 
