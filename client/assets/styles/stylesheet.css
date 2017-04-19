@@ -62,6 +62,11 @@ footer {
   height: 32px !important;
 }
 
+.actions {
+  height: 4.25rem;
+  padding: .65rem 0;
+}
+
 .actions > * {
   float: right;
 }
