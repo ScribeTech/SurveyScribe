@@ -542,10 +542,10 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.response[action.questionId].value.length)
-               .to.equal(initialState.response[action.questionId].value.length + 1);
+        expect(Object.keys(changedState.response[action.questionId].value).length)
+               .to.equal(Object.keys(initialState.response[action.questionId].value).length + 1);
         expect(changedState.response[action.questionId]
-              .value[changedState.response[action.questionId].value.length - 1])
+              .value[action.value])
               .to.equal(action.value);
       });
     });
@@ -569,16 +569,15 @@ describe('REDUCERS', () => {
           type: 'REMOVE_ANSWER',
           questionId: '58ee63c65a2d576d5125b4c1',
           kind: 'Select',
-          i: 2
+          id: '58ee6466aa8ac36d6d74fe9c'
         };
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
-
         expect(changedState.response[action.questionId]).to.exist;
-        expect(changedState.response[action.questionId].value.length)
-               .to.equal(initialState.response[action.questionId].value.length - 1);
+        expect(Object.keys(changedState.response[action.questionId].value).length)
+               .to.equal(Object.keys(initialState.response[action.questionId].value).length - 1);
       });
     });
   });

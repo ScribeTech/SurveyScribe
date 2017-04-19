@@ -5,7 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Slider from 'material-ui/Slider';
 import Textfield from 'material-ui/TextField';
 import { List, ListItem } from 'material-ui/List';
-
+import _ from 'lodash';
 import Content from './Content';
 import { putSurvey } from '../utilities/apiTalk';
 
@@ -13,23 +13,26 @@ const Answer = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
-  const [survey] = props.surveys.filter(s => s.id === surveyID);
+
   const toggleOptions = (questionId, optionId) => {
     if (!props.options[questionId][optionId].selected) {
       props.addAnswer(questionId, props.questions[questionId].kind, optionId);
     } else {
-      props.removeAnswer(questionId, props.questions[questionId].kind, );
+      props.removeAnswer(questionId, props.questions[questionId].kind, optionId);
     }
     props.toggleSelected(questionId, optionId, props.questions[questionId].kind);
   };
-  let i = 0;
-  const kindRender = (questionId, kind) => {
+
+  const renderOption = (questionId) => {
+
+  }
+  const renderKind = (props, questionId, kind) => {
     switch (kind) {
       case 'Select':
         return (
           <div>
             <h3>{`${props.questions[questionId].title}`}</h3>
-            <List>
+            <List required={props.questions[questionId].required}>
               {Object.keys(props.options[questionId]).forEach((optionId) => {
                 <ListItem
                   leftCheckbox={<Checkbox onCheck={() => toggleOptions(questionId, optionId)} />}
@@ -42,47 +45,48 @@ const Answer = (props) => {
       case 'Scale':
         return (
           <div>
-            <h3>{props.questions[questionId].title}</h3>
+            <h3>{`${props.questions[questionId].title}  ${props.response[questionId] ? props.response[questionId].value
+                 : props.questions[questionId].min}`}</h3>
             <Slider
               min={props.questions[questionId].min}
-              max={props.question[questionId].max}
+              max={props.questions[questionId].max}
               step={1}
-              defaultValue={Math.floor(props.question[questionId].max/2)}
-              value={props.response[questionId].value}
-              onChange={this.handleSecondSlider}
+              required={props.questions[questionId].required}
+              defaultValue={Math.floor(props.questions[questionId].max / 2)}
+              value={props.response[questionId] ? props.response[questionId].value
+                     : props.questions[questionId].min}
+              onChange={e => props.addAnswer(questionId, e.target.value, kind)}
             />
           </div>
         );
       case 'Text':
         return (
           <div>
-            <h3>{props.questions[questionId].title}</h3>
+            <h3>{`${props.questions[questionId].title}`}</h3>
             <Textfield
-              maxlength={props.questions[questionId].max}
+              maxLength={props.questions[questionId].max}
               required={props.questions[questionId].required}
+              rows={4}
+              fullWidth
+              multiLine
             />
           </div>
         );
       default:
         break;
     }
+    renderKind.propTypes = {}.isRequired;
   };
   // Render
   return (
     <Content className="content">
-      <h1>{survey.title}</h1>
-      {props.questions.map((questionId, i) => (
-        <List>
-          <h3>{`${i + 1}. ${question.label}`}</h3>
-          {props.options[question.id].map((option, j) => (
-            <ListItem
-              leftCheckbox={<Checkbox onCheck={() => toggleVotes(question.id, j)} />}
-              primaryText={option.label}
-            />
-          ))}
-        </List>
-      ))}
-      <RaisedButton onClick={() => putSurvey(props, survey, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
+      <h1>{props.surveys[surveyID].title}</h1>
+      <div>
+        {_.map(props.questions, question => (
+          renderKind(props, question.id, question.kind)
+        ))}
+      </div>
+      <RaisedButton onClick={() => putSurvey(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
     </Content>
   );
 };
