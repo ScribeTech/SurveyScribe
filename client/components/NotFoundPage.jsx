@@ -1,16 +1,11 @@
-// src/components/NotFoundPage.js
 import React from 'react';
-import { Light } from './Theme';
-import Header from './Header';
+
+import Layout from './Layout';
 
 const NotFoundPage = props => (
-  <Light>
-    <div className="layout-semiwhole">
-      <Header />
-      <h1>Not Found</h1>
-      <p>Double check the URL or contact Customer Support.</p>
-    </div>
-  </Light>
+  <Layout title="Not Found">
+    <p>Double check the URL or contact Customer Support.</p>
+  </Layout>
 );
 
 export default NotFoundPage;

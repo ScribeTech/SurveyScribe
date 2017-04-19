@@ -171,13 +171,10 @@ const Results = (props) => {
   };
 
   return (
-    <Layout title="Results">
-      <h1>{survey.title}</h1>
-      <div>
-        {_.map(props.questions, question => (
-          renderGraphs(question)
-        ))}
-      </div>
+    <Layout title={survey.title}>
+      {_.map(props.questions, question => (
+        renderGraphs(question)
+      ))}
     </Layout>
   );
 };
@@ -185,4 +182,3 @@ const Results = (props) => {
 Results.propTypes = {}.isRequired;
 
 export default Results;
-

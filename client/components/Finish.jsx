@@ -2,7 +2,7 @@ import React from 'react';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-import Content from './Content';
+import { Light } from './Theme';
 
 const styles = {
   root: {
@@ -14,15 +14,15 @@ const styles = {
 };
 
 const Finish = props => (
-  <Content style={styles.root}>
-    <div>
+  <Light>
+    <div className="layout-semiwhole">
       <h1>You made it!</h1>
       <p>It is safe to close the page.</p>
       <div>
         <Link to={`/survey/${props.params.surveyID}/results`}><RaisedButton label="Graph" /></Link>
       </div>
     </div>
-  </Content>
+  </Light>
 );
 
 export default Finish;
