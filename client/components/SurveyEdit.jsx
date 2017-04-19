@@ -17,6 +17,8 @@ import 'whatwg-fetch';
 import Layout from './Layout';
 import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
+let sliderRef = '';
+
 const actions = props => [
   { label: 'Save',
     callback: () => {
@@ -113,6 +115,7 @@ const renderMessage = (props, question) => {
           min={props.questions[question.id].min}
           style={styles.slider}
           onChange={(e, value) => console.log('slider value', value)}
+          ref={(slider) => { sliderRef = slider; }}
         />
         <span>
           <TextField
@@ -120,6 +123,7 @@ const renderMessage = (props, question) => {
             hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
+              sliderRef.state.value = e.target.value;
             }}
             style={styles.scaleMax}
           />
@@ -131,6 +135,7 @@ const renderMessage = (props, question) => {
             hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
+              sliderRef.state.value = props.questions[question.id].min;
             }}
             style={styles.scaleMax}
           />
