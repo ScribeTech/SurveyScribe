@@ -69,12 +69,15 @@ const styles = {
   slider: {
     width: 800,
     marginLeft: 20
+  },
+  scaleMax: {
+    position: 'relative',
+    width: 100,
+    marginTop: -200
   }
 };
 
 const renderMessage = (props, question) => {
-  const surveyID = props.params.surveyID;
-
   if (question.kind === 'Select' || question.kind === undefined) {
     return (
       _.map(props.options[question.id], option => (
@@ -111,6 +114,25 @@ const renderMessage = (props, question) => {
           style={styles.slider}
           onChange={(e, value) => props.editSlider(question.id, 0, value)}
         />
+        <span>
+          <TextField
+            floatingLabelText="Min"
+            onChange={(e) => {
+              //props.editOption(question.id, question.kind, option.id, e.target.value);
+            }}
+            style={styles.scaleMax}
+          />
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <span>
+          <TextField
+            floatingLabelText="Max"
+            onChange={(e) => {
+              //props.editOption(question.id, question.kind, option.id, e.target.value);
+            }}
+            style={styles.scaleMax}
+          />
+        </span>
       </div>
     );
   }
