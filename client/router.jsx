@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
@@ -28,6 +29,7 @@ import store, { history } from './store';
 // Import Styles
 import './assets/stylesheet.css';
 import './assets/content.css';
+
 
 const router = (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>

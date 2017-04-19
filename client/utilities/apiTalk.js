@@ -36,6 +36,9 @@ export const getSurvey = (props, url, id) => {
   .then((result) => {
     const converted = normalizeSurvey(result);
     props.updateSurvey(converted.questions, converted.options);
+    if (url) {
+      browserHistory.push(url);
+    }
   })
   .catch((error) => {
     throw error;
