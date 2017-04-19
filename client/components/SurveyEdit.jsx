@@ -14,7 +14,7 @@ import Toggle from 'material-ui/Toggle';
 import _ from 'lodash';
 import 'whatwg-fetch';
 
-import Layout from './Layout';
+import { Light } from './Theme';
 import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
 let sliderRef = '';
@@ -50,27 +50,23 @@ const actions = props => [
 
 const styles = {
   option: {
-    marginLeft: 15,
-    width: 787
+    marginLeft: '.5rem',
+    marginRight: 0,
+    padding: 0
   },
   list: {
-    width: 800
+    // width: 800
   },
   title: {
-    width: 818
+    // width: 818
   },
   optionIconButton: {
-    position: 'absolute',
-    bottom: 20,
-    left: 'right'
+    float: 'right',
+    marginTop: '-3.5rem'
   },
   quesitonIconButton: {
-    position: 'absolute',
-    marginTop: 20
-  },
-  slider: {
-    width: 800,
-    marginLeft: 20
+    float: 'right',
+    marginTop: '-3.5rem'
   },
   scaleMax: {
     position: 'relative',
@@ -94,6 +90,7 @@ const renderMessage = (props, question) => {
               }}
               style={styles.option}
               multiLine
+              fullWidth
             />
             <IconButton
               onClick={() => props.removeOption(question.id, option.id, question.kind)}
@@ -168,63 +165,66 @@ const Edit = (props) => {
   const [survey] = _.filter(props.surveys, s => s.id === surveyID);
 
   return (
-    <Layout title="Survey Edit" actions={actions(props, survey)}>
-      <TextField
-        floatingLabelText="Title"
-        id={survey.id.toString()}
-        defaultValue={survey.title}
-        onChange={(e) => {
-          props.editSurvey(survey.id, e.target.value);
-        }}
-        style={styles.title}
-      />
-      {_.map(props.questions, question => (
-        <List key={question.id}>
-          <Toggle
-            label="Required Question"
-            onToggle={() => {
-              props.editQuestion(question.id, question.kind,
-                { required: !props.questions[question.id].required });
-            }}
-          />
-          <TextField
-            id={survey.id.toString()}
-            floatingLabelText="Question"
-            defaultValue={question.title}
-            onChange={(e) => {
-              // Be sure to pass the title as a key in an object
-              props.editQuestion(question.id, question.kind, { title: e.target.value });
-            }}
-            style={styles.list}
-            multiLine
-          />
-          <IconButton
-            onClick={() => props.removeQuestion(question.id, question.kind)}
-            style={styles.quesitonIconButton}
-          >
-            <CloseIcon />
-          </IconButton>
-          {renderMessage(props, question)}
-          {renderAddOption(props, question)}
-        </List>
-      ))}
-      <IconMenu
-        iconButtonElement={
-          <FloatingActionButton
-            className="floatingActionButton"
-            zDepth={3}
-          >
-            <ContentAdd />
-          </FloatingActionButton>
-        }
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-      >
-        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion('Select')} />
-        <MenuItem primaryText="Slider" onClick={() => props.addQuestion('Scale')} />
-        <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
-      </IconMenu>
-    </Layout>
+    <Light>
+      <div className="layout-semiwhole">
+        <h1>Edit Survey</h1>
+        <TextField
+          floatingLabelText="Title"
+          id={survey.id.toString()}
+          defaultValue={survey.title}
+          onChange={(e) => {
+            props.editSurvey(survey.id, e.target.value);
+          }}
+          style={styles.title}
+        />
+        {_.map(props.questions, question => (
+          <List key={question.id}>
+            <Toggle
+              label="Required Question"
+              onToggle={() => {
+                props.editQuestion(question.id, question.kind,
+                  { required: !props.questions[question.id].required });
+                }}
+            />
+            <TextField
+              id={survey.id.toString()}
+              floatingLabelText="Question"
+              defaultValue={question.title}
+              onChange={(e) => {
+                // editing question in state
+                props.editQuestion(question.id, question.kind, { title: e.target.value });
+              }}
+              style={styles.list}
+              multiLine
+            />
+            <IconButton
+              onClick={() => props.removeQuestion(question.id, question.kind)}
+              style={styles.quesitonIconButton}
+            >
+              <CloseIcon />
+            </IconButton>
+            {renderMessage(props, question)}
+            {renderAddOption(props, question)}
+          </List>
+        ))}
+        <IconMenu
+          iconButtonElement={
+            <FloatingActionButton
+              className="floatingActionButton"
+              zDepth={3}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
+          }
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        >
+          <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion('Select')} />
+          <MenuItem primaryText="Slider" onClick={() => props.addQuestion('Scale')} />
+          <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
+        </IconMenu>
+      </div>
+    </Light>
   );
 };
 
