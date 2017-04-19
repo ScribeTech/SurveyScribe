@@ -12,7 +12,7 @@
 .jumbotron h1 {
   font-size: 2.369rem;
   font-weight: lighter;
-  margin-top: .25rem;
+  margin: 0 0 .5rem;
 }
 
 .jumbotron h2 {
@@ -21,7 +21,7 @@
 }
 
 .jumbotron h1 + h2 {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .jumbotron .links {
