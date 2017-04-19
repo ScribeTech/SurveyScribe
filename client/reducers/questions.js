@@ -58,10 +58,13 @@ export function questions(state = {}, action) {
     default:
       switch (action.kind) {
         case 'Select':
-          return {
-            ...state,
-            [action.id]: select(state[action.id], action)
-          };
+          if (!action.questionId) {
+            return {
+              ...state,
+              [action.id]: select(state[action.id], action)
+            };
+          }
+          return state;
         case 'Scale':
           return {
             ...state,
