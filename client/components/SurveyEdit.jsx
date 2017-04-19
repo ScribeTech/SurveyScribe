@@ -17,6 +17,8 @@ import 'whatwg-fetch';
 import Layout from './Layout';
 import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
+let sliderRef = '';
+
 const actions = props => [
   { label: 'Save',
     callback: () => {
@@ -69,12 +71,15 @@ const styles = {
   slider: {
     width: 800,
     marginLeft: 20
+  },
+  scaleMax: {
+    position: 'relative',
+    width: 100,
+    marginTop: -200
   }
 };
 
 const renderMessage = (props, question) => {
-  const surveyID = props.params.surveyID;
-
   if (question.kind === 'Select' || question.kind === undefined) {
     return (
       _.map(props.options[question.id], option => (
@@ -106,11 +111,34 @@ const renderMessage = (props, question) => {
         <Slider
           step={1}
           defaultValue={0}
-          max={10}
-          min={0}
+          max={props.questions[question.id].max}
+          min={props.questions[question.id].min}
           style={styles.slider}
-          onChange={(e, value) => props.editSlider(question.id, 0, value)}
+          ref={(slider) => { sliderRef = slider; }}
         />
+        <span>
+          <TextField
+            floatingLabelText="Min"
+            hintText={props.questions[question.id].min.toString()}
+            onChange={(e) => {
+              props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
+              sliderRef.state.value = e.target.value;
+            }}
+            style={styles.scaleMax}
+          />
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <span>
+          <TextField
+            floatingLabelText="Max"
+            hintText={props.questions[question.id].max.toString()}
+            onChange={(e) => {
+              props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
+              sliderRef.state.value = props.questions[question.id].min;
+            }}
+            style={styles.scaleMax}
+          />
+        </span>
       </div>
     );
   }
@@ -126,11 +154,9 @@ const renderAddOption = (props, question) => {
 };
 
 const Edit = (props) => {
-  // Load the currently selected survey
-  // TODO: move this code to middleware (see issue #94)
   const surveyID = props.params.surveyID;
   const [survey] = _.filter(props.surveys, s => s.id === surveyID);
-  // Render
+
   return (
     <Layout title="Survey Edit" actions={actions(props, survey)}>
       <TextField
