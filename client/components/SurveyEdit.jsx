@@ -114,7 +114,6 @@ const renderMessage = (props, question) => {
           max={props.questions[question.id].max}
           min={props.questions[question.id].min}
           style={styles.slider}
-          onChange={(e, value) => console.log('slider value', value)}
           ref={(slider) => { sliderRef = slider; }}
         />
         <span>
