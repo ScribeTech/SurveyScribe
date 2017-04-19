@@ -23,7 +23,7 @@ describe('Survey routes', () => {
     .then(() => done());
   });
   describe('/api/surveys', () => {
-    describe('GET', () => {
+    xdescribe('GET', () => {
       it('should return 200 and all of user\'s surveys', (done) => {
         const agent = request.agent(app);
         let seed;

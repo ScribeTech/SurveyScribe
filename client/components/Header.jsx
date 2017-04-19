@@ -10,6 +10,7 @@ import { Card } from 'material-ui/Card';
 import ClipboardButton from 'react-clipboard.js';
 import { browserHistory as history } from 'react-router';
 import Clipboard from '../assets/Copy.svg';
+import { Link } from 'react-router';
 
 const Header = props => (
   <AppBar
@@ -43,8 +44,11 @@ const Header = props => (
                 ]}
               />
             );
+          } else if (p.label === 'Delete') {
+            return (<Link to="/survey"><MenuItem key={p.label} primaryText={p.label} onClick={p.callback} /> </Link>);
+          } else {
+            return (<MenuItem key={p.label} primaryText={p.label} onClick={p.callback} />);
           }
-          return (<MenuItem key={p.label} primaryText={p.label} onClick={p.callback} />);
         }
         )}
       </IconMenu>
