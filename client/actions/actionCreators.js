@@ -57,10 +57,6 @@ export function removeSurvey(id) {
   };
 }
 
-// edit question (data is Object holding question kind specific data
-// SELECT data = { required, maxSelection }
-// SCALE  data = { required, min, max }
-// TEXT data = { required, max }
 export function addQuestion(kind) {
   return {
     type: 'ADD_QUESTION',
