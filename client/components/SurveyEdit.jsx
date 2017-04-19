@@ -112,12 +112,12 @@ const renderMessage = (props, question) => {
           max={10}
           min={0}
           style={styles.slider}
-          onChange={(e, value) => props.editSlider(question.id, 0, value)}
+          onChange={(e, value) => console.log("slider value", value)}
         />
         <span>
           <TextField
             floatingLabelText="Min"
-            hintText={'0'}
+            hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { min: e.target.value });
             }}
@@ -128,7 +128,7 @@ const renderMessage = (props, question) => {
         <span>
           <TextField
             floatingLabelText="Max"
-            hintText={'10'}
+            hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { max: e.target.value });
             }}
