@@ -66,7 +66,6 @@ const SurveyItem = props => (
         <p className="secondary">Created MAR 5, 2017</p>
       </div>
       <div className="list-item-actions">
-        <FlatButton label="Edit" onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)} />
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
         <Share />
       </div>
