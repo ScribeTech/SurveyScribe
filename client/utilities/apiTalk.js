@@ -61,6 +61,7 @@ export const putSurvey = (props, url) => {
     if (url) {
       browserHistory.push(url);
     }
+    props.saveSurvey();
   })
   .catch((error) => {
     throw error;
