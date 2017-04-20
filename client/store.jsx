@@ -19,7 +19,10 @@ const defaultState = {
   questions,
   options,
   responses,
-  response: {},
+  response: { '58ee63c65a2d576d5125b4c1': {
+    question: '58ee63c65a2d576d5125b4c1',
+    value: {}
+  } },
   aggregates,
   normalizeSurveys,
   signin: {}

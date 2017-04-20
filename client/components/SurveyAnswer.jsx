@@ -7,7 +7,7 @@ import Textfield from 'material-ui/TextField';
 import { List, ListItem } from 'material-ui/List';
 import _ from 'lodash';
 import Content from './Content';
-import { putSurvey } from '../utilities/apiTalk';
+import { postResponse } from '../utilities/apiTalk';
 
 const Answer = (props) => {
   // Load the currently selected survey
@@ -19,7 +19,8 @@ const Answer = (props) => {
     const options = props.options[questionId];
     if (question.maxSelection !== 0 && question.maxSelection === selected) {
       Object.keys(options).forEach((oId) => {
-        if (!responses[oId]) {
+        if (!responses.value[oId]) {
+          console.log(oId);
           props.toggleDisabled(question.id, oId, question.kind);
         }
       });
@@ -40,6 +41,7 @@ const Answer = (props) => {
       disable(question.id, question.selected + 1, responses);
     } else {
       props.removeAnswer(question.id, id, question.kind);
+      disable(question.id, question.selected, response);
     }
   };
 
@@ -67,7 +69,6 @@ const Answer = (props) => {
     const response = props.response[question.id];
     switch (question.kind) {
       case 'Select':
-        props.updateResponse(question.id, question.kind);
         return (
           <div>
             <h3>{`${question.title}`}</h3>
@@ -126,7 +127,7 @@ const Answer = (props) => {
           renderKind(question)
         ))}
       </div>
-      <RaisedButton onClick={() => putSurvey(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
+      <RaisedButton onClick={() => postResponse(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
     </Content>
   );
 };
