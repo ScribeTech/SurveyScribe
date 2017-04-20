@@ -5,27 +5,26 @@ function questionOptions(state = {}, action) {
     case 'ADD_OPTION':
       return {
         ...state,
-        [action.optionId]: Object.assign({}, state[action.objectId],
-          { id: action.objectId, label: action.label })
+        [action.optionId]: { id: action.optionId, label: action.label }
       };
     case 'REMOVE_OPTION':
-      return remove(state, action.objectId);
+      return remove(state, action.optionId);
     case 'EDIT_OPTION':
       return {
         ...state,
-        [action.objectId]: Object.assign({}, state[action.objectId], { label: action.label })
+        [action.optionId]: Object.assign({}, state[action.optionId], { label: action.label })
       };
     case 'TOGGLE_SELECTED':
       return {
         ...state,
-        [action.objectId]: Object.assign({}, state[action.objectId],
-          { selected: !state[action.objectId].selected })
+        [action.optionId]: Object.assign({}, state[action.optionId],
+          { selected: !state[action.optionId].selected })
       };
     case 'TOGGLE_DISABLED':
       return {
         ...state,
-        [action.objectId]: Object.assign({}, state[action.objectId],
-          { disabled: !state[action.objectId].disabled })
+        [action.optionId]: Object.assign({}, state[action.optionId],
+          { disabled: !state[action.optionId].disabled })
       };
     default:
       return state;

@@ -445,7 +445,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.options[questionId]).length).to.equal(3);
-        expect(changedState.options[questionId][option.objectId]).to.not.exist;
+        expect(changedState.options[questionId][option.optionId]).to.not.exist;
       });
     });
     describe('REMOVE_OPTION', () => {
@@ -454,7 +454,7 @@ describe('REDUCERS', () => {
           questionId: '58ee63c65a2d576d5125b4c1',
           type: 'REMOVE_OPTION',
           kind: 'Select',
-          objectId: '58ee6466aa8ac36d6d74fe9a'
+          optionId: '58ee6466aa8ac36d6d74fe9a'
         };
 
         deepFreeze(initialState);
@@ -462,14 +462,14 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.options[action.questionId]).length).to.equal(2);
-        expect(changedState.options[action.questionId][action.objectId]).to.not.exist;
+        expect(changedState.options[action.questionId][action.optionId]).to.not.exist;
       });
     });
     describe('EDIT_OPTION', () => {
       it('should edit an existing option in the list of options', () => {
         const questionId = '58ee63c65a2d576d5125b4c1';
         const option = {
-          objectId: '58ee6466aa8ac36d6d74fe9a',
+          optionId: '58ee6466aa8ac36d6d74fe9a',
           kind: 'Select',
           label: 'Megan and Jin are the TRUE WARRIORS'
         };
@@ -481,7 +481,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.options[questionId]).length).to.equal(3);
-        expect(changedState.options[questionId][option.objectId].label)
+        expect(changedState.options[questionId][option.optionId].label)
           .to.equal(option.label);
         expect(changedState.options[questionId]['58ee6466aa8ac36d6d74fe9b'].label)
           .to.equal(initialState.options[questionId]['58ee6466aa8ac36d6d74fe9b'].label);
@@ -565,12 +565,12 @@ describe('REDUCERS', () => {
         expect(Object.keys(changedState.response).length)
                .to.equal(Object.keys(initialState.response).length - 1);
       });
-      it('should remove one Select response if kind and objectId are included', () => {
+      it('should remove one Select response if kind and optionId are included', () => {
         const action = {
           type: 'REMOVE_ANSWER',
           questionId: '58ee63c65a2d576d5125b4c1',
           kind: 'Select',
-          objectId: '58ee6466aa8ac36d6d74fe9c'
+          optionId: '58ee6466aa8ac36d6d74fe9c'
         };
 
         deepFreeze(initialState);

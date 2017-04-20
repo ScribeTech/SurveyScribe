@@ -5,6 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import RemoveIcon from 'material-ui/svg-icons/content/remove';
 import { List, ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
@@ -45,42 +46,34 @@ const renderMessage = (props, question) => {
   let HTML;
   if (question.kind === 'Select' || question.kind === undefined) {
     HTML = (
-      <div>
-        <List>
-          {_.map(props.options[question.id], option => (
+      <List>
+        {_.map(props.options[question.id], (option) => {
+          return (
             <ListItem
-              key={option.id}
-              leftCheckbox={<Checkbox />}
               primaryText={
-                <InlineEdit
+                <TextField
                   defaultValue={option.label}
                   placeholder="Option"
-                  onChange={(e) => {
-                    props.editOption(question.id, question.kind, option.id, e.target.value);
-                  }}
+                  id={option.id}
                 />
               }
+              onChange={e =>
+                props.editOption(question.id, option.id, question.kind, e.target.value)
+              }
               rightIcon={
-                <CloseIcon
+                <RemoveIcon
                   onClick={() => props.removeOption(question.id, option.id, question.kind)}
                 />
               }
             />
-          ))}
-        </List>
+          );
+        })}
         <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />
-      </div>
+      </List>
     );
   } else if (question.kind === 'Scale') {
     HTML = (
-      <div>
-        <Slider
-          step={1}
-          defaultValue={0}
-          max={props.questions[question.id].max}
-          min={props.questions[question.id].min}
-          ref={(slider) => { sliderRef = slider; }}
-        />
+      <ListItem>
         <span>
           <TextField
             floatingLabelText="Min"
@@ -102,17 +95,19 @@ const renderMessage = (props, question) => {
             }}
           />
         </span>
-      </div>
+      </ListItem>
     );
   } else if (question.kind === 'Text') {
     return (
-      <TextField
-        floatingLabelText="Max Characters"
-        hintText={props.questions[question.id].max.toString()}
-        onChange={(e) => {
-          props.editQuestion(question.id, 'Text', { max: Number(e.target.value) });
-        }}
-      />
+      <ListItem>
+        <TextField
+          floatingLabelText="Max Characters"
+          hintText={props.questions[question.id].max.toString()}
+          onChange={(e) => {
+            props.editQuestion(question.id, 'Text', { max: Number(e.target.value) });
+          }}
+        />
+      </ListItem>
     );
   }
   return HTML;
@@ -144,30 +139,21 @@ const Edit = (props) => {
           <Link to={'/survey'}><FlatButton label="Delete" onClick={() => actions.delete(props)} /></Link>
         </div>
         {_.map(props.questions, question => (
-          <div key={question.id}>
-            <Toggle
-              label="Required"
-              onToggle={() => {
-                props.editQuestion(
-                  question.id, question.kind,
-                  { required: !props.questions[question.id].required }
-                );
-              }}
-            />
+          <div key={question.id} className={'question'}>
             <h3>
               <InlineEdit
+                className={'questiontitle'}
                 defaultValue={question.title}
                 placeholder="Question"
                 onChange={(e) => {
                   props.editQuestion(question.id, question.kind, { title: e.target.value });
                 }}
               />
+              <CloseIcon
+                className={'close'}
+                onClick={() => props.removeQuestion(question.id, question.kind)}
+              />
             </h3>
-            <IconButton
-              onClick={() => props.removeQuestion(question.id, question.kind)}
-            >
-              <CloseIcon />
-            </IconButton>
             {renderMessage(props, question)}
           </div>
         ))}
