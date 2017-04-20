@@ -47,7 +47,7 @@ const Login = props => (
   <Dark>
     <div className="jumbotron">
       <div className="center">
-        <div><img className="logo" src={Logo} alt="logo" /></div>
+        <Link to="/"><img className="logo" src={Logo} alt="logo" /></Link>
         <TextField
           floatingLabelText="Name"
           ref={(name) => { nameVal = name; }}
