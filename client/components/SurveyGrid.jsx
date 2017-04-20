@@ -55,7 +55,7 @@ const Share = props => (
   </IconMenu>
 );
 
-Share.propTypes.isRequired;
+Share.propTypes = {}.isRequired;
 
 const SurveyItem = props => (
   <div className="list-item media">
