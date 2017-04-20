@@ -71,7 +71,7 @@ const SurveyItem = props => (
       </Link>
       <div className="list-item-actions">
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
-        <Share />
+        <Share {...props} />
       </div>
     </div>
   </div>

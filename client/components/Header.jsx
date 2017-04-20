@@ -6,7 +6,7 @@ import Logo from '../assets/images/logo-light.svg';
 
 const Header = props => (
   <div className="header">
-    <Link to="/"><img className="logo" src={Logo} alt="logo" /></Link>
+    <Link to="/survey"><img className="logo" src={Logo} alt="logo" /></Link>
     <div className="right">
       <Link to="/logout"><FlatButton>Log out</FlatButton></Link>
     </div>
