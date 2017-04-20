@@ -3,6 +3,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
+import Snackbar from 'material-ui/Snackbar';
 
 import Footer from './Footer';
 import Logo from '../assets/images/logo-dark.svg';
@@ -22,9 +23,16 @@ const LandingPage = props => (
           <Link to="/login"><FlatButton>Login</FlatButton></Link>
         </div>
       </div>
+      <Snackbar
+        open={props.signin.error || false}
+        message={props.signin.message || ''}
+        autoHideDuration={1500}
+      />
     </Dark>
     <Light><Footer /></Light>
   </div>
 );
+
+LandingPage.propTypes = {}.isRequired;
 
 export default LandingPage;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { getSurveys } from '../utilities/apiTalk';
 
 const Main = props =>
   (<div>

@@ -4,11 +4,27 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import Logo from '../assets/images/logo-light.svg';
 
+const handleClick = (props) => {
+  fetch('/api/logout/', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(() => {
+    props.errorTrue('user signed out');
+  })
+  .catch((error) => {
+    console.log('logout handleClick error', error);
+  });
+};
+
 const Header = props => (
   <div className="header">
     <Link to="/survey"><img className="logo" src={Logo} alt="logo" /></Link>
     <div className="right">
-      <Link to="/logout"><FlatButton>Log out</FlatButton></Link>
+      <Link to="/"><FlatButton onClick={() => handleClick(props)}>Logout</FlatButton></Link>
     </div>
   </div>
 );
