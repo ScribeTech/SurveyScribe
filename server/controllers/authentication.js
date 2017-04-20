@@ -29,7 +29,6 @@ exports.logout = (request, response) => {
 };
 
 exports.isLoggedIn = (request, response, next) => {
-  console.log('request', request);
   if (request.session.user) {
     next();
   } else {
