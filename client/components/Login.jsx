@@ -100,7 +100,7 @@ const Login = props => (
         </div>
         <CardActions>
           <FlatButton style={styles.createaccount} label="Log In" onClick={() => handleClick(props)} />
-          <Link to="/signin" ><FlatButton style={styles.createaccount} label="Create Account" /></Link>
+          <Link to="/signin" ><FlatButton style={styles.createaccount} label="Create an Account" /></Link>
         </CardActions>
       </Card>
     </div>

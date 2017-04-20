@@ -36,12 +36,7 @@ const handleClick = (props) => {
       questions: []
     })
   })
-  .then((response) => {
-    if (response.status === 401) {
-      browserHistory.push('/login');
-    }
-    response.json();
-  })
+  .then(response => response.json())
   .then((result) => {
     // Adding survey to state and changing the view to edit
     getSurvey(props, `/survey/${result._id}/edit`, result._id);
