@@ -8,6 +8,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 import { Dark } from './Theme';
 import Logo from '../assets/images/logo-dark.svg';
+import { getSurveys } from '../utilities/apiTalk';
 
 let nameVal = '';
 let passWordVal = '';
@@ -30,7 +31,31 @@ const handleClick = (props) => {
       props.errorTrue(result.message);
     } else {
       props.errorFalse();
-      browserHistory.push('/login');
+      fetch('/api/login/', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: nameVal.input.value,
+          password: passWordVal.input.value
+        })
+      })
+      .then(response => response.json())
+      .then((LoginResult) => {
+        if (LoginResult.error) {
+          props.errorTrue(LoginResult.error);
+        } else {
+          props.errorFalse();
+          props.editUser(LoginResult._id, LoginResult.name);
+          getSurveys(props, '/survey');
+        }
+      })
+      .catch((error) => {
+        console.log('login handleClick error', error);
+      });
+      //browserHistory.push('/login');
     }
   })
   .catch((error) => {
