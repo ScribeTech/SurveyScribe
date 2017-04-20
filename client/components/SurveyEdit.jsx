@@ -141,6 +141,16 @@ const renderMessage = (props, question) => {
         </span>
       </div>
     );
+  } else if (question.kind === 'Text') {
+    return (
+      <TextField
+        floatingLabelText="Max Characters"
+        hintText={props.questions[question.id].max.toString()}
+        onChange={(e) => {
+          props.editQuestion(question.id, 'Text', { max: Number(e.target.value) });
+        }}
+      />
+    );
   }
 
   renderMessage.propTypes = {}.isRequired;
