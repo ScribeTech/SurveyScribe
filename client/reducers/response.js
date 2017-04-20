@@ -11,7 +11,7 @@ function select(state = {}, action) {
         }
       };
     case 'REMOVE_ANSWER':
-      return Object.assign({}, state, { value: remove(state.value, action.objectId) });
+      return Object.assign({}, state, { value: remove(state.value, action.optionId) });
     case 'ADD_QUESTION':
       return {
         question: action.questionId,

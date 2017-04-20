@@ -10,6 +10,7 @@ const defaultState = {
   questions: {},
   options: {},
   responses: {},
+  response: {},
   aggregates: {},
   signin: [],
   save: {}

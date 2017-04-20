@@ -98,43 +98,43 @@ export function addOption(questionId, kind, label) {
 }
 
 // edit SELECT option
-export function editOption(questionId, kind, objectId, label) {
+export function editOption(questionId, optionId, kind, label) {
   return {
     type: 'EDIT_OPTION',
     questionId,
     kind,
-    objectId,
+    optionId,
     label
   };
 }
 
 // remove SELECT option
-export function removeOption(questionId, objectId, kind) {
+export function removeOption(questionId, optionId, kind) {
   return {
     type: 'REMOVE_OPTION',
     questionId,
-    objectId,
+    optionId,
     kind
   };
 }
 
 // toggle selected for SELECTED options
-export function toggleSelected(questionId, objectId, kind) {
+export function toggleSelected(questionId, optionId, kind) {
   return {
     type: 'TOGGLE_SELECTED',
     questionId,
-    objectId,
+    optionId,
     kind
   };
 }
 
 // toggle disabled for SELECTED options
 // response is array of chosen responses
-export function toggleDisabled(questionId, objectId, kind) {
+export function toggleDisabled(questionId, optionId, kind) {
   return {
     type: 'TOGGLE_DISABLED',
     questionId,
-    objectId,
+    optionId,
     kind
   };
 }
@@ -151,11 +151,11 @@ export function addAnswer(questionId, value, kind) {
 
 // remove answer --- kind and i only for removing one Select option
 // to remove an entire Select response, leave off kind and i
-export function removeAnswer(questionId, objectId, kind) {
+export function removeAnswer(questionId, optionId, kind) {
   return {
     type: 'REMOVE_ANSWER',
     questionId,
-    objectId,
+    optionId,
     kind,
   };
 }
