@@ -4,28 +4,14 @@ import { browserHistory } from 'react-router';
 
 import rootReducer from './reducers/index';
 
-import { mongoSurveys } from './data/mongoSurveys';
-import { questions } from './data/questions';
-import { options } from './data/options';
-import { responses } from './data/responses';
-import { response } from './data/response';
-import { aggregates } from './data/aggregates';
-import { normalizeSurveys } from './utilities/normalize';
-
-const surveys = normalizeSurveys(mongoSurveys);
 // hard coding the test data for now so i can work on views
 const defaultState = {
-  surveys,
-  questions,
-  options,
-  responses,
-  response: { '58ee63c65a2d576d5125b4c1': {
-    question: '58ee63c65a2d576d5125b4c1',
-    value: {}
-  } },
-  aggregates,
-  normalizeSurveys,
-  signin: {}
+  surveys: {},
+  questions: {},
+  options: {},
+  responses: {},
+  aggregate: {},
+  signin: []
 };
 
 const enhancers = compose(

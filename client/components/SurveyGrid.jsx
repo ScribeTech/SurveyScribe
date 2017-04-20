@@ -12,7 +12,7 @@ import Assessment from 'material-ui/svg-icons/action/assessment';
 import Clipboard from 'material-ui/svg-icons/content/content-copy';
 
 import { Light } from './Theme';
-import { getSurvey, checkAuth } from '../utilities/apiTalk';
+import { getSurvey } from '../utilities/apiTalk';
 import Header from './Header';
 
 const handleClick = (props) => {
@@ -59,11 +59,11 @@ Share.propTypes = {}.isRequired;
 
 const SurveyItem = props => (
   <div className="list-item media">
-    <Link to={`/survey/${props.id}/edit`}>
+    <Link onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}>
       <div className="img"><Assessment color="#3498DB" /></div>
     </Link>
     <div className="media-body">
-      <Link to={`/survey/${props.id}/edit`}>
+      <Link onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}>
         <div className="list-item-body">
           <h2 className="primary">{props.title}</h2>
           <p className="secondary">Created MAR 5, 2017</p>
@@ -71,7 +71,7 @@ const SurveyItem = props => (
       </Link>
       <div className="list-item-actions">
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
-        <Share />
+        <Share {...props} />
       </div>
     </div>
   </div>
@@ -90,7 +90,7 @@ SurveyItem.defaultProps = {
 };
 
 const SurveyList = props => (
-  <Light onLoad={() => checkAuth(props)}>
+  <Light>
     <div className="layout-semiwhole">
       <Header />
       <h1>Surveys</h1>
