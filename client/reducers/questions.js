@@ -4,7 +4,7 @@ function select(state = {}, action) {
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
-        { questionId: action.questionId, kind: action.kind, required: false, title: '', maxSelection: 0, selected: 0 });
+        { id: action.questionId, kind: action.kind, required: false, title: '', maxSelection: 0, selected: 0 });
     case 'EDIT_QUESTION':
       return Object.assign({}, state,
         { required: action.data.required || state.required,
@@ -26,7 +26,7 @@ function scale(state = {}, action) {
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
-        { questionId: action.questionId, kind: action.kind, required: false, title: '', min: 0, max: 10 });
+        { id: action.questionId, kind: action.kind, required: false, title: '', min: 0, max: 10 });
     case 'EDIT_QUESTION':
       return Object.assign({}, state,
         { required: action.data.required || state.required,
@@ -43,7 +43,7 @@ function text(state = {}, action) {
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
-        { questionId: action.questionId, kind: action.kind, required: false, title: '', max: 100 });
+        { id: action.questionId, kind: action.kind, required: false, title: '', max: 100 });
     case 'EDIT_QUESTION':
       return Object.assign({}, state,
         { required: action.data.required || state.required,

@@ -76,16 +76,16 @@ const renderMessage = (props, question) => {
         <Slider
           step={1}
           defaultValue={0}
-          max={props.questions[question.questionId].max}
-          min={props.questions[question.questionId].min}
+          max={props.questions[question.id].max}
+          min={props.questions[question.id].min}
           ref={(slider) => { sliderRef = slider; }}
         />
         <span>
           <TextField
             floatingLabelText="Min"
-            hintText={props.questions[question.questionId].min.toString()}
+            hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
-              props.editQuestion(question.questionId, 'Scale', { min: Number(e.target.value) });
+              props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
               sliderRef.state.value = e.target.value;
             }}
           />
@@ -94,10 +94,10 @@ const renderMessage = (props, question) => {
         <span>
           <TextField
             floatingLabelText="Max"
-            hintText={props.questions[question.questionId].max.toString()}
+            hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
-              props.editQuestion(question.questionId, 'Scale', { max: Number(e.target.value) });
-              sliderRef.state.value = props.questions[question.questionId].min;
+              props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
+              sliderRef.state.value = props.questions[question.id].min;
             }}
           />
         </span>
@@ -107,9 +107,9 @@ const renderMessage = (props, question) => {
     return (
       <TextField
         floatingLabelText="Max Characters"
-        hintText={props.questions[question.questionId].max.toString()}
+        hintText={props.questions[question.id].max.toString()}
         onChange={(e) => {
-          props.editQuestion(question.questionId, 'Text', { max: Number(e.target.value) });
+          props.editQuestion(question.id, 'Text', { max: Number(e.target.value) });
         }}
       />
     );
