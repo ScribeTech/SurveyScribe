@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -61,10 +61,12 @@ const SurveyItem = props => (
   <div className="list-item media">
     <div className="img"><Assessment color="#3498DB" /></div>
     <div className="media-body">
-      <div className="list-item-body">
-        <h2 className="primary"><Link to={`/survey/${props.id}/edit`}>{props.title}</Link></h2>
-        <p className="secondary">Created MAR 5, 2017</p>
-      </div>
+      <Link to={`/survey/${props.id}/edit`}>
+        <div className="list-item-body">
+          <h2 className="primary">{props.title}</h2>
+          <p className="secondary">Created MAR 5, 2017</p>
+        </div>
+      </Link>
       <div className="list-item-actions">
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
         <Share />
