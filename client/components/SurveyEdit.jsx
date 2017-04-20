@@ -55,10 +55,10 @@ const renderMessage = (props, question) => {
                   defaultValue={option.label}
                   placeholder="Option"
                   id={option.id}
+                  onChange={e =>
+                    props.editOption(question.id, option.id, question.kind, e.target.value)
+                  }
                 />
-              }
-              onChange={e =>
-                props.editOption(question.id, option.id, question.kind, e.target.value)
               }
               rightIcon={
                 <RemoveIcon
