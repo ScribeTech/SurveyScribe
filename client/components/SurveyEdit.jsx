@@ -13,6 +13,7 @@ import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 
 import _ from 'lodash';
 import 'whatwg-fetch';
@@ -34,7 +35,7 @@ const actions = {
       credentials: 'same-origin'
     })
     .then(() => {
-      getSurveys(props);
+      getSurveys(props, '/survey');
     });
   }
 };
@@ -139,7 +140,7 @@ const Edit = (props) => {
           <RaisedButton primary label="Save" onClick={() => actions.save(props)} />
           <FlatButton label="Share" onClick={() => actions.share(props)} />
           <FlatButton label="Results" onClick={() => actions.results(props)} />
-          <FlatButton label="Delete" onClick={() => actions.delete(props)} />
+          <Link to={'/survey'}><FlatButton label="Delete" onClick={() => actions.delete(props)} /></Link>
         </div>
         {_.map(props.questions, question => (
           <div key={question.id}>
