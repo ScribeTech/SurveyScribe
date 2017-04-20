@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, Redirect } from 'react-router';
-import { Provider, connect } from 'react-redux';
+import { Router, Route, IndexRoute } from 'react-router';
+import { Provider } from 'react-redux';
 
 // Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -43,7 +43,7 @@ const router = (
         <Route path="/login" component={Login} />
         <Route path="/survey/:surveyID/edit" component={SurveyEdit} />
         <Route path="/survey/:surveyID/answer" component={SurveyAnswer} />
-        <Route path="/survey/:surveyID/results" component={Results} />
+        <Route path="/survey/:surveyID/results" component={Results} onEnter={() => checkAuth(store)} />
         <Route path="/survey/:surveyID/finish" component={Finish} />
         <Route path="*" component={NotFoundPage} />
       </Route>

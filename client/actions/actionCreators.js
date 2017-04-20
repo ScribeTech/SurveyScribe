@@ -188,3 +188,15 @@ export function editUser(id, name) {
     name
   };
 }
+
+export function saveSurvey() {
+  return {
+    type: 'SAVE_SURVEY'
+  };
+}
+
+export function toggleSave() {
+  return {
+    type: 'TOGGLE_SAVE'
+  };
+}

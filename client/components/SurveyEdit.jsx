@@ -14,6 +14,7 @@ import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
+import Snackbar from 'material-ui/Snackbar';
 
 import _ from 'lodash';
 import 'whatwg-fetch';
@@ -26,7 +27,7 @@ import { getSurveys, putSurvey } from '../utilities/apiTalk';
 let sliderRef = '';
 
 const actions = {
-  save: (props) => { putSurvey(props, '/survey'); },
+  save: (props) => { putSurvey(props); },
   share: (props) => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); },
   results: (props) => { getSurveys(props, `/survey/${props.params.surveyID}/results`); },
   delete: (props) => {
@@ -187,6 +188,12 @@ const Edit = (props) => {
           <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
         </IconMenu>
       </div>
+      <Snackbar
+        open={props.save.saved || false}
+        message="Survey has been saved"
+        autoHideDuration={4000}
+        onRequestClose={() => props.toggleSave()}
+      />
     </Light>
   );
 };

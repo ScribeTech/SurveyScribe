@@ -10,8 +10,9 @@ const defaultState = {
   questions: {},
   options: {},
   responses: {},
-  aggregate: {},
-  signin: []
+  aggregates: {},
+  signin: [],
+  save: {}
 };
 
 const enhancers = compose(

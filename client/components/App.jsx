@@ -11,7 +11,8 @@ function mapStateToProps(state) {
     signin: state.signin,
     responses: state.responses,
     response: state.response,
-    aggregates: state.aggregates
+    aggregates: state.aggregates,
+    save: state.save
   };
 }
 
