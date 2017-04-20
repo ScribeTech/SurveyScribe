@@ -126,35 +126,20 @@ const Edit = (props) => {
     <Light>
       <div className="layout-semiwhole">
         <Header />
-        <div className="layout-half">
-          <h1>
-            <InlineEdit
-              defaultValue={survey.title}
-              placeholder="Title"
-              onChange={(e) => {
-                props.editSurvey(survey.id, e.target.value);
-              }}
-            />
-          </h1>
-        </div>
-        <div className="actions layout-half">
-          <RaisedButton primary label="Save" onClick={() => { putSurvey(props, '/survey'); }} />
-          <FlatButton label="Share" onClick={() => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); }} />
-          <FlatButton label="Results" onClick={() => { getSurveys(props, `/survey/${props.params.surveyID}/results`); }} />
-          <FlatButton
-            label="Delete"
-            onClick={
-              () => {
-                fetch(`/api/surveys/${props.params.surveyID}`, {
-                  method: 'DELETE',
-                  credentials: 'same-origin'
-                })
-                .then(() => {
-                  getSurveys(props, '/survey');
-                });
-              }
-            }
+        <h1>
+          <InlineEdit
+            defaultValue={survey.title}
+            placeholder="Title"
+            onChange={(e) => {
+              props.editSurvey(survey.id, e.target.value);
+            }}
           />
+        </h1>
+        <div className="actions">
+          <RaisedButton primary label="Save" onClick={() => actions.save(props)} />
+          <FlatButton label="Share" onClick={() => actions.share(props)} />
+          <FlatButton label="Results" onClick={() => actions.results(props)} />
+          <FlatButton label="Delete" onClick={() => actions.delete(props)} />
         </div>
         {_.map(props.questions, question => (
           <div key={question.id}>

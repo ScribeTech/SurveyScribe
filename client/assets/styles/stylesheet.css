@@ -77,10 +77,6 @@ footer {
   padding: .65rem 0;
 }
 
-.actions > * {
-  float: right;
-}
-
 .floatingActionButton {
   position: fixed;
   bottom: 2rem;
