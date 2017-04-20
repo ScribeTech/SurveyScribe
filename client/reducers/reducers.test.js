@@ -102,7 +102,7 @@ describe('REDUCERS', () => {
     describe('ADD_SURVEY', () => {
       it('should add a survey to the current list of surveys', () => {
         const survey = {
-          id: 4,
+          surveyId: 4,
           title: 'Expanded'
         };
 
@@ -113,7 +113,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.surveys).length).to.equal(4);
-        expect(changedState.surveys[survey.id]).to.deep.equal(survey);
+        expect(changedState.surveys[survey.surveyId].title).to.equal(survey.title);
       });
     });
 
@@ -121,21 +121,21 @@ describe('REDUCERS', () => {
       it('should remove a survey from the current list of surveys', () => {
         const action = {
           type: 'REMOVE_SURVEY',
-          id: '58ee63c65a2d576d5125b4bd'
+          surveyId: '58ee63c65a2d576d5125b4bd'
         };
 
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
         expect(Object.keys(changedState.surveys).length).to.equal(2);
-        expect(changedState.surveys[action.id]).to.not.exist;
+        expect(changedState.surveys[action.surveyId]).to.not.exist;
       });
     });
 
     describe('EDIT_SURVEY', () => {
       it('should edit an existing survey in the list of surveys', () => {
         const survey = {
-          id: '58ee63c65a2d576d5125b4bc',
+          surveyId: '58ee63c65a2d576d5125b4bc',
           title: 'Fabulous'
         };
 
@@ -146,7 +146,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.surveys).length).to.equal(3);
-        expect(changedState.surveys[survey.id].title)
+        expect(changedState.surveys[survey.surveyId].title)
           .to.equal(survey.title);
         expect(changedState.surveys['58ee63c65a2d576d5125b4bd'])
           .to.equal(initialState.surveys['58ee63c65a2d576d5125b4bd']);
@@ -165,7 +165,7 @@ describe('REDUCERS', () => {
     describe('ADD_QUESTION', () => {
       it('should add a question to the current list of questions', () => {
         const question = {
-          id: '46ef6467aa8ac36d6d74fb3f',
+          questionId: '46ef6467aa8ac36d6d74fb3f',
           kind: 'Scale'
         };
 
@@ -175,11 +175,11 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
         expect(Object.keys(changedState.questions).length)
                .to.equal(Object.keys(initialState.questions).length + 1);
-        expect(changedState.questions[question.id].kind).to.equal(question.kind);
+        expect(changedState.questions[question.questionId].kind).to.equal(question.kind);
       });
       it('should include required, title, min, max for SCALE questions', () => {
         const question = {
-          id: '46ef6467aa8ac36d6d74fb3f',
+          questionId: '46ef6467aa8ac36d6d74fb3f',
           kind: 'Scale'
         };
 
@@ -194,7 +194,7 @@ describe('REDUCERS', () => {
       });
       it('should include required, title, max for TEXT questions', () => {
         const question = {
-          id: '46ef6467aa8ac36d6d74fb3f',
+          questionId: '46ef6467aa8ac36d6d74fb3f',
           kind: 'Text'
         };
 
@@ -208,7 +208,7 @@ describe('REDUCERS', () => {
       });
       it('should include required, title, maxSelection for SELECT questions', () => {
         const question = {
-          id: '46ef6467aa8ac36d6d74fb3f',
+          questionId: '46ef6467aa8ac36d6d74fb3f',
           kind: 'Select'
         };
 
@@ -225,7 +225,7 @@ describe('REDUCERS', () => {
       it('should remove a question from the current list of questions', () => {
         const action = {
           type: 'REMOVE_QUESTION',
-          id: '58ee6466aa8ac36d6d74fe9f'
+          questionId: '58ee6466aa8ac36d6d74fe9f'
         };
 
         deepFreeze(initialState);
@@ -238,20 +238,20 @@ describe('REDUCERS', () => {
       it('should remove options if SELECT question', () => {
         const action = {
           type: 'REMOVE_QUESTION',
-          id: '58ee63c65a2d576d5125b4c1',
+          questionId: '58ee63c65a2d576d5125b4c1',
           kind: 'Select'
         };
         deepFreeze(initialState);
         const changedState = reducer(initialState, action);
         expect(Object.keys(changedState.options).length)
                .to.equal(Object.keys(initialState.options).length - 1);
-        expect(changedState.options[action.id]).to.not.exist;
+        expect(changedState.options[action.questionId]).to.not.exist;
       });
     });
     describe('EDIT_QUESTION', () => {
       it('should edit an existing question in the list of questions', () => {
         const question = {
-          id: '58ee63c65a2d576d5125b4c1',
+          questionId: '58ee63c65a2d576d5125b4c1',
           kind: 'Select',
           data: {
             title: 'Are Megan and Jin the best?',
@@ -268,14 +268,14 @@ describe('REDUCERS', () => {
 
         expect(Object.keys(changedState.questions).length)
                .to.equal(Object.keys(initialState.questions).length);
-        expect(changedState.questions[question.id].id)
-               .to.equal(initialState.questions[question.id].id);
-        expect(changedState.questions[question.id])
-               .to.not.deep.equal(initialState.questions[question.id]);
+        expect(changedState.questions[question.questionId].id)
+               .to.equal(initialState.questions[question.questionId].id);
+        expect(changedState.questions[question.questionId])
+               .to.not.deep.equal(initialState.questions[question.questionId]);
       });
       it('should edit Select questions', () => {
         const question = {
-          id: '58ee63c65a2d576d5125b4c1',
+          questionId: '58ee63c65a2d576d5125b4c1',
           kind: 'Select',
           data: {
             title: 'Are Megan and Jin the best?',
@@ -292,16 +292,16 @@ describe('REDUCERS', () => {
 
         expect(Object.keys(changedState.questions).length)
         .to.equal(Object.keys(initialState.questions).length);
-        expect(changedState.questions[question.id].title)
+        expect(changedState.questions[question.questionId].title)
         .to.equal(question.data.title);
-        expect(changedState.questions[question.id].required)
+        expect(changedState.questions[question.questionId].required)
         .to.equal(question.data.required);
-        expect(changedState.questions[question.id].maxSelection)
+        expect(changedState.questions[question.questionId].maxSelection)
         .to.equal(question.data.maxSelection);
       });
       it('should edit Scale questions', () => {
         const question = {
-          id: '58ee6466aa8ac36d6d74fe9f',
+          questionId: '58ee6466aa8ac36d6d74fe9f',
           kind: 'Scale',
           data: {
             title: 'How much do you like TACOS?',
@@ -319,18 +319,18 @@ describe('REDUCERS', () => {
 
         expect(Object.keys(changedState.questions).length)
                .to.equal(Object.keys(initialState.questions).length);
-        expect(changedState.questions[question.id].title)
+        expect(changedState.questions[question.questionId].title)
                .to.equal(question.data.title);
-        expect(changedState.questions[question.id].required)
+        expect(changedState.questions[question.questionId].required)
                .to.equal(question.data.required);
-        expect(changedState.questions[question.id].min)
+        expect(changedState.questions[question.questionId].min)
                .to.equal(question.data.min);
-        expect(changedState.questions[question.id].max)
+        expect(changedState.questions[question.questionId].max)
                .to.equal(question.data.max);
       });
       it('should edit Text questions', () => {
         const question = {
-          id: '58ee6466aa8ac36d6d74fe9e',
+          questionId: '58ee6466aa8ac36d6d74fe9e',
           kind: 'Text',
           data: {
             title: 'Tell me about your favorite fish.',
@@ -347,16 +347,16 @@ describe('REDUCERS', () => {
 
         expect(Object.keys(changedState.questions).length)
                .to.equal(Object.keys(initialState.questions).length);
-        expect(changedState.questions[question.id].title)
+        expect(changedState.questions[question.questionId].title)
                .to.equal(question.data.title);
-        expect(changedState.questions[question.id].required)
+        expect(changedState.questions[question.questionId].required)
                .to.equal(question.data.required);
-        expect(changedState.questions[question.id].max)
+        expect(changedState.questions[question.questionId].max)
                .to.equal(question.data.max);
       });
       it('should not change alterable properties that are not passed inside of data for Text', () => {
         const question = {
-          id: '58ee6466aa8ac36d6d74fe9e',
+          questionId: '58ee6466aa8ac36d6d74fe9e',
           kind: 'Text',
           data: {
             max: 2000
@@ -369,16 +369,16 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.questions[question.id].max)
-               .to.not.equal(initialState.questions[question.id].max);
-        expect(changedState.questions[question.id].required)
-               .to.equal(initialState.questions[question.id].required);
-        expect(changedState.questions[question.id].title)
-               .to.equal(initialState.questions[question.id].title);
+        expect(changedState.questions[question.questionId].max)
+               .to.not.equal(initialState.questions[question.questionId].max);
+        expect(changedState.questions[question.questionId].required)
+               .to.equal(initialState.questions[question.questionId].required);
+        expect(changedState.questions[question.questionId].title)
+               .to.equal(initialState.questions[question.questionId].title);
       });
       it('should not change alterable properties that are not passed inside of data for Scale', () => {
         const question = {
-          id: '58ee6466aa8ac36d6d74fe9f',
+          questionId: '58ee6466aa8ac36d6d74fe9f',
           kind: 'Scale',
           data: {
             max: 2000
@@ -391,14 +391,14 @@ describe('REDUCERS', () => {
 
         const changedState = reducer(initialState, action);
 
-        expect(changedState.questions[question.id].max)
-               .to.not.equal(initialState.questions[question.id].max);
-        expect(changedState.questions[question.id].required)
-               .to.equal(initialState.questions[question.id].required);
-        expect(changedState.questions[question.id].title)
-               .to.equal(initialState.questions[question.id].title);
-        expect(changedState.questions[question.id].min)
-               .to.equal(initialState.questions[question.id].min);
+        expect(changedState.questions[question.questionId].max)
+               .to.not.equal(initialState.questions[question.questionId].max);
+        expect(changedState.questions[question.questionId].required)
+               .to.equal(initialState.questions[question.questionId].required);
+        expect(changedState.questions[question.questionId].title)
+               .to.equal(initialState.questions[question.questionId].title);
+        expect(changedState.questions[question.questionId].min)
+               .to.equal(initialState.questions[question.questionId].min);
       });
     });
   });
@@ -415,7 +415,7 @@ describe('REDUCERS', () => {
         const option = {
           questionId,
           kind: 'Select',
-          id: 'k943c65a2djh895125n77r',
+          optionId: 'k943c65a2djh895125n77r',
           label: 'Cat'
         };
 
@@ -424,8 +424,9 @@ describe('REDUCERS', () => {
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
+        console.log(changedState.options);
         expect(Object.keys(changedState.options[questionId]).length).to.equal(4);
-        expect(changedState.options[questionId][option.id].label)
+        expect(changedState.options[questionId][option.optionId].label)
           .to.equal(option.label);
       });
       it('should not add an option for a question that is not a Select question', () => {
@@ -433,7 +434,7 @@ describe('REDUCERS', () => {
         const option = {
           questionId,
           kind: 'Scale',
-          id: 'k943c65a2djh895125n77r',
+          optionId: 'k943c65a2djh895125n77r',
           label: 'Cat'
         };
 
@@ -444,7 +445,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.options[questionId]).length).to.equal(3);
-        expect(changedState.options[questionId][option.id]).to.not.exist;
+        expect(changedState.options[questionId][option.objectId]).to.not.exist;
       });
     });
     describe('REMOVE_OPTION', () => {
@@ -453,7 +454,7 @@ describe('REDUCERS', () => {
           questionId: '58ee63c65a2d576d5125b4c1',
           type: 'REMOVE_OPTION',
           kind: 'Select',
-          id: '58ee6466aa8ac36d6d74fe9a'
+          objectId: '58ee6466aa8ac36d6d74fe9a'
         };
 
         deepFreeze(initialState);
@@ -461,14 +462,14 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.options[action.questionId]).length).to.equal(2);
-        expect(changedState.options[action.questionId][action.id]).to.not.exist;
+        expect(changedState.options[action.questionId][action.objectId]).to.not.exist;
       });
     });
     describe('EDIT_OPTION', () => {
       it('should edit an existing option in the list of options', () => {
         const questionId = '58ee63c65a2d576d5125b4c1';
         const option = {
-          id: '58ee6466aa8ac36d6d74fe9a',
+          objectId: '58ee6466aa8ac36d6d74fe9a',
           kind: 'Select',
           label: 'Megan and Jin are the TRUE WARRIORS'
         };
@@ -480,7 +481,7 @@ describe('REDUCERS', () => {
         const changedState = reducer(initialState, action);
 
         expect(Object.keys(changedState.options[questionId]).length).to.equal(3);
-        expect(changedState.options[questionId][option.id].label)
+        expect(changedState.options[questionId][option.objectId].label)
           .to.equal(option.label);
         expect(changedState.options[questionId]['58ee6466aa8ac36d6d74fe9b'].label)
           .to.equal(initialState.options[questionId]['58ee6466aa8ac36d6d74fe9b'].label);
@@ -564,12 +565,12 @@ describe('REDUCERS', () => {
         expect(Object.keys(changedState.response).length)
                .to.equal(Object.keys(initialState.response).length - 1);
       });
-      it('should remove one Select response if kind and index (i) are included', () => {
+      it('should remove one Select response if kind and objectId are included', () => {
         const action = {
           type: 'REMOVE_ANSWER',
           questionId: '58ee63c65a2d576d5125b4c1',
           kind: 'Select',
-          id: '58ee6466aa8ac36d6d74fe9c'
+          objectId: '58ee6466aa8ac36d6d74fe9c'
         };
 
         deepFreeze(initialState);

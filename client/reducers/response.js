@@ -11,9 +11,12 @@ function select(state = {}, action) {
         }
       };
     case 'REMOVE_ANSWER':
-      return Object.assign({}, state, {
-        value: remove(state.value, action.id)
-      });
+      return Object.assign({}, state, { value: remove(state.value, action.objectId) });
+    case 'UPDATE_RESPONSE':
+      return {
+        question: action.questionId,
+        value: {}
+      };
     default:
       return state;
   }

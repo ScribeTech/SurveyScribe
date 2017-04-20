@@ -32,35 +32,35 @@ export function updateAggregates(aggregates) {
   };
 }
 
-export function addSurvey(id, title) {
+export function addSurvey(surveyId, title) {
   return {
     type: 'ADD_SURVEY',
-    id,
+    surveyId,
     title
   };
 }
 
 // edit survey
-export function editSurvey(id, title) {
+export function editSurvey(surveyId, title) {
   return {
     type: 'EDIT_SURVEY',
-    id,
+    surveyId,
     title
   };
 }
 
 // remove survey
-export function removeSurvey(id) {
+export function removeSurvey(surveyId) {
   return {
     type: 'REMOVE_SURVEY',
-    id
+    surveyId
   };
 }
 
 export function addQuestion(kind) {
   return {
     type: 'ADD_QUESTION',
-    id: ObjectId(),
+    questionId: ObjectId(),
     kind
   };
 }
@@ -68,20 +68,20 @@ export function addQuestion(kind) {
 // Select data = { title, required, maxSelection }
 // Scale  data = { title, required, min, max }
 // Text data = { title, required, max }
-export function editQuestion(id, kind, data) {
+export function editQuestion(questionId, kind, data) {
   return {
     type: 'EDIT_QUESTION',
-    id,
+    questionId,
     kind,
     data
   };
 }
 
 // remove question (kind is only necessary for SELECT questions)
-export function removeQuestion(id, kind) {
+export function removeQuestion(questionId, kind) {
   return {
     type: 'REMOVE_QUESTION',
-    id,
+    questionId,
     kind
   };
 }
@@ -92,55 +92,53 @@ export function addOption(questionId, kind, label) {
     type: 'ADD_OPTION',
     questionId,
     kind,
-    id: ObjectId(),
+    optionId: ObjectId(),
     label
   };
 }
 
 // edit SELECT option
-export function editOption(questionId, kind, id, label) {
+export function editOption(questionId, kind, objectId, label) {
   return {
     type: 'EDIT_OPTION',
     questionId,
     kind,
-    id,
+    objectId,
     label
   };
 }
 
 // remove SELECT option
-export function removeOption(questionId, id, kind) {
+export function removeOption(questionId, objectId, kind) {
   return {
     type: 'REMOVE_OPTION',
     questionId,
-    id,
+    objectId,
     kind
   };
 }
 
 // toggle selected for SELECTED options
-export function toggleSelected(questionId, id, kind) {
+export function toggleSelected(questionId, objectId, kind) {
   return {
     type: 'TOGGLE_SELECTED',
     questionId,
-    id
+    objectId,
+    kind
   };
 }
 
 // toggle disabled for SELECTED options
 // response is array of chosen responses
-export function toggleDisabled(questionId, id) {
+export function toggleDisabled(questionId, objectId, kind) {
   return {
     type: 'TOGGLE_DISABLED',
     questionId,
-    id
+    objectId,
+    kind
   };
 }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> Temp commit for rebase
 // add answer
 export function addAnswer(questionId, value, kind) {
   return {
@@ -153,12 +151,12 @@ export function addAnswer(questionId, value, kind) {
 
 // remove answer --- kind and i only for removing one Select option
 // to remove an entire Select response, leave off kind and i
-export function removeAnswer(questionId, kind, id) {
+export function removeAnswer(questionId, objectId, kind) {
   return {
     type: 'REMOVE_ANSWER',
     questionId,
+    objectId,
     kind,
-    id
   };
 }
 // toggle error
