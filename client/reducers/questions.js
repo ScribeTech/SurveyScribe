@@ -26,7 +26,7 @@ function scale(state = {}, action) {
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
-        { questionId: action.questionId, kind: action.kind, required: false, title: '', min: 0, max: 0 });
+        { questionId: action.questionId, kind: action.kind, required: false, title: '', min: 0, max: 10 });
     case 'EDIT_QUESTION':
       return Object.assign({}, state,
         { required: action.data.required || state.required,
