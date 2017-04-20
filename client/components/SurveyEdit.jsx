@@ -43,7 +43,7 @@ const actions = props => [
         credentials: 'same-origin'
       })
       .then(() => {
-        getSurveys(props, '/survey');
+        getSurveys(props);
       });
     } }
 ];
