@@ -49,8 +49,8 @@ const handleClick = (props) => {
       props.errorTrue(result.message);
     } else {
       props.errorFalse();
+      browserHistory.push('/login');
     }
-    browserHistory.push('/login')
   })
   .catch((error) => {
     throw error;
