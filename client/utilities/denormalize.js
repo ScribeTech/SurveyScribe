@@ -64,6 +64,5 @@ export function denormalizeResponse(surveyId, response, questions) {
     }
     converted.answers.push(answer);
   });
-  console.log('converted', converted);
   return converted;
 }
