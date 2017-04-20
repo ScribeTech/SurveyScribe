@@ -109,7 +109,7 @@ export const makeAggregates = (questions, responses) => {
 };
 
 export const getResponses = (props, url) => {
-  fetch(`/api/surveys/${props.params.surveyId}/responses`, {
+  fetch(`/api/surveys/${props.params.surveyID}/responses`, {
     method: 'GET',
     credentials: 'same-origin',
     headers: {
@@ -134,11 +134,11 @@ export const postResponse = (props, url) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(
-      denormalizeResponse(props.surveys[props.params.surveyId], props.response, props.questions))
+      denormalizeResponse(props.params.surveyID, props.response, props.questions))
   })
   .then(() => {
     if (url) {
-      getResponses(props, url);
+      browserHistory.push(url);
     }
   })
   .catch((error) => {
