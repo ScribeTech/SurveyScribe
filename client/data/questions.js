@@ -17,7 +17,8 @@ export const questions = {
       kind: 'Select',
       required: false,
       title: 'What is your favorite color?',
-      maxSelection: 2 }
+      maxSelection: 1,
+      selected: 0 }
 };
 
 export default questions;
