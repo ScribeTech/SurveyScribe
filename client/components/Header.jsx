@@ -12,8 +12,8 @@ const handleClick = (props) => {
       'Content-Type': 'application/json',
     }
   })
-  .then((result) => {
-    console.log('session deleted');
+  .then(() => {
+    props.errorTrue('user signed out');
   })
   .catch((error) => {
     console.log('logout handleClick error', error);

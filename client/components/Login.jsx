@@ -8,9 +8,6 @@ import Snackbar from 'material-ui/Snackbar';
 
 import { Dark } from './Theme';
 import Logo from '../assets/images/logo-dark.svg';
-
-
-import Layout from './Layout';
 import { getSurveys } from '../utilities/apiTalk';
 
 let nameVal = '';

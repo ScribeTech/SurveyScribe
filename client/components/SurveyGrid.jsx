@@ -92,7 +92,7 @@ SurveyItem.defaultProps = {
 const SurveyList = props => (
   <Light>
     <div className="layout-semiwhole">
-      <Header />
+      <Header {...props} />
       <h1>Surveys</h1>
       <div className="list">
         {_.map(props.surveys, (survey, i) =>
