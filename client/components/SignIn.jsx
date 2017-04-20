@@ -55,7 +55,6 @@ const handleClick = (props) => {
       .catch((error) => {
         console.log('login handleClick error', error);
       });
-      //browserHistory.push('/login');
     }
   })
   .catch((error) => {
