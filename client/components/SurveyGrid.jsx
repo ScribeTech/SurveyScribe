@@ -59,7 +59,9 @@ Share.propTypes = {}.isRequired;
 
 const SurveyItem = props => (
   <div className="list-item media">
-    <div className="img"><Assessment color="#3498DB" /></div>
+    <Link to={`/survey/${props.id}/edit`}>
+      <div className="img"><Assessment color="#3498DB" /></div>
+    </Link>
     <div className="media-body">
       <Link to={`/survey/${props.id}/edit`}>
         <div className="list-item-body">
