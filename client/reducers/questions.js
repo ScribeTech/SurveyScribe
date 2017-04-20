@@ -26,11 +26,7 @@ function scale(state = {}, action) {
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
-<<<<<<< HEAD
-        { id: action.id, kind: action.kind, required: false, title: '', min: 0, max: 10 });
-=======
         { questionId: action.questionId, kind: action.kind, required: false, title: '', min: 0, max: 0 });
->>>>>>> Refactor reducers to use more specific variables
     case 'EDIT_QUESTION':
       return Object.assign({}, state,
         { required: action.data.required || state.required,
