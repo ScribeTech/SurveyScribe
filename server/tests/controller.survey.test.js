@@ -93,18 +93,6 @@ describe('Survey routes', () => {
           .catch(done);
       });
 
-      it('should return 401 if user\'s not the owner', (done) => {
-        const agent = request.agent(app);
-        login(agent)
-        .then(() => Survey.create(Survey.sample()))
-        .then(doc => agent.get(`/api/surveys/${doc._id}`))
-        .catch((response) => {
-          expect(response).status(401);
-          done();
-        })
-        .catch(done);
-      });
-
       REST.NotFound('get', '/api/surveys/doesnotexist');
     });
 
