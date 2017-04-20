@@ -11,9 +11,12 @@ function select(state = {}, action) {
         }
       };
     case 'REMOVE_ANSWER':
-      return Object.assign({}, state, {
-        value: remove(state.value, action.id)
-      });
+      return Object.assign({}, state, { value: remove(state.value, action.objectId) });
+    case 'ADD_QUESTION':
+      return {
+        question: action.questionId,
+        value: {}
+      };
     default:
       return state;
   }
@@ -37,6 +40,8 @@ export function response(state = {}, action) {
             })
           };
         case 'REMOVE_ANSWER':
+          return remove(state, action.questionId);
+        case 'REMOVE_QUESTION':
           return remove(state, action.questionId);
         default:
           return state;

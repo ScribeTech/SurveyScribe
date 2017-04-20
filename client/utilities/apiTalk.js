@@ -127,13 +127,14 @@ export const getResponses = (props, url) => {
 };
 
 export const postResponse = (props, url) => {
-  fetch('/api/reponses/', {
+  fetch('/api/responses', {
     method: 'POST',
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(denormalizeResponse(props.survey[props.params.surveyId], props.responses))
+    body: JSON.stringify(
+      denormalizeResponse(props.surveys[props.params.surveyId], props.response, props.questions))
   })
   .then(() => {
     if (url) {
