@@ -6,7 +6,7 @@ import Slider from 'material-ui/Slider';
 import Textfield from 'material-ui/TextField';
 import { List, ListItem } from 'material-ui/List';
 import _ from 'lodash';
-import Content from './Content';
+import { Light } from './Theme';
 import { putSurvey } from '../utilities/apiTalk';
 
 const Answer = (props) => {
@@ -113,15 +113,17 @@ const Answer = (props) => {
   };
   // Render
   return (
-    <Content className="content">
-      <h1>{props.surveys[surveyID].title}</h1>
-      <div>
-        {_.map(props.questions, question => (
-          renderKind(question.id, question.kind)
-        ))}
+    <Light>
+      <div className="layout-semiwhole">
+        <h1>{props.surveys[surveyID].title}</h1>
+        <div>
+          {_.map(props.questions, question => (
+            renderKind(question.id, question.kind)
+          ))}
+        </div>
+        <RaisedButton onClick={() => putSurvey(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
       </div>
-      <RaisedButton onClick={() => putSurvey(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
-    </Content>
+    </Light>
   );
 };
 

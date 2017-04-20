@@ -1,9 +1,9 @@
 import React from 'react';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Checkbox from 'material-ui/Checkbox';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import { List, ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
@@ -11,109 +11,72 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import _ from 'lodash';
 import 'whatwg-fetch';
 
-import Layout from './Layout';
+import { Light } from './Theme';
+import Header from './Header';
+import InlineEdit from './InlineEdit';
 import { getSurveys, putSurvey } from '../utilities/apiTalk';
 
 let sliderRef = '';
 
-const actions = props => [
-  { label: 'Save',
-    callback: () => {
-      putSurvey(props, '/survey');
-    }
-  },
-  { label: 'Share',
-    callback: () => {
-      putSurvey(props, `/survey/${props.params.surveyID}/answer`);
-    }
-  },
-  {
-    label: 'Results',
-    callback: () => {
-      getSurveys(props, `/survey/${props.params.surveyID}/results`);
-    }
-  },
-  { label: 'Delete',
-    callback: () => {
-      fetch(`/api/surveys/${props.params.surveyID}`, {
-        method: 'DELETE',
-        credentials: 'same-origin'
-      })
-      .then(() => {
-        getSurveys(props);
-      });
-    } }
-];
-
-const styles = {
-  option: {
-    marginLeft: 15,
-    width: 787
-  },
-  list: {
-    width: 800
-  },
-  title: {
-    width: 818
-  },
-  optionIconButton: {
-    position: 'absolute',
-    bottom: 20,
-    left: 'right'
-  },
-  quesitonIconButton: {
-    position: 'absolute',
-    marginTop: 20
-  },
-  slider: {
-    width: 800,
-    marginLeft: 20
-  },
-  scaleMax: {
-    position: 'relative',
-    width: 100,
-    marginTop: -200
+const actions = {
+  save: (props) => { putSurvey(props, '/survey'); },
+  share: (props) => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); },
+  results: (props) => { getSurveys(props, `/survey/${props.params.surveyID}/results`); },
+  delete: (props) => {
+    fetch(`/api/surveys/${props.params.surveyID}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    })
+    .then(() => {
+      getSurveys(props);
+    });
   }
 };
 
 const renderMessage = (props, question) => {
+  let HTML;
   if (question.kind === 'Select' || question.kind === undefined) {
-    return (
-      _.map(props.options[question.id], option => (
-        <div key={option.id} >
-          <ListItem disabled>
-            <TextField
-              id={option.id.toString()}
-              floatingLabelText="Option"
-              defaultValue={option.label}
-              onChange={(e) => {
-                props.editOption(question.id, question.kind, option.id, e.target.value);
-              }}
-              style={styles.option}
-              multiLine
+    HTML = (
+      <div>
+        <List>
+          {_.map(props.options[question.id], option => (
+            <ListItem
+              key={option.id}
+              leftCheckbox={<Checkbox />}
+              primaryText={
+                <InlineEdit
+                  defaultValue={option.label}
+                  placeholder="Option"
+                  onChange={(e) => {
+                    props.editOption(question.id, question.kind, option.id, e.target.value);
+                  }}
+                />
+              }
+              rightIcon={
+                <CloseIcon
+                  onClick={() => props.removeOption(question.id, option.id, question.kind)}
+                />
+              }
             />
-            <IconButton
-              onClick={() => props.removeOption(question.id, option.id, question.kind)}
-              style={styles.optionIconButton}
-            >
-              <CloseIcon />
-            </IconButton>
-          </ListItem>
-        </div>
-      ))
+          ))}
+        </List>
+        <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />
+      </div>
     );
   } else if (question.kind === 'Scale') {
-    return (
+    HTML = (
       <div>
         <Slider
           step={1}
           defaultValue={0}
           max={props.questions[question.id].max}
           min={props.questions[question.id].min}
-          style={styles.slider}
           ref={(slider) => { sliderRef = slider; }}
         />
         <span>
@@ -124,7 +87,6 @@ const renderMessage = (props, question) => {
               props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
               sliderRef.state.value = e.target.value;
             }}
-            style={styles.scaleMax}
           />
         </span>
         &nbsp;&nbsp;&nbsp;
@@ -136,7 +98,6 @@ const renderMessage = (props, question) => {
               props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
               sliderRef.state.value = props.questions[question.id].min;
             }}
-            style={styles.scaleMax}
           />
         </span>
       </div>
@@ -152,79 +113,80 @@ const renderMessage = (props, question) => {
       />
     );
   }
-
-  renderMessage.propTypes = {}.isRequired;
+  return HTML;
 };
 
-const renderAddOption = (props, question) => {
-  if (question.kind === 'Select') {
-    return <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />;
-  }
-  renderAddOption.propTypes = {}.isRequired;
-};
+renderMessage.propTypes = {}.isRequired;
 
 const Edit = (props) => {
   const surveyID = props.params.surveyID;
   const [survey] = _.filter(props.surveys, s => s.id === surveyID);
 
   return (
-    <Layout title="Survey Edit" actions={actions(props, survey)}>
-      <TextField
-        floatingLabelText="Title"
-        id={survey.id.toString()}
-        defaultValue={survey.title}
-        onChange={(e) => {
-          props.editSurvey(survey.id, e.target.value);
-        }}
-        style={styles.title}
-      />
-      {_.map(props.questions, question => (
-        <List key={question.id}>
-          <Toggle
-            label="Required Question"
-            onToggle={() => {
-              props.editQuestion(question.id, question.kind,
-                { required: !props.questions[question.id].required });
-            }}
-          />
-          <TextField
-            id={survey.id.toString()}
-            floatingLabelText="Question"
-            defaultValue={question.title}
+    <Light>
+      <div className="layout-semiwhole">
+        <Header />
+        <h1>
+          <InlineEdit
+            defaultValue={survey.title}
+            placeholder="Title"
             onChange={(e) => {
-              // Be sure to pass the title as a key in an object
-              props.editQuestion(question.id, question.kind, { title: e.target.value });
+              props.editSurvey(survey.id, e.target.value);
             }}
-            style={styles.list}
-            multiLine
           />
-          <IconButton
-            onClick={() => props.removeQuestion(question.id, question.kind)}
-            style={styles.quesitonIconButton}
-          >
-            <CloseIcon />
-          </IconButton>
-          {renderMessage(props, question)}
-          {renderAddOption(props, question)}
-        </List>
-      ))}
-      <IconMenu
-        iconButtonElement={
-          <FloatingActionButton
-            className="floatingActionButton"
-            zDepth={3}
-          >
-            <ContentAdd />
-          </FloatingActionButton>
-        }
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-      >
-        <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion('Select')} />
-        <MenuItem primaryText="Slider" onClick={() => props.addQuestion('Scale')} />
-        <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
-      </IconMenu>
-    </Layout>
+        </h1>
+        <div className="actions">
+          <RaisedButton primary label="Save" onClick={() => actions.save(props)} />
+          <FlatButton label="Share" onClick={() => actions.share(props)} />
+          <FlatButton label="Results" onClick={() => actions.results(props)} />
+          <FlatButton label="Delete" onClick={() => actions.delete(props)} />
+        </div>
+        {_.map(props.questions, question => (
+          <div key={question.id}>
+            <Toggle
+              label="Required"
+              onToggle={() => {
+                props.editQuestion(
+                  question.id, question.kind,
+                  { required: !props.questions[question.id].required }
+                );
+              }}
+            />
+            <h3>
+              <InlineEdit
+                defaultValue={question.title}
+                placeholder="Question"
+                onChange={(e) => {
+                  props.editQuestion(question.id, question.kind, { title: e.target.value });
+                }}
+              />
+            </h3>
+            <IconButton
+              onClick={() => props.removeQuestion(question.id, question.kind)}
+            >
+              <CloseIcon />
+            </IconButton>
+            {renderMessage(props, question)}
+          </div>
+        ))}
+        <IconMenu
+          iconButtonElement={
+            <FloatingActionButton
+              className="floatingActionButton"
+              zDepth={3}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
+          }
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        >
+          <MenuItem primaryText="Multiple Choice" onClick={() => props.addQuestion('Select')} />
+          <MenuItem primaryText="Slider" onClick={() => props.addQuestion('Scale')} />
+          <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
+        </IconMenu>
+      </div>
+    </Light>
   );
 };
 

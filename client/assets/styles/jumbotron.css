@@ -1,0 +1,46 @@
+/* JUMBOTRON */
+
+.jumbotron {
+  background: #2980B9;
+  color: #FFF;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.jumbotron h1 {
+  font-size: 2.369rem;
+  font-weight: lighter;
+  margin: 0 0 .5rem;
+}
+
+.jumbotron h2 {
+  font-size: 1.333rem;
+  font-weight: lighter;
+}
+
+.jumbotron h1 + h2 {
+  margin-bottom: 1.5rem;
+}
+
+.jumbotron .links {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  text-align: right;
+  padding: 2rem;
+}
+.jumbotron .links > a {
+  margin-right: -.5rem;
+}
+
+.jumbotron a {
+  color: #FFF;
+}
+
+.jumbotron .logo {
+  width: 5.3rem !important;
+  height: 5.3rem !important;
+}

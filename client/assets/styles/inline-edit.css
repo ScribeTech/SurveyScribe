@@ -1,0 +1,20 @@
+.inline-edit {
+  border-bottom: .08rem solid #EEE;
+}
+
+.inline-edit-input {
+  background: transparent;
+  border: none !important;
+  color: inherit !important;
+  display: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  text-align: inherit !important;
+  text-transform: inherit !important;
+  margin: inherit !important;
+  padding: inherit !important;
+  outline: none;
+}

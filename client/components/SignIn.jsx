@@ -1,35 +1,16 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
-import { Card, CardTitle, CardActions } from 'material-ui/Card';
-import Layout from './Layout';
+
+import { Link, browserHistory } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Snackbar from 'material-ui/Snackbar';
+
+import { Dark } from './Theme';
+import Logo from '../assets/images/logo-dark.svg';
 
 let nameVal = '';
 let passWordVal = '';
-
-const styles = {
-  main: {
-    position: 'relative',
-    top: 150,
-    margin: 'auto',
-    width: 600
-  },
-  textbox: {
-    marginLeft: 20
-  },
-  createaccount: {
-    marginTop: 30
-  },
-  signinerror: {
-    marginLeft: 20,
-    background: '#ffe6e6',
-    color: '#c86e6e',
-    padding: '10px',
-    border: '1px solid #f5c8c8',
-    width: 260
-  }
-};
 
 const handleClick = (props) => {
   fetch('/api/users/', {
@@ -57,50 +38,40 @@ const handleClick = (props) => {
   });
 };
 
-const renderError = (props) => {
-  renderError.propTypes = {}.isRequired;
-
-  if (props.signin.error) {
-    return (
-      <div style={styles.signinerror}>
-        {props.signin.message}
-      </div>
-    );
-  } else {
-    return (
-      <div />
-    );
-  }
-};
-
 const SignIn = props => (
-  <Layout title="Sign Up">
-    <div>
-      <Card style={styles.main}>
-        <CardTitle title="Please Sign Up" />
-        <div>
-          {renderError(props)}
-        </div>
-        <div style={styles.textbox}>
-          <TextField
-            floatingLabelText="Name"
-            type="username"
-            ref={(name) => { nameVal = name; }}
-          />
-        </div>
-        <div style={styles.textbox}>
-          <TextField
-            floatingLabelText="Password"
-            type="password"
-            ref={(password) => { passWordVal = password; }}
-          />
-        </div>
-        <CardActions>
-          <FlatButton style={styles.createaccount} label="Create Account" onClick={() => handleClick(props)} />
-        </CardActions>
-      </Card>
+  <Dark>
+    <div className="jumbotron">
+      <div className="center">
+        <div><img className="logo" src={Logo} alt="logo" /></div>
+        <TextField
+          floatingLabelText="Name"
+          ref={(name) => { nameVal = name; }}
+          fullWidth
+        />
+        <TextField
+          floatingLabelText="Password"
+          type="password"
+          ref={(password) => { passWordVal = password; }}
+          fullWidth
+        />
+        <RaisedButton
+          label="Create Account"
+          className="button"
+          primary
+          fullWidth
+          onClick={() => handleClick(props)}
+        />
+        <Link to="/login" className="button"><FlatButton fullWidth>Login</FlatButton></Link>
+      </div>
     </div>
-  </Layout>
+    <Snackbar
+      open={props.signin.error || false}
+      message={props.signin.message || ''}
+      autoHideDuration={4000}
+    />
+  </Dark>
 );
+
+SignIn.propTypes = {}.isRequired;
 
 export default SignIn;
