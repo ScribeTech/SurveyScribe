@@ -12,7 +12,7 @@ import Assessment from 'material-ui/svg-icons/action/assessment';
 import Clipboard from 'material-ui/svg-icons/content/content-copy';
 
 import { Light } from './Theme';
-import { getSurvey, checkAuth } from '../utilities/apiTalk';
+import { getSurvey } from '../utilities/apiTalk';
 import Header from './Header';
 
 const handleClick = (props) => {
@@ -63,7 +63,7 @@ const SurveyItem = props => (
       <div className="img"><Assessment color="#3498DB" /></div>
     </Link>
     <div className="media-body">
-      <Link to={`/survey/${props.id}/edit`}>
+      <Link onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}>
         <div className="list-item-body">
           <h2 className="primary">{props.title}</h2>
           <p className="secondary">Created MAR 5, 2017</p>
@@ -90,7 +90,7 @@ SurveyItem.defaultProps = {
 };
 
 const SurveyList = props => (
-  <Light onLoad={() => checkAuth(props)}>
+  <Light>
     <div className="layout-semiwhole">
       <Header />
       <h1>Surveys</h1>
