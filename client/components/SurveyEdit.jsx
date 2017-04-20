@@ -51,7 +51,7 @@ const renderMessage = (props, question) => {
           return (
             <ListItem
               primaryText={
-                <InlineEdit
+                <TextField
                   defaultValue={option.label}
                   placeholder="Option"
                   id={option.id}
