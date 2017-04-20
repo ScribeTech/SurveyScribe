@@ -127,7 +127,7 @@ SurveyGrid.propTypes = {
 };
 
 SurveyGrid.defaultProps = {
-  surveys: []
+  surveys: {}
 };
 
 export default SurveyGrid;
