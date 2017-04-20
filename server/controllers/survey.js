@@ -27,7 +27,6 @@ exports.create = (request, response, next) => {
 
 exports.read = (request, response, next) => {
   Survey.findById(request.params.survey).exec()
-  .then(doc => isOwner(doc, request))
   .then(doc => response.status(200).json(doc))
   .catch(next);
 };

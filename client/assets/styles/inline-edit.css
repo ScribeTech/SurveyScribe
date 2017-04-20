@@ -18,3 +18,7 @@
   padding: inherit !important;
   outline: none;
 }
+
+.placeholder {
+  color: #AAA;
+}

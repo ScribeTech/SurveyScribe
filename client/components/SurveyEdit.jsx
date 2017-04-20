@@ -35,7 +35,7 @@ const actions = {
       credentials: 'same-origin'
     })
     .then(() => {
-      getSurveys(props);
+      getSurveys(props, '/survey');
     });
   }
 };
@@ -140,7 +140,7 @@ const Edit = (props) => {
           <RaisedButton primary label="Save" onClick={() => actions.save(props)} />
           <FlatButton label="Share" onClick={() => actions.share(props)} />
           <FlatButton label="Results" onClick={() => actions.results(props)} />
-          <FlatButton label="Delete" onClick={() => actions.delete(props)} />
+          <Link to={'/survey'}><FlatButton label="Delete" onClick={() => actions.delete(props)} /></Link>
         </div>
         {_.map(props.questions, question => (
           <div key={question.id}>
