@@ -124,6 +124,10 @@ export const getResponses = (props, url) => {
 
     const aggregates = makeAggregates(props.questions, props.options, responses);
     props.updateAggregates(aggregates);
+
+    if (url) {
+      browserHistory.push(url);
+    }
   });
 };
 

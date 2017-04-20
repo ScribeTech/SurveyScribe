@@ -12,7 +12,6 @@ import { postResponse } from '../utilities/apiTalk';
 const Answer = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
-  const surveyID = props.params.surveyID;
 
   const disable = (questionId, selected, responses) => {
     const question = props.questions[questionId];
@@ -122,7 +121,7 @@ const Answer = (props) => {
   return (
     <Light>
       <div className="layout-semiwhole">
-        <h1>{props.surveys[surveyID].title}</h1>
+        <h1>{props.surveys[props.params.surveyID].title}</h1>
         <div>
           {_.map(props.questions, question => (
             renderKind(question)
