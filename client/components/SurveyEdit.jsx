@@ -13,6 +13,7 @@ import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 import Snackbar from 'material-ui/Snackbar';
 
 import _ from 'lodash';
