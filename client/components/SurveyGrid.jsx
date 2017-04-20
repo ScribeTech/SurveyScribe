@@ -36,12 +36,7 @@ const handleClick = (props) => {
       questions: []
     })
   })
-  .then(response => {
-    if (response.status === 401) {
-      browserHistory.push('/login');
-    }
-    response.json()
-  })
+  .then(response => response.json())
   .then((result) => {
     // Adding survey to state and changing the view to edit
     getSurvey(props, `/survey/${result._id}/edit`, result._id);
@@ -59,7 +54,7 @@ const SurveyTile = props => (
         <CardTitle style={styles.cardTitle} title={props.title} />
       </Link>
       <CardActions>
-        <FlatButton label="Edit" onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}/>
+        <FlatButton label="Edit" onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)} />
         <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
         <IconMenu
           iconButtonElement={<FlatButton label="Share" />}
@@ -88,8 +83,7 @@ SurveyTile.propTypes = {
   id: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string
-  ]).isRequired,
-  index: React.PropTypes.string
+  ]).isRequired
 };
 
 SurveyTile.defaultProps = {

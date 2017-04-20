@@ -30,13 +30,13 @@ import store, { history } from './store';
 import './assets/stylesheet.css';
 import './assets/content.css';
 
-const checkAuth = (store, Component) => {
-  let state = store.getState();
+const checkAuth = (currStore) => {
+  const state = currStore.getState();
   if (state.signin.name === undefined) {
     history.push('/login');
     location.reload();
   }
-}
+};
 
 const router = (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -44,7 +44,7 @@ const router = (
       <Router history={history}>
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
-          <Route path="/survey" component={SurveyGrid} onEnter={() =>checkAuth(store)} />
+          <Route path="/survey" component={SurveyGrid} onEnter={() => checkAuth(store)} />
           <Route path="/signin" component={SignIn} />
           <Route path="/login" component={Login} />
           <Route path="/survey/:surveyID/edit" component={SurveyEdit} />

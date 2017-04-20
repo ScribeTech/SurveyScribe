@@ -8,9 +8,8 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import { Card } from 'material-ui/Card';
 import ClipboardButton from 'react-clipboard.js';
-import { browserHistory as history } from 'react-router';
+import { browserHistory as history, Link } from 'react-router';
 import Clipboard from '../assets/Copy.svg';
-import { Link } from 'react-router';
 
 const Header = props => (
   <AppBar
@@ -45,7 +44,7 @@ const Header = props => (
               />
             );
           } else if (p.label === 'Delete') {
-            return (<Link key={p.label} to="/survey"><MenuItem  primaryText={p.label} onClick={p.callback} /> </Link>);
+            return (<Link key={p.label} to="/survey"><MenuItem primaryText={p.label} onClick={p.callback} /> </Link>);
           } else {
             return (<MenuItem key={p.label} primaryText={p.label} onClick={p.callback} />);
           }
