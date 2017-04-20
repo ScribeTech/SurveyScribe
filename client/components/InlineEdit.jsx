@@ -59,7 +59,7 @@ class InlineEdit extends React.Component {
           />
         </span>
       );
-    } else if (this.state.value !== undefined && this.state.value !== null) {
+    } else if (this.state.value || this.state.value === 0) {
       HTML = <span onClick={this.focus} className="inline-edit">{this.state.value}</span>;
     } else {
       // otherwise, use placeholder text

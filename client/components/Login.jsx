@@ -16,7 +16,8 @@ import { getSurveys } from '../utilities/apiTalk';
 let nameVal = '';
 let passWordVal = '';
 
-const handleClick = (props) => {
+const handleClick = (props, e) => {
+  e.preventDefault();
   fetch('/api/login/', {
     method: 'POST',
     credentials: 'same-origin',
@@ -46,8 +47,8 @@ const handleClick = (props) => {
 const Login = props => (
   <Dark>
     <div className="jumbotron">
-      <div className="center">
-        <div><img className="logo" src={Logo} alt="logo" /></div>
+      <form className="center" onSubmit={e => handleClick(props, e)}>
+        <Link to="/"><img className="logo" src={Logo} alt="logo" /></Link>
         <TextField
           floatingLabelText="Name"
           ref={(name) => { nameVal = name; }}
@@ -62,12 +63,12 @@ const Login = props => (
         <RaisedButton
           label="Login"
           className="button"
+          type="submit"
           primary
           fullWidth
-          onClick={() => handleClick(props)}
         />
         <Link to="/signin" className="button"><FlatButton fullWidth>Create Account</FlatButton></Link>
-      </div>
+      </form>
     </div>
     <Snackbar
       open={props.signin.error || false}
