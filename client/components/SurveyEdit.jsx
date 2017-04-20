@@ -192,7 +192,7 @@ const Edit = (props) => {
             floatingLabelText="Question"
             defaultValue={question.title}
             onChange={(e) => {
-              // editing question in state
+              // Be sure to pass the title as a key in an object
               props.editQuestion(question.id, question.kind, { title: e.target.value });
             }}
             style={styles.list}
