@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
-import Layout from './Layout';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
+import Layout from './Layout';
 import { getSurveys } from '../utilities/apiTalk';
 
 let nameVal = '';
@@ -51,8 +52,8 @@ const handleClick = (props) => {
     } else {
       props.errorFalse();
       props.editUser(result._id, result.name);
+      getSurveys(props, '/survey');
     }
-    getSurveys(props, '/survey');
   })
   .catch((error) => {
     console.log('login handleClick error', error);
@@ -99,6 +100,7 @@ const Login = props => (
         </div>
         <CardActions>
           <FlatButton style={styles.createaccount} label="Log In" onClick={() => handleClick(props)} />
+          <Link to="/signin" ><FlatButton style={styles.createaccount} label="Create Account" /></Link>
         </CardActions>
       </Card>
     </div>
