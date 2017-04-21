@@ -26,7 +26,7 @@ settings.production = {
   database: { uri: 'mongodb://localhost/surveyscribe-production' },
   session: {
     secret: 'RANDOM SECRET KEY',
-    secure: true
+    secure: false
   }
 };
 
