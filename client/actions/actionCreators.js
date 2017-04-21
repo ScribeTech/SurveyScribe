@@ -189,15 +189,15 @@ export function editUser(id, name) {
   };
 }
 
-export function saveSurvey() {
+export function showSnackbar() {
   return {
-    type: 'SAVE_SURVEY'
+    type: 'SHOW_SNACK'
   };
 }
 
-export function toggleSave() {
+export function hideSnackbar() {
   return {
-    type: 'TOGGLE_SAVE'
+    type: 'HIDE_SNACK'
   };
 }
 

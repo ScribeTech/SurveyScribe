@@ -8,7 +8,7 @@ import { signin } from './signin';
 import { response } from './response';
 import { responses } from './responses';
 import { aggregates } from './aggregates';
-import { save } from './save';
+import { snackbar } from './snackbar';
 import { warning } from './warning';
 
 const rootReducer = combineReducers({
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   response,
   aggregates,
   signin,
-  save,
+  snackbar,
   warning,
   routing: routerReducer
 });

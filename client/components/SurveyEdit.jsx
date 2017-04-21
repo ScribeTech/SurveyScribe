@@ -23,14 +23,14 @@ import 'whatwg-fetch';
 import { Light } from './Theme';
 import Header from './Header';
 import InlineEdit from './InlineEdit';
-import { getSurveys, putSurvey } from '../utilities/apiTalk';
+import { getSurveys, putSurvey, getResponses } from '../utilities/apiTalk';
 
-let sliderRef = '';
+const sliderRef = '';
 
 const actions = {
   save: (props) => { putSurvey(props); },
   share: (props) => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); },
-  results: (props) => { getSurveys(props, `/survey/${props.params.surveyID}/results`); },
+  results: (props) => { getResponses(props, `/survey/${props.params.surveyID}/results`); },
   delete: (props) => {
     fetch(`/api/surveys/${props.params.surveyID}`, {
       method: 'DELETE',
@@ -183,10 +183,10 @@ const Edit = (props) => {
         </IconMenu>
       </div>
       <Snackbar
-        open={props.save}
+        open={props.snackbar}
         message="Survey has been saved"
         autoHideDuration={4000}
-        onRequestClose={() => props.toggleSave()}
+        onRequestClose={() => props.hideSnackbar()}
       />
     </Light>
   );
