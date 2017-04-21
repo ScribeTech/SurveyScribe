@@ -42,27 +42,25 @@ const renderMessage = (props, question) => {
   if (question.kind === 'Select' || question.kind === undefined) {
     HTML = (
       <List>
-        {_.map(props.options[question.id], (option) => {
-          return (
-            <ListItem
-              primaryText={
-                <InlineEdit
-                  defaultValue={option.label}
-                  placeholder="Option"
-                  id={option.id}
-                  onChange={e =>
-                    props.editOption(question.id, option.id, question.kind, e.target.value)
-                  }
-                />
-              }
-              rightIcon={
-                <RemoveIcon
-                  onClick={() => props.removeOption(question.id, option.id, question.kind)}
-                />
-              }
-            />
-          );
-        })}
+        {_.map(props.options[question.id], option => (
+          <ListItem
+            primaryText={
+              <InlineEdit
+                defaultValue={option.label}
+                placeholder="Option"
+                id={option.id}
+                onChange={e =>
+                  props.editOption(question.id, option.id, question.kind, e.target.value)
+                }
+              />
+            }
+            rightIcon={
+              <RemoveIcon
+                onClick={() => props.removeOption(question.id, option.id, question.kind)}
+              />
+            }
+          />
+        ))}
         <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />
       </List>
     );
