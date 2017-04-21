@@ -42,8 +42,8 @@ const renderMessage = (props, question) => {
   if (question.kind === 'Select' || question.kind === undefined) {
     HTML = (
       <List>
-        {_.map(props.options[question.id], (option) => {
-          return (
+        {_.map(props.options[question.id], option =>
+          (
             <ListItem
               primaryText={
                 <InlineEdit
@@ -61,8 +61,8 @@ const renderMessage = (props, question) => {
                 />
               }
             />
-          );
-        })}
+          )
+        )}
         <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />
       </List>
     );
