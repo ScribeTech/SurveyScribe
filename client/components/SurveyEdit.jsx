@@ -160,6 +160,7 @@ const Edit = (props) => {
                 props.editQuestion(question.id, question.kind,
                 { required: !props.questions[question.id].required });
               }}
+              toggled={question.required}
             />
             {renderMessage(props, question)}
           </div>
