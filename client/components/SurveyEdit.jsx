@@ -1,7 +1,6 @@
 import React from 'react';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Checkbox from 'material-ui/Checkbox';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
@@ -9,8 +8,6 @@ import RemoveIcon from 'material-ui/svg-icons/content/remove';
 import { List, ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -181,13 +178,13 @@ const Edit = (props) => {
           <MenuItem primaryText="Slider" onClick={() => props.addQuestion('Scale')} />
           <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
         </IconMenu>
+        <Snackbar
+          open={props.snackbar}
+          message="Survey has been saved"
+          autoHideDuration={4000}
+          onRequestClose={() => props.hideSnackbar()}
+        />
       </div>
-      <Snackbar
-        open={props.snackbar}
-        message="Survey has been saved"
-        autoHideDuration={4000}
-        onRequestClose={() => props.hideSnackbar()}
-      />
     </Light>
   );
 };
