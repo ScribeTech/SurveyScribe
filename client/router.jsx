@@ -35,16 +35,6 @@ const checkAuth = (currStore) => {
   }
 };
 
-const getSurveyForAnswer = () => {
-  fetch(`/api/surveys/${window.location.href.split('/')[4]}`, {
-    method: 'GET',
-  })
-  .then(response => response.json())
-  .then((result) => {
-    console.log(result);
-  });
-};
-
 async function init() {
   const store = await configureStore();
 
@@ -73,11 +63,7 @@ async function init() {
           <Route path="/signin" component={SignIn} />
           <Route path="/login" component={Login} />
           <Route path="/survey/:surveyID/edit" component={SurveyEdit} />
-          <Route
-            path="/survey/:surveyID/answer"
-            component={SurveyAnswer}
-            onEnter={() => getSurveyForAnswer()}
-          />
+          <Route path="/survey/:surveyID/answer" component={SurveyAnswer} />
           <Route path="/survey/:surveyID/results" component={Results} onEnter={() => checkAuth(store)} />
           <Route path="/survey/:surveyID/finish" component={Finish} />
           <Route path="*" component={NotFoundPage} />

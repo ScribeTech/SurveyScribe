@@ -14,26 +14,26 @@ import { normalizeSurvey } from '../utilities/normalize';
 const Answer = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
-  // const getSurvey = (currProps) => {
-  //   fetch(`/api/surveys/${currProps.params.surveyID}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then((result) => {
-  //     console.log(result);
-  //     const converted = normalizeSurvey(result);
-  //     currProps.updateSurvey(converted.questions, converted.options);
-  //   })
-  //   .catch((error) => {
-  //     throw error;
-  //   });
-  // };
+  const getSurvey = (currProps) => {
+    fetch(`/api/surveys/${currProps.params.surveyID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then((result) => {
+      const converted = normalizeSurvey(result);
+      console.log(converted);
+      currProps.updateSurvey(converted.questions, converted.options);
+      console.log(currProps);
+    })
+    .catch((error) => {
+      throw error;
+    });
+  };
 
-  // getSurvey(props);
-
+  getSurvey(props);
   const disable = (questionId, selected, responses) => {
     const question = props.questions[questionId];
     const options = props.options[questionId];
