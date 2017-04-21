@@ -1,9 +1,9 @@
-export function save(state = false, action) {
+export function warning(state = false, action) {
   switch (action.type) {
-    case 'SAVE_SURVEY':
+    case 'SHOW_WARNING':
       state = true;
       return state;
-    case 'TOGGLE_SAVE':
+    case 'HIDE_WARNING':
       state = false;
       return state;
     default:
@@ -11,4 +11,4 @@ export function save(state = false, action) {
   }
 }
 
-export default save;
+export default warning;

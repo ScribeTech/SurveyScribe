@@ -1,4 +1,5 @@
 import { browserHistory } from 'react-router';
+import _ from 'lodash';
 import { normalizeSurveys, normalizeSurvey, normalizeResponses } from './normalize';
 import { denormalizeSurvey, denormalizeResponse } from './denormalize';
 
@@ -132,21 +133,33 @@ export const getResponses = (props, url) => {
 };
 
 export const postResponse = (props, url) => {
-  fetch('/api/responses', {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(
-      denormalizeResponse(props.params.surveyID, props.response, props.questions))
-  })
-  .then(() => {
-    if (url) {
-      browserHistory.push(url);
+  _.forEach(props.questions, (question) => {
+    if (question.required === true) {
+      if (props.response[question.id] === undefined) {
+        props.showWarning();
+      } else {
+        props.hideWarning();
+      }
     }
-  })
-  .catch((error) => {
-    throw error;
   });
+
+  if (props.warning === false) {
+    fetch('/api/responses', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        denormalizeResponse(props.params.surveyID, props.response, props.questions))
+    })
+    .then(() => {
+      if (url) {
+        browserHistory.push(url);
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
+  }
 };

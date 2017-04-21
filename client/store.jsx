@@ -13,7 +13,8 @@ const defaultState = {
   response: {},
   aggregates: {},
   signin: [],
-  save: {}
+  save: false,
+  warning: false
 };
 
 const enhancers = compose(
