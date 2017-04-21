@@ -174,13 +174,13 @@ const Edit = (props) => {
           <MenuItem primaryText="Slider" onClick={() => props.addQuestion('Scale')} />
           <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
         </IconMenu>
+        <Snackbar
+          open={props.snackbar}
+          message="Survey has been saved"
+          autoHideDuration={4000}
+          onRequestClose={() => props.hideSnackbar()}
+        />
       </div>
-      <Snackbar
-        open={props.snackbar}
-        message="Survey has been saved"
-        autoHideDuration={4000}
-        onRequestClose={() => props.hideSnackbar()}
-      />
     </Light>
   );
 };
