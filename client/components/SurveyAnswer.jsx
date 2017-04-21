@@ -136,7 +136,9 @@ const Answer = (props) => {
           ))}
         </div>
         <RaisedButton onClick={() => postResponse(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
-        <Dialog open={props.warning} actions={action} onRequestClose={() => props.hideWarning()}>You didn't answer required question!</Dialog>
+        <Dialog open={props.warning} actions={action} onRequestClose={() => props.hideWarning()}>
+        You didn't answer required question!
+        </Dialog>
       </div>
     </Light>
   );
