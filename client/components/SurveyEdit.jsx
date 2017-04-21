@@ -41,7 +41,7 @@ const renderMessage = (props, question) => {
   let HTML;
   if (question.kind === 'Select' || question.kind === undefined) {
     HTML = (
-      <div className="question">
+      <div className="question-body">
         <List>
           {_.map(props.options[question.id], option => (
             <ListItem
