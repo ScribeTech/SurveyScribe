@@ -42,6 +42,17 @@ const renderMessage = (props, question) => {
   if (question.kind === 'Select' || question.kind === undefined) {
     HTML = (
       <List>
+        <ListItem
+          primaryText={
+            <TextField
+              floatingLabelText="Max Selection"
+              hintText={props.questions[question.id].maxSelection.toString()}
+              onChange={(e) => {
+                props.editQuestion(question.id, 'Select', { maxSelection: Number(e.target.value), selected: 0 });
+              }}
+            />
+          }
+        />
         {_.map(props.options[question.id], option => (
           <ListItem
             primaryText={

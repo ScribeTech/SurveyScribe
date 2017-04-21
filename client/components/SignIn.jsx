@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
