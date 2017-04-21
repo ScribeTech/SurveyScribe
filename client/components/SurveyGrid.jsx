@@ -95,9 +95,10 @@ const SurveyList = props => (
       <Header {...props} />
       <h1>Surveys</h1>
       <div className="list">
-        {_.map(props.surveys, (survey, i) =>
-          <SurveyItem key={survey.id} id={survey.id} {...survey} {...props} index={i} />)
-        }
+        { Object.keys(props.surveys).length ?
+          _.map(props.surveys, (survey, i) =>
+            <SurveyItem key={survey.id} id={survey.id} {...survey} {...props} index={i} />)
+        : <h3 className={'no-surveys'}>No surveys</h3> }
       </div>
       <FloatingActionButton
         className="floatingActionButton"
