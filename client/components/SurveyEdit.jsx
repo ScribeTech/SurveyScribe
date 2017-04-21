@@ -86,7 +86,12 @@ const renderMessage = (props, question) => {
             floatingLabelText="Min"
             hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
-              props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
+              if (Number(e.target.value) > props.questions[question.id].max) {
+                props.showSnackbar('Slider Min value can not be more than Max');
+                props.editQuestion(question.id, 'Scale', { min: props.questions[question.id].min });
+              } else {
+                props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
+              }
             }}
           />
         </span>
@@ -96,7 +101,12 @@ const renderMessage = (props, question) => {
             floatingLabelText="Max"
             hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
-              props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
+              if (Number(e.target.value) < props.questions[question.id].min) {
+                props.showSnackbar('Slider Max value can not be less than Min');
+                props.editQuestion(question.id, 'Scale', { max: props.questions[question.id].max });
+              } else {
+                props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
+              }
             }}
           />
         </span>
@@ -187,9 +197,9 @@ const Edit = (props) => {
           <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
         </IconMenu>
         <Snackbar
-          open={props.snackbar}
-          message="Survey has been saved"
-          autoHideDuration={4000}
+          open={props.snackbar.show || false}
+          message={props.snackbar.message || 'Survey has been saved'}
+          autoHideDuration={1500}
           onRequestClose={() => props.hideSnackbar()}
         />
       </div>
