@@ -34,33 +34,43 @@ function select(state = {}, action) {
 
 function scale(state = {}, action) {
   let output = null;
+  let actionDataMin = '';
+  let actionDataMax = '';
+  if (action.data) {
+    actionDataMin = action.data.min;
+  }
+  if (action.data) {
+    actionDataMax = action.data.max;
+  }
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
         { id: action.questionId, kind: action.kind, required: false, title: '', min: 0, max: 10 });
     case 'EDIT_QUESTION':
+      if (action.data.max === 0) {
+        actionDataMax = action.data.max.toString();
+      }
       if (action.data.min === 0) {
+        actionDataMin = action.data.min.toString();
+      }
+      if (action.data.required !== undefined) {
         output = Object.assign({}, state,
-          { required: action.data.required || state.required,
+          { required: action.data.required,
             title: action.data.title || state.title,
-            min: action.data.min,
-            max: action.data.max || state.max
-          });
-      } else if (action.data.max === 0) {
-        output = Object.assign({}, state,
-          { required: action.data.required || state.required,
-            title: action.data.title || state.title,
-            min: action.data.min || state.min,
-            max: action.data.max
+            min: actionDataMin || state.min,
+            max: actionDataMax || state.max
           });
       } else {
         output = Object.assign({}, state,
-          { required: action.data.required || state.required,
+          { required: state.required,
             title: action.data.title || state.title,
-            min: action.data.min || state.min,
-            max: action.data.max || state.max
+            min: actionDataMin || state.min,
+            max: actionDataMax || state.max
           });
       }
+      output.max = Number(output.max);
+      output.min = Number(output.min);
+
       return output;
     default:
       return state;
@@ -68,16 +78,26 @@ function scale(state = {}, action) {
 }
 
 function text(state = {}, action) {
+  let output = null;
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
         { id: action.questionId, kind: action.kind, required: false, title: '', max: 100 });
     case 'EDIT_QUESTION':
-      return Object.assign({}, state,
-        { required: action.data.required || state.required,
-          title: action.data.title || state.title,
-          max: action.data.max || state.max
-        });
+      if (action.data.required !== undefined) {
+        output = Object.assign({}, state,
+          { required: action.data.required,
+            title: action.data.title || state.title,
+            max: action.data.max || state.max
+          });
+      } else {
+        output = Object.assign({}, state,
+          { required: state.required,
+            title: action.data.title || state.title,
+            max: action.data.max || state.max
+          });
+      }
+      return output;
     case 'ADD_ANSWER':
       return {
         ...state,
