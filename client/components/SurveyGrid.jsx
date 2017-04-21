@@ -47,8 +47,8 @@ const Share = props => (
     <div className="copy">
       Copy This Link
       <div className="link">
-        <input id="url" className="url" type="text" value={`${window.location.href.split('/s')[0]}/survey/${props.id}/answer`} readOnly />
-        <ClipboardButton data-clipboard-target="#url"><Clipboard /></ClipboardButton>
+        <input id="url" className="url" type="text" value={`${window.location}/${props.id}/answer`} readOnly />
+        <ClipboardButton className="copybtn" data-clipboard-target="#url"><Clipboard className="clipboard" /></ClipboardButton>
       </div>
       Use the button to copy the link
     </div>
