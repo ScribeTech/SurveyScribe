@@ -47,7 +47,6 @@ const Results = (props) => {
 
   const makeScaleConfig = (data, question) => {
     const graphData = [];
-    console.log('data', data);
     for (let i = 0; i < data.length; i += 1) {
       graphData.push([data[i]]);
     }
@@ -136,7 +135,7 @@ const Results = (props) => {
     let config = '';
     const kind = question.kind;
     if (kind === 'Scale') {
-      config = makeScaleConfig(props.options[question.id], props.aggregates[question.id], question);
+      config = makeScaleConfig(props.aggregates[question.id], question);
     } else if (kind === 'Select') {
       config = makeSelectConfig(props.aggregates[question.id], question);
     }

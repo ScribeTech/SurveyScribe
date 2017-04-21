@@ -72,7 +72,7 @@ class Answer extends React.Component {
         const responses = Object.assign({}, response,
           { value: Object.assign({}, response.value, { [id]: id }) });
         this.props.addAnswer(question.id, id, question.kind);
-        disable(question.id, question.selected + 1, responses);
+        disable(question.id, question.selected - 1, responses);
       } else {
         this.props.removeAnswer(question.id, id, question.kind);
         disable(question.id, question.selected, response);
