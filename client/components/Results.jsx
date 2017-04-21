@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import ReactHighcharts from 'react-highcharts';
 import Layout from './Layout';
+import { Light } from './Theme';
 
 const Results = (props) => {
   // Load the currently selected survey
@@ -77,7 +78,7 @@ const Results = (props) => {
         pointPadding: 0,
         groupPadding: 0,
         pointPlacement: 'between',
-        color: '#00bcd4'
+        color: '#3498db'
       }]
     };
 
@@ -124,7 +125,7 @@ const Results = (props) => {
       },
       series: [{
         data: graphData,
-        color: '#00bcd4'
+        color: '#3498db'
       }]
     };
 
@@ -167,11 +168,13 @@ const Results = (props) => {
   };
 
   return (
-    <Layout title={survey.title}>
-      {_.map(props.questions, question => (
-        renderGraphs(question)
-      ))}
-    </Layout>
+    <Light>
+      <Layout title={survey.title}>
+        {_.map(props.questions, question => (
+          renderGraphs(question)
+        ))}
+      </Layout>
+    </Light>
   );
 };
 
