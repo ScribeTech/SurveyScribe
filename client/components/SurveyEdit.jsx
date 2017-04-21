@@ -43,19 +43,9 @@ const renderMessage = (props, question) => {
     HTML = (
       <div className="question">
         <List>
-          <ListItem
-            primaryText={
-              <TextField
-                floatingLabelText="Max Selection"
-                hintText={props.questions[question.id].maxSelection.toString()}
-                onChange={(e) => {
-                  props.editQuestion(question.id, 'Select', { maxSelection: Number(e.target.value), selected: 0 });
-                }}
-              />
-            }
-          />
           {_.map(props.options[question.id], option => (
             <ListItem
+              disabled
               primaryText={
                 <InlineEdit
                   defaultValue={option.label}
@@ -77,6 +67,15 @@ const renderMessage = (props, question) => {
           ))}
         </List>
         <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />
+        <div>
+          <TextField
+            floatingLabelText="Max Selection"
+            hintText={props.questions[question.id].maxSelection.toString()}
+            onChange={(e) => {
+              props.editQuestion(question.id, 'Select', { maxSelection: Number(e.target.value), selected: 0 });
+            }}
+          />
+        </div>
       </div>
     );
   } else if (question.kind === 'Scale') {
