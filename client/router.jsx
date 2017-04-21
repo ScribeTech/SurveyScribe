@@ -22,6 +22,8 @@ import Login from './components/Login';
 // Import the Application's State (Redux)
 import configureStore from './store';
 
+import { normalizeSurvey } from './utilities/normalize';
+
 // Import Styles
 import './assets/styles/stylesheet.css';
 
@@ -31,6 +33,16 @@ const checkAuth = (currStore) => {
     history.push('/login');
     location.reload();
   }
+};
+
+const getSurveyForAnswer = () => {
+  fetch(`/api/surveys/${window.location.href.split('/')[4]}`, {
+    method: 'GET',
+  })
+  .then(response => response.json())
+  .then((result) => {
+    console.log(result);
+  });
 };
 
 async function init() {
@@ -61,7 +73,11 @@ async function init() {
           <Route path="/signin" component={SignIn} />
           <Route path="/login" component={Login} />
           <Route path="/survey/:surveyID/edit" component={SurveyEdit} />
-          <Route path="/survey/:surveyID/answer" component={SurveyAnswer} />
+          <Route
+            path="/survey/:surveyID/answer"
+            component={SurveyAnswer}
+            onEnter={() => getSurveyForAnswer()}
+          />
           <Route path="/survey/:surveyID/results" component={Results} onEnter={() => checkAuth(store)} />
           <Route path="/survey/:surveyID/finish" component={Finish} />
           <Route path="*" component={NotFoundPage} />
