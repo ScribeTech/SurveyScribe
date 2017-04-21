@@ -22,8 +22,6 @@ import Login from './components/Login';
 // Import the Application's State (Redux)
 import configureStore from './store';
 
-import { normalizeSurvey } from './utilities/normalize';
-
 // Import Styles
 import './assets/styles/stylesheet.css';
 
