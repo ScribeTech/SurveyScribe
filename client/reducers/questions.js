@@ -33,17 +33,35 @@ function select(state = {}, action) {
 }
 
 function scale(state = {}, action) {
+  let output = null;
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
         { id: action.questionId, kind: action.kind, required: false, title: '', min: 0, max: 10 });
     case 'EDIT_QUESTION':
-      return Object.assign({}, state,
-        { required: action.data.required || state.required,
-          title: action.data.title || state.title,
-          min: action.data.min || state.min,
-          max: action.data.max || state.max
-        });
+      if (action.data.min === 0) {
+        output = Object.assign({}, state,
+          { required: action.data.required || state.required,
+            title: action.data.title || state.title,
+            min: action.data.min,
+            max: action.data.max || state.max
+          });
+      } else if (action.data.max === 0) {
+        output = Object.assign({}, state,
+          { required: action.data.required || state.required,
+            title: action.data.title || state.title,
+            min: action.data.min || state.min,
+            max: action.data.max
+          });
+      } else {
+        output = Object.assign({}, state,
+          { required: action.data.required || state.required,
+            title: action.data.title || state.title,
+            min: action.data.min || state.min,
+            max: action.data.max || state.max
+          });
+      }
+      return output;
     default:
       return state;
   }
