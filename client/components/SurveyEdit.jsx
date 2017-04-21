@@ -183,10 +183,10 @@ const Edit = (props) => {
         </IconMenu>
       </div>
       <Snackbar
-        open={props.save}
+        open={props.snackbar}
         message="Survey has been saved"
         autoHideDuration={4000}
-        onRequestClose={() => props.toggleSave()}
+        onRequestClose={() => props.hideSnackbar()}
       />
     </Light>
   );

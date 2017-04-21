@@ -1,11 +1,9 @@
 export function warning(state = false, action) {
   switch (action.type) {
     case 'SHOW_WARNING':
-      state = true;
-      return state;
+      return true;
     case 'HIDE_WARNING':
-      state = false;
-      return state;
+      return false;
     default:
       return state;
   }
