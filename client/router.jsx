@@ -61,10 +61,7 @@ async function init() {
           <Route path="/signin" component={SignIn} />
           <Route path="/login" component={Login} />
           <Route path="/survey/:surveyID/edit" component={SurveyEdit} />
-          <Route
-            path="/survey/:surveyID/answer"
-            component={SurveyAnswer}
-          />
+          <Route path="/survey/:surveyID/answer" component={SurveyAnswer} />
           <Route path="/survey/:surveyID/results" component={Results} onEnter={() => checkAuth(store)} />
           <Route path="/survey/:surveyID/finish" component={Finish} />
           <Route path="*" component={NotFoundPage} />
