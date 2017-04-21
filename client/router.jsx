@@ -33,10 +33,6 @@ const checkAuth = (currStore) => {
   }
 };
 
-const clearResponse = (currStore) => {
-  currStore.clearResponse();
-};
-
 async function init() {
   const store = await configureStore();
 
@@ -68,9 +64,6 @@ async function init() {
           <Route
             path="/survey/:surveyID/answer"
             component={SurveyAnswer}
-            onEnter={() => {
-              store.clearResponse();
-            }}
           />
           <Route path="/survey/:surveyID/results" component={Results} onEnter={() => checkAuth(store)} />
           <Route path="/survey/:surveyID/finish" component={Finish} />
