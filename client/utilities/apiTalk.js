@@ -70,7 +70,7 @@ export const putSurvey = (props, url) => {
 };
 
 // make response aggregates for a particular survey
-export const makeAggregates = (questions, responses) => {
+export const makeAggregates = (questions, responses, options) => {
   const aggregates = {};
   Object.keys(questions).forEach((qId) => {
     const question = questions[qId];
@@ -87,6 +87,11 @@ export const makeAggregates = (questions, responses) => {
                 aggregates[qId][optionId] = 1;
               }
             });
+          }
+        });
+        Object.keys(options[qId]).forEach((optionId) => {
+          if (!aggregates[qId][optionId]) {
+            aggregates[qId][optionId] = 1 / 100;
           }
         });
         break;
@@ -127,7 +132,7 @@ export const getResponses = (props, id, url) => {
   .then((result) => {
     const responses = normalizeResponses(result);
     props.updateResponses(responses);
-    const aggregates = makeAggregates(props.questions, responses);
+    const aggregates = makeAggregates(props.questions, responses, props.options);
     props.updateAggregates(aggregates);
 
     if (url) {

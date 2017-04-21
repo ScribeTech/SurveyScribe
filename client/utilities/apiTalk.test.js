@@ -1,12 +1,13 @@
 import chai from 'chai';
 import { questions } from '../data/questions';
 import { responses } from '../data/responses';
+import { options } from '../data/options';
 import { makeAggregates } from '../utilities/apiTalk';
 
 const { expect } = chai;
 
 describe('makeAggregates', () => {
-  const aggregates = makeAggregates(questions, responses);
+  const aggregates = makeAggregates(questions, responses, options);
   it('should return an object of aggregated responses to a survey', () => {
     expect(aggregates).to.be.Object;
     expect(aggregates['58ee6466aa8ac36d6d74fe9f']).to.be.Object;
