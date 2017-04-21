@@ -4,6 +4,7 @@
 # Secrets
 *.pem
 production.json
+config.js
 
 # Logs
 *.log

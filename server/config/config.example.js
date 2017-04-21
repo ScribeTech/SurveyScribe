@@ -22,26 +22,23 @@ settings.test = {
 };
 
 settings.production = {
-  database: {
-    uri: process.env.dbURI || 'mongodb://localhost/',
-    options: {
-      db: process.env.db || 'surveyscribe',
-      user: process.env.dbUser,
-      pass: process.env.dbPass
-    }
-  },
+  port: 8080,
+  database: { uri: 'mongodb://localhost/surveyscribe-production' },
   session: {
-    secret: process.env.sessionSecret || settings.default.session.secret,
+    secret: 'RANDOM SECRET KEY',
     secure: true
   }
 };
 
 const env = process.env.NODE_ENV || 'development';
-module.exports = Object.assign({}, settings.default, exports[env]);
+module.exports = Object.assign({}, settings.default, settings[env]);
 
 // Do not allow the default session secret in production
 if (env === 'production') {
   const actual = module.exports.session.secret;
   const expected = settings.default.session.secret;
-  assert.notEqual(actual, expected, 'Fatal Error: a session secret must be set');
+  if (actual === expected) {
+    console.error('Fatal Error: a session secret must be set');
+    process.exit(1);
+  }
 }
