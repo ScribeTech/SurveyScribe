@@ -51,13 +51,12 @@ export function normalizeSurvey(survey) {
 
 export function normalizeResponses(responses) {
   const converted = {};
-
   responses.forEach((response) => {
     converted[response._id] = {};
-    response.questions.forEach((question) => {
-      converted[response._id][question._id] = {
-        question: question._id,
-        value: question.value
+    response.answers.forEach((answer) => {
+      converted[response._id][answer.question] = {
+        question: answer.question,
+        value: answer.value
       };
     });
   });
