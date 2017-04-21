@@ -37,6 +37,12 @@ const dark = {
   snackbar: {
     textColor: colors.white,
     backgroundColor: colors.black
+  },
+  textField: {
+    floatingLabelColor: colors.white,
+    focusColor: colors.white,
+    textColor: colors.white,
+    disabledTextColor: fade(colors.white, 0.75)
   }
 };
 
