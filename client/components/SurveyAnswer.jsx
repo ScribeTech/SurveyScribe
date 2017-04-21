@@ -105,7 +105,7 @@ class Answer extends React.Component {
       switch (question.kind) {
         case 'Select':
           return (
-            <div>
+            <div className="question">
               <h3>{`${question.title}`}</h3>
               <List required={question.required}>
                 {renderOption(question.id)}
@@ -114,7 +114,7 @@ class Answer extends React.Component {
           );
         case 'Scale':
           return (
-            <div>
+            <div className="question">
               <h3>{`${question.title}  ${response ? response.value
                    : question.min}`}</h3>
               <Slider
@@ -133,7 +133,7 @@ class Answer extends React.Component {
           );
         case 'Text':
           return (
-            <div>
+            <div className="question">
               <h3>{`${this.props.questions[question.id].title}`}</h3>
               <Textfield
                 maxLength={this.props.questions[question.id].max}

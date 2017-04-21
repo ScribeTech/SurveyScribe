@@ -5,6 +5,7 @@
 @import url("jumbotron.css");
 @import url("fancy-links.css");
 @import url("inline-edit.css");
+@import url("question.css");
 
 /* GENERAL */
 
@@ -85,13 +86,6 @@ footer {
 
 .button {
   margin: 1.5rem 0;
-}
-
-.question {
-  padding: 15px;
-}
-.questiontitle {
-  width: 80%;
 }
 
 .close {
