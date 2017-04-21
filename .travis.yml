@@ -17,3 +17,6 @@ cache:
   bundler: true
   directories:
   - node_modules # NPM packages
+
+before_install:
+ - mv ./server/config/config.example.js ./server/config/config.js
