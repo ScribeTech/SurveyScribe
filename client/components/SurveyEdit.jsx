@@ -96,7 +96,13 @@ const renderMessage = (props, question) => {
             floatingLabelText="Max"
             hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
-              props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
+              console.log("e.target.value", Number(e.target.value))
+              console.log("props.questions[question.id].min", props.questions[question.id].min)
+              if (Number(e.target.value) < props.questions[question.id].min) {
+                props.showSnackbar('Slider Max needs to be less than Min');
+              } else {
+                props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
+              }
             }}
           />
         </span>
@@ -187,8 +193,8 @@ const Edit = (props) => {
           <MenuItem primaryText="Short Answer" onClick={() => props.addQuestion('Text')} />
         </IconMenu>
         <Snackbar
-          open={props.snackbar}
-          message="Survey has been saved"
+          open={props.snackbar.show || false}
+          message={props.snackbar.message || 'Survey has been saved'}
           autoHideDuration={4000}
           onRequestClose={() => props.hideSnackbar()}
         />

@@ -189,9 +189,10 @@ export function editUser(id, name) {
   };
 }
 
-export function showSnackbar() {
+export function showSnackbar(message) {
   return {
-    type: 'SHOW_SNACK'
+    type: 'SHOW_SNACK',
+    message
   };
 }
 
