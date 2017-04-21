@@ -1,16 +1,26 @@
 import { remove } from './util';
 
 function select(state = {}, action) {
+  let output = null;
   switch (action.type) {
     case 'ADD_QUESTION':
       return Object.assign({}, state,
         { id: action.questionId, kind: action.kind, required: false, title: '', maxSelection: 0, selected: 0 });
     case 'EDIT_QUESTION':
-      return Object.assign({}, state,
-        { required: action.data.required || state.required,
-          title: action.data.title || state.title,
-          maxSelection: action.data.maxSelection || state.maxSelection
-        });
+      if (action.data.required !== undefined) {
+        output = Object.assign({}, state,
+          { required: action.data.required,
+            title: action.data.title || state.title,
+            maxSelection: action.data.maxSelection || state.maxSelection
+          });
+      } else {
+        output = Object.assign({}, state,
+          { required: state.required,
+            title: action.data.title || state.title,
+            maxSelection: action.data.maxSelection || state.maxSelection
+          });
+      }
+      return output;
     case 'ADD_ANSWER':
       return Object.assign({}, state,
         { selected: state.selected + 1 });
