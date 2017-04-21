@@ -12,7 +12,7 @@ import Assessment from 'material-ui/svg-icons/action/assessment';
 import Clipboard from 'material-ui/svg-icons/content/content-copy';
 
 import { Light } from './Theme';
-import { getSurvey, getSurveys } from '../utilities/apiTalk';
+import { getSurvey, getResponses } from '../utilities/apiTalk';
 import Header from './Header';
 
 const handleClick = (props) => {
@@ -59,18 +59,18 @@ Share.propTypes = {}.isRequired;
 
 const SurveyItem = props => (
   <div className="list-item media">
-    <Link onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}>
+    <Link onClick={() => getSurvey(props, props.id, `/survey/${props.id}/edit`)}>
       <div className="img"><Assessment color="#3498DB" /></div>
     </Link>
     <div className="media-body">
-      <Link onClick={() => getSurvey(props, `/survey/${props.id}/edit`, props.id)}>
+      <Link onClick={() => getSurvey(props, props.id, `/survey/${props.id}/edit`)}>
         <div className="list-item-body">
           <h2 className="primary">{props.title}</h2>
           <p className="secondary">Created MAR 5, 2017</p>
         </div>
       </Link>
       <div className="list-item-actions">
-        <Link to={`/survey/${props.id}/results`}><FlatButton label="Results" /></Link>
+        <Link onClick={() => getResponses(props, props.id, `/survey/${props.id}/results`)}><FlatButton label="Results" /></Link>
         <Share {...props} />
       </div>
     </div>
@@ -96,7 +96,7 @@ const SurveyList = props => (
       <h1>Surveys</h1>
       <div className="list">
         {_.map(props.surveys, (survey, i) =>
-          <SurveyItem key={survey.id} {...survey} {...props} index={i} />)
+          <SurveyItem key={survey.id} id={survey.id} {...survey} {...props} index={i} />)
         }
       </div>
       <FloatingActionButton

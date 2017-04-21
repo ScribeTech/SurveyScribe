@@ -70,7 +70,6 @@ function scale(state = {}, action) {
       }
       output.max = Number(output.max);
       output.min = Number(output.min);
-
       return output;
     default:
       return state;

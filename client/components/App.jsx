@@ -12,7 +12,7 @@ function mapStateToProps(state) {
     responses: state.responses,
     response: state.response,
     aggregates: state.aggregates,
-    save: state.save,
+    snackbar: state.snackbar,
     warning: state.warning
   };
 }

@@ -9,10 +9,30 @@ import Dialog from 'material-ui/Dialog';
 import _ from 'lodash';
 import { Light } from './Theme';
 import { postResponse } from '../utilities/apiTalk';
+import { normalizeSurvey } from '../utilities/normalize';
 
 const Answer = (props) => {
   // Load the currently selected survey
   // TODO: move this code to middleware (see issue #94)
+  // const getSurvey = (currProps) => {
+  //   fetch(`/api/surveys/${currProps.params.surveyID}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then(response => response.json())
+  //   .then((result) => {
+  //     console.log(result);
+  //     const converted = normalizeSurvey(result);
+  //     currProps.updateSurvey(converted.questions, converted.options);
+  //   })
+  //   .catch((error) => {
+  //     throw error;
+  //   });
+  // };
+
+  // getSurvey(props);
 
   const disable = (questionId, selected, responses) => {
     const question = props.questions[questionId];
@@ -20,7 +40,6 @@ const Answer = (props) => {
     if (question.maxSelection !== 0 && question.maxSelection === selected) {
       Object.keys(options).forEach((oId) => {
         if (!responses.value[oId]) {
-          console.log(oId);
           props.toggleDisabled(question.id, oId, question.kind);
         }
       });
