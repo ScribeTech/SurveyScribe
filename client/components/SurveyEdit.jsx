@@ -199,7 +199,7 @@ const Edit = (props) => {
         <Snackbar
           open={props.snackbar.show || false}
           message={props.snackbar.message || 'Survey has been saved'}
-          autoHideDuration={4000}
+          autoHideDuration={1500}
           onRequestClose={() => props.hideSnackbar()}
         />
       </div>
