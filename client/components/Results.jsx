@@ -47,7 +47,6 @@ const Results = (props) => {
 
   const makeScaleConfig = (data, question) => {
     const graphData = [];
-    console.log('data', data);
     for (let i = 0; i < data.length; i += 1) {
       graphData.push([data[i]]);
     }
