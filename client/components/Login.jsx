@@ -71,6 +71,7 @@ const Login = props => (
       open={props.signin.error || false}
       message={props.signin.message || ''}
       autoHideDuration={4000}
+      onRequestClose={props.errorFalse}
     />
   </Dark>
 );
