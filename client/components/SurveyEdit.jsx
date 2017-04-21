@@ -86,7 +86,12 @@ const renderMessage = (props, question) => {
             floatingLabelText="Min"
             hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
-              props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
+              if (Number(e.target.value) > props.questions[question.id].max) {
+                props.showSnackbar('Slider Min value can not be more than Max');
+                props.editQuestion(question.id, 'Scale', { min: props.questions[question.id].min });
+              } else {
+                props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
+              }
             }}
           />
         </span>
@@ -96,10 +101,9 @@ const renderMessage = (props, question) => {
             floatingLabelText="Max"
             hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
-              console.log("e.target.value", Number(e.target.value))
-              console.log("props.questions[question.id].min", props.questions[question.id].min)
               if (Number(e.target.value) < props.questions[question.id].min) {
-                props.showSnackbar('Slider Max needs to be less than Min');
+                props.showSnackbar('Slider Max value can not be less than Min');
+                props.editQuestion(question.id, 'Scale', { max: props.questions[question.id].max });
               } else {
                 props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
               }
