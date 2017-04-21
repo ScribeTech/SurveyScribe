@@ -135,7 +135,9 @@ export const getResponses = (props, url) => {
 export const postResponse = (props, url) => {
   _.forEach(props.questions, (question) => {
     if (question.required === true) {
-      if (props.response[question.id] === undefined || props.response[question.id].value) {
+      console.log(props.response[question.id], 'value', Object.keys(props.response[question.id].value));
+      if (props.response[question.id] === undefined ||
+        Object.keys(props.response[question.id].value).length !== 0) {
         props.showWarning();
       } else {
         props.hideWarning();
