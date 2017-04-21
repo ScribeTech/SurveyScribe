@@ -31,7 +31,6 @@ class Answer extends React.Component {
     .then(response => response.json())
     .then((result) => {
       const converted = normalizeSurvey(result);
-      console.log(converted);
       this.props.updateSurvey(converted.questions, converted.options);
       this.setState({
         title: result.title
