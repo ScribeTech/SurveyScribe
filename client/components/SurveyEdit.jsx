@@ -1,7 +1,6 @@
 import React from 'react';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import Checkbox from 'material-ui/Checkbox';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
@@ -9,8 +8,6 @@ import RemoveIcon from 'material-ui/svg-icons/content/remove';
 import { List, ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import Slider from 'material-ui/Slider';
 import Toggle from 'material-ui/Toggle';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -24,8 +21,6 @@ import { Light } from './Theme';
 import Header from './Header';
 import InlineEdit from './InlineEdit';
 import { getSurveys, putSurvey, getResponses } from '../utilities/apiTalk';
-
-const sliderRef = '';
 
 const actions = {
   save: (props) => { putSurvey(props); },
@@ -80,7 +75,6 @@ const renderMessage = (props, question) => {
             hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
-              sliderRef.state.value = e.target.value;
             }}
           />
         </span>
@@ -91,7 +85,6 @@ const renderMessage = (props, question) => {
             hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
-              sliderRef.state.value = props.questions[question.id].min;
             }}
           />
         </span>
