@@ -124,3 +124,7 @@ input.url {
   height: 30px;
   padding-top: 3px;
 }
+
+.no-surveys {
+  color: #AAA;
+}
