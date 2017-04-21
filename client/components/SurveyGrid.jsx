@@ -12,7 +12,7 @@ import Assessment from 'material-ui/svg-icons/action/assessment';
 import Clipboard from 'material-ui/svg-icons/content/content-copy';
 
 import { Light } from './Theme';
-import { getSurvey } from '../utilities/apiTalk';
+import { getSurvey, getSurveys } from '../utilities/apiTalk';
 import Header from './Header';
 
 const handleClick = (props) => {

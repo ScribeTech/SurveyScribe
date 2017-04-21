@@ -4,7 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: `${__dirname}/client/router`,
+  entry: ['babel-polyfill', `${__dirname}/client/router`],
   module: {
     loaders: [
       {

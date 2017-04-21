@@ -1,10 +1,10 @@
 import { createStore, compose } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { browserHistory } from 'react-router';
-
+import { persistStore, autoRehydrate } from 'redux-persist';
+import { localStorage } from 'redux-persist/storages';
 import rootReducer from './reducers/index';
 
 // hard coding the test data for now so i can work on views
+<<<<<<< HEAD
 const defaultState = {
   surveys: {},
   questions: {},
@@ -16,21 +16,31 @@ const defaultState = {
   save: false,
   warning: false
 };
+=======
+>>>>>>> Add data persistence
 
 const enhancers = compose(
+  autoRehydrate(),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 
-const store = createStore(rootReducer, defaultState, enhancers);
+export default function configureStore() {
+  return new Promise((resolve, reject) => {
+    try {
+      const store = createStore(
+        rootReducer,
+        undefined,
+        enhancers
+      );
 
-export const history = syncHistoryWithStore(browserHistory, store);
-
-// allows automatic (hot) reloads of changed reducer functions
-if (module.hot) {
-  module.hot.accept('./reducers/', () => {
-    const nextRootReducer = require('./reducers/index.js').default;
-    store.replaceReducer(nextRootReducer);
+      persistStore(
+        store,
+        { storage: localStorage },
+        () => resolve(store)
+      );
+      window.devToolsExtension ? window.devToolsExtension() : f => f;
+    } catch (e) {
+      reject(e);
+    }
   });
 }
-
-export default store;
