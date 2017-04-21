@@ -11,13 +11,15 @@ function select(state = {}, action) {
         output = Object.assign({}, state,
           { required: action.data.required,
             title: action.data.title || state.title,
-            maxSelection: action.data.maxSelection || state.maxSelection
+            maxSelection: action.data.maxSelection || state.maxSelection,
+            selected: state.selected
           });
       } else {
         output = Object.assign({}, state,
           { required: state.required,
             title: action.data.title || state.title,
-            maxSelection: action.data.maxSelection || state.maxSelection
+            maxSelection: action.data.maxSelection || state.maxSelection,
+            selected: state.selected
           });
       }
       return output;
