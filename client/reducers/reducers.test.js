@@ -424,7 +424,6 @@ describe('REDUCERS', () => {
         deepFreeze(initialState);
 
         const changedState = reducer(initialState, action);
-        console.log(changedState.options);
         expect(Object.keys(changedState.options[questionId]).length).to.equal(4);
         expect(changedState.options[questionId][option.optionId].label)
           .to.equal(option.label);

@@ -25,7 +25,7 @@ import { getSurveys, putSurvey, getResponses } from '../utilities/apiTalk';
 const actions = {
   save: (props) => { putSurvey(props); },
   share: (props) => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); },
-  results: (props) => { getResponses(props, `/survey/${props.params.surveyID}/results`); },
+  results: (props) => { getResponses(props, props.params.surveyID, `/survey/${props.params.surveyID}/results`); },
   delete: (props) => {
     fetch(`/api/surveys/${props.params.surveyID}`, {
       method: 'DELETE',

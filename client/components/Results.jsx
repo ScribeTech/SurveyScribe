@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import ReactHighcharts from 'react-highcharts';
 import Layout from './Layout';
+import { Light } from './Theme';
 
 const Results = (props) => {
   // Load the currently selected survey
@@ -35,9 +36,7 @@ const Results = (props) => {
 
     // Make the histo group into an array
     for (x in histo) {
-      if (histo.hasOwnProperty((x))) {
-        arr.push([parseFloat(x), histo[x]]);
-      }
+      arr.push([parseFloat(x), histo[x]]);
     }
 
     // Finally, sort the array
@@ -48,6 +47,7 @@ const Results = (props) => {
 
   const makeScaleConfig = (data, question) => {
     const graphData = [];
+    console.log('data', data);
     for (let i = 0; i < data.length; i += 1) {
       graphData.push([data[i]]);
     }
@@ -78,7 +78,7 @@ const Results = (props) => {
         pointPadding: 0,
         groupPadding: 0,
         pointPlacement: 'between',
-        color: '#00bcd4'
+        color: '#3498db'
       }]
     };
 
@@ -125,7 +125,7 @@ const Results = (props) => {
       },
       series: [{
         data: graphData,
-        color: '#00bcd4'
+        color: '#3498db'
       }]
     };
 
@@ -152,30 +152,29 @@ const Results = (props) => {
           <ReactHighcharts config={makeQuestionGraph(question)} />
         </div>
       );
-    } else {
-      const textList = [];
-      _.map(props.responses, (user) => {
-        textList.push(user[question.id].response);
-      });
-      return (
-        <div>
-          <h4 style={styles.textTitle}>{question.title} </h4>
-          {_.map(textList, (text, i) => (
-            <div style={styles.textBody}>
-              {`${i + 1}.   `}{text}
-            </div>
-          ))}
-        </div>
-      );
     }
+    const textList = props.aggregates[question.id];
+
+    return (
+      <div>
+        <h4 style={styles.textTitle}>{question.title} </h4>
+        {_.map(textList, (text, i) => (
+          <div style={styles.textBody}>
+            {`${i + 1}.   `}{text}
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
-    <Layout title={survey.title}>
-      {_.map(props.questions, question => (
-        renderGraphs(question)
-      ))}
-    </Layout>
+    <Light>
+      <Layout title={survey.title}>
+        {_.map(props.questions, question => (
+          renderGraphs(question)
+        ))}
+      </Layout>
+    </Light>
   );
 };
 

@@ -25,7 +25,7 @@ export const getSurveys = (props, url) => {
   });
 };
 
-export const getSurvey = (props, url, id) => {
+export const getSurvey = (props, id, url) => {
   fetch(`/api/surveys/${id}`, {
     method: 'GET',
     credentials: 'same-origin',
@@ -72,46 +72,51 @@ export const putSurvey = (props, url) => {
 // make response aggregates for a particular survey
 export const makeAggregates = (questions, responses) => {
   const aggregates = {};
-  for (const questionId in questions) {
-    const question = questions[questionId];
+  Object.keys(questions).forEach((qId) => {
+    const question = questions[qId];
     switch (question.kind) {
       case 'Select':
-        aggregates[question.id] = {};
-        for (const responseId in responses) {
+        aggregates[qId] = {};
+        Object.keys(responses).forEach((responseId) => {
           const response = responses[responseId];
-          for (const i in response[question.id].response) {
-            const optionId = response[question.id].response[i];
-            if (aggregates[question.id][optionId]) {
-              aggregates[question.id][optionId] += 1;
-            } else {
-              aggregates[question.id][optionId] = 1;
-            }
+          if (response[qId]) {
+            response[qId].value.forEach((optionId) => {
+              if (aggregates[qId][optionId]) {
+                aggregates[qId][optionId] += 1;
+              } else {
+                aggregates[qId][optionId] = 1;
+              }
+            });
           }
-        }
+        });
         break;
       case 'Scale':
         aggregates[question.id] = [];
-        for (const responseId in responses) {
+        Object.keys(responses).forEach((responseId) => {
           const response = responses[responseId];
-          aggregates[question.id].push((response[question.id].response));
-        }
+          if (response[question.id]) {
+            aggregates[question.id].push((response[question.id].value));
+          }
+        });
         break;
       case 'Text':
         aggregates[question.id] = [];
-        for (const responseId in responses) {
+        Object.keys(responses).forEach((responseId) => {
           const response = responses[responseId];
-          aggregates[question.id].push((response[question.id].response));
-        }
+          if (response[question.id]) {
+            aggregates[question.id].push((response[question.id].value));
+          }
+        });
         break;
       default:
         break;
     }
-  }
+  });
   return aggregates;
 };
 
-export const getResponses = (props, url) => {
-  fetch(`/api/surveys/${props.params.surveyID}/responses`, {
+export const getResponses = (props, id, url) => {
+  fetch(`/api/surveys/${id}/responses`, {
     method: 'GET',
     credentials: 'same-origin',
     headers: {
@@ -122,13 +127,15 @@ export const getResponses = (props, url) => {
   .then((result) => {
     const responses = normalizeResponses(result);
     props.updateResponses(responses);
-
-    const aggregates = makeAggregates(props.questions, props.options, responses);
+    const aggregates = makeAggregates(props.questions, responses);
     props.updateAggregates(aggregates);
 
     if (url) {
       browserHistory.push(url);
     }
+  })
+  .catch((error) => {
+    throw error;
   });
 };
 
