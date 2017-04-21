@@ -24,6 +24,11 @@ export function updateResponses(responses) {
   };
 }
 
+// clear response
+export function clearResponse() {
+  return { type: 'CLEAR_RESPONSE' };
+}
+
 // update aggregates
 export function updateAggregates(aggregates) {
   return {

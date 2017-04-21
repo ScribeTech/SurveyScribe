@@ -43,6 +43,8 @@ export function response(state = {}, action) {
           return remove(state, action.questionId);
         case 'REMOVE_QUESTION':
           return remove(state, action.questionId);
+        case 'CLEAR_RESPONSE':
+          return {};
         default:
           return state;
       }
