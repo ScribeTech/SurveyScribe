@@ -200,3 +200,15 @@ export function toggleSave() {
     type: 'TOGGLE_SAVE'
   };
 }
+
+export function showWarning() {
+  return {
+    type: 'SHOW_WARNING'
+  };
+}
+
+export function hideWarning() {
+  return {
+    type: 'HIDE_WARNING'
+  };
+}

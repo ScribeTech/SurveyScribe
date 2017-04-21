@@ -154,6 +154,13 @@ const Edit = (props) => {
                 onClick={() => props.removeQuestion(question.id, question.kind)}
               />
             </h3>
+            <Toggle
+              label="Required"
+              onToggle={() => {
+                props.editQuestion(question.id, question.kind,
+                { required: !props.questions[question.id].required });
+              }}
+            />
             {renderMessage(props, question)}
           </div>
         ))}
@@ -175,7 +182,7 @@ const Edit = (props) => {
         </IconMenu>
       </div>
       <Snackbar
-        open={props.save.saved || false}
+        open={props.save}
         message="Survey has been saved"
         autoHideDuration={4000}
         onRequestClose={() => props.toggleSave()}
