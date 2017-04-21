@@ -19,7 +19,7 @@ export default function configureStore() {
 
       persistStore(
         store,
-        { storage: localStorage, blacklist: ['response'] },
+        { storage: localStorage },
         () => resolve(store)
       );
       window.devToolsExtension ? window.devToolsExtension() : f => f;
