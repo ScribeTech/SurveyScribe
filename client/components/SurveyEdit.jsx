@@ -22,8 +22,6 @@ import Header from './Header';
 import InlineEdit from './InlineEdit';
 import { getSurveys, putSurvey, getResponses } from '../utilities/apiTalk';
 
-const sliderRef = '';
-
 const actions = {
   save: (props) => { putSurvey(props); },
   share: (props) => { putSurvey(props, `/survey/${props.params.surveyID}/answer`); },
@@ -77,7 +75,6 @@ const renderMessage = (props, question) => {
             hintText={props.questions[question.id].min.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { min: Number(e.target.value) });
-              sliderRef.state.value = e.target.value;
             }}
           />
         </span>
@@ -88,7 +85,6 @@ const renderMessage = (props, question) => {
             hintText={props.questions[question.id].max.toString()}
             onChange={(e) => {
               props.editQuestion(question.id, 'Scale', { max: Number(e.target.value) });
-              sliderRef.state.value = props.questions[question.id].min;
             }}
           />
         </span>

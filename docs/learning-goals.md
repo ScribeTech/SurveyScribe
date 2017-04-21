@@ -1,23 +1,22 @@
-# Learning Goals
+# Learning Opportunities
 
-## Clark Baumgartner
+## Nathan Clark Baumgartner
  - React
  - Redux
- -
 
 ## Jin Chung
- - Jasmine/TDD
- - React with Redux
- - Docker
+ - Test Driven Development
+ - React/Redux
+ - ~~Docker~~
 
 ## Megan Rabuse
  - Redux
- - Getting better at MongoDb/Mongoose
+ - MongoDb/Mongoose
  - Webpack
- - Continuous integration, but lower on my list
+ - Continuous Integration
 
 ## Elijah Schow
 - Test Driven Development
 - Redux/React
-- Automatic Deployment
 - Material Design
+- ~~Automatic Deployment~~
