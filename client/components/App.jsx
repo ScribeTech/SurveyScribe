@@ -12,7 +12,8 @@ function mapStateToProps(state) {
     responses: state.responses,
     response: state.response,
     aggregates: state.aggregates,
-    save: state.save
+    save: state.save,
+    warning: state.warning
   };
 }
 

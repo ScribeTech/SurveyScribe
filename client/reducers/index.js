@@ -9,6 +9,7 @@ import { response } from './response';
 import { responses } from './responses';
 import { aggregates } from './aggregates';
 import { save } from './save';
+import { warning } from './warning';
 
 const rootReducer = combineReducers({
   surveys,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   aggregates,
   signin,
   save,
+  warning,
   routing: routerReducer
 });
 

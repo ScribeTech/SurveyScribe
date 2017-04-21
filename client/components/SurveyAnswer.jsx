@@ -5,6 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Slider from 'material-ui/Slider';
 import Textfield from 'material-ui/TextField';
 import { List, ListItem } from 'material-ui/List';
+import Dialog from 'material-ui/Dialog';
 import _ from 'lodash';
 import { Light } from './Theme';
 import { postResponse } from '../utilities/apiTalk';
@@ -25,6 +26,13 @@ const Answer = (props) => {
       });
     }
   };
+
+  const action = [
+    <RaisedButton
+      label="Okay"
+      onTouchTap={() => props.hideWarning()}
+    />
+  ];
 
   const toggleOptions = (questionId, id) => {
     const options = props.options[questionId];
@@ -128,6 +136,9 @@ const Answer = (props) => {
           ))}
         </div>
         <RaisedButton onClick={() => postResponse(props, `/survey/${props.params.surveyID}/finish`)} label="Submit Answers" primary fullWidth />
+        <Dialog open={props.warning} actions={action} onRequestClose={() => props.hideWarning()}>
+        You didn't answer required question!
+        </Dialog>
       </div>
     </Light>
   );
