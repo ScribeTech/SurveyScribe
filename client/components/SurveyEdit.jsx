@@ -3,8 +3,8 @@ import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
-import RemoveIcon from 'material-ui/svg-icons/content/remove';
 import { List, ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
@@ -41,43 +41,47 @@ const renderMessage = (props, question) => {
   let HTML;
   if (question.kind === 'Select' || question.kind === undefined) {
     HTML = (
-      <List>
-        <ListItem
-          primaryText={
-            <TextField
-              floatingLabelText="Max Selection"
-              hintText={props.questions[question.id].maxSelection.toString()}
-              onChange={(e) => {
-                props.editQuestion(question.id, 'Select', { maxSelection: Number(e.target.value), selected: 0 });
-              }}
-            />
-          }
-        />
-        {_.map(props.options[question.id], option => (
+      <div className="question">
+        <List>
           <ListItem
             primaryText={
-              <InlineEdit
-                defaultValue={option.label}
-                placeholder="Option"
-                id={option.id}
-                onChange={e =>
-                  props.editOption(question.id, option.id, question.kind, e.target.value)
-                }
-              />
-            }
-            rightIcon={
-              <RemoveIcon
-                onClick={() => props.removeOption(question.id, option.id, question.kind)}
+              <TextField
+                floatingLabelText="Max Selection"
+                hintText={props.questions[question.id].maxSelection.toString()}
+                onChange={(e) => {
+                  props.editQuestion(question.id, 'Select', { maxSelection: Number(e.target.value), selected: 0 });
+                }}
               />
             }
           />
-        ))}
+          {_.map(props.options[question.id], option => (
+            <ListItem
+              primaryText={
+                <InlineEdit
+                  defaultValue={option.label}
+                  placeholder="Option"
+                  id={option.id}
+                  onChange={e =>
+                    props.editOption(question.id, option.id, question.kind, e.target.value)
+                  }
+                />
+              }
+              rightIconButton={
+                <IconButton
+                  onClick={() => props.removeOption(question.id, option.id, question.kind)}
+                >
+                  <CloseIcon />
+                </IconButton>
+              }
+            />
+          ))}
+        </List>
         <RaisedButton label="Add Option" onClick={() => props.addOption(question.id, question.kind, '')} />
-      </List>
+      </div>
     );
   } else if (question.kind === 'Scale') {
     HTML = (
-      <ListItem>
+      <div className="question-body">
         <span>
           <TextField
             floatingLabelText="Min"
@@ -97,11 +101,11 @@ const renderMessage = (props, question) => {
             }}
           />
         </span>
-      </ListItem>
+      </div>
     );
   } else if (question.kind === 'Text') {
     return (
-      <ListItem>
+      <div className="question-body">
         <TextField
           floatingLabelText="Max Characters"
           hintText={props.questions[question.id].max.toString()}
@@ -109,7 +113,7 @@ const renderMessage = (props, question) => {
             props.editQuestion(question.id, 'Text', { max: Number(e.target.value) });
           }}
         />
-      </ListItem>
+      </div>
     );
   }
   return HTML;

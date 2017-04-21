@@ -3,6 +3,7 @@
 }
 
 .inline-edit-input {
+  width: 90%;
   background: transparent;
   border: none !important;
   color: inherit !important;
