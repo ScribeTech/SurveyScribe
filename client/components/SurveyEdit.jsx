@@ -145,10 +145,10 @@ const Edit = (props) => {
           <Link to={'/survey'}><FlatButton label="Delete" onClick={() => actions.delete(props)} /></Link>
         </div>
         {_.map(props.questions, question => (
-          <div key={question.id} className={'question'}>
+          <div key={question.id} className="question">
             <h3>
               <InlineEdit
-                className={'questiontitle'}
+                style={{ width: '90%' }}
                 defaultValue={question.title}
                 placeholder="Question"
                 onChange={(e) => {
