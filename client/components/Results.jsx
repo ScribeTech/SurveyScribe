@@ -88,7 +88,7 @@ const Results = (props) => {
   const makeSelectConfig = (data, question) => {
     const graphCategories = [];
     const graphData = [];
-    _.forEach(props.options[question.id], (option) => {
+    _.map(props.options[question.id], (option) => {
       graphCategories.push(option.label);
     });
     _.forEach(data, (oneQuestion) => {
@@ -108,7 +108,7 @@ const Results = (props) => {
       tooltip: {
         valueSuffix: ' Votes',
         followPointer: 'true',
-        pointFormat: '<b>{point.y}</b><br/>',
+        pointFormat: '<b>{point.y:{.0f}</b><br/>',
       },
       credits: {
         enabled: false
@@ -136,7 +136,7 @@ const Results = (props) => {
     let config = '';
     const kind = question.kind;
     if (kind === 'Scale') {
-      config = makeScaleConfig(props.aggregates[question.id], question);
+      config = makeScaleConfig(props.options[question.id], props.aggregates[question.id], question);
     } else if (kind === 'Select') {
       config = makeSelectConfig(props.aggregates[question.id], question);
     }
