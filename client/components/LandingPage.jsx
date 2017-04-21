@@ -27,6 +27,7 @@ const LandingPage = props => (
         open={props.signin.error || false}
         message={props.signin.message || ''}
         autoHideDuration={1500}
+        onRequestClose={props.errorFalse}
       />
     </Dark>
     <Light><Footer /></Light>
