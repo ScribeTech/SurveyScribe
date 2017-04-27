@@ -1,6 +1,7 @@
 # SurveyScribe
 
-Ask questions. Get answers.
+[![SurveyScribe Landing Page](/docs/demo.png)](https://surveyscribe.elijahschow.com/)
+Demo deployed at [elijahschow.surveyscribe.com](https://surveyscribe.elijahschow.com/)
 
 ## Team
 
